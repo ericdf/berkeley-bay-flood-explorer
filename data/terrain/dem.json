@@ -1,0 +1,20 @@
+{
+  "crs": "EPSG:32610 (WGS 84 / UTM zone 10N)",
+  "units": "meters",
+  "verticalDatum": "NAVD88",
+  "encoding": "int16 little-endian; value = elevation in centimeters NAVD88; -32768 = no data; rows run north to south",
+  "width": 1115,
+  "height": 1812,
+  "resolution": 4,
+  "xmin": 558896,
+  "ymin": 4188272,
+  "xmax": 563356,
+  "ymax": 4195520,
+  "nodataCells": 0,
+  "retrieved": "2026-11-02T22:24:13.484Z",
+  "provenance": {
+    "category": "derived",
+    "source": "USGS 3DEP dynamic elevation service, 3DEPElevation ImageServer exportImage at 1 m (nearest neighbor), mean of each 4 x 4 block",
+    "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage (1 m, nearest neighbor, 16 tiles, mean to 4 m)"
+  }
+}
