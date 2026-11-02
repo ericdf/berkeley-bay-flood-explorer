@@ -1,0 +1,5 @@
+# Large downloads are fetched by tools/ scripts, not committed
+data/raw/**/*.tif
+data/raw/**/*.zip
+node_modules/
+.DS_Store
