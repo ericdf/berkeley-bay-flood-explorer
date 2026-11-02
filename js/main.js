@@ -103,11 +103,12 @@ function render(levelFt, sc) {
   $('artNote').textContent = D.art ? (art ? `Nearest ART level: MHHW + ${art.inches} in, about ${fmt(art.levelFt, 1)} ft NAVD88 (SOURCE_NOTES H5).` : '') : 'ART map not loaded.';
   $('results').innerHTML = `
     <h2>${sc ? esc(sc.label) : 'Chosen level'}</h2>
-    <div class="big">${fmt(levelFt, 2)} ft NAVD88 <span class="cat">${sc ? esc(sc.category) : 'chosen'}</span></div>
+    <div class="big">${fmt(levelFt, 2)} ft NAVD88 <span class="cat">level: ${sc ? esc(sc.category) : 'chosen'}</span></div>
     <p class="src">${sc ? esc(sc.source) : 'A level chosen with the slider.'}</p>
     <p class="src">${esc(context(levelFt))}.</p>
     ${sc && sc.id === 'ferris12' ? '<p class="warn">Scott Ferris\'s figure is shown by the project owner\'s decision. Its source, datum and whether it includes waves are unconfirmed; it is read here as a still-water level of 12 ft NAVD88. FEMA\'s flood elevations on the wave-exposed Marina shoreline, which include waves, are 12 to 14 ft NAVD88; this map shows still water only.</p>' : ''}
-    <h2>In Berkeley</h2>
+    <p class="src"><span class="cat">derived</span> Everything below is calculated by this explorer, not published: a connected fill on USGS 3DEP lidar (a model rule, explained under Method), at the level above. The level's own category is shown next to it.</p>
+    <h2>In Berkeley <span class="cat">derived</span></h2>
     <table>
       <tr><td>Ground under water (connected to the Bay)</td><td class="n">${fmt(res.wetLandHa, 1)} ha</td></tr>
       <tr><td>&nbsp;&nbsp;of which reached only through Albany or Emeryville land</td><td class="n">${fmt(res.flankedHa, 1)} ha</td></tr>
@@ -115,12 +116,12 @@ function render(levelFt, sc) {
       <tr><td>Streets under water</td><td class="n">${fmt(res.wetStreetM / 1000, 2)} km</td></tr>
       <tr><td>Streets on low ground, not connected</td><td class="n">${fmt(res.lowStreetM / 1000, 2)} km</td></tr>
     </table>
-    <h2>Places</h2>
+    <h2>Places <span class="cat">derived</span></h2>
     <table>${res.facilities.map(f => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft</td></tr>`).join('')}</table>
-    <h2>Berkeley streets</h2>
+    <h2>Berkeley streets <span class="cat">derived</span></h2>
     ${bStreets.filter(s => s.wet).length ? `<p class="src">Under water:</p><ul>${bStreets.filter(s => s.wet).map(li).join('')}</ul>` : '<p class="src">No Berkeley street segment is under water at this level.</p>'}
     ${bStreets.filter(s => !s.wet).length ? `<p class="src">On low ground, not connected (drains, tide gates and rain decide these):</p><ul>${bStreets.filter(s => !s.wet).map(li).join('')}</ul>` : ''}
-    ${oStreets.length ? `<h2>Outside Berkeley</h2><ul>${oStreets.map(s => li(s).replace('</li>', s.wet ? '' : ' (low, not connected)</li>')).join('')}</ul>` : ''}
+    ${oStreets.length ? `<h2>Outside Berkeley <span class="cat">derived</span></h2><ul>${oStreets.map(s => li(s).replace('</li>', s.wet ? '' : ' (low, not connected)</li>')).join('')}</ul>` : ''}
     ${res.overWater.length ? `<p class="src">Not counted: ${[...new Set(res.overWater.map(s => esc(s.e.name)))].join(', ')}, whose mapped line crosses open water in the terrain (a bridge, or a street drawn across water).</p>` : ''}
     <h2>What this cannot tell you</h2>
     <details open><summary>Limits of the map</summary><ul>
@@ -144,15 +145,18 @@ function render(levelFt, sc) {
   analyze(D, 6); // computes D.water0 once
   const list = $('scenarios');
   list.innerHTML = D.scenarios.map((s, k) => `<label class="sc"><input type="radio" name="sc" value="${k}"><span class="t">${esc(s.label)}</span><span class="lv">${fmt(s.levelFt, 2)}</span></label>`).join('');
-  let current = D.scenarios.findIndex(s => s.id === 'y100');
-  const pick = (k) => { current = k; list.querySelectorAll('input')[k].checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2); render(D.scenarios[k].levelFt, D.scenarios[k]); };
+  // The level shown is kept here, exactly: a scenario's level may not be a multiple of the
+  // slider's step, and the slider would round it.
+  let current = D.scenarios.findIndex(s => s.id === 'y100'), levelNow = null, scNow = null;
+  const show = (lv, sc) => { levelNow = lv; scNow = sc; render(lv, sc); };
+  const pick = (k) => { current = k; list.querySelectorAll('input')[k].checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2); show(D.scenarios[k].levelFt, D.scenarios[k]); };
   list.addEventListener('change', (e) => pick(Number(e.target.value)));
   let pending = false;
   $('level').addEventListener('input', () => {
     $('levelOut').textContent = fmt(Number($('level').value), 2);
     list.querySelectorAll('input').forEach(i => { i.checked = false; });
-    if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; render(Number($('level').value), null); }); }
+    if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; show(Number($('level').value), null); }); }
   });
-  $('showArt').addEventListener('change', () => render(Number($('level').value), list.querySelector('input:checked') ? D.scenarios[current] : null));
+  $('showArt').addEventListener('change', () => render(levelNow, scNow));
   pick(current);
 })();
