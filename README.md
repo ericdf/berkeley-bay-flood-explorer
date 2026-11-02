@@ -1,5 +1,7 @@
 # Berkeley Bay Flood Explorer
 
+**Live site: https://ericdf.github.io/berkeley-bay-flood-explorer/** (served from the `pages` branch)
+
 A browser explorer for Bay flooding in west Berkeley: what a given water level in San
 Francisco Bay puts under water (ground, streets, I-80 and its frontage road, the Marina, the
 Second Street transfer station) and which low ground it does not reach over the surface.
