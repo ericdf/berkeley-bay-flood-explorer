@@ -10,7 +10,7 @@ FEMA's flood maps and the City of Berkeley's emergency pages.
 
 ## Status
 
-Phase 1 of [`specification.md`](specification.md) is built: pick one of 13 water levels
+Phase 1 of [`specification.md`](specification.md) is built: pick one of 14 water levels
 (or any level with the slider) and the page shows, for Berkeley, the ground under water,
 the ground below the level that the Bay does not reach over the surface, the streets in
 each, and what happens at the transfer station, the DoubleTree hotel, César Chávez Park
