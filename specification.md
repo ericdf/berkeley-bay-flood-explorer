@@ -82,8 +82,16 @@ The rule is checked before it is shown: a fill at 10.1 and 10.7 ft NAVD88 must r
 the City study's Marina findings (W7, W8), and fills at matching levels are compared with
 CoSMoS depth maps (H1). Where they disagree, CoSMoS is shown and the disagreement logged.
 
-Phase 2 replaces the fill with CoSMoS rasters as the primary hazard layer wherever a
-CoSMoS scenario matches, keeping the fill only for levels CoSMoS does not cover.
+Phase 2 replaces the fill with a published layer wherever one matches the level: the ART
+maps (MHHW plus 12 to 108 inches, SOURCE_NOTES H5), which the Phase 1 page already draws as an
+outline and the checks compare cell by cell, and CoSMoS rasters for storms of given return
+periods.
+
+**Built (Phase 1, 2026-11-02).** The connected fill on USGS 3DEP terrain, with "low, not
+connected" ground shown separately, open water defined as connected ground below mean sea
+level (3.31 ft NAVD88), the flanking measure from the Extent section, street and facility
+results, and the ART outline. Checks: `node tests/check.mjs`. Results and their comparison
+with the City study and ART: SOURCE_NOTES C1–C8.
 
 No hydrodynamic modeling: water movement, wave runup and surge timing come from published
 models or are not shown.

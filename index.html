@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Berkeley Bay Flood Explorer</title>
+<style>
+  :root { --bg: #fbfaf7; --fg: #1d1d1b; --muted: #5d5d58; --line: #d9d6cf; --accent: #1f5fa8;
+          --wet: #2f7fd6; --low: #e08a1e; --flank: #8b3fb8; --panel: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #161615; --fg: #ecebe6; --muted: #a9a8a1; --line: #3a3936; --panel: #1f1f1d; --accent: #7fb0ea; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 14px 16px 8px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .notice { font-size: 13px; color: var(--muted); margin: 0; }
+  main { display: grid; grid-template-columns: 300px minmax(0, 1fr) 380px; gap: 0; min-height: calc(100vh - 70px); }
+  @media (max-width: 1100px) { main { grid-template-columns: 1fr; } }
+  aside, section.results { padding: 12px 16px; background: var(--panel); border-right: 1px solid var(--line); overflow: auto; }
+  section.results { border-right: 0; border-left: 1px solid var(--line); }
+  #mapwrap { position: relative; overflow: hidden; background: #0f2747; display: flex; justify-content: center; align-items: flex-start; }
+  #map { height: calc(100vh - 72px); max-width: 100%; width: auto; display: block; }
+  @media (max-width: 1100px) { #map { height: auto; width: 100%; } }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 16px 0 6px; }
+  label.sc { display: flex; gap: 6px; align-items: baseline; padding: 4px 6px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+  label.sc:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  label.sc .t { flex: 1; }
+  label.sc .lv { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .cat { font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; color: var(--muted); margin-left: 4px; }
+  input[type=range] { width: 100%; }
+  .big { font-size: 22px; font-weight: 600; }
+  .src { font-size: 13px; color: var(--muted); }
+  ul { padding-left: 18px; margin: 4px 0; }
+  li { margin: 2px 0; }
+  .legend span { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
+  .legend div { font-size: 13px; margin: 2px 0; }
+  .warn { border-left: 3px solid var(--low); padding: 4px 8px; font-size: 13px; background: color-mix(in srgb, var(--low) 8%, transparent); }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  td, th { text-align: left; padding: 3px 4px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  details { margin: 6px 0; font-size: 13px; }
+  .row { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Berkeley Bay Flood Explorer</h1>
+  <p class="notice">Pick a Bay water level and see which ground, streets and places in west Berkeley sit below it. An educational comparison tool: not a flood forecast and not an official hazard map. Every level names its datum (feet NAVD88) and its source.</p>
+</header>
+<main>
+  <aside>
+    <h2>Water level</h2>
+    <div id="scenarios"></div>
+    <h2>Any level</h2>
+    <input id="level" type="range" min="6" max="15.5" step="0.05" value="9.73" aria-label="Water level, feet NAVD88">
+    <div class="row"><span id="levelOut" class="big"></span><span class="src">ft NAVD88, still water</span></div>
+    <h2>Map</h2>
+    <div class="legend">
+      <div><span style="background:#0f2747"></span>Open Bay (below mean sea level, connected)</div>
+      <div><span style="background:var(--wet)"></span>Under water: below the level and connected to the Bay</div>
+      <div><span style="background:var(--flank)"></span>Under water, reached only through Albany or Emeryville land</div>
+      <div><span style="background:var(--low)"></span>Below the level, not connected over the surface</div>
+      <div><span style="background:#d22"></span>Street under water &nbsp;<span style="background:#f0a020"></span>street on low ground</div>
+    </div>
+    <label class="row"><input id="showArt" type="checkbox"> Outline the published ART map at the nearest level</label>
+    <p class="src" id="artNote"></p>
+  </aside>
+  <div id="mapwrap"><canvas id="map"></canvas></div>
+  <section class="results" id="results" aria-live="polite"></section>
+</main>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

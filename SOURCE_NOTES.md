@@ -26,12 +26,14 @@ record dates fall in strong El Niño winters (1982–83, 1997–98).
 https://berkeleyca.gov/sites/default/files/documents/2019-8-30%20Draft%20Sea%20Level%20Rise%20Assessment%20Study_0.pdf.
 Page numbers are the study's printed numbers.
 
-- **W4** (Table 1, p. 9). Tidal datums at Alameda Point (FEMA/BCDC "San Francisco Bay
-  Tidal Datums and Extreme Tides Survey", Feb 2016, Panel 518 and Appendix B-31) with the
+- **W4** (Table 1, p. 9). Tidal datums at "Alameda Point 518" (FEMA/BCDC "San Francisco Bay
+  Tidal Datums and Extreme Tides Survey", Feb 2016, Panel 518 and Appendix B-31; this is
+  Alameda County point 518 of that study, off the Berkeley Marina, not the Alameda gauge or
+  the former naval air station: its datums match W11 exactly) with the
   2018 California Coastal Commission low-risk-aversion sea level rise: MHHW 6.20 (2016),
   6.5 (2030), 7.1 (2050), 7.9 (2070), 9.4 (2100); MSL 3.31 (2016).
 - **W5** (Table 2, p. 10). 100-year extreme tide plus that sea level rise, still water:
-  9.8 (2016), 10.1 (2030), 10.7 (2050), 11.5 (2070), 13.0 (2100), 15 (2150).
+  9.8 (2016; the source study gives 9.73 at point 518, W11, so the City's figure is rounded up), 10.1 (2030), 10.7 (2050), 11.5 (2070), 13.0 (2100), 15 (2150).
 - **W6** (§2.1). FEMA flood zones: the harbor and the area east of César E. Chávez Park
   are AE with BFE 10 ft NAVD88; the rest of the Marina is VE (wave action) with BFEs of
   12 to 14 ft NAVD88; McLaughlin Eastshore State Park is shaded Zone X.
@@ -48,6 +50,42 @@ connected-fill rule (W7 and W8 are results a fill at 10.1 and 10.7 should reprod
 The study uses 2018 sea level rise guidance; the state's 2024 guidance (Ocean Protection
 Council) supersedes it and has not been read yet.
 
+## Water levels: *San Francisco Bay Tidal Datums and Extreme Tides Study*, Final Report, February 2016 (financed in part by FEMA and BCDC; file dated 2016-04-29)
+
+https://www.adaptingtorisingtides.org/wp-content/uploads/2016/05/20160429.SFBay_Tidal-Datums_and_Extreme_Tides_Study.FINAL_.pdf
+(retrieved 2026-11-02, 26 MB). Page numbers are PDF pages.
+
+- **W10** (Table 2-1, p. 27). Annual chance of exceedance by event: king tide 100%, 2-year
+  50%, 10-year 10%, 50-year 2%, 100-year 1%, 500-year 0.2%. King tides "generally occur in
+  the winter months between December and February" (p. 26).
+- **W11** (Appendix B, p. 113 and following; Alameda County points 506–530 and Contra
+  Costa 483–485, the Berkeley and Albany shoreline). Still water levels, ft NAVD88:
+  MHHW 6.19–6.22; 1-year 7.42–7.45; 2-year about 7.75; 5-year 8.15–8.17; 10-year
+  8.47–8.49; 25-year about 8.9; 50-year about 9.3; 100-year 9.70–9.80; 500-year 10.84–11.04.
+  Point 518 (off the Marina): MLLW −0.07, MSL 3.31, MHHW 6.20, 1-year 7.43, 5-year 8.16,
+  10-year 8.47, 100-year 9.73, 500-year 10.91. The appendix labels its coordinates "UTM
+  Zone 10N – Meters", but the values are California State Plane Zone III (NAD83, US survey
+  feet); converted that way they fall on the Berkeley shoreline (derived, ours).
+- **W12** (Table 3-5, p. 54). Sample levels at Richmond: 1-year 7.33, 10-year 8.34,
+  100-year 9.53, 500-year 10.59. "There is considerable uncertainty in estimates of the
+  500-year extreme tide elevation."
+- **W13** (p. 28). "High coastal waters, by themselves or in combination with rain, may
+  overtop seawalls, back up into storm drains, and delay drainage of stormwater into the
+  Bay", illustrated with a photo of surface flooding in Berkeley (Figure 2-7A).
+
+Used for: the scenario levels in `data/scenarios.json` (the 1-, 5-, 10-, 100- and 500-year
+still water levels at point 518) and the test of Ferris's "5 or 10-year storm" (M2).
+
+## Water levels: NOAA tide predictions, Richmond 9414863, November 2026 – January 2027 (read 2026-11-02)
+
+CO-OPS Data API, product `predictions`, `datum=NAVD`, `interval=hilo`, local time.
+
+- **W14.** Highest predicted high tides (astronomical only, no weather): 7.42 ft NAVD88 on
+  2026-12-24 at 10:58 a.m.; 7.34 on 2027-01-22 at 10:56 a.m.; 7.34 on 2026-12-23; 7.17 on
+  2026-11-25 at 11:08 a.m. The December peak equals the 1-year extreme tide off Berkeley
+  (W11). Used for: the "this winter's king tide" scenario (7.4) and, with H3's 0.5–1.0 ft,
+  the "king tide plus Kelvin wave" scenario (7.9–8.4).
+
 ## Meeting remarks: Scott Ferris, Director of Parks, Recreation and Waterfront
 
 - **M1.** Budget and Finance Policy Committee, 2026-10-22, item "Marina Fund Overview and
@@ -62,9 +100,12 @@ Council) supersedes it and has not been read yet.
   **Not yet checked against the meeting video.** Datum not stated.
 - **M2.** Reading of M1 (inference, ours). "10 ½ feet" for the DoubleTree matches W7 in
   NAVD88, so the 12 feet is most likely a water level of 12 ft NAVD88.
-  As still water, 12 ft NAVD88 is 2.2 ft above the 2016 100-year level (W5) and 2.6 ft
-  above the highest level observed at Alameda (W3); it falls inside the wave-inclusive VE
-  BFEs of 12–14 ft (W6). As still water it would exceed the 100-year level, which puts it far beyond a 5- or 10-year storm.
+  As still water, 12 ft NAVD88 is 2.3 ft above the 100-year level off the Marina (9.73,
+  W11), 1.0 ft above the 500-year level (10.91, W11) and 2.6 ft above the highest level
+  observed at Alameda (W3); it falls inside the wave-inclusive VE BFEs of 12–14 ft (W6).
+  The 5- and 10-year still water levels off the Berkeley shoreline are 8.15–8.17 and
+  8.47–8.49 (W11), so a 5- or 10-year storm with a 1 ft Kelvin wave on top reaches about
+  9.2–9.5, about 2.5 ft short of 12.
   The "6 to 12 inches" Kelvin wave figure is consistent with NOAA and NASA statements
   reported in the press (see H3). Open: ask the Parks department for the source of the
   12-foot figure and whether it includes waves; check the video for the exact words.
@@ -85,16 +126,131 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   669 Gilman St and 1101, 1199–1231, 1201 and 1203 Second St, 7.48 acres: the CEQA notice
   of preparation describes the site as about 6 to 13 ft "above mean sea level" (datum as
   stated; MSL is about 3.3 ft NAVD88 per W4, so the datum matters). The Draft EIR (notice
-  of availability August 2026) lists hydrology and water quality and hazardous materials
-  among potentially significant effects. **Its hydrology chapter has not been read.**
+  of availability, 2026-08-03, p. 2) lists hydrology and water quality and hazardous
+  materials among topics with potentially significant effects and says all "would be reduced to
+  less than significant with implementation of mitigation measures"; no significant
+  unavoidable impacts. Comment period 2026-08-03 to 2026-09-17. The hydrology chapter is
+  read in F6–F11.
 - **F4.** Inference (ours): the transfer station sits at or below the 100-year still
   water level (W5) but behind the I-80 embankment, so the first flood mechanism is more
   likely storm drains backed up by high tide, and possibly rising groundwater, than Bay
   water overtopping the freeway. Second St already floods in heavy rain (Hammargren, M1
-  source). To be checked against the Draft EIR and CoSMoS.
+  source). Supported by the Draft EIR (F7, F8): Second St floods today from an undersized
+  storm drain and the Codornices Creek culvert under I-80.
 - **F5.** In the wildfire simulator's 4 m grid, open Bay water appears to be coded as
   elevation 0 rather than as no-data (about 12.6 km² at or below 6 ft). Any fill rule must
   mask water explicitly.
+- **F12.** That grid also has a strip about 200 m wide coded 0 m running north–south through
+  the Marina at easting 560,000 m (the western edge of the 2021 Alameda County lidar tiles),
+  which a fill would treat as open Bay inside the Marina. Seen in a rendering of the clipped
+  grid, 2026-11-02. The explorer does not use that grid (F13).
+- **F13.** The explorer's terrain comes from the USGS 3DEP dynamic elevation service, which
+  is seamless across the Marina: 1 m cells (nearest neighbor) in 16 tiles, each 4 m cell
+  the mean of its 16 values (`tools/fetch-dem.mjs`). Where both grids show land, a 4 m
+  bilinear export from the same service differs from the wildfire grid by a median of
+  −0.16 ft (5th to 95th percentile −1.79 to +1.03 ft).
+
+## Transfer station Draft EIR, Section 3.9 Hydrology and Water Quality, and Appendix H (FirstCarbon Solutions for the City, Draft EIR received by CEQAnet 2026-08-03)
+
+Draft EIR: https://ceqanet.lci.ca.gov/2023080733/2 (attachment "27320011 Berkeley SW&RTS
+Replacement Project Draft EIR", 87 MB); Appendix H, "Hydrology and Water Quality Supporting
+Information" (Balance Hydrologics CEQA memo, 2022-08-23), same page. Page numbers are the
+documents' printed numbers, with PDF pages in brackets.
+
+- **F6** (p. 3.9-8 [449]). Groundwater at the site "range[s] seasonally from 5 to 10 feet
+  bgs, which is considered a high groundwater level." Within half a mile are "multiple
+  active contamination cleanup programs", "the most notable being an actively managed
+  hexavalent chromium plume associated with the WRE/Colortech Facility located on 6th
+  Street", with petroleum byproducts, tetrachloroethylene, lead and other heavy metals.
+- **F7** (p. 3.9-12 [455]). The site is in FEMA's 0.2 percent annual chance (500-year)
+  flood hazard area, "generally between I-580/I-80 and Fourth Street". The Gilman Street
+  storm drain outfall "is currently undersized for the 10-year peak flow event"; flows
+  above it "backup within the storm drain system and cause ponding on surface streets".
+- **F8** (p. 3.9-12 [455], footnote 18). The Codornices Creek culvert under I-80
+  constricts flow and induces flooding on Second St beside the site; per Klein (2009, for
+  Caltrans) the creek overtops upstream of I-80 above 190 cfs, and Balance Hydrologics'
+  2011 City model shows flooding at Second St in the 10-year 6-hour design storm. Appendix
+  H (p. 18 [22]): the I-80 culvert "lacks the necessary conveyance for events equal to or
+  greater than the 10-year recurrence interval."
+- **F9** (pp. 3.9-11 to 3.9-21 [454–463], Exhibits 3.9-2a–d, maps by AECOM, June 2017).
+  Sea level rise is mapped as MHHW plus 24, 52, 84 and 108 inches; "the project site would
+  begin to experience inundation at the MHHW plus 84-inch SLR scenario" (p. 3.9-13). The
+  exhibits list equivalent combinations: MHHW + 24 in ≈ 0 in of sea level rise plus a
+  5-year storm surge; MHHW + 52 in ≈ 12 in plus a 100-year surge or 24 in plus a 10-year;
+  MHHW + 84 in ≈ 42 in plus a 100-year surge or 54 in plus a 10-year; MHHW + 108 in ≈
+  66 in plus a 100-year surge. The chapter cites the 2018 state sea level rise guidance.
+- **F10** (pp. 3.9-44 to 3.9-45 [486–487], Impact HYD-4). Finding: "would be located in a
+  flood hazard zone, tsunami, or seiche zone, but would not risk release of pollutants due to
+  project inundation"; less than significant without mitigation. Reasons given: the site's
+  "overall elevation and usage" stay the same; a "30-foot creek buffer and berm wall" would
+  reduce run-on flooding; for sea level rise, the creek buffer, and the design "would
+  neither exacerbate SLR nor would it result in hazards associated with SLR". The CGS
+  tsunami zone extends to Fifth St, east of the site.
+- **F11** (Appendix H, p. 18 [22]). Balance Hydrologics: the creek buffer "would provide
+  minor additional storage that is unlikely to reduce the breakout of flood flows to Second
+  Street", but leaves space for a later flood wall "as sea level rise further exacerbates
+  existing flooding conditions". The memo notes CEQA "does not require analysis of the
+  existing environment's effect on future users" unless the project exacerbates a hazard.
+  Recorded as a difference in emphasis from F10, which credits the buffer and berm with
+  reducing run-on flooding; both can be true (berm against run-on, buffer storage minor).
+
+Used for: the transfer station's entry in `data/facilities.json` and the explorer's note
+on it; F9's equivalence table is how the explorer pairs an ART level with storm and sea
+level rise combinations (H5).
+
+## Explorer checks and findings (derived, 2026-11-02)
+
+Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/overtop.mjs`.
+"Under water" is the connected fill (model rule, `js/fill.js`); areas count Berkeley land only
+(Census place boundary, excluding open water).
+
+- **C1. Terrain against the published ART maps (H5).** Agreement (cells under water in both,
+  over cells under water in either) on Berkeley land, by ART level: MHHW + 12 in 68%, + 24 in
+  74%, + 36 in 76%, + 52 in 84%, + 66 in 88%, + 96 in 86%, + 108 in 91%. With a 4 m bilinear
+  export of the same lidar it was 54–62% at the four lowest levels, with the fill wetting
+  ground behind narrow structures such as the revetment along University Ave east of the
+  Marina; averaging 1 m cells fixed most of that, so the explorer uses it (F13). Below
+  + 66 in the fill wets slightly more than ART (by 1.4–2.0 ha); at + 96 and + 108 in ART
+  wets more (by 10–17 ha). The service returned no polygons for the + 48 and + 77 in layers
+  (two tries each), and its + 108 in layer covers less of the transfer station (70%) than its
+  + 96 in layer (100%), which points to a gap in the served polygons.
+- **C2. City 2019 Marina study (W7, W8).** At 10.7 ft NAVD88 (its 2050 100-year level) the
+  fill has all 675 m of Marina Blvd under water (W8: "most likely" impassable) and 25% of the
+  DoubleTree grounds (W7: two buildings' floors below the water). At 10.1 (its 2030 level),
+  where W8 has Marina Blvd flooding north of University Ave and south of Spinnaker Way, the
+  fill shows 98 m of Marina Blvd on low ground that is not connected and none under water:
+  the fill's onset there is later by up to 0.6 ft. The study's terrain and method are not
+  stated in the pages read.
+- **C3. Today's storm tides.** Up to the 100-year level (9.73), no Berkeley street segment is
+  under water; Bolivar Dr and Eastshore Hwy (the frontage road) sit on low ground that is not
+  connected from the king tide (7.4) upward, and Second St from the 100-year level. In Albany,
+  Buchanan St is under water from 9.47 (a 10-year tide plus a 1 ft Kelvin wave).
+- **C4. Ferris's 12 ft (M1, M2).** At 12 ft NAVD88 still water: University Ave (1.4 km),
+  Marina Blvd, Buchanan St and Gilman St under water in Berkeley; 65% of the DoubleTree
+  grounds; the transfer station not reached (18% of it on low ground that is not connected).
+  This matches his statement that University Ave and Marina Blvd at Virginia St flood
+  streets but no buildings, except at the DoubleTree, which he named separately.
+- **C5. Flanking (E2).** At no scenario level is any Berkeley ground reached only through
+  Albany or Emeryville land. An earlier run on the bilinear terrain found 3.9 ha at 12 ft;
+  it disappeared with the better terrain (F13).
+- **C6. When the Bay reaches the flats behind I-80.** The fill first reaches the transfer
+  station, and with it the West Berkeley flats between I-80 and about Fourth St, once the
+  level is above 13.35 ft NAVD88 (bisection: not at 13.348, yes at 13.354; the explorer's
+  scenario uses 13.36). Berkeley land under water jumps from 66 ha at 13.2 ft to
+  175 ha at 14.2 ft, and low ground that is not connected falls from 80 ha to 2 ha. The water's
+  route runs east from the North Basin across the I-80 corridor about 250 m south of Gilman
+  St; its highest point (13.35 ft) is just east of the freeway, near Eastshore Hwy, at about
+  37.8812 N, 122.3073 W. The Draft EIR's ART-based maps put the site's first flooding at MHHW
+  + 84 in, about 13.2 ft NAVD88 (F9); ART is dry there at + 66 in (11.7) and floods all of it at
+  + 96 in (14.2). The level sits just above the City study's 2100 100-year level (13.0, W5).
+  Bare-earth lidar removes bridges and may misrepresent ramps and embankments; the
+  crossing needs the Caltrans profile to confirm (DATA_INVENTORY).
+- **C7. Below that level, the flats flood from the land side.** Up to 13.35 ft, the transfer
+  station and Second St are "low, not connected": the Draft EIR documents that Second St
+  floods today in a 10-year rainstorm (F7, F8), and high Bay water backs up storm drains
+  (W13). The explorer cannot say how a storm tide and rain together act on that ground.
+- **C8. Facilities, median ground elevation (ft NAVD88).** Transfer station 13.8; DoubleTree
+  11.5; Aquatic Park 3.1 (mostly lagoon); César Chávez Park 30.6.
 
 ## Hazard data and press (read 2026-11-02)
 
@@ -112,6 +268,14 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   Secondary sources; the NOAA and NASA statements themselves have not been read.
 - **H4.** Used for: a "Kelvin wave" increment of 0.5–1.0 ft added to tide scenarios,
   labeled as from press reports of NOAA/NASA statements until the primary statements are read.
+- **H5.** BCDC/MTC Adapting to Rising Tides (ART) Bay Area Sea Level Rise and Shoreline
+  Analysis Maps (AECOM, 2017): flooding depth for total water levels of MHHW plus 12, 24,
+  36, 48, 52, 66, 77, 84, 96 and 108 inches, connected to the Bay, with disconnected
+  low-lying areas mapped separately; the same maps as the Draft EIR exhibits (F9). Served
+  as polygons by Caltrans (caltrans-gis.dot.ca.gov, CHhqenvi/DEA_BCDC_polygon_SLR
+  MapServer, depth classes in feet; no 84-inch layer in that service) and downloadable as
+  county geodatabases from explorer.adaptingtorisingtides.org. Used as the published
+  hazard layer the connected-fill rule is checked against, and shown in the explorer.
 
 ## Eric's decisions, 2026-11-02 (Claude Code session)
 
@@ -128,4 +292,3 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   (`js/scenarios.js`, e.g. "a fall night, when Diablo winds are strongest"). Applied in
   `specification.md` (Joint scenario): a same-day November king tide case and a later
   sea level rise case in which segments are wet at every high tide.
-

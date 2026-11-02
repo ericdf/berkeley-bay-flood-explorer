@@ -1,0 +1,103 @@
+{
+  "note": "Bay water levels the explorer offers. All are still water (no waves) in feet NAVD88 unless 'waves' says otherwise. 'category' is the provenance: sourced = stated in the source; derived = arithmetic on sourced values; inference = our reading of an unclear source. Rows cite SOURCE_NOTES.",
+  "scenarios": [
+    {
+      "id": "mhhw",
+      "label": "Average daily high tide (MHHW)",
+      "levelFt": 6.2,
+      "category": "sourced",
+      "source": "MHHW 6.20 ft NAVD88 at FEMA/BCDC point 518, off the Marina (SOURCE_NOTES W11)"
+    },
+    {
+      "id": "king2026",
+      "label": "This winter's highest tide (Dec 24, 2026)",
+      "levelFt": 7.4,
+      "category": "sourced",
+      "source": "NOAA predicted high tide at Richmond, 7.42 ft NAVD88, 2026-12-24 10:58 a.m.; astronomical tide only, no weather (W14). Equals the 1-year extreme tide off Berkeley, 7.43 (W11)."
+    },
+    {
+      "id": "kingKelvin",
+      "label": "King tide plus a 1 ft Kelvin wave",
+      "levelFt": 8.4,
+      "category": "derived",
+      "source": "7.4 (W14) plus the upper end of the 6 to 12 inch Kelvin wave reported in the press (H3)"
+    },
+    {
+      "id": "y5",
+      "label": "5-year storm tide",
+      "levelFt": 8.16,
+      "category": "sourced",
+      "source": "5-year extreme tide at point 518, 8.16 ft NAVD88 (W11)"
+    },
+    {
+      "id": "y10",
+      "label": "10-year storm tide",
+      "levelFt": 8.47,
+      "category": "sourced",
+      "source": "10-year extreme tide at point 518, 8.47 ft NAVD88 (W11)"
+    },
+    {
+      "id": "record",
+      "label": "Highest observed at Richmond (Feb 6, 1998)",
+      "levelFt": 8.65,
+      "category": "sourced",
+      "source": "NOAA Richmond 9414863 highest observed, converted to NAVD88 (W2)"
+    },
+    {
+      "id": "y10Kelvin",
+      "label": "10-year storm tide plus a 1 ft Kelvin wave",
+      "levelFt": 9.47,
+      "category": "derived",
+      "source": "8.47 (W11) plus 1.0 ft (H3)"
+    },
+    {
+      "id": "mhhw2100",
+      "label": "Average daily high tide in 2100 (City study)",
+      "levelFt": 9.4,
+      "category": "sourced",
+      "source": "City 2019 Marina study, Table 1: MHHW 9.4 ft NAVD88 in 2100, 2018 low-risk-aversion guidance (W4)"
+    },
+    {
+      "id": "y100",
+      "label": "100-year storm tide (today)",
+      "levelFt": 9.73,
+      "category": "sourced",
+      "source": "100-year extreme tide at point 518, 9.73 ft NAVD88 (W11); the City study rounds it to 9.8 (W5)"
+    },
+    {
+      "id": "y100y2050",
+      "label": "100-year storm tide in 2050 (City study)",
+      "levelFt": 10.7,
+      "category": "sourced",
+      "source": "City 2019 Marina study, Table 2 (W5)"
+    },
+    {
+      "id": "y500",
+      "label": "500-year storm tide (today)",
+      "levelFt": 10.91,
+      "category": "sourced",
+      "source": "500-year extreme tide at point 518, 10.91 ft NAVD88 (W11); the study notes considerable uncertainty at 500 years (W12)"
+    },
+    {
+      "id": "ferris12",
+      "label": "Scott Ferris's 12 ft (Oct 22, 2026)",
+      "levelFt": 12.0,
+      "category": "inference",
+      "source": "Scott Ferris, Budget and Finance Policy Committee, 2026-10-22, as quoted by Kelly Hammargren: a \"5 or 10-year storm\" \"could result in a 12-foot sea level rise in the waterfront\" (M1). Read here as a 12 ft NAVD88 water level (M2, inference). Unconfirmed: its source, its datum, and whether it includes waves. As still water it is above the 500-year level (10.91, W11); FEMA's wave-inclusive flood elevations on the exposed Marina shoreline are 12 to 14 ft (W6), and a still-water fill shows no waves."
+    },
+    {
+      "id": "y100y2100",
+      "label": "100-year storm tide in 2100 (City study)",
+      "levelFt": 13.0,
+      "category": "sourced",
+      "source": "City 2019 Marina study, Table 2 (W5)"
+    },
+    {
+      "id": "spill",
+      "label": "Bay reaches the flats behind I-80",
+      "levelFt": 13.36,
+      "category": "derived",
+      "source": "Lowest level, to the nearest 0.01 ft above, at which the connected fill reaches the transfer station and the West Berkeley flats over the surface: the highest ground on the water's route is 13.35 ft NAVD88, just east of I-80 about 250 m south of Gilman St (tools/overtop.mjs; SOURCE_NOTES C6). The Draft EIR's ART-based maps put the site's first flooding at MHHW plus 84 inches, about 13.2 ft NAVD88 (F9)."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "note": "Places the explorer reports on. Outlines from OpenStreetMap (data/raw/osm/facilities.geojson, © OpenStreetMap contributors, ODbL). What the explorer reports is the share of each outline's ground that is wet or low, never floor elevations, which no public source here gives except the City study's statement for the DoubleTree (SOURCE_NOTES W7).",
+  "facilities": [
+    {
+      "osm": "way/44073281",
+      "label": "Transfer station (Second St at Gilman St)",
+      "note": "The City's Solid Waste and Recycling Transfer Station. FEMA 500-year flood zone; Second St beside it floods today in a 10-year rainstorm from an undersized storm drain and the Codornices Creek culvert under I-80; the Draft EIR's sea level rise maps show the site starting to flood at MHHW plus 84 inches; groundwater 5 to 10 ft below ground; an active hexavalent chromium plume on 6th St within half a mile (SOURCE_NOTES F6–F11). In the explorer's connected fill the Bay first reaches the site over the surface just above 13.35 ft NAVD88, crossing the I-80 corridor about 250 m south of Gilman St (C6); below that the site is on low ground that is not connected, where drains and rain decide what floods (C7).",
+      "sources": [
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "C6",
+        "C7"
+      ]
+    },
+    {
+      "osm": "way/979766521",
+      "label": "DoubleTree hotel (200 Marina Blvd)",
+      "note": "City study: in 2050 (10.7 ft NAVD88 still water) two hotel buildings have floors 0.3 to 0.5 ft below the water (SOURCE_NOTES W7). Scott Ferris: \"three of the Doubletree buildings flood at 10 ½ feet\" (M1).",
+      "sources": [
+        "W7",
+        "M1"
+      ]
+    },
+    {
+      "osm": "way/10321607",
+      "label": "César Chávez Park",
+      "sources": []
+    },
+    {
+      "osm": "way/62362767",
+      "label": "Aquatic Park",
+      "note": "A lagoon behind the I-80 embankment. In the connected fill it is low ground that is not connected until just above 13.35 ft NAVD88, when the Bay reaches the flats behind I-80 (C6).",
+      "sources": [
+        "C6"
+      ]
+    }
+  ]
+}
