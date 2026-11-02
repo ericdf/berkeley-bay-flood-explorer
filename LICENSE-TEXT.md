@@ -13,13 +13,15 @@ CC BY 4.0."
 
 ## What counts as writing and what counts as code
 
-| Covered by | Files |
-|---|---|
-| CC BY 4.0 (this file) | Markdown documents (`README.md`, `specification.md`, `SOURCE_NOTES.md`, `DATA_INVENTORY.md` and anything under `docs/`), and the prose the explorer shows: results text, notes, explanations, Assumptions & limits |
-| MIT ([`LICENSE`](LICENSE)) | Source code: JavaScript, HTML, CSS, scripts under `tools/`, tests |
+The line follows what the material is, whichever file holds it.
 
-Instructions for agents (`CLAUDE.md`, `AGENTS.md`) and the pull request template are
-covered by CC BY 4.0 as well.
+| Covered by | Material |
+|---|---|
+| CC BY 4.0 (this file) | All writing: Markdown documents (`README.md`, `specification.md`, `SOURCE_NOTES.md`, `DATA_INVENTORY.md`, `CLAUDE.md`, `AGENTS.md`, anything under `docs/`, the pull request template), and every piece of text the explorer shows on screen (labels, results text, scenario and plan descriptions, notes, explanations, tooltips, Assumptions & limits), including text stored inside JavaScript, HTML or data files |
+| MIT ([`LICENSE`](LICENSE)) | Code: the program logic, markup structure and styles in JavaScript, HTML and CSS, scripts under `tools/`, and tests, excluding the on-screen text above |
+
+Someone who reuses the code under MIT and keeps the on-screen text must also follow
+CC BY 4.0 for that text: credit it, link to the license and say if it was changed.
 
 ## Third-party data keeps the publisher's terms
 

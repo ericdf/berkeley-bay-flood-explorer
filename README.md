@@ -26,7 +26,8 @@ City's 2019 Marina study) and does not model the water's movement itself.
 
 ## License
 
-Code is under the [MIT License](LICENSE). Writing (documents and the explorer's text) is
-under [CC BY 4.0](LICENSE-TEXT.md). Both require attribution. Third-party data keeps the
+Code is under the [MIT License](LICENSE). Writing is under [CC BY 4.0](LICENSE-TEXT.md):
+the documents and all text the explorer shows on screen, including text stored in
+JavaScript, HTML or data files. Both require attribution. Third-party data keeps the
 publisher's terms, including the ODbL for data derived from OpenStreetMap; see
 [`LICENSE-TEXT.md`](LICENSE-TEXT.md).
