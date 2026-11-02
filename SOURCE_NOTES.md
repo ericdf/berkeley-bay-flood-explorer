@@ -68,7 +68,7 @@ Council) supersedes it and has not been read yet.
   The "6 to 12 inches" Kelvin wave figure is consistent with NOAA and NASA statements
   reported in the press (see H3). Open: ask the Parks department for the source of the
   12-foot figure and whether it includes waves; check the video for the exact words.
-  Not used in the explorer until resolved.
+  Shown in the explorer by Eric's decision (E1), with this reading labeled as inference.
 
 ## Facilities and terrain (derived from the wildfire simulator's data, 2026-11-02)
 
@@ -112,3 +112,20 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   Secondary sources; the NOAA and NASA statements themselves have not been read.
 - **H4.** Used for: a "Kelvin wave" increment of 0.5–1.0 ft added to tide scenarios,
   labeled as from press reports of NOAA/NASA statements until the primary statements are read.
+
+## Eric's decisions, 2026-11-02 (Claude Code session)
+
+- **E1.** Show Ferris's 12 ft figure. Applied in `specification.md` (Scenarios): shown
+  as stated, with our NAVD88 reading labeled inference and its source and wave content
+  marked unconfirmed.
+- **E2.** Show Albany and Emeryville only where they affect Berkeley, for example where a
+  neighbor's failure to make comparable infrastructure investments leaves Berkeley
+  exposed. Applied in `specification.md` (Extent): flanking, shared infrastructure,
+  detours; neighbors' adopted plans and funded projects stated from their documents.
+- **E3.** A joint scenario means the fire's egress would be harder. Eric noted the
+  wildfire simulator models fall fires, while Bay floods come mostly in
+  winter. Checked: the wildfire simulator's fires are fall fires on Diablo winds
+  (`js/scenarios.js`, e.g. "a fall night, when Diablo winds are strongest"). Applied in
+  `specification.md` (Joint scenario): a same-day November king tide case and a later
+  sea level rise case in which segments are wet at every high tide.
+

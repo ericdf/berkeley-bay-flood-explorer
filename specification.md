@@ -1,6 +1,6 @@
 # Design brief: Berkeley Bay Flood Explorer
 
-Draft, 2026-11-02. Decisions marked **(Eric)** are open until he settles them.
+Draft, 2026-11-02. Eric's decisions of 2026-11-02 are recorded in SOURCE_NOTES E1–E3.
 
 ## Purpose
 
@@ -22,7 +22,7 @@ the outcomes are access and exposure:
 1. **Access.** Which streets and freeway segments are under water, and for how long; whether
    the Marina, the transfer station and the Second Street businesses can be reached; what
    closing I-80 or its ramps does to routes between Berkeley and Albany, Emeryville and
-   Oakland.
+   Oakland (detour routes only; see Extent).
 2. **Exposure.** Which facilities have ground or floors below the water: the transfer
    station, the DoubleTree, sewer pump stations, hazardous-materials sites, the rail line.
 3. **Plans.** What a barrier, a raised road, a revetment upgrade, a raised floor or
@@ -42,10 +42,33 @@ First list, all still water in ft NAVD88 unless stated:
 | 100-year still water, 2016 | 9.8 | City 2019 study, Table 2 (W5) |
 | 100-year still water, 2030 / 2050 / 2100 | 10.1 / 10.7 / 13.0 | same (W5), 2018 guidance; update to 2024 guidance |
 | FEMA wave-inclusive BFEs on the exposed shoreline | 12 to 14 | City 2019 study §2.1 (W6) |
-| Ferris's 12 ft | 12, datum unconfirmed | held until resolved (M1–M2) |
+| Ferris's 12 ft | 12, read as ft NAVD88 | Scott Ferris, Budget and Finance, 2026-10-22 (M1–M2) |
 
-**(Eric)** Whether to show Ferris's figure at all before the Parks department confirms
-its source.
+Ferris's figure is shown (Eric, E1) with what is known and what is not: as he stated it
+("could result in a 12-foot sea level rise in the waterfront" in a "5 or 10-year storm"),
+our reading of it as a 12 ft NAVD88 water level (inference, M2), where that level sits
+against the 100-year still water level and the observed records, and that its source and
+whether it includes waves are unconfirmed. When the Parks department or the meeting
+video settles either point, the label changes and SOURCE_NOTES records it.
+
+## Extent
+
+Berkeley's shoreline and the streets, freeway segments and facilities in Berkeley.
+Albany's and Emeryville's shorelines are included only where they change a Berkeley
+outcome (Eric, E2):
+
+- **Flanking.** Water that reaches Berkeley ground through a neighbor's lower or
+  unprotected shoreline. A Berkeley barrier or raised road that the water can go around
+  through Albany or Emeryville is shown as flanked, with where the water enters.
+- **Shared infrastructure.** I-80 and its interchanges at the city lines, the rail line,
+  shared drainage and wastewater facilities, where flooding outside Berkeley closes a
+  Berkeley route or service.
+- **Detours.** Routes Berkeley traffic takes when I-80 or a Berkeley street closes.
+
+Where a neighbor's shoreline flanks a Berkeley plan, the explorer states the neighbor's
+adopted plans and funded projects for that stretch, from their documents, so a reader can
+compare investment. It does not characterize a neighbor's choices beyond what those
+documents show.
 
 ## Hazard method
 
@@ -93,10 +116,27 @@ gate disconnects a drain), never the water level.
 Creek and hillside rain flooding; groundwater rise; flood duration; damage costs;
 evacuation timing. Each is a candidate for later phases once a published source exists.
 
-## Open for Eric
+## Joint scenario with the wildfire simulator
 
-1. Whether to show Ferris's 12 ft before its source is confirmed.
-2. The geographic extent: Berkeley only, or Albany's and Emeryville's shorelines too
-   (I-80 detours cross both).
-3. Whether to add a joint scenario with the wildfire simulator (I-80 as both the
-   evacuation route and a flood-exposed road).
+The question (Eric, E3): how much harder is fire egress when Bay water has closed low
+streets? The flood explorer supplies a list of street and freeway segments wet at a given
+level; the wildfire simulator treats them as closed and reruns its comparison.
+
+Timing decides which levels are worth testing. The wildfire simulator's fires are fall
+fires, on Diablo (offshore, north-east) winds. Bay flooding peaks in winter: king tides in
+November through January (M1) and storm surge with winter storms. Two cases follow:
+
+1. **Same day, now.** A November king tide, possibly with the Kelvin wave, during a
+   late-season Diablo wind fire. King tides are set by astronomy, so this coincidence is
+   possible. A storm surge on the same day is unlikely: surge comes with low pressure and
+   onshore storm winds, Diablo winds with high pressure and offshore winds (inference,
+   ours; to be sourced). The test is whether a king tide closes any segment the fire
+   evacuation uses.
+2. **Any day, later.** As sea level rises, the daily high tide reaches ground that only
+   storms reach today: MHHW is 9.4 ft NAVD88 in 2100 in the City study (W4), close to
+   today's 100-year still water level of 9.8 (W5). Segments wet at every high tide are
+   closed for a fire in any season. The test is the fire evacuation with those segments
+   removed.
+
+Results are reported in the wildfire simulator as a scenario setting, with the flood
+level and its source named.

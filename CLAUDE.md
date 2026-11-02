@@ -26,7 +26,8 @@ and code comments. The rules that come up most:
 - **Every water level names its datum.** Write "9.8 ft NAVD88", never "9.8 feet". A level
   quoted without a datum (a meeting remark, a news story) is recorded in `SOURCE_NOTES.md`
   as stated, with the datum marked unknown, and is not used in the explorer until the
-  datum is established. Feet above MLLW and feet NAVD88 differ by 0.25 ft or less at the
+  datum is established, unless Eric decides to show it; then it is shown with the reading
+  we chose labeled as inference and the open question stated (Ferris's 12 ft, SOURCE_NOTES E1). Feet above MLLW and feet NAVD88 differ by 0.25 ft or less at the
   San Francisco, Richmond and Alameda gauges (SOURCE_NOTES W1–W3), but other datums (station datum, local city datums, "above mean
   sea level") do not.
 - **A "rise" is a change, a "level" is an elevation.** "12-foot sea level rise" and "a
