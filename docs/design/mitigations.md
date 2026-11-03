@@ -41,7 +41,8 @@ Each line names its source row. A site with no published record of what it store
 
 | Kind | Lever | State | What the model does | Known cost | Who decides |
 |---|---|---|---|---|---|
-| Protect | City study floodwalls, raised roads | Built | Raises ground along lines (P1–P9) | $14.3M, $31.5M, $5.4M cumulative, 2019 dollars (P4, P5) | City |
+| Protect | City study floodwalls | Built | Raises ground along the traced lines (P1–P4, P9) | $14.3M for 2050 protection, $31.5M for 2100, cumulative, 2019 dollars (P5) | City |
+| Protect | City study raised roads (Spinnaker Way, University Ave west of I-80) | Built | Raises the road lines (P6, P7) | Not stated separately in the study; its $5.4M by 2050 is revetment and breakwater work (P5) | City |
 | Protect | Tide gates on outfalls | Built | Closes drain links (D3) | Not published | City |
 | Protect | A drawn wall, any crest | Built | Raises ground along the line | None | Reader |
 | Protect | A berm around one site (for example, the transfer station) | New | A drawn wall preset to the site's outline | Not published | City or owner |
