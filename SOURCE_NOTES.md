@@ -353,9 +353,12 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
     "SWT-NO PLAN RETURNED", "0 m; emergent", High Priority (PDF p. 36). "KAISER BIOMEDICAL
     FACILITY", 1795 Second St, a closed leaking-tank case, "0 m; emergent", Low Priority
     (PDF p. 40).
-  What it covers and what it does not: rising groundwater under today's level and two rises
-  (0.8 and 2.5 ft). It does not consider Bay water over the surface, Bay water through the storm
-  drains, trapped rain, or what operating plants store; that is what this explorer adds (C15).
+  What it covers and what it does not: the USGS CoSMoS groundwater model's rising groundwater and
+  its marine inundation at mean higher high water, the average daily high tide, for today and two
+  rises (0.8 and 2.5 ft); PDF p. 8 lists "Marine inundation (mean higher high water [MHHW] sea
+  level)" among the model's outputs and PDF p. 10 overlays the sites on "the marine inundation and
+  GWR projections". It does not consider storm tides above MHHW, Bay water through the storm
+  drains, trapped rain, or what operating plants store; those are what this explorer adds (C15).
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
@@ -656,10 +659,14 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   has groundwater "0 m; emergent" in the City's screening (F19).
 
 - **C15. Industrial and contaminated sites against the fill (derived, 2026-11-03).** Sites from a
-  research agent's search of the state and federal databases (working list kept outside the
-  repository; its database details are not re-read here except as F14–F19 record), checked like
-  C14: ground within 30 m of the database point, a site counting once 25% of that ground is
-  affected, outfalls assumed open for the drain column.
+  research agent's search of the state and federal databases. The points, the record each point
+  comes from (GeoTracker global ID, EPA FRS/RCRA ID, SMARTS WDID) and the C14 and F16 sites are in
+  `data/sites-checked.json`; `node tools/site-check.mjs` reproduces every figure here, in C14 and in
+  F16. Method: ground within 30 m of the point, a site counting once 25% of that ground is affected
+  at a scenario level, outfalls assumed open for the drain column; rain pool from the 10-year
+  6-hour experiment with gates, 10% held back, Bay at 7.4. What the records say about each site
+  (contaminants, case status) is the agent's reading and is not re-read here, except as F14–F19
+  record.
   - On ground the explorer floods: former Pacific Steel (GeoTracker point; ground 9.8–12.3 ft
     NAVD88; drains from 11.03, Bay from 13.4); 1255 Eastshore Hwy, solvents in groundwater per the
     database (10.7–12.0; drains from 12, Bay from 13.4, 19% under the rain pool in the 10-year
@@ -667,7 +674,8 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     (median 13.3; Bay from 12.83); Terminal Manufacturing, 707 Gilman St, open PCE case (12.6–15.7;
     Bay from 14.53); Eastshore State Park shoreline parcels (14.6–16.2; Bay from 16.23); Ravago /
     Pacific Coast Chemicals, 2424 Fourth St, an operating distributor (15.2–17.3; Bay from 16.23).
-  - Not reached by any scenario (ground 18 ft NAVD88 or higher): former Flint Ink, 750 Gilman St;
+  - No scenario puts 25% of their ground under water (median ground 18 ft NAVD88 or higher):
+    former Flint Ink, 750 Gilman St (lowest ground 15.4);
     WRE/Colortech, 1225 Sixth St; Peerless Lighting site, Fourth St; Electro-Coatings, 893 Carleton
     St; Bayer, 800 Dwight Way. Rising groundwater (F19) is their exposure, not surface flooding.
   - The former Berkeley Landfill under César Chávez Park: the database point is on the park's top
