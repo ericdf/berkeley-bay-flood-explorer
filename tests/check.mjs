@@ -142,6 +142,10 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   // station at 12 ft with open outfalls and rain is flooded through drains and by rain.
   const rMix = analyze(X, 12, null, rain12), stMix = exposure(X, rMix).sites.find(s => s.site.id === 'transfer-station');
   ok(stMix.reach && stMix.counts, `12 ft, open outfalls, rain: transfer station reached (${stMix.reach ? stMix.reach.how : 'not reached'})`);
+  // I-80 counts rain and drain flooding too (Codex, PR #6): Bay at 7.4 ft, gates, all runoff held back.
+  const rI = analyze(X, 7.4, planFrom(X, 'gates'), { ari: '10', duration: '6-hr', blocked: 1 });
+  const i80 = exposure(X, rI).services.find(s => s.name === 'I-80');
+  ok(i80.reached && /pooled rain/.test(i80.status), `I-80 under pooled rain is reported: ${i80.status.split(':')[0]}`);
   ok(e0.tsunamiCount >= 8, `${e0.tsunamiCount} listed pollution sources inside the State tsunami hazard area`);
 }
 
