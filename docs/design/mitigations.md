@@ -47,13 +47,18 @@ Each line names its source row. A site with no published record of what it store
 | Accommodate | Flood-proof hazardous materials storage (as Gilman Gateway HYD-4, F18) | New | As above, for stored materials only | Not published | Owner; City as CUPA |
 | Retreat | Move the transfer station | New | Takes the station's operations off the scorecard; its ground and any contamination stay | Not published; the Draft EIR found no site meeting its criteria (F20) | City |
 | Retreat | Move an operating hazardous-materials business | New | As above, for that business | Not published | Owner |
-| Clean up | Remove or contain a site's contamination | New | Marks that site's ground as cleaned; shows the case's real status alongside (F17, F19) | Not published | DTSC or the Water Board, with the owner |
+| Clean up | Remove a site's contamination (excavation and off-site disposal, groundwater treatment) | New | Takes the site off the contamination list, as the reader's explicit assumption, beside the case's real status (F17, F19) | Not published | DTSC or the Water Board, with the owner |
+| Clean up | Contain a site's contamination (caps, vapor barriers, land use covenants) | New | Keeps the site on the list, marked "contained", with its controls and their limits: flooding or rising groundwater can defeat a vapor-control system (F17) | Not published | DTSC or the Water Board, with the owner |
 
 Rules:
 - **Retreat does not delete contamination.** Moving an operation removes what it stores. A
-  contaminated site stays on the scorecard until the reader also chooses cleanup (E6's table).
+  contaminated site stays on the scorecard until the reader also assumes the contamination is
+  removed (E6's table).
+- **Containment is not removal.** A contained site stays on the scorecard, with its controls named
+  and what can defeat them; only an explicit removal assumption takes it off.
 - **A lever never changes the water.** Protection changes the ground; accommodation and retreat
-  change what is exposed; cleanup changes what the ground carries.
+  change what is exposed; removal changes what the ground carries; containment changes how it is
+  held, within limits.
 - **Every new lever is an assumption the reader makes,** labeled as such, beside the real status.
   For example: "you assumed this site is cleaned up; its case is open (GeoTracker T10000005594)".
 - **Cost is shown only where a source gives it.** Otherwise "cost not published", never an
