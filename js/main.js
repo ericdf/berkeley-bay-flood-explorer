@@ -328,8 +328,8 @@ function exposedPanel(levelFt, res, B, plan) {
   const head = `<tr><th></th><th>Do nothing</th>${mine ? '<th>Your choices</th>' : ''}</tr>`;
   const ways0 = ex0.services.find(s => s.wayOut), ways1 = ex1.services.find(s => s.wayOut);
   return `
-    <h2>What current plans leave out <span class="cat">sourced</span></h2>
-    <p class="src">From the plans, reviews and rules read for this explorer. Each names its source row in SOURCE_NOTES.md.</p>
+    <h2>What current plans leave out</h2>
+    <p class="src">From the plans, reviews and rules read for this explorer. Each names its source row in SOURCE_NOTES.md; figures this explorer derives say so.</p>
     <ul>${D.exposure.gaps.map(g => `<li><b>${esc(g.title)}.</b> ${esc(g.text)} <span class="src">(SOURCE_NOTES ${esc(g.refs)})</span></li>`).join('')}</ul>
     <h2>What's exposed <span class="cat">derived</span></h2>
     <p class="src">At this level: <b>${ex0.reachedCount}</b> of ${ex0.sites.length} listed pollution sources reached if we do nothing${mine ? `; <b>${ex1.reachedCount}</b> with your choices` : ''}. ${ex0.tsunamiCount} lie inside the State tsunami hazard area, which does not depend on the level. Measures as in SOURCE_NOTES E6: pollution sources, then critical services, with ways off the waterfront as a check. Choices are your assumptions; they change what is exposed, never the water. Not a forecast.</p>

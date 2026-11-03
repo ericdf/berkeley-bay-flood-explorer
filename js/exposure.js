@@ -8,10 +8,18 @@ export const REACH = 0.25; // a site or road counts as reached when this share i
 
 const WET = (v) => v === 1 || v === 3;
 
-function shares(res, cells) {
-  const n = cells.length || 1; let wet = 0, drain = 0, rain = 0;
-  for (const i of cells) { const v = res.state[i]; if (WET(v)) wet++; else if (v === 4) drain++; else if (v === 5) rain++; }
-  return { wet: wet / n, drain: drain / n, rain: rain / n };
+// Shares of a site's cells under Bay water, filling through drains, or under pooled rain, and the
+// highest water surface on it (ft NAVD88): the Bay level for Bay and drain water (drains fill to
+// the Bay level), the pool surface for rain (js/rain.js; it can stand above the Bay).
+function shares(D, res, cells) {
+  const n = cells.length || 1; let wet = 0, drain = 0, rain = 0, top = -Infinity;
+  for (const i of cells) {
+    const v = res.state[i];
+    if (WET(v)) { wet++; top = Math.max(top, res.levelFt); }
+    else if (v === 4) { drain++; top = Math.max(top, res.levelFt); }
+    else if (v === 5) { rain++; if (res.rain && D.rainSurface) top = Math.max(top, D.rainSurface[i] / 30.48); }
+  }
+  return { wet: wet / n, drain: drain / n, rain: rain / n, waterFt: top };
 }
 
 // How a site is reached at this level, or null: Bay water over the surface first, then through the
@@ -34,21 +42,23 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
   const X = D.exposure, lv = res.levelFt;
   const tsu = D.tsunami && D.tsunami.mask, inTsu = (i) => tsu && ((tsu[i >> 3] >> (i & 7)) & 1);
   const sites = X.sites.map(site => {
-    const cells = siteCellsFor(D, site), sh = shares(res, cells), reach = site.stillWaterNotApplicable ? null : reachOf(sh);
+    const cells = siteCellsFor(D, site), sh = shares(D, res, cells), reach = site.stillWaterNotApplicable ? null : reachOf(sh);
     const tsunami = cells.length ? cells.filter(inTsu).length / cells.length : 0;
     const c = choices[site.id] || 'none';
     const inUse = site.kinds.includes('in use'), inGround = site.kinds.includes('in ground');
     // What still counts as exposed after the reader's choice.
     const useGone = c === 'move' || c === 'exit';
-    const useDry = c === 'floodproof' && floodproofFt != null && lv <= floodproofFt;
+    // Flood-proofing holds while the water on the site, Bay or pooled rain, stays at or below it.
+    const siteWater = sh.waterFt > -Infinity ? sh.waterFt : lv;
+    const useDry = c === 'floodproof' && floodproofFt != null && siteWater <= floodproofFt;
     const groundGone = c === 'remove';
     const exposedUse = inUse && !useGone && !useDry;
     const exposedGround = inGround && !groundGone;
     const counts = !!reach && (exposedUse || exposedGround);
     const notes = [];
-    if (c === 'floodproof') notes.push(floodproofFt != null && lv <= floodproofFt
-      ? `stored materials kept dry: flood-proofed to ${floodproofFt} ft NAVD88 (your assumption; still water only, not tsunami)`
-      : `the level is over the flood-proofing (${floodproofFt} ft NAVD88; your assumption)`);
+    if (c === 'floodproof') notes.push(useDry
+      ? `stored materials kept dry: flood-proofed to ${floodproofFt} ft NAVD88, above the water on the site (your assumption; still water only, not tsunami)`
+      : `the water on the site, ${siteWater.toFixed(1)} ft NAVD88, is over the flood-proofing (${floodproofFt} ft NAVD88; your assumption)`);
     if (c === 'move') notes.push('operation moved away (your assumption); its ground stays');
     if (c === 'exit') notes.push('the City stops running a transfer station; waste goes to a regional one (your assumption; E7). Its ground stays');
     if (c === 'contain') notes.push('contained (your assumption): caps and vapor controls can fail when flooded or under rising groundwater (F17)');

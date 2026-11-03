@@ -112,6 +112,7 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
 //    contamination takes it off the count only as the reader's choice; containment does not.
 {
   const { exposure } = await import('../js/exposure.js');
+  const { planFrom } = await import('../tools/report.mjs');
   const X = { ...D, exposure: JSON.parse(fs.readFileSync('data/exposure.json')), siteCells: JSON.parse(fs.readFileSync('data/site-cells.json')),
     tsunami: { mask: new Uint8Array(fs.readFileSync('data/hazard/tsunami.bits')) } };
   const r = analyze(X, 13.4), e0 = exposure(X, r);
@@ -126,6 +127,11 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   const fp = exposure(X, r, { 'berkeley-forge': 'floodproof' }, 14).sites.find(s => s.site.id === 'berkeley-forge');
   const fpLow = exposure(X, r, { 'berkeley-forge': 'floodproof' }, 13).sites.find(s => s.site.id === 'berkeley-forge');
   ok(!fp.counts && fpLow.counts, 'flood-proofing to 14 ft keeps Berkeley Forge dry at 13.4; to 13 ft it does not');
+  // Flood-proofing is checked against the water on the site, including a rain pool above the Bay
+  // (Codex, PR #6): Bay at 7.4 ft, gates, 10-year 6-hour storm, all runoff held back.
+  const rr = analyze(X, 7.4, planFrom(X, 'gates'), { ari: '10', duration: '6-hr', blocked: 1 });
+  const bf = exposure(X, rr, { 'berkeley-forge': 'floodproof' }, 12).sites.find(s => s.site.id === 'berkeley-forge');
+  ok(bf.reach && bf.reach.how === 'pooled rain' && bf.counts, `flood-proofing to 12 ft does not keep Berkeley Forge dry under a ${bf.sh.waterFt.toFixed(2)} ft NAVD88 rain pool`);
   ok(e0.tsunamiCount >= 8, `${e0.tsunamiCount} listed pollution sources inside the State tsunami hazard area`);
 }
 
