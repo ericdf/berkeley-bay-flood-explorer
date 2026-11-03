@@ -18,7 +18,8 @@
   aside, section.results { padding: 12px 16px; background: var(--panel); border-right: 1px solid var(--line); overflow: auto; }
   section.results { border-right: 0; border-left: 1px solid var(--line); }
   #mapwrap { position: relative; overflow: hidden; background: #0f2747; height: calc(100vh - 72px); touch-action: none; }
-  @media (max-width: 1100px) { #mapwrap { height: 75vh; } }
+  @media (max-width: 1100px) { #mapwrap { height: 60vh; order: -1; } }
+  h3.grp { font-size: 12px; font-weight: 600; color: var(--muted); margin: 10px 0 2px 6px; }
   #mapwrap:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
   #map { width: 100%; height: 100%; display: block; cursor: grab; }
   #map.dragging { cursor: grabbing; }
@@ -58,6 +59,7 @@
 <header>
   <h1>Berkeley Bay Flood Explorer</h1>
   <p class="notice">Pick a Bay water level and see which ground, streets and places in west Berkeley sit below it. An educational comparison tool: not a flood forecast and not an official hazard map. Every level names its datum (feet NAVD88) and its source.</p>
+  <p class="notice"><b>Start here:</b> pick a water level (on a phone, below the map), then read what it reaches beside the map and what's exposed further down. The white box on the map names the level, so a screenshot keeps it. <a href="field-guide.html">King tide field guide</a> for this winter's highest tides.</p>
 </header>
 <main>
   <aside>

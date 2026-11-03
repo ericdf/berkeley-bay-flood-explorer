@@ -56,6 +56,31 @@ let D, base, canvas, ctx, grid, gctx, artMasks = {};
 // repaint it and redraw streets, walls and outlines as vectors at screen resolution.
 const view = { k: 1, tx: 0, ty: 0, fit: 1 };
 let last = null;
+// The stamp drawn on the map, so a screenshot carries its scenario and the caveat (set by render).
+let stamp = null;
+const SITE_URL = 'ericdf.github.io/berkeley-bay-flood-explorer';
+// Landmark names drawn on the map, at screen resolution, so a newcomer can find their way.
+const LANDMARKS = [['UNIVERSITY AV', 'University Ave'], ['GILMAN ST', 'Gilman St'], ['ASHBY AV', 'Ashby Ave'], ['I80 WB', 'I-80'],
+  ['MARINA BL', 'Marina Blvd'], ['BOLIVAR DR', 'Bolivar Dr'], ['SAN PABLO AV', 'San Pablo Ave'], ['SPINNAKER WY', 'Spinnaker Way']];
+let labels = null;
+function landmarkLabels() {
+  const out = [];
+  for (const [name, text] of LANDMARKS) {
+    const pts = D.streets.edges.filter(e => e.name === name && e.berkeley !== false).flatMap(e => e.geom);
+    if (!pts.length) continue;
+    const mx = pts.reduce((t, q) => t + q[0], 0) / pts.length, my = pts.reduce((t, q) => t + q[1], 0) / pts.length;
+    const at = pts.reduce((b, q) => Math.hypot(q[0] - mx, q[1] - my) < Math.hypot(b[0] - mx, b[1] - my) ? q : b);
+    out.push({ text, at, street: true });
+  }
+  D.facilities.forEach((f, k) => {
+    const cells = D.facilityCells[k].cells; if (!cells.length) return;
+    const W = D.dem.width, R = D.dem.resolution, Hm = D.dem.ymax - D.dem.ymin;
+    let sx = 0, sy = 0; for (const i of cells) { sx += (i % W + 0.5) * R; sy += Hm - (Math.floor(i / W) + 0.5) * R; }
+    out.push({ text: f.label.split(' (')[0], at: [sx / cells.length, sy / cells.length], street: false });
+  });
+  // Drawing order is priority: the four main streets, then the mapped places, then the rest.
+  return [...out.slice(0, 4), ...out.filter(L => !L.street), ...out.slice(4).filter(L => L.street)];
+}
 // The plan the reader has built: preset ids, tide gates, and walls they drew.
 const ui = { presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null,
   siteChoices: {}, floodproofFt: 13 }; // site choices: js/exposure.js
@@ -160,6 +185,33 @@ function paint() {
   }
   if (ui.draft.length) { path(ui.draft); ctx.setLineDash([10 * u, 6 * u]); ctx.strokeStyle = '#ff2d7a'; ctx.lineWidth = 4 * u; ctx.stroke(); ctx.setLineDash([]); }
   ctx.restore();
+  // Landmark names and the stamp, in screen pixels.
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  const dd = dpr();
+  labels = labels || landmarkLabels();
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  // In list order; a label that would overlap one already drawn is skipped (zoom in to see it).
+  const boxes = [];
+  for (const L of labels) {
+    const [gx, gy] = toPx(L.at), x = view.tx + gx * view.k, y = view.ty + gy * view.k;
+    if (x < 0 || y < 0 || x > canvas.width || y > canvas.height) continue;
+    ctx.font = `${L.street ? '' : 'italic '}600 ${12 * dd}px system-ui, sans-serif`;
+    const w = ctx.measureText(L.text).width + 6 * dd, h = 16 * dd, bx = [x - w / 2, y - h / 2, w, h];
+    if (boxes.some(o => bx[0] < o[0] + o[2] && o[0] < bx[0] + bx[2] && bx[1] < o[1] + o[3] && o[1] < bx[1] + bx[3])) continue;
+    boxes.push(bx);
+    ctx.strokeStyle = 'rgba(0,0,0,.75)'; ctx.lineWidth = 3 * dd; ctx.strokeText(L.text, x, y);
+    ctx.fillStyle = L.street ? '#fff' : '#ffe14d'; ctx.fillText(L.text, x, y);
+  }
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  if (stamp) {
+    const pad = 8 * dd, lines = stamp, maxW = canvas.width - 2 * 10 * dd - 2 * pad;
+    let fs = 13 * dd; ctx.font = `600 ${fs}px system-ui, sans-serif`;
+    const widest = () => Math.max(...lines.map((t, k) => { ctx.font = `${k ? '' : '600 '}${k ? fs * 0.9 : fs}px system-ui, sans-serif`; return ctx.measureText(t).width; }));
+    while (fs > 8 * dd && widest() > maxW) fs -= dd;
+    const lh = fs * 1.35, bw = Math.min(maxW, widest()) + 2 * pad, bh = lines.length * lh + pad * 1.2, bx = 10 * dd, by = canvas.height - 10 * dd - bh;
+    ctx.fillStyle = 'rgba(255,255,255,.9)'; ctx.fillRect(bx, by, bw, bh);
+    lines.forEach((t, k) => { ctx.font = `${k ? '' : '600 '}${k ? fs * 0.9 : fs}px system-ui, sans-serif`; ctx.fillStyle = k === 1 ? '#a0300a' : '#111'; ctx.fillText(t, bx + pad, by + pad * 0.6 + lh * (k + 0.75)); });
+  }
   // Scale bar, top left: the longest round length that fits in about 120 CSS pixels.
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   const mPerPx = dem.resolution / view.k, d = dpr();
@@ -237,12 +289,19 @@ function context(lv) {
   return parts.join('; ');
 }
 
+// Rain pools smaller than this show no surface level (an outside review, 2026-11-03: 18-21 ft NAVD88 on under 1 ha).
+const MIN_POOL_HA = 1;
 const title = (n) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase());
 
 function render(levelFt, sc) {
   const plan = currentPlan();
   const res = analyze(D, levelFt, plan, ui.rain);
   const baseRes = plan ? analyze(D, levelFt, null, ui.rain) : null;
+  const lvText = `${sc && sc.precision === 1 ? 'about ' : ''}${fmt(levelFt, sc && sc.precision != null ? sc.precision : 2)} ft NAVD88 still water`;
+  const extras = [ui.rain ? `rain experiment (${ui.rain.ari}-year, ${ui.rain.duration.replace('-hr', ' h')})` : '', plan ? 'with a plan the reader built' : '', Object.values(ui.siteChoices).some(c => c && c !== 'none') ? 'site choices assumed' : ''].filter(Boolean);
+  stamp = [`${sc ? sc.label : 'Level chosen with the slider'}: ${lvText}${extras.length ? ', ' + extras.join(', ') : ''}`,
+    'Not a flood forecast: an educational comparison on bare-earth lidar',
+    `Berkeley Bay Flood Explorer · ${new Date().toISOString().slice(0, 10)} · ${SITE_URL}`];
   draw(res, baseRes, plan);
   const bStreets = res.streets.filter(s => s.berkeley), oStreets = res.streets.filter(s => !s.berkeley);
   const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft NAVD88`}</li>`;
@@ -259,7 +318,7 @@ function render(levelFt, sc) {
     <p class="src">${esc(context(levelFt))}.</p>
     ${sc && sc.category === 'sensitivity' ? `<p class="warn">A sensitivity test: a hypothetical combination of two sourced figures, with no established likelihood.${sc.id === 'y10Kelvin' ? ' Part of the El Niño rise is already in the storm-tide statistics (SOURCE_NOTES W16).' : ''}</p>` : ''}
     ${sc && sc.id === 'spill' ? '<p class="warn">A result of this explorer\'s terrain model, not a protective threshold: the connection could open lower or higher, and the published ART maps put it near 13.2 ft NAVD88.</p>' : ''}
-    ${sc && sc.id === 'ferris12' ? '<p class="warn">Scott Ferris\'s figure is shown by the project owner\'s decision. Its source, datum and whether it includes waves are unconfirmed; it is read here as a still-water level of 12 ft NAVD88. FEMA\'s flood elevations on the wave-exposed Marina shoreline, which include waves, are 12 to 14 ft NAVD88; this map shows still water only.</p>' : ''}
+    ${sc && sc.id === 'ferris12' ? '<p class="warn">This figure is shown by the project owner\'s decision; who said it is in the source line above. Its source, datum and whether it includes waves are unconfirmed; it is read here as a still-water level of 12 ft NAVD88. FEMA\'s flood elevations on the wave-exposed Marina shoreline, which include waves, are 12 to 14 ft NAVD88; this map shows still water only.</p>' : ''}
     <p class="src"><span class="cat">derived</span> Everything below is calculated by this explorer, not published: a connected fill on USGS 3DEP lidar (a model rule, explained under Method), at the level above. The level's own category is shown next to it.</p>
     ${plan ? `<p class="warn">Comparing <b>no plan</b> with <b>your plan</b> at the same level. Green on the map is ground the plan keeps dry. ${res.overtopped.length ? `Overtopped at this level: ${res.overtopped.map(esc).join('; ')}.` : 'Nothing in the plan is overtopped at this level; water can still go around the ends of a wall.'}</p>` : ''}
     <p class="src">What's exposed, and what current plans leave out: below the map.</p>
@@ -279,18 +338,20 @@ function render(levelFt, sc) {
     ${res.rain ? `<h2>Rain on this tide <span class="cat">derived</span></h2>
     <p class="src">${fmt(res.rain.depthIn, 2)} in of rain (NOAA Atlas 14, ${esc(ui.rain.ari)}-year, ${esc(ui.rain.duration.replace('-hr', ' hours'))}), ${fmt(100 * ui.rain.blocked)}% of the runoff unable to drain. An illustrative storage experiment, not a flood estimate: each watershed's runoff is put in one pool at its lowest inlet, which overstates depth there and misses ponding elsewhere. The runoff share uses a method EPA describes for annual loads from areas under one square mile; most of these watersheds are larger, so it is an exploratory assumption (SOURCE_NOTES R3). How often a storm of this size coincides with this tide is not established.</p>
     <table><tr><th>Watershed</th><th class="n">Runoff share</th><th class="n">Water</th><th class="n">Pool surface, ft NAVD88</th><th class="n">Area</th></tr>
-    ${res.rain.pools.map(p => `<tr><td>${esc(p.watershed)}</td><td class="n">${fmt(p.runoffShare, 2)}</td><td class="n">${fmt(p.volumeM3 / 1000)}k m³</td><td class="n">${fmt(p.levelFt, 1)} ft NAVD88${p.spilledToBay ? '<br>spills to the Bay' : ''}</td><td class="n">${fmt(p.berkeleyLandHa, 1)} ha</td></tr>`).join('')}</table><p class="src">Area: Berkeley land under the pool, not counting the Aquatic Park lagoon.</p>` : ''}
+    ${res.rain.pools.map(p => `<tr><td>${esc(p.watershed)}</td><td class="n">${fmt(p.runoffShare, 2)}</td><td class="n">${fmt(p.volumeM3 / 1000)}k m³</td><td class="n">${p.areaHa >= MIN_POOL_HA ? `${fmt(p.levelFt, 1)} ft NAVD88` : 'not shown'}${p.spilledToBay ? '<br>spills to the Bay' : ''}</td><td class="n">${fmt(p.berkeleyLandHa, 1)} ha</td></tr>`).join('')}</table><p class="src">Area: Berkeley land under the pool, not counting the Aquatic Park lagoon. A pool surface is shown only where the pool covers at least ${MIN_POOL_HA} ha: on less ground, often where the Bay already covers the inlet and the runoff spills into it, one pool at one inlet says nothing useful about a water level.</p>` : ''}
     ${ui.gates ? `<p class="warn">Assumed: a working tide gate on every outfall, so no Bay water comes up the drains. Which outfalls have gates is not published. A shut gate also holds in the rain that falls while it is shut${ui.rain ? ': the pools above show it.' : '; add a rainstorm above to see where it collects.'}</p>` : ''}
     ${drainWs ? `<p class="src">Through the drains, by City watershed: ${drainWs}. ${ui.gates ? '' : 'This assumes every outfall is open, with no working tide gate. Which outfalls have gates, and whether they work, is not published.'}</p>` : ''}
     <h2>Places <span class="cat">derived</span></h2>
     <p class="src">Shares are of each mapped site's ground, not of its buildings: whether water reaches floors, entrances or equipment needs separate evidence (the City study's floor elevations for the DoubleTree are one, SOURCE_NOTES W7).</p>
     <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${ui.rain ? `${fmt(100 * f.rainShare)}% under pooled rain<br>` : ''}${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft NAVD88${D.tsunami ? `<br>${fmt(100 * tsunamiShare(k))}% in the State tsunami hazard area` : ''}</td></tr>`).join('')}</table>
     <h2>Berkeley streets <span class="cat">derived</span></h2>
+    <details><summary>${bStreets.length} street segments reached or on low ground${oStreets.length ? `; ${oStreets.length} outside Berkeley` : ''}</summary>
     ${bStreets.filter(s => s.cls === 'wet').length ? `<p class="src">Under water:</p><ul>${bStreets.filter(s => s.cls === 'wet').map(li).join('')}</ul>` : '<p class="src">No Berkeley street segment is under water at this level.</p>'}
     ${bStreets.filter(s => s.cls === 'rain').length ? `<p class="src">Under pooled rain:</p><ul>${bStreets.filter(s => s.cls === 'rain').map(li).join('')}</ul>` : ''}
     ${bStreets.filter(s => s.cls === 'drain').length ? `<p class="src">On low ground that can fill through the storm drains:</p><ul>${bStreets.filter(s => s.cls === 'drain').map(li).join('')}</ul>` : ''}
     ${bStreets.filter(s => s.cls === 'low').length ? `<p class="src">On low ground, not connected (rain decides these):</p><ul>${bStreets.filter(s => s.cls === 'low').map(li).join('')}</ul>` : ''}
     ${oStreets.length ? `<h2>Outside Berkeley <span class="cat">derived</span></h2><ul>${oStreets.map(s => li(s).replace('</li>', s.cls === 'wet' ? '</li>' : s.cls === 'drain' ? ' (through drains)</li>' : s.cls === 'rain' ? ' (pooled rain)</li>' : ' (low, not connected)</li>')).join('')}</ul>` : ''}
+    </details>
     ${res.overWater.length ? `<p class="src">Not counted: ${[...new Set(res.overWater.map(s => esc(s.e.name)))].join(', ')}, whose mapped line crosses water in the terrain (a bridge, or a street drawn across water).</p>` : ''}
     <h2>What this cannot tell you</h2>
     <details open><summary>Limits of the map</summary><ul>
@@ -385,12 +446,14 @@ function planPanel(rerender) {
   else $('showArt').disabled = true;
   analyze(D, 6); // computes D.water0 once
   const list = $('scenarios');
-  list.innerHTML = D.scenarios.map((s, k) => `<label class="sc"><input type="radio" name="sc" value="${k}"><span class="t">${esc(s.label)}</span><span class="lv">${s.precision === 1 ? 'about ' : ''}${fmt(s.levelFt, s.precision ?? 2)}</span></label>`).join('');
+  // Scenarios by group (data/scenarios.json "group"), in the order the groups first appear.
+  const groups = [...new Set(D.scenarios.map(s => s.group))];
+  list.innerHTML = groups.map(g => `<h3 class="grp">${esc(g)}</h3>` + D.scenarios.map((s, k) => s.group !== g ? '' : `<label class="sc"><input type="radio" name="sc" value="${k}"><span class="t">${esc(s.label)}</span><span class="lv">${s.precision === 1 ? 'about ' : ''}${fmt(s.levelFt, s.precision ?? 2)}</span></label>`).join('')).join('');
   // The level shown is kept here, exactly: a scenario's level may not be a multiple of the
   // slider's step, and the slider would round it.
   let current = D.scenarios.findIndex(s => s.id === 'y100'), levelNow = null, scNow = null;
   const show = (lv, sc) => { levelNow = lv; scNow = sc; render(lv, sc); };
-  const pick = (k) => { current = k; list.querySelectorAll('input')[k].checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2); show(D.scenarios[k].levelFt, D.scenarios[k]); };
+  const pick = (k) => { current = k; list.querySelector(`input[value="${k}"]`).checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2); show(D.scenarios[k].levelFt, D.scenarios[k]); };
   list.addEventListener('change', (e) => pick(Number(e.target.value)));
   let pending = false;
   $('level').addEventListener('input', () => {

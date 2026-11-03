@@ -41,7 +41,8 @@ Port 8767, because the wildfire simulator uses 8766.
 - **Water levels** (`data/scenarios.json`) are still-water levels in feet NAVD88, each with
   its provenance category and source row: the tide study's 1- to 500-year levels off the
   Marina, NOAA's predicted king tide for this winter, the City study's 2050 and 2100
-  levels, and Scott Ferris's 12 ft, read as a NAVD88 level and labeled inference.
+  levels, the State's 2024 guidance, and a 12 ft level quoted at a Council committee (Scott
+  Ferris, 2026-10-22), read as a NAVD88 level and labeled inference.
 - **Terrain** (`data/terrain/dem.i16`): USGS 3DEP lidar elevations from the 3DEP dynamic
   service, 4 m, centimeters NAVD88 (`tools/fetch-dem.mjs`).
 - **The fill** (`js/fill.js`, model rule): a cell is under water when its ground is below
@@ -76,6 +77,13 @@ Rebuilding the data: `node tools/fetch-dem.mjs`, `node tools/build-streets.mjs
 and for the ART layer `python3 -I tools/fetch-art.py` (in a scratch folder) then
 `node tools/build-art.mjs <that folder>`; for the tsunami outline `node tools/build-tsunami.mjs`
 (source in `data/raw/cgs/`). `node tools/site-check.mjs` reproduces the site checks in SOURCE_NOTES.
+
+## King tide field guide
+
+`field-guide.html` is a printable guide for checking the explorer against this winter's king
+tides (Dec 23–25, 2026, highest 7.42 ft NAVD88 at 10:58 a.m. on Dec 24): four stops in west
+Berkeley, what the explorer shows at each, what to photograph, and where to send the photos
+(SOURCE_NOTES E10).
 
 ## Relation to the wildfire simulator
 

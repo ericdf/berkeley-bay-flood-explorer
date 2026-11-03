@@ -1036,3 +1036,23 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   never as safe. Eric, same day: "selection of a third-party site would have to include scrutiny for
   safety". So choosing a regional station is itself a decision with a flood and tsunami check, and
   the exit lever names that check as a step, not a given.
+- **E9. The 12 ft scenario's label, and the outside review's page fixes (2026-11-03).** A second
+  outside AI review said the label "Scott Ferris's 12 ft" personalizes a hazard and reads as a
+  gotcha. Eric: "Yes, adjust the label." It now reads "A 12 ft level quoted at a Council committee
+  (Oct 22, 2026)", in a group "Quoted at a public meeting"; his name stays in the source line (M1).
+  Eric also approved, from the same review: (1) a stamp on the map with the scenario, level and
+  datum, "Not a flood forecast", the date and the site address, so a screenshot keeps them;
+  (2) no pool surface for a rain pool under 1 ha (the review found 18–21 ft NAVD88 reported on
+  0.0–0.7 ha at 14.53 ft, where every pool spills into Bay water already over its inlet);
+  (3) I-80 moved below the other roads in "What's exposed", with the bare-earth caveat first;
+  (4) the map before the controls on a phone, scenarios grouped by kind, street lists folded, and
+  landmark names on the map.
+- **E10. A king tide field check (2026-11-03).** Eric asked for a field guide a non-expert can use
+  while he is away: `field-guide.html`. Stops and what the explorer shows at 7.4 ft NAVD88
+  (`analyze`, no plan): Bolivar Dr by Aquatic Park, lowest street ground in Berkeley in the
+  terrain (7.0–7.2 ft), on low ground that can fill through the storm drains; the frontage road at
+  the south end of Aquatic Park (7.6–7.8 ft), dry until about 8.4; Marina Blvd at University Ave
+  (lowest street ground 9.9), dry; Second St north of Gilman (9.1–9.3), dry. Tide times are NOAA's
+  Richmond predictions (W14), re-read 2026-11-03; the California Coastal Commission's King Tides
+  Project names Nov 24–26, Dec 23–25 and Jan 21–22. Results, when they come, are recorded here
+  against NOAA's measured water level at Richmond for that morning.
