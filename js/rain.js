@@ -17,7 +17,8 @@ const isBay = (v) => v === 1 || v === 3; // WET or FLANKED
 export function runoffShare(imperviousPct) { return Math.min(1, 0.05 + 0.009 * imperviousPct); }
 
 // opts = { duration: '6-hr', ari: '10', blocked: 1.0 }. Mutates state (sets RAIN) and returns pools.
-export function rainPools(D, state, levelFt, opts) {
+// crest: the plan's crest raster (js/plan.js) or null; walls and raised roads count as ground.
+export function rainPools(D, state, levelFt, opts, crest = null) {
   const { dem, z } = D, W = dem.width, H = dem.height, R = dem.resolution, cellM2 = R * R;
   const depthIn = D.atlas.depthIn[opts.duration][opts.ari];
   const depthM = depthIn * 0.0254, Lcm = levelFt * 30.48;
@@ -33,44 +34,50 @@ export function rainPools(D, state, levelFt, opts) {
     const imp = D.impervious[w.name]; if (!imp) continue;
     const rv = runoffShare(imp.imperviousPct);
     const V = depthM * rv * opts.blocked * w.areaM2; // m3
-    // Bottom of a cell for the pool: its ground, or the Bay level where the drains already fill it.
-    const bottom = (i) => state[i] === 4 ? Math.max(z[i], Lcm) : z[i];
+    // Bottom of a cell for the pool: its ground (or the crest of a wall or raised road in the plan),
+    // or the Bay level where the drains already fill it.
+    const ground = (i) => crest && crest[i] > z[i] ? crest[i] : z[i];
+    const bottom = (i) => state[i] === 4 ? Math.max(ground(i), Lcm) : ground(i);
     const allowed = (i) => ids[i] === w.id && z[i] !== -32768 && !D.water0[i] && !isBay(state[i]) && state[i] !== RAIN;
     // Seed: the watershed's lowest inlet that is not under Bay water (else its lowest cell).
     let seed = -1;
     for (let i = 0; i < W * H; i++) if (inlet[i] && allowed(i) && (seed < 0 || bottom(i) < bottom(seed))) seed = i;
     if (seed < 0) for (let i = 0; i < W * H; i++) if (allowed(i) && (seed < 0 || bottom(i) < bottom(seed))) seed = i;
     if (seed < 0 || V <= 0) continue;
-    // Priority flood from the seed: cells join in order of the level needed to reach them.
-    let n = 0, hn = 0; const touched = [];
+    // Priority flood from the seed: cells join in order of the level needed to reach them. Water held
+    // at level h over the n cells in the pool is (n*h - S) cell-cm, S the sum of their bottoms, so a
+    // cell that joins below the current level takes its share of the runoff when it joins.
+    const Vc = V * 100 / cellM2; // runoff in cell-centimeters
+    let n = 0, S = 0, hn = 0; const touched = [];
     const push = (v, i) => { let k = hn++; hv[k] = v; hi[k] = i; while (k > 0) { const p = (k - 1) >> 1; if (hv[p] <= hv[k]) break; [hv[p], hv[k]] = [hv[k], hv[p]]; [hi[p], hi[k]] = [hi[k], hi[p]]; k = p; } };
     const pop = () => { const v = hv[0], i = hi[0]; hn--; hv[0] = hv[hn]; hi[0] = hi[hn]; let k = 0; for (;;) { const l = 2 * k + 1, r = l + 1; let m = k; if (l < hn && hv[l] < hv[m]) m = l; if (r < hn && hv[r] < hv[m]) m = r; if (m === k) break; [hv[m], hv[k]] = [hv[k], hv[m]]; [hi[m], hi[k]] = [hi[k], hi[m]]; k = m; } return [v, i]; };
     push(bottom(seed), seed); queued[seed] = 1; touched.push(seed);
-    let level = bottom(seed), vol = 0, spilled = false; // level in cm, vol in m3
+    let level = bottom(seed), spilled = false, done = false; // level in cm
     const members = [];
     while (hn > 0) {
       const [e, i] = pop();
-      if (e > level) {
-        const add = n * cellM2 * (e - level) / 100;
-        if (vol + add >= V) { level += (V - vol) / (n * cellM2) * 100; vol = V; break; }
-        vol += add; level = e;
-      }
-      // A pool cell next to Bay water: the pool now drains to the Bay over the surface.
+      // Raising the pool to e would hold all the runoff: it settles below e.
+      if (n > 0 && n * e - S >= Vc) { level = (Vc + S) / n; done = true; break; }
+      // A cell next to Bay water: once the pool reaches it, the rest drains to the Bay over the surface.
       const r = (i / W) | 0, c = i - r * W;
       const nb = [c > 0 ? i - 1 : -1, c < W - 1 ? i + 1 : -1, r > 0 ? i - W : -1, r < H - 1 ? i + W : -1];
-      if (nb.some(j => j >= 0 && (isBay(state[j]) || D.water0[j]))) { spilled = true; members.push(i); n++; break; }
-      inPool[i] = 1; members.push(i); n++;
+      if (nb.some(j => j >= 0 && (isBay(state[j]) || D.water0[j]))) { level = Math.max(level, e); spilled = true; done = true; break; }
+      // Admitting this cell at level e would take more than the runoff (a hollow behind a rise):
+      // the pool stops at e and the hollow is left out.
+      if ((n + 1) * e - (S + bottom(i)) > Vc) { level = Math.max(level, e); done = true; break; }
+      inPool[i] = 1; members.push(i); n++; S += bottom(i); level = Math.max(level, e);
       for (const j of nb) if (j >= 0 && !queued[j] && allowed(j)) { queued[j] = 1; touched.push(j); push(Math.max(bottom(j), e), j); }
     }
-    if (hn === 0 && vol < V && n) { level += (V - vol) / (n * cellM2) * 100; vol = V; } // filled its whole area in the map
+    if (!done && n) level = Math.max(level, (Vc + S) / n); // filled all its ground in the map
+    const heldM3 = n ? Math.max(0, n * level - S) * cellM2 / 100 : 0;
     let wetCells = 0, maxDepth = 0, inB = 0;
-    for (const i of members) if (bottom(i) < level) {
-      state[i] = RAIN; surface[i] = Math.round(level); wetCells++; maxDepth = Math.max(maxDepth, level - bottom(i));
+    for (const i of members) if (bottom(i) < level) { // cells at exactly the pool surface hold no water
+      state[i] = RAIN; surface[i] = Math.floor(level); wetCells++; maxDepth = Math.max(maxDepth, level - bottom(i));
       if (((D.berkeley[i >> 3] >> (i & 7)) & 1) && z[i] >= 3.31 * 30.48) inB++; // Berkeley land, not lagoon
     }
     for (const i of touched) { queued[i] = 0; inPool[i] = 0; }
     const [sx, sy] = [((seed % W) + 0.5) * R, (dem.ymax - dem.ymin) - (((seed / W) | 0) + 0.5) * R];
-    pools.push({ watershed: w.name, runoffShare: rv, volumeM3: V, levelFt: level / 30.48, areaHa: wetCells * cellM2 / 1e4, berkeleyLandHa: inB * cellM2 / 1e4,
+    pools.push({ watershed: w.name, runoffShare: rv, volumeM3: V, heldM3, levelFt: level / 30.48, areaHa: wetCells * cellM2 / 1e4, berkeleyLandHa: inB * cellM2 / 1e4,
       maxDepthFt: maxDepth / 30.48, spilledToBay: spilled, seed: [sx, sy] });
   }
   return { depthIn, pools };

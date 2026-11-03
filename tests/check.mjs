@@ -71,6 +71,17 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   const bay = analyze(D, 9.73, gates), wr = analyze(D, 9.73, gates, { ari: '10', duration: '6-hr', blocked: 1 });
   let onBay = 0; for (let i = 0; i < bay.state.length; i++) if (isW(bay.state[i]) && wr.state[i] === 5) onBay++;
   ok(onBay === 0, `rain pools never cover ground already under Bay water (${onBay} cells)`);
+  // Runoff is conserved: each pool holds no more than its watershed's runoff (to within the 1 cm
+  // the stored surface is rounded down to).
+  const rc = analyze(D, 7.4, gates, { ari: '10', duration: '6-hr', blocked: 0.1 });
+  for (const p of rc.rain.pools) ok(p.heldM3 <= p.volumeM3 * 1.001 + 1, `${p.watershed} pool holds ${Math.round(p.heldM3)} of ${Math.round(p.volumeM3)} m3 of runoff`);
+  // A plan's walls count for rain: a 20 ft wall ringed close around the Schoolhouse pool's first inlet
+  // keeps that pool inside it.
+  const sp = rc.rain.pools.find(p => p.watershed === 'Schoolhouse');
+  const [sx, sy] = sp.seed, ring = [[sx - 40, sy - 40], [sx + 40, sy - 40], [sx + 40, sy + 40], [sx - 40, sy + 40], [sx - 40, sy - 40]];
+  const walled = analyze(D, 7.4, { ...gates, walls: [{ label: 'test ring', crestFt: 20, lines: [ring] }] }, { ari: '10', duration: '6-hr', blocked: 0.1 });
+  const wp = walled.rain.pools.find(p => p.watershed === 'Schoolhouse');
+  ok(wp.areaHa < sp.areaHa && wp.levelFt > sp.levelFt, `a ringed wall confines the Schoolhouse pool (${sp.areaHa.toFixed(1)} -> ${wp.areaHa.toFixed(1)} ha, surface ${sp.levelFt.toFixed(1)} -> ${wp.levelFt.toFixed(1)} ft NAVD88)`);
   const r10 = analyze(D, 7.4, gates, { ari: '10', duration: '6-hr', blocked: 0.1 });
   ok(r10.streets.some(s => s.name === '2ND ST' && s.cls === 'rain'), '10-year 6-hour storm, 10% held back: Second St under pooled rain (Draft EIR F8)');
 }

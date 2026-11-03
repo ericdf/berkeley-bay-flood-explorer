@@ -57,7 +57,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
   const alone = connectedFill(z, dem.width, dem.height, levelFt, neighborLand, crest);
   for (let i = 0; i < state.length; i++) if (state[i] === WET && inB(i) && !water0[i] && alone[i] !== WET) state[i] = FLANKED;
   const drainCellsByWatershed = markDrains(D, state, plan && plan.gates);
-  const rainRes = rain ? rainPools(D, state, levelFt, rain) : null;
+  const rainRes = rain ? rainPools(D, state, levelFt, rain, crest) : null;
   let wetLand = 0, lowLand = 0, flanked = 0, drainLand = 0, rainLand = 0;
   for (let i = 0; i < state.length; i++) {
     if (z[i] === -32768 || water0[i] || !inB(i) || z[i] < MSL_CM) continue; // open Bay, a lagoon below mean sea level (Aquatic Park), or outside Berkeley
@@ -68,7 +68,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
   const raised = raisedEdges(D, plan);
   const segs = [], overWater = [];
   for (const e of streets.edges) {
-    const s = sampleLine(e.geom, state, z, dem, water0);
+    const s = sampleLine(e.geom, state, z, dem, water0, 4, rainRes ? D.rainSurface : null);
     if (s.n === 0) continue;
     // A segment whose line crosses water in the terrain (the open Bay, or a lagoon below mean sea
     // level such as Aquatic Park) is a bridge, a causeway the grid misses, or a street drawn across
@@ -77,8 +77,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     if (s.waterSamples > 0) { if (any) overWater.push({ e, ...s }); continue; }
     if (!any) continue;
     const cls = s.wetShare >= STREET_WET_SHARE ? 'wet' : s.rainShare >= STREET_WET_SHARE ? 'rain' : s.drainShare >= STREET_WET_SHARE ? 'drain' : 'low';
-    let depthFt;
-    if (cls === 'rain') { depthFt = 0; for (const [x, y] of e.geom) { const c = Math.floor(x / dem.resolution), r = Math.floor((dem.ymax - dem.ymin - y) / dem.resolution); if (c < 0 || r < 0 || c >= dem.width || r >= dem.height) continue; const i = r * dem.width + c; if (state[i] === RAIN) depthFt = Math.max(depthFt, (D.rainSurface[i] - z[i]) / 30.48); } }
+    const depthFt = cls === 'rain' ? s.rainDepthFt : undefined; // deepest pooled rain, from the same 4 m samples
     segs.push({ e, ...s, cls, wet: cls === 'wet', raisedFt: raised[e.id], depthFt });
   }
   const byName = new Map();

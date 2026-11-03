@@ -362,16 +362,20 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   closed by the tide during the storm; the City's outfall inverts are not published, so the page
   offers 100%, 50%, 25% and 10%. Upper bound for the pool's location: real ponding spreads over
   several low spots.
-- **C12. Rain results (derived).** At this winter's highest tide (7.4 ft) with tide gates on every
-  outfall, a 10-year 6-hour storm (2.04 in) pools on 59.5 ha of Berkeley land with all its runoff
-  held back, 40.8 with half, 30.7 with a quarter and 17.5 with a tenth. Second St is under pooled
-  rain in every case tested, 1.6–1.8 km of it, which matches the Draft EIR's 10-year flooding there
-  (F8); the deepest point on the street is about 3.6 ft, possibly where Codornices Creek crosses.
-  The transfer station is 20–54% under pooled rain across the storms and shares tested. The pools
-  start at the lowest inlets: Gilman and Codornices on Second St beside the transfer station,
-  Aquatic Park and Strawberry on Bolivar Dr, Derby by Eastshore Hwy near Ashby Ave. The amount of
-  ground pooled levels off above about 60–66 ha because the larger pools reach the I-80 corridor
-  and spill to the Bay.
+- **C12. Rain results (derived; revised after Codex review of PR #3, which found the first
+  version created water when a pool spilled into a hollow below its surface).** At this winter's
+  highest tide (7.4 ft NAVD88), with tide gates on every outfall, a 10-year 6-hour storm (2.04 in)
+  pools on Berkeley land as follows, by share of the runoff that cannot drain: 100%, 49.4 ha;
+  50%, 32.9 ha; 25%, 22.9 ha; 10%, 11.1 ha. For the 2-year 6-hour storm: 39.9, 27.8, 17.5 and
+  8.9 ha; for the 100-year 6-hour storm: 57.1, 42.3, 29.1 and 16.0 ha. Each pool holds its
+  watershed's runoff to within 1 cm of rounding (`tests/check.mjs`). Second St is under pooled
+  rain in every case tested, 1.3–1.8 km of it, which matches the Draft EIR's 10-year flooding there
+  (F8); its deepest point, which may be where Codornices Creek crosses, ranges from 2.5 to 7.0 ft
+  of water. The transfer station is 10–54% under pooled rain across these cases. The pools start
+  at the lowest inlets: Gilman and Codornices on Second St beside the transfer station, Aquatic
+  Park and Strawberry on Bolivar Dr, Derby by Eastshore Hwy near Ashby Ave. Above about half the
+  runoff held back, the Strawberry, Gilman and Derby pools reach the I-80 corridor and spill to
+  the Bay. A plan's walls and raised roads count as ground for the pools.
 
 ## Hazard data and press (read 2026-11-02)
 
