@@ -359,6 +359,26 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   level)" among the model's outputs and PDF p. 10 overlays the sites on "the marine inundation and
   GWR projections". It does not consider storm tides above MHHW, Bay water through the storm
   drains, trapped rain, or what operating plants store; those are what this explorer adds (C15).
+- **F20. The transfer station Draft EIR rejected another site (read 2026-11-03, asked by Eric).**
+  Transfer station Draft EIR (SCH 2023080733; F6–F11), Chapter 6, Alternatives to the Proposed
+  Project, §6.4.1 "Alternative Location", pp. 6-4 to 6-5: an alternative site would need to be "At
+  least 7.48 acres in size", "Located on an infill site in an industrial area", "Designated and
+  zoned for manufacturing", "Served by available infrastructure" and "Available for purchase and
+  development". "No potential alternative locations were identified that could satisfy the
+  above-referenced criteria"; "any such site would have similar characteristics as the project site
+  and would not result in a reduction or avoidance of impacts at issue"; the alternative location
+  "was rejected as infeasible". §6.4.2 rejects another use of the site because losing the transfer
+  station and recycling facility, "vital public facilities", would cause "severe disruption".
+  The two alternatives analyzed, No Project (1) and One Building (2), are both on the same site;
+  for Alternative 2, p. 6-27, it is "on the same site as the proposed project, and subject to the
+  same flooding and storm drainage issues". The chapter does not mention sea level rise or tsunami
+  (searched for "sea level", "sea-level" and "tsunami").
+  What it bears on (inference, ours): the site search tested size, zoning, infrastructure and
+  availability, and whether another site would lessen the project's impacts; it did not test a
+  site's exposure to flooding, sea level rise or tsunami. The site is about 11.5 to 14.6 ft NAVD88
+  (site-check point), inside the State's Tsunami Hazard Area (C16), reached by Bay water in this
+  explorer at about 13.4 ft (C6), which the State's 2100 High scenario for critical infrastructure
+  exceeds (16.23; C13, E4). Retreat for this facility (E6) was not on the table in the EIR.
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
@@ -783,3 +803,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   and losing a service is a loss that evacuation does not prevent (E4's cleanup point). Basis for
   the long warning: king tides are predicted years ahead (W14), storm tides and rain days ahead, and
   the 2011 tsunami reached the Bay hours after the earthquake (H6).
+  Added 2026-11-03 (Eric: "Yes e6"), after Eric asked whether managed retreat applies only to
+  pollutant release. What each kind of mitigation reaches:
+  | What is at risk | Does retreat help? | Other tools |
+  |---|---|---|
+  | Hazardous materials in use (operating sites, the transfer station's hazardous waste) | Yes: moving the operation moves what it stores | Flood-proof storage (as Gilman Gateway HYD-4, F18), shut-down plans |
+  | Contamination already in the ground (Pacific Steel, plating plumes, the landfill) | No, unless paired with cleanup: leaving a site leaves its pollutants, and nobody maintains its controls | Excavation, containment, monitoring (F17) |
+  | Critical services | Yes, for facilities that can move, such as the transfer station (F20) | Raise, protect or gate what cannot move: I-80, frontage roads, sewer mains |
