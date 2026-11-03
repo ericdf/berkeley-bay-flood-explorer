@@ -848,6 +848,25 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   4,525 vs 2,330 2 m cells), which the explorer uses. Reproduce with
   `node tests/check.mjs` and `node tools/cosmos-report.mjs`.
 
+- **C22. CoSMoS-GW groundwater against the explorer (H7; derived, 2026-11-03).** Kh 1.0 m/day, MHHW
+  boundary, full model. On Berkeley land in the grid (1,008.6 ha at or above 3.31 ft NAVD88), ground
+  marine, emergent or within 1 m of the water table: 325 ha at 0 m of rise, 376 at 1.0 m, 418 at
+  2.0 m, 529 at 5 m. Emergent alone: 43.3, 62.7, 59.8 and 1.1 ha; it falls from 2.5 m because that
+  ground turns marine. Today's land within 1 m is 66, 320 and 682 ha at Kh 10, 1.0 and 0.1: a
+  ten-fold spread. At 0 m: the transfer station 27% emergent, 61% 0–1 m, 13% 1–2 m and none deeper
+  than 2 m. The Draft EIR measured 5 to 10 ft (1.5–3.0 m) below ground (F6), so the model is
+  shallower at all three Kh (Kh 10: 11% deeper than 2 m). Second St 95%, Bolivar Dr 98%, Pacific
+  Steel (1333 Second St) 100% and Berkeley Forge & Tool (1331 Eastshore Hwy) 97% emergent, at or
+  above the Gilman Gateway EIR's shallowest 1.5 ft (F17, F18). Eastshore Hwy 21% emergent and 68%
+  0–1 m. DoubleTree grounds 83% at 1–2 m. Matching each rise to the explorer's MHHW 6.20 ft NAVD88
+  (point 518) plus the rise (a derived choice): 90–98% of the explorer's low, not connected ground is
+  CoSMoS-GW emergent at 0–2.0 m. The match is partly shared terrain, because both mark the lidar's
+  closed depressions. Most emergent ground is ground the fill calls dry (40.5 of 43.3 ha at 0 m).
+  CoSMoS-GW's marine class agrees with the fill's Bay water at 79–97% (both / either) from 1.5 m up
+  (46–65% below). Both keep the flats behind I-80 dry of Bay water at 2.0 m (12.76 ft NAVD88) and take
+  them at 2.5 m (14.40; transfer station 58% marine, 59% in the fill), bracketing C6's 13.35.
+  Reproduce with `node tools/compare-cosmos-gw.mjs` and `node tests/check.mjs`.
+
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
@@ -1060,6 +1079,30 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   warning, not a flood depth, and does not change with the explorer's water level.
   What it bears on: a tsunami's damage in the Bay in 2011 came from currents and short surges in
   harbors, with a water-level change of about half a meter; a still-water fill models neither.
+
+- **H7. USGS CoSMoS-GW, groundwater emergence and shoaling (read 2026-11-03).** Befus, K.M., Hoover,
+  D.J., Barnard, P.L., and Erikson, L.H., 2020, *Projected responses of the coastal water table for
+  California using present-day and future sea-level rise scenarios*: USGS data release,
+  https://doi.org/10.5066/P9H5PBXP (ScienceBase item 5bd9f318e4b0b3fc5cec20ed). `Alameda_MHHW.zip`
+  (110,031,701 bytes, SHA-256 2bbaa22b…a1fa461, retrieved 2026-11-03), metadata XML and the three
+  methods PDFs read. Polygons of depth from the ground surface to the modeled water table: "-1 =
+  marine inundation (below marine boundary condition (LMSL or MHHW) sea level)", "0 = water table at
+  or above ground surface (emergent groundwater)", then 0–1, 1–2, 2–5 and > 5 m (item summary). Sea
+  level rise 0–2 m in 0.25 m steps, 2.5, 3 and 5 m. Marine boundary a constant head at MHHW (NOAA
+  VDatum) plus the rise. Steady-state MODFLOW, one homogeneous layer to -50 m NAVD88, 10 m cells,
+  mean 2000–2013 recharge. Horizontal NAD83 (NSRS2007) UTM 10N, vertical NAVD88. Two versions:
+  groundwater reaching the surface "removed from the model, simulating loss via natural drainage",
+  or retained ("worst-case 'linear'"). Three conductivities "to bracket reasonable model parameter
+  values" (Kh 0.1, 1 and 10 m/day). The release names no best estimate. "Projected water tables for
+  future sea-level rise conditions cannot be validated against observations." The model has "only
+  natural conditions (i.e., no man-made activities or terrain alteration)" (water table depth
+  methods), which we read as no pumping, drains or sewers. It has no storms and no tide above MHHW.
+  Closed depressions in the DEM were filled so emergent groundwater can stand in them (model methods).
+  Licence: public domain; acknowledge the USGS and the University of Wyoming (metadata). Used: the
+  full model (drainage), MHHW, Kh 1.0 m/day, the middle case and our choice, for all 12 rises
+  (`tools/fetch-cosmos-gw.py`, `tools/build-cosmos-gw.mjs`, `data/raw/cosmos-gw/`,
+  `data/hazard/cosmos-gw-*.bits`, `cosmos-gw.json`), and C22. A groundwater depth is not a flood
+  depth and not a water level. The City's Rincon screening (F19) uses the same model.
 
 ## Claims from the 2026-11-03 outside review (checked 2026-11-03)
 

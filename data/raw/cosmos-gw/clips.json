@@ -1,0 +1,187 @@
+{
+ "scenarios": {
+  "slr000": {
+   "slrM": 0.0,
+   "file": "wtbins_slr000.json.gz",
+   "source": "Alameda_mhhw_noghb_slr0p00m_Kh1p0mday_wtbins.shp",
+   "features": 765,
+   "featuresByFbin": {
+    "-1": 2,
+    "0": 56,
+    "1": 251,
+    "2": 337,
+    "5": 97,
+    "6": 22
+   }
+  },
+  "slr025": {
+   "slrM": 0.25,
+   "file": "wtbins_slr025.json.gz",
+   "source": "Alameda_mhhw_noghb_slr0p25m_Kh1p0mday_wtbins.shp",
+   "features": 726,
+   "featuresByFbin": {
+    "-1": 1,
+    "0": 62,
+    "1": 251,
+    "2": 283,
+    "5": 108,
+    "6": 21
+   }
+  },
+  "slr050": {
+   "slrM": 0.5,
+   "file": "wtbins_slr050.json.gz",
+   "source": "Alameda_mhhw_noghb_slr0p50m_Kh1p0mday_wtbins.shp",
+   "features": 722,
+   "featuresByFbin": {
+    "-1": 4,
+    "0": 64,
+    "1": 242,
+    "2": 298,
+    "5": 94,
+    "6": 20
+   }
+  },
+  "slr075": {
+   "slrM": 0.75,
+   "file": "wtbins_slr075.json.gz",
+   "source": "Alameda_mhhw_noghb_slr0p75m_Kh1p0mday_wtbins.shp",
+   "features": 714,
+   "featuresByFbin": {
+    "-1": 1,
+    "0": 71,
+    "1": 240,
+    "2": 286,
+    "5": 96,
+    "6": 20
+   }
+  },
+  "slr100": {
+   "slrM": 1.0,
+   "file": "wtbins_slr100.json.gz",
+   "source": "Alameda_mhhw_noghb_slr1p00m_Kh1p0mday_wtbins.shp",
+   "features": 712,
+   "featuresByFbin": {
+    "-1": 2,
+    "0": 73,
+    "1": 222,
+    "2": 295,
+    "5": 102,
+    "6": 18
+   }
+  },
+  "slr125": {
+   "slrM": 1.25,
+   "file": "wtbins_slr125.json.gz",
+   "source": "Alameda_mhhw_noghb_slr1p25m_Kh1p0mday_wtbins.shp",
+   "features": 698,
+   "featuresByFbin": {
+    "-1": 11,
+    "0": 70,
+    "1": 213,
+    "2": 291,
+    "5": 94,
+    "6": 19
+   }
+  },
+  "slr150": {
+   "slrM": 1.5,
+   "file": "wtbins_slr150.json.gz",
+   "source": "Alameda_mhhw_noghb_slr1p50m_Kh1p0mday_wtbins.shp",
+   "features": 672,
+   "featuresByFbin": {
+    "-1": 13,
+    "0": 77,
+    "1": 169,
+    "2": 311,
+    "5": 85,
+    "6": 17
+   }
+  },
+  "slr175": {
+   "slrM": 1.75,
+   "file": "wtbins_slr175.json.gz",
+   "source": "Alameda_mhhw_noghb_slr1p75m_Kh1p0mday_wtbins.shp",
+   "features": 671,
+   "featuresByFbin": {
+    "-1": 9,
+    "0": 69,
+    "1": 179,
+    "2": 319,
+    "5": 80,
+    "6": 15
+   }
+  },
+  "slr200": {
+   "slrM": 2.0,
+   "file": "wtbins_slr200.json.gz",
+   "source": "Alameda_mhhw_noghb_slr2p00m_Kh1p0mday_wtbins.shp",
+   "features": 687,
+   "featuresByFbin": {
+    "-1": 10,
+    "0": 89,
+    "1": 177,
+    "2": 320,
+    "5": 76,
+    "6": 15
+   }
+  },
+  "slr250": {
+   "slrM": 2.5,
+   "file": "wtbins_slr250.json.gz",
+   "source": "Alameda_mhhw_noghb_slr2p50m_Kh1p0mday_wtbins.shp",
+   "features": 715,
+   "featuresByFbin": {
+    "-1": 19,
+    "0": 117,
+    "1": 191,
+    "2": 299,
+    "5": 74,
+    "6": 15
+   }
+  },
+  "slr300": {
+   "slrM": 3.0,
+   "file": "wtbins_slr300.json.gz",
+   "source": "Alameda_mhhw_noghb_slr3p00m_Kh1p0mday_wtbins.shp",
+   "features": 617,
+   "featuresByFbin": {
+    "-1": 5,
+    "0": 55,
+    "1": 192,
+    "2": 273,
+    "5": 76,
+    "6": 16
+   }
+  },
+  "slr500": {
+   "slrM": 5.0,
+   "file": "wtbins_slr500.json.gz",
+   "source": "Alameda_mhhw_noghb_slr5p00m_Kh1p0mday_wtbins.shp",
+   "features": 489,
+   "featuresByFbin": {
+    "-1": 4,
+    "0": 54,
+    "1": 121,
+    "2": 229,
+    "5": 66,
+    "6": 15
+   }
+  }
+ },
+ "note": "USGS CoSMoS-GW: Befus, K.M., Hoover, D.J., Barnard, P.L., and Erikson, L.H., 2020, Projected responses of the coastal water table for California using present-day and future sea-level rise scenarios: U.S. Geological Survey data release, https://doi.org/10.5066/P9H5PBXP. Alameda County package, MHHW marine boundary condition, full model (groundwater reaching the surface removed), Kh = 1.0 m/day, polygons clipped to the explorer grid extent plus 20 m. fbin_m: -1 marine inundation (below MHHW + sea level rise), 0 emergent (water table at or above the ground surface), 1 = 0-1 m, 2 = 1-2 m, 5 = 2-5 m, 6 = deeper than 5 m below the ground surface. Horizontal NAD83(NSRS2007) UTM zone 10N; vertical NAVD88 (metadata). SOURCE_NOTES H7.",
+ "item": "https://www.sciencebase.gov/catalog/item/5bd9f318e4b0b3fc5cec20ed",
+ "zip": "https://www.sciencebase.gov/catalog/file/get/5bd9f318e4b0b3fc5cec20ed?name=Alameda_MHHW.zip",
+ "zipBytes": 110031701,
+ "conductivity": "Kh 1.0 m/day (middle of 0.1, 1.0, 10; no best estimate named)",
+ "model": "full model (noghb, not linresponse)",
+ "marineBoundary": "MHHW",
+ "window": {
+  "xmin": 558876,
+  "xmax": 563376,
+  "ymin": 4188252,
+  "ymax": 4195540
+ },
+ "retrieved": "2026-11-03",
+ "licence": "Metadata: \"USGS-authored or produced data and information are in the public domain from the U.S. Government and are freely redistributable with proper metadata and source attribution. Please recognize and acknowledge the U.S. Geological Survey and the University of Wyoming as the originators of the dataset and in products derived from these data.\""
+}
