@@ -854,8 +854,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   (2.0 m, 100-year storm) and 14.21 (2.0 m, background tide); at 5 m it covers all of the transfer station. At 5 m the fill matches at 22.3–23.55 ft NAVD88 (94%, every storm); a first run searched only to 16.5 ft and reported that edge as the best match (Codex review, PR 8).
   The fill crosses at 13.35 (C6) and ART at + 96 in (C1). CoSMoS's surface is a total water level, so it does
   not test the still-water threshold directly, and its handling of the freeway embankment is not documented;
-  C6 stays a question for the Caltrans profile. Closest ART maps: 1.0–2.0 m + 100-year match ART + 66 in at
-  43–59%; 5 m matches + 108 in at 73–75%. Recorded as found in the published files: the 20-year storm
+  C6 stays a question for the Caltrans profile. Closest ART maps, among all ten levels (`node tools/cosmos-report.mjs`):
+  1.0 and 1.25 m + 100-year match ART + 66 in (46% and 59%); 1.5, 1.75 and 2.0 m + 100-year match
+  + 84 in (70%, 72%, 68%); 5 m matches + 108 in at 73–75%. A first run, before the + 48, + 77 and
+  + 84 in layers were stored, put 1.0–2.0 m at + 66 in (Codex review, PR 8). Recorded as found in the published files: the 20-year storm
   floods more Berkeley land than the 100-year at 0.75–2.0 m of rise (2.0 m: 85.0 vs 78.8 ha); the modeled
   water surface does not rise steadily with the storm (2.0 m: background 14.21, 100-year 13.82 ft NAVD88);
   and the extent polygons cover more land than the depth rasters (0 m + 100-year, ground 2.0–2.5 m NAVD88:
