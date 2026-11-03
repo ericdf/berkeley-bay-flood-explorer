@@ -1,5 +1,5 @@
 {
-  "note": "Inputs for the \"What's exposed\" panel (docs/design/mitigations.md; Eric's decisions E6-E8). Sites point at data/sites-checked.json by id, or at a mapped place in data/facilities.json by label. 'kind' is what a flood could carry off: 'in use' (materials stored or handled now) or 'in ground' (contamination in soil or groundwater). 'verified' is false where the description is a research agent's reading of the state databases, not re-read here (C15). Business and public facility names only.",
+  "note": "Inputs for the \"What's exposed\" panel (docs/design/mitigations.md; Eric's decisions E6-E8). Sites point at data/sites-checked.json by id, or at a mapped place in data/facilities.json by label. 'kind' is what a flood could carry off: 'in use' (materials stored or handled now) or 'in ground' (contamination in soil or groundwater). 'verified' is true where the description was checked against the State record (C18); false would mark a research agent's reading not yet re-read. Business and public facility names only.",
   "sites": [
     {
       "id": "transfer-station",
@@ -51,9 +51,9 @@
       "kinds": [
         "in ground"
       ],
-      "verified": false,
-      "holds": "Solvents in groundwater (research agent's reading of GeoTracker T10000011080).",
-      "refs": "C15",
+      "verified": true,
+      "holds": "Chlorinated solvents (TCE, DCE, vinyl chloride) and gasoline-range hydrocarbons in soil, shallow groundwater and soil vapor, in fill under a former traffic-sign plant; the Water Board believes the solvents detected in 2019 come from off the site. Case open, eligible for closure since April 2022 (GeoTracker T10000011080).",
+      "refs": "C15, C18",
       "choices": [
         "contain",
         "remove"
@@ -66,9 +66,9 @@
         "in use",
         "in ground"
       ],
-      "verified": false,
-      "holds": "An operating boatyard; lead and copper in surface soil, case open (research agent's reading of GeoTracker T10000001877).",
-      "refs": "C15",
+      "verified": true,
+      "holds": "A boatyard; lead and copper in surface and near-surface soil, found by 2008 after a City Parks complaint and on the waterfront in 2009; stormwater collection and filtering were added. Case open, in site assessment since July 2020 (GeoTracker T10000001877). Whether the boatyard operates now is not in the case record.",
+      "refs": "C15, C18",
       "choices": [
         "floodproof",
         "move",
@@ -83,9 +83,9 @@
         "in use",
         "in ground"
       ],
-      "verified": false,
-      "holds": "An operating plant; an open case for PCE and fuels (research agent's reading of GeoTracker T10000009006).",
-      "refs": "C15",
+      "verified": true,
+      "holds": "PCE, diesel and gasoline in groundwater and soil vapor, found in 2016 during tank investigations; groundwater treatment injections began by 2020. Case open, in verification monitoring since July 2023 (GeoTracker T10000009006). Whether the plant operates now is not in the case record.",
+      "refs": "C15, C18",
       "choices": [
         "floodproof",
         "move",
@@ -99,9 +99,9 @@
       "kinds": [
         "in ground"
       ],
-      "verified": false,
-      "holds": "PCBs, lead and other metals under long-term management (research agent's reading of GeoTracker SL0600164054).",
-      "refs": "C15",
+      "verified": true,
+      "holds": "PCBs, lead and other metals in soil and groundwater. The 1998 cleanup dug out 4,600 cubic yards of shallow soil at 17 locations across the park; Water Board Order 98-072 requires ongoing risk management, including shoreline erosion control, with annual inspections. Case open, long-term management (GeoTracker SL0600164054, which covers the park in Berkeley, Albany and Richmond).",
+      "refs": "C15, C18",
       "choices": [
         "contain",
         "remove"
@@ -113,9 +113,9 @@
       "kinds": [
         "in ground"
       ],
-      "verified": false,
-      "holds": "Solvents in groundwater; two tanks closed in place under slabs (research agent's reading of GeoTracker SL0600172262).",
-      "refs": "C15",
+      "verified": true,
+      "holds": "A black ink plant from 1900 to 2004. Lead, kerosene and other petroleum; volatile organic compounds remain in groundwater in the northeast corner. The 2005-06 cleanup removed 19,000 tons of soil and about 370,000 gallons of groundwater; two possibly leaking tanks were closed in place under slabs of historic buildings. Case open, eligible for closure since October 2021 (GeoTracker SL0600172262).",
+      "refs": "C15, C18",
       "choices": [
         "contain",
         "remove"
@@ -127,9 +127,9 @@
       "kinds": [
         "in ground"
       ],
-      "verified": false,
-      "holds": "About 1.5 million tons of waste with no engineered base liner, behind levees built 1957-1968 (Water Board order R2-2010-0064, per the research agent; T5). A still-water level does not describe its hazard: waves and Bay water on its edges, groundwater in the waste.",
-      "refs": "T5, C15",
+      "verified": true,
+      "holds": "About 1.5 million tons of residential, commercial and industrial waste, placed from 1961 to 1983 directly on Bay Mud with no engineered base liner, inside perimeter levees built 1957-1968 and armored with riprap in the late 1970s (Water Board tentative order, February 2010, p. 2). Water Board staff reported investigations showing the leachate is not in hydraulic connection to the Bay (staff summary, April 14, 2010). A still-water level does not describe its hazard: waves and Bay water on its edges, groundwater in the waste.",
+      "refs": "T5, C15, C18",
       "stillWaterNotApplicable": true,
       "choices": [
         "contain",
