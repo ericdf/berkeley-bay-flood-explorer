@@ -1,0 +1,1348 @@
+{
+ "scenarios": {
+  "slr000_w000": {
+   "slrM": 0.0,
+   "storm": "w000",
+   "extentFile": "extent_slr000_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr000_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 6363,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr000.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr000_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr000_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr000_w001": {
+   "slrM": 0.0,
+   "storm": "w001",
+   "extentFile": "extent_slr000_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr000_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 7962,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr000.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr000_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr000_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr000_w020": {
+   "slrM": 0.0,
+   "storm": "w020",
+   "extentFile": "extent_slr000_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr000_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 16189,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr000.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr000_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr000_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr000_w100": {
+   "slrM": 0.0,
+   "storm": "w100",
+   "extentFile": "extent_slr000_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr000_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 13641,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr000.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr000_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr000_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr000_wkt": {
+   "slrM": 0.0,
+   "storm": "wkt",
+   "extentFile": "extent_slr000_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr000_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 10172,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr000.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT"
+  },
+  "slr025_w000": {
+   "slrM": 0.25,
+   "storm": "w000",
+   "extentFile": "extent_slr025_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr025_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 9212,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr025.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr025_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr025_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr025_w001": {
+   "slrM": 0.25,
+   "storm": "w001",
+   "extentFile": "extent_slr025_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr025_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 10792,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr025.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr025_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr025_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr025_w020": {
+   "slrM": 0.25,
+   "storm": "w020",
+   "extentFile": "extent_slr025_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr025_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 27718,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr025.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr025_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr025_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr025_w100": {
+   "slrM": 0.25,
+   "storm": "w100",
+   "extentFile": "extent_slr025_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr025_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 26353,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr025.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr025_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr025_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr025_wkt": {
+   "slrM": 0.25,
+   "storm": "wkt",
+   "extentFile": "extent_slr025_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr025_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 11690,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr025.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT"
+  },
+  "slr050_w000": {
+   "slrM": 0.5,
+   "storm": "w000",
+   "extentFile": "extent_slr050_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr050_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 11537,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr050.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr050_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr050_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr050_w001": {
+   "slrM": 0.5,
+   "storm": "w001",
+   "extentFile": "extent_slr050_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr050_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 13686,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr050.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr050_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr050_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr050_w020": {
+   "slrM": 0.5,
+   "storm": "w020",
+   "extentFile": "extent_slr050_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr050_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 53133,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr050.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr050_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr050_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr050_w100": {
+   "slrM": 0.5,
+   "storm": "w100",
+   "extentFile": "extent_slr050_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr050_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 47531,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr050.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr050_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr050_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr050_wkt": {
+   "slrM": 0.5,
+   "storm": "wkt",
+   "extentFile": "extent_slr050_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr050_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 15617,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr050.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT"
+  },
+  "slr075_w000": {
+   "slrM": 0.75,
+   "storm": "w000",
+   "extentFile": "extent_slr075_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr075_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 15012,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr075.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr075_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr075_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr075_w001": {
+   "slrM": 0.75,
+   "storm": "w001",
+   "extentFile": "extent_slr075_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr075_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 25037,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr075.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr075_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr075_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr075_w020": {
+   "slrM": 0.75,
+   "storm": "w020",
+   "extentFile": "extent_slr075_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr075_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 84821,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr075.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr075_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr075_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr075_w100": {
+   "slrM": 0.75,
+   "storm": "w100",
+   "extentFile": "extent_slr075_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr075_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 81317,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr075.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT",
+   "wseFile": "wse_slr075_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr075_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr075_wkt": {
+   "slrM": 0.75,
+   "storm": "wkt",
+   "extentFile": "extent_slr075_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr075_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 33973,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr075.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:52 GMT"
+  },
+  "slr100_w000": {
+   "slrM": 1.0,
+   "storm": "w000",
+   "extentFile": "extent_slr100_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr100_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 29771,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr100.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:53 GMT",
+   "wseFile": "wse_slr100_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr100_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr100_w001": {
+   "slrM": 1.0,
+   "storm": "w001",
+   "extentFile": "extent_slr100_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr100_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 39647,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr100.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:53 GMT",
+   "wseFile": "wse_slr100_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr100_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr100_w020": {
+   "slrM": 1.0,
+   "storm": "w020",
+   "extentFile": "extent_slr100_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr100_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 113747,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr100.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:53 GMT",
+   "wseFile": "wse_slr100_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr100_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr100_w100": {
+   "slrM": 1.0,
+   "storm": "w100",
+   "extentFile": "extent_slr100_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr100_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 105725,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr100.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:53 GMT",
+   "wseFile": "wse_slr100_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr100_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr100_wkt": {
+   "slrM": 1.0,
+   "storm": "wkt",
+   "extentFile": "extent_slr100_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr100_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 52825,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr100.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:53 GMT"
+  },
+  "slr125_w000": {
+   "slrM": 1.25,
+   "storm": "w000",
+   "extentFile": "extent_slr125_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr125_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 51448,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr125.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:56 GMT",
+   "wseFile": "wse_slr125_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr125_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr125_w001": {
+   "slrM": 1.25,
+   "storm": "w001",
+   "extentFile": "extent_slr125_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr125_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 64238,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr125.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:56 GMT",
+   "wseFile": "wse_slr125_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr125_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr125_w020": {
+   "slrM": 1.25,
+   "storm": "w020",
+   "extentFile": "extent_slr125_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr125_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 157691,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr125.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:56 GMT",
+   "wseFile": "wse_slr125_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr125_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr125_w100": {
+   "slrM": 1.25,
+   "storm": "w100",
+   "extentFile": "extent_slr125_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr125_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 144126,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr125.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:56 GMT",
+   "wseFile": "wse_slr125_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr125_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr125_wkt": {
+   "slrM": 1.25,
+   "storm": "wkt",
+   "extentFile": "extent_slr125_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr125_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 84222,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr125.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:56 GMT"
+  },
+  "slr150_w000": {
+   "slrM": 1.5,
+   "storm": "w000",
+   "extentFile": "extent_slr150_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr150_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 88780,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr150.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:57 GMT",
+   "wseFile": "wse_slr150_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr150_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr150_w001": {
+   "slrM": 1.5,
+   "storm": "w001",
+   "extentFile": "extent_slr150_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr150_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 91044,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr150.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:57 GMT",
+   "wseFile": "wse_slr150_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr150_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr150_w020": {
+   "slrM": 1.5,
+   "storm": "w020",
+   "extentFile": "extent_slr150_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr150_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 250953,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr150.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:57 GMT",
+   "wseFile": "wse_slr150_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr150_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr150_w100": {
+   "slrM": 1.5,
+   "storm": "w100",
+   "extentFile": "extent_slr150_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr150_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 225965,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr150.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:57 GMT",
+   "wseFile": "wse_slr150_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr150_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr150_wkt": {
+   "slrM": 1.5,
+   "storm": "wkt",
+   "extentFile": "extent_slr150_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr150_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 105485,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr150.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:47:57 GMT"
+  },
+  "slr175_w000": {
+   "slrM": 1.75,
+   "storm": "w000",
+   "extentFile": "extent_slr175_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr175_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 112723,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr175.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:02 GMT",
+   "wseFile": "wse_slr175_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr175_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr175_w001": {
+   "slrM": 1.75,
+   "storm": "w001",
+   "extentFile": "extent_slr175_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr175_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 111919,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr175.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:02 GMT",
+   "wseFile": "wse_slr175_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr175_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr175_w020": {
+   "slrM": 1.75,
+   "storm": "w020",
+   "extentFile": "extent_slr175_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr175_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 302296,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr175.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:02 GMT",
+   "wseFile": "wse_slr175_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr175_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr175_w100": {
+   "slrM": 1.75,
+   "storm": "w100",
+   "extentFile": "extent_slr175_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr175_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 277991,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr175.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:02 GMT",
+   "wseFile": "wse_slr175_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr175_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr175_wkt": {
+   "slrM": 1.75,
+   "storm": "wkt",
+   "extentFile": "extent_slr175_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr175_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 148517,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr175.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:02 GMT"
+  },
+  "slr200_w000": {
+   "slrM": 2.0,
+   "storm": "w000",
+   "extentFile": "extent_slr200_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr200_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 152379,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr200.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:03 GMT",
+   "wseFile": "wse_slr200_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr200_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr200_w001": {
+   "slrM": 2.0,
+   "storm": "w001",
+   "extentFile": "extent_slr200_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr200_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 212812,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr200.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:03 GMT",
+   "wseFile": "wse_slr200_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr200_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr200_w020": {
+   "slrM": 2.0,
+   "storm": "w020",
+   "extentFile": "extent_slr200_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr200_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 346176,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr200.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:03 GMT",
+   "wseFile": "wse_slr200_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr200_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr200_w100": {
+   "slrM": 2.0,
+   "storm": "w100",
+   "extentFile": "extent_slr200_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr200_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 325717,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr200.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:03 GMT",
+   "wseFile": "wse_slr200_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr200_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr200_wkt": {
+   "slrM": 2.0,
+   "storm": "wkt",
+   "extentFile": "extent_slr200_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr200_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 246573,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr200.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:03 GMT"
+  },
+  "slr500_w000": {
+   "slrM": 5.0,
+   "storm": "w000",
+   "extentFile": "extent_slr500_w000.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr500_w000.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 1121335,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr500.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:05 GMT",
+   "wseFile": "wse_slr500_w000.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr500_w000.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr500_w001": {
+   "slrM": 5.0,
+   "storm": "w001",
+   "extentFile": "extent_slr500_w001.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr500_w001.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 1122203,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr500.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:05 GMT",
+   "wseFile": "wse_slr500_w001.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr500_w001.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr500_w020": {
+   "slrM": 5.0,
+   "storm": "w020",
+   "extentFile": "extent_slr500_w020.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr500_w020.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 1180833,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr500.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:05 GMT",
+   "wseFile": "wse_slr500_w020.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr500_w020.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr500_w100": {
+   "slrM": 5.0,
+   "storm": "w100",
+   "extentFile": "extent_slr500_w100.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr500_w100.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 1178835,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr500.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:05 GMT",
+   "wseFile": "wse_slr500_w100.i16.gz",
+   "wseSource": "county_alameda_waterelev_slr500_w100.tif",
+   "wse": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 20.0,
+    "width": 224,
+    "height": 363,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   }
+  },
+  "slr500_wkt": {
+   "slrM": 5.0,
+   "storm": "wkt",
+   "extentFile": "extent_slr500_wkt.bits.gz",
+   "depthSource": "county_alameda_flddepth_slr500_wkt.tif",
+   "depth": {
+    "xmin": 558892.4796,
+    "ymax": 4195523.0018,
+    "resolution": 2.0,
+    "width": 2233,
+    "height": 3627,
+    "nodata": "-9999",
+    "geoKeys": "NAD83 / UTM zone 10N|NAD83"
+   },
+   "depthCells": 1148790,
+   "zip": "https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr500.zip",
+   "zipLastModified": "Sat, 12 Mar 2022 01:48:05 GMT"
+  }
+ },
+ "note": "USGS CoSMoS v2.1 San Francisco Bay flood projections, Alameda County package, clipped to the explorer grid extent. Downloaded from Our Coast, Our Future (Point Blue Conservation Science and USGS). Extent: cells of the flood depth raster that carry a depth (OCOF: \"projected flood depth assuming the underlying DEM topography\"), 2 m bits; wse: water surface elevation, mm NAVD88 (OCOF: \"water surface elevation relative to NAVD88\"), every 10th 2 m cell. Horizontal: NAD83 UTM zone 10N; vertical NAVD88 (OCOF v2.x metadata). SOURCE_NOTES H1.",
+ "page": "https://data.pointblue.org/apps/ocof2_flood_map/download_data",
+ "retrieved": "2026-11-03",
+ "licence": "USGS product; no licence stated in the package. USGS-authored data are U.S. public domain; OCOF asks users to cite (ourcoastourfuture.org/about/#cite)."
+}

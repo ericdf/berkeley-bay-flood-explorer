@@ -117,6 +117,19 @@ function draw(res, baseRes, plan) {
       if (on(i) && (!on(i - 1) || !on(i + 1) || !on(i - W) || !on(i + W))) { p[i * 4] = 255; p[i * 4 + 1] = 255; p[i * 4 + 2] = 255; }
     }
   }
+  // Published USGS CoSMoS map (sourced layer, H1): the inside edge, two cells (8 m) wide, in cyan,
+  // for the sea level rise and storm the reader chose; it does not follow the level.
+  const cs = cosmosChoice(), cm = $('showCosmos').checked && cs && cosmosMasks[cs.file];
+  if (cm) {
+    const on = (k) => (cm[k >> 3] >> (k & 7)) & 1, B = 2;
+    for (let r = B; r < H - B; r++) for (let c = B; c < W - B; c++) {
+      const i = r * W + c;
+      if (!on(i)) continue;
+      let edge = false;
+      for (let d = 1; d <= B && !edge; d++) edge = !on(i - d) || !on(i + d) || !on(i - d * W) || !on(i + d * W);
+      if (edge) { p[i * 4] = 0; p[i * 4 + 1] = 229; p[i * 4 + 2] = 255; }
+    }
+  }
   // The State's Tsunami Hazard Area (sourced layer, H6): the inside edge, four cells (16 m) wide,
   // in magenta, so it reads at the whole-map view.
   if ($('showTsunami').checked && D.tsunami) {
@@ -282,6 +295,22 @@ function tsunamiShare(k) {
   return tsunamiShares[k];
 }
 
+// USGS CoSMoS scenarios (data/hazard/cosmos.json, H1): the one chosen with the two selects, and its
+// mask, fetched when first shown.
+const cosmosMasks = {};
+function cosmosChoice() {
+  if (!D.cosmos) return null;
+  return D.cosmos.scenarios.find(s => String(s.slrM) === $('cosmosSlr').value && s.storm === $('cosmosStorm').value) || null;
+}
+async function loadCosmosMask() {
+  const s = cosmosChoice();
+  if (s && $('showCosmos').checked && !cosmosMasks[s.file]) cosmosMasks[s.file] = new Uint8Array(await fetch(`data/hazard/${s.file}`).then(r => { if (!r.ok) throw new Error(s.file); return r.arrayBuffer(); }));
+}
+function cosmosText(s) {
+  const ws = s.waterSurface ? `; CoSMoS's water surface over the Bay off Berkeley is ${fmt(s.waterSurface.medianFt, 1)} ft NAVD88 (median; a modeled total water level, not still water)` : '';
+  return `CoSMoS: ${s.label}, ${fmt(s.cosmosHa, 1)} ha of Berkeley land flooded${ws}. This explorer's still-water fill matches its extent best at ${fmt(s.bestMatch.levelFt, 2)} ft NAVD88 (${fmt(100 * s.bestMatch.agreement)}% agreement; derived, SOURCE_NOTES H1).`;
+}
+
 function nearestArt(levelFt) {
   if (!D.art) return null;
   let best = null;
@@ -315,6 +344,7 @@ function render(levelFt, sc) {
     kingKelvin: 'A hypothetical combination with no established likelihood', y10Kelvin: 'A hypothetical combination with no established likelihood' };
   stamp = [`${sc ? sc.label : 'Level chosen with the slider'}: ${lvText} (level: ${sc ? sc.category : 'chosen'})${extras.length ? ', ' + extras.join(', ') : ''}`,
     ...(sc && QUAL[sc.id] ? [QUAL[sc.id]] : []),
+    ...($('showCosmos').checked && cosmosChoice() ? [`Cyan outline: USGS CoSMoS v2.1, ${cosmosChoice().label}; a published map with waves, not still water, and not tied to the level`] : []),
     'Not a flood forecast: an educational comparison on bare-earth lidar',
     `Berkeley Bay Flood Explorer · ${new Date().toISOString().slice(0, 10)} · ${SITE_URL}`];
   draw(res, baseRes, plan);
@@ -322,6 +352,8 @@ function render(levelFt, sc) {
   const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft NAVD88`}</li>`;
   const art = nearestArt(levelFt);
   $('artNote').textContent = D.art ? (art ? `Nearest ART level: MHHW + ${art.inches} in, about ${fmt(art.levelFt, 1)} ft NAVD88 (SOURCE_NOTES H5).` : '') : 'ART map not loaded.';
+  const cs = cosmosChoice();
+  $('cosmosNote').textContent = D.cosmos ? (cs ? cosmosText(cs) : '') : 'CoSMoS map not loaded.';
   const row = (label, a, b, unit, d = 1) => `<tr><td>${label}</td><td class="n">${fmt(a, d)} ${unit}</td>${plan ? `<td class="n">${fmt(b, d)} ${unit}</td>` : ''}</tr>`;
   const B = baseRes || res;
   const drainWs = Object.entries(res.drainHa).filter(([, v]) => v >= 0.05).map(([k, v]) => `${esc(k)} ${fmt(v, 1)} ha`).join(', ');
@@ -459,6 +491,13 @@ function planPanel(rerender) {
   base = shade(D);
   if (D.art) await Promise.all(D.art.levels.map(async l => { artMasks[l.file] = new Uint8Array(await fetch(`data/hazard/${l.file}`).then(r => r.arrayBuffer())); }));
   else $('showArt').disabled = true;
+  // USGS CoSMoS (H1): the scenario list now, each scenario's mask when first shown.
+  D.cosmos = await fetch('data/hazard/cosmos.json').then(r => r.ok ? r.json() : null).catch(() => null);
+  if (D.cosmos) {
+    const STORMS = { w000: 'Background tide, no storm', w001: 'Annual storm', w020: '20-year storm', w100: '100-year storm', wkt: 'King tide' };
+    $('cosmosSlr').innerHTML = [...new Set(D.cosmos.scenarios.map(s => s.slrM))].map(m => `<option value="${m}">${fmt(m, 2)} m (${fmt(m / 0.3048, 1)} ft)</option>`).join('');
+    $('cosmosStorm').innerHTML = Object.entries(STORMS).filter(([k]) => D.cosmos.scenarios.some(s => s.storm === k)).map(([k, t]) => `<option value="${k}"${k === 'w100' ? ' selected' : ''}>${t}</option>`).join('');
+  } else for (const id of ['showCosmos', 'cosmosSlr', 'cosmosStorm']) $(id).disabled = true;
   analyze(D, 6); // computes D.water0 once
   const list = $('scenarios');
   // Scenarios by group (data/scenarios.json "group"), in the order the groups first appear.
@@ -477,6 +516,12 @@ function planPanel(rerender) {
     if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; show(Number($('level').value), null); }); }
   });
   $('showArt').addEventListener('change', () => render(levelNow, scNow));
+  for (const id of ['showCosmos', 'cosmosSlr', 'cosmosStorm']) $(id).addEventListener('change', async () => {
+    let failed = false;
+    try { await loadCosmosMask(); } catch (e) { failed = true; $('showCosmos').checked = false; }
+    render(levelNow, scNow);
+    if (failed) $('cosmosNote').textContent = 'CoSMoS map not loaded.';
+  });
   if (!D.tsunami) $('showTsunami').disabled = true;
   $('showTsunami').addEventListener('change', () => render(levelNow, scNow));
   planPanel(() => render(levelNow, scNow));

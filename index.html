@@ -82,6 +82,10 @@
     </div>
     <label class="row"><input id="showArt" type="checkbox"> Outline the published ART map at the nearest level</label>
     <p class="src" id="artNote"></p>
+    <label class="row"><input id="showCosmos" type="checkbox"> Outline the published USGS CoSMoS map <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#00e5ff;vertical-align:-1px"></span></label>
+    <div class="row" style="flex-wrap:wrap"><label>Sea level rise <select id="cosmosSlr"></select></label> <label>Storm <select id="cosmosStorm"></select></label></div>
+    <p class="src">A published hazard layer, USGS CoSMoS v2.1 (San Francisco Bay, 2014): a model of total water levels driven by tides, storms with in-Bay waves and ocean swell, river flow and sea level rise, so it includes waves and is not still water. Each scenario is a sea level rise plus a storm, not a water level, so the outline does not follow the level above. Not a flood forecast (SOURCE_NOTES H1).</p>
+    <p class="src" id="cosmosNote"></p>
     <label class="row"><input id="showTsunami" type="checkbox"> Outline the State's tsunami hazard area <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ff2dc8;vertical-align:-1px"></span></label>
     <p class="src">Drawn by the State for tsunami evacuation planning; it combines the largest tsunamis considered for the area. It is an area to leave when a warning is issued, not a flood depth or a forecast, and it does not change with the water level above (SOURCE_NOTES H6).</p>
     <h2>Rain on this tide</h2>

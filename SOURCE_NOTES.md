@@ -828,6 +828,26 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   is disconnected in both through + 84 in and is counted apart (C9). Reproduce with
   `node tools/compare-art-dc.mjs`.
 
+- **C21. Terrain against USGS CoSMoS v2.1 (H1).** For each CoSMoS scenario, the still-water level at
+  which the connected fill best matches CoSMoS's flooded extent on Berkeley land (both / either, as C1;
+  levels 6.0–16.5 ft NAVD88 in 0.05 ft steps; derived). With the 100-year storm: 1.25 m of rise 63% at
+  12.40 ft, 1.5 m 70% at 13.15, 1.75 m 71% at 13.35, 2.0 m 68% at 13.35; 1.0 m 47% at 11.20; 0–0.75 m
+  13–45%, where CoSMoS floods 1.4–14 ha and keeps dry the North Basin shoreline strip (37.8749 N,
+  122.3089 W) and the west edge of Aquatic Park that the fill wets. The Marina agrees: at 1.5 m + 100-year,
+  DoubleTree grounds 83% in CoSMoS and 89% in the fill, Marina Blvd 93% and 98%. CoSMoS floods none of the
+  transfer station, Second St, Bolivar Dr, Eastshore Hwy or the I-80 corridor at 37.8812 N, 122.3073 W in
+  any scenario up to 2.0 m, though its water surface over the Bay off Berkeley reaches 13.82 ft NAVD88
+  (2.0 m, 100-year storm) and 14.21 (2.0 m, background tide); at 5 m it covers all of the transfer station.
+  The fill crosses at 13.35 (C6) and ART at + 96 in (C1). CoSMoS's surface is a total water level, so it does
+  not test the still-water threshold directly, and its handling of the freeway embankment is not documented;
+  C6 stays a question for the Caltrans profile. Closest ART maps: 1.0–2.0 m + 100-year match ART + 66 in at
+  43–59%; 5 m matches + 108 in at 73–75%. Recorded as found in the published files: the 20-year storm
+  floods more Berkeley land than the 100-year at 0.75–2.0 m of rise (2.0 m: 85.0 vs 78.8 ha); the modeled
+  water surface does not rise steadily with the storm (2.0 m: background 14.21, 100-year 13.82 ft NAVD88);
+  and the extent polygons cover more land than the depth rasters (0 m + 100-year, ground 2.0–2.5 m NAVD88:
+  4,525 vs 2,330 2 m cells), which the explorer uses. Reproduce with
+  `node tests/check.mjs` and `node tools/cosmos-report.mjs`.
+
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
@@ -965,10 +985,30 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
 
 ## Hazard data and press (read 2026-11-02)
 
-- **H1.** USGS Coastal Storm Modeling System (CoSMoS) v3.1, Central California including
-  San Francisco Bay: flood depth and duration for sea level rise of 0, 0.25, 0.5, 0.75,
-  1.0, 1.5, 2.0, 2.5, 3.0 and 5.0 m with background tide, 1-, 20- and 100-year storms;
-  downloadable from ScienceBase. Candidate hazard layer. Not yet downloaded.
+- **H1. USGS Coastal Storm Modeling System (CoSMoS) v2.1, San Francisco Bay (read 2026-11-03).**
+  The Bay is CoSMoS v2.1 (completed June 2014), not v3.1: v3.1 (https://doi.org/10.5066/P9NUO62B) covers
+  the outer coast from Point Conception to the Golden Gate. v2.1 is published only through Our Coast, Our
+  Future (Point Blue and USGS), with no USGS metadata ("we do not have any official metadata", OCOF
+  download instructions, Sept 2025). Alameda County zips,
+  `https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr<cm>.zip` (download page
+  https://data.pointblue.org/apps/ocof2_flood_map/download_data; Last-Modified 2022-03-12; retrieved
+  2026-11-03): sea level rise of 0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0 and 5.0 m, each with
+  background tide, annual, 20-year and 100-year storms and a king tide; 2 m flood depth and water surface
+  rasters ("water surface elevation relative to NAVD88"), NAD83 UTM 10N, "vertical datum NAVD88 (in m)".
+  What it models (USGS project page "CoSMoS 2.1: San Francisco Bay", read only through a summarizing
+  fetch, so paraphrased and not quoted; the page refused direct download): Delta and tributary storm
+  discharge, in-Bay wind waves from downscaled global climate model winds, and ocean swell in the
+  Central Bay, with sea level rise. A total water level, not
+  still water; whether the mapped surface includes wave setup or runup, and the year of the 0 m baseline,
+  are not stated in what was read. Its water surface over the open Bay inside the City limits at 0 m is
+  7.43 ft NAVD88 with the background tide and 9.33 with the 100-year storm (median; point 518 still water:
+  1-year 7.43, 100-year 9.73, W11). No licence stated; USGS work, cited as OCOF asks.
+  The City republishes three of the extent layers (`CoSMoS_SLR_100_Year_Storm_Event`, ArcGIS item
+  0f210be8efe149c9ad99387dbe04447b, created 2026-01-12, D4); not used.
+  Used for: the second published check on the connected fill (C21) and an outline on the map, off by
+  default, chosen by sea level rise and storm, never tied to the explorer's level
+  (`tools/fetch-cosmos.py`, `tools/build-cosmos.mjs`, `data/hazard/cosmos*.bits`, `cosmos.json`). The
+  explorer uses the depth rasters' extent; the extent polygons reach further (C21).
 - **H2.** A BCDC comment letter found while searching (CEQAnet 301888) refers to the
   Belmont Creek watershed and OneShoreline, which are in San Mateo County; it belongs to a
   different project and is not used.

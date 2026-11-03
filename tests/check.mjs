@@ -169,5 +169,44 @@ if (fs.existsSync('data/hazard/art.json')) {
     console.log(`${String(l.inches).padStart(6)}  ${l.levelFt.toFixed(2).padStart(5)} ${ha(a)}  ${ha(o)}  ${ha(b)}  ${ha(a - b)}  ${ha(o - b)}    ${(a + o - b ? 100 * b / (a + o - b) : 100).toFixed(0)}%`);
   }
 }
+// 9. USGS CoSMoS v2.1 (SOURCE_NOTES H1; tools/build-cosmos.mjs). Every scenario's mask fits the
+//    grid; the flooded area never shrinks as sea level rise grows, for a given storm; the stored
+//    best-matching still water level reproduces with the page's analysis, and nearby levels match no
+//    better; CoSMoS does not reach the transfer station with up to 2 m of rise and a 100-year storm,
+//    and covers it at 5 m.
+if (fs.existsSync('data/hazard/cosmos.json')) {
+  const cos = JSON.parse(fs.readFileSync('data/hazard/cosmos.json'));
+  const inB = (i) => (D.berkeley[i >> 3] >> (i & 7)) & 1;
+  const masks = {};
+  for (const s of cos.scenarios) masks[s.id] = new Uint8Array(fs.readFileSync(`data/hazard/${s.file}`));
+  ok(cos.scenarios.length >= 45 && cos.scenarios.every(s => masks[s.id].length === Math.ceil(D.dem.width * D.dem.height / 8)), `${cos.scenarios.length} CoSMoS masks match the terrain grid`);
+  ok(/not still water/.test(cos.note) && cos.provenance.category === 'sourced', 'cosmos.json says CoSMoS is not still water and carries its provenance');
+  for (const st of ['w000', 'w001', 'w020', 'w100', 'wkt']) {
+    const ha = cos.scenarios.filter(s => s.storm === st).sort((a, b) => a.slrM - b.slrM).map(s => s.cosmosHa);
+    ok(ha.every((v, k) => !k || v >= ha[k - 1]), `CoSMoS ${st}: Berkeley land flooded grows with sea level rise (${ha.join(', ')} ha)`);
+  }
+  const agreeAt = (m, lv) => {
+    const r = analyze(D, lv); let a = 0, o = 0, b = 0;
+    for (let i = 0; i < r.state.length; i++) {
+      if (!inB(i) || D.water0[i]) continue;
+      const A = (m[i >> 3] >> (i & 7)) & 1, O = isW(r.state[i]);
+      if (A) a++; if (O) o++; if (A && O) b++;
+    }
+    return a + o - b ? b / (a + o - b) : 1;
+  };
+  for (const id of ['slr100_w100', 'slr150_w100', 'slr200_w100']) {
+    const s = cos.scenarios.find(x => x.id === id), lv = s.bestMatch.levelFt, ag = agreeAt(masks[id], lv);
+    ok(Math.abs(ag - s.bestMatch.agreement) < 0.002, `${id}: agreement ${(100 * ag).toFixed(1)}% at ${lv} ft NAVD88, as stored`);
+    ok(agreeAt(masks[id], lv - 0.5) <= ag + 1e-9 && agreeAt(masks[id], lv + 0.5) <= ag + 1e-9, `${id}: 0.5 ft below or above ${lv} ft NAVD88 matches no better`);
+  }
+  for (const s of cos.scenarios.filter(x => x.storm === 'w100' && x.slrM >= 1.25 && x.slrM <= 2)) ok(s.bestMatch.agreement >= 0.55, `${s.id}: best agreement ${(100 * s.bestMatch.agreement).toFixed(0)}%, at least 55%, a floor under the 63-71% recorded`);
+  const k = D.facilities.findIndex(f => /Transfer station/.test(f.label)), tc = D.facilityCells[k].cells;
+  const share = (id) => tc.filter(i => (masks[id][i >> 3] >> (i & 7)) & 1).length / tc.length;
+  ok(cos.scenarios.filter(s => s.slrM <= 2).every(s => share(s.id) === 0), 'CoSMoS reaches none of the transfer station with up to 2 m of sea level rise, any storm');
+  ok(share('slr500_w100') > 0.9, `CoSMoS 5 m + 100-year storm covers ${(100 * share('slr500_w100')).toFixed(0)}% of the transfer station`);
+  console.log('\nCoSMoS comparison on Berkeley land: ours = connected fill at the best-matching still water level (derived)');
+  console.log('scenario      CoSMoS ha  water surface off Berkeley (ft NAVD88, median)  best level  ours ha  CoSMoS only  ours only  agreement');
+  for (const s of cos.scenarios) console.log(`${s.id.padEnd(12)} ${String(s.cosmosHa).padStart(9)}  ${(s.waterSurface ? s.waterSurface.medianFt.toFixed(2) : 'n/a').padStart(46)}  ${s.bestMatch.levelFt.toFixed(2).padStart(10)}  ${String(s.bestMatch.oursHa).padStart(7)}  ${String(s.bestMatch.cosmosOnlyHa).padStart(11)}  ${String(s.bestMatch.oursOnlyHa).padStart(9)}  ${(100 * s.bestMatch.agreement).toFixed(0).padStart(8)}%`);
+}
 console.log(fail ? `\n${fail} check(s) failed` : '\nall checks passed');
 process.exit(fail ? 1 : 0);
