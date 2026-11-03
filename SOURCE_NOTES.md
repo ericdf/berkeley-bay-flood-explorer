@@ -201,11 +201,13 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   berms and trench drains around the plastic and glass sorting areas. That page refused
   automated access (a browser check); its terms are from a search summary, not read here, and
   whether the agreement was entered as a court consent decree is not established.
-  What it bears on: the complaint was about ordinary rain runoff from the working site, not
-  flooding. It shows the site's stormwater already carries metals to the Bay in ordinary
-  storms, and that its controls (berms, trench drains, capture) are sized for rain falling on
-  the site, not for Bay water or a rain pool standing on it (C6, C12, F7, F8). Used for: the
-  environmental consequence behind E4. Not used: Baykeeper's 2026 ruling on creek pollution
+  What the sources establish: the complaint was about ordinary rain runoff from the working
+  site, not flooding, and alleged that the site's stormwater carried pollutants above state
+  limits for five years. What we infer, not established: controls built for rain falling on the
+  site (berms, trench drains, capture) may not hold when Bay water or a rain pool stands on it,
+  as the explorer shows can happen (C6, C12, F7, F8). No source read gives the controls' design
+  capacity or assesses them under flooding; their flood performance is unconfirmed. Used for:
+  the environmental consequence behind E4, as context. Not used: Baykeeper's 2026 ruling on creek pollution
   (Maven's Notebook, 2026-04-02), which concerns Sunnyvale and Mountain View, not Berkeley.
   Berkeley's sewers are under a separate consent decree (F15).
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
