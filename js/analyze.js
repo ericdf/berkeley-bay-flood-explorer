@@ -68,7 +68,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
   const raised = raisedEdges(D, plan);
   const segs = [], overWater = [];
   for (const e of streets.edges) {
-    const s = sampleLine(e.geom, state, z, dem, water0, 4, rainRes ? D.rainSurface : null);
+    const s = sampleLine(e.geom, state, z, dem, water0, 4, rainRes ? D.rainSurface : null, crest);
     if (s.n === 0) continue;
     // A segment whose line crosses water in the terrain (the open Bay, or a lagoon below mean sea
     // level such as Aquatic Park) is a bridge, a causeway the grid misses, or a street drawn across

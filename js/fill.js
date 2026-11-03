@@ -48,8 +48,9 @@ export function openWater(zcm, W, H) {
 
 // Sample a street's geometry (grid meters) every `step` meters; returns the share of samples in
 // each state, the lowest ground elevation (ft) along it, and, given the rain-pool surface raster
-// (cm NAVD88, js/rain.js), the deepest pooled rain on it (ft).
-export function sampleLine(geom, state, zcm, meta, water0, step = 4, rainSurface = null) {
+// (cm NAVD88, js/rain.js), the deepest pooled rain on it (ft), measured above the plan's crest where
+// the plan raises the ground (crest: js/plan.js raster or null), as the rain pools are.
+export function sampleLine(geom, state, zcm, meta, water0, step = 4, rainSurface = null, crest = null) {
   let n = 0, wet = 0, low = 0, drain = 0, rain = 0, water = 0, minFt = Infinity, rainDepthCm = 0;
   for (let k = 1; k < geom.length; k++) {
     const [x0, y0] = geom[k - 1], [x1, y1] = geom[k];
@@ -59,7 +60,7 @@ export function sampleLine(geom, state, zcm, meta, water0, step = 4, rainSurface
       const c = Math.floor(x / meta.resolution), r = Math.floor((meta.ymax - meta.ymin - y) / meta.resolution);
       if (c < 0 || r < 0 || c >= meta.width || r >= meta.height) continue;
       const i = r * meta.width + c; n++;
-      if (state[i] === WET || state[i] === 3) wet++; else if (state[i] === LOW) low++; else if (state[i] === 4) drain++; else if (state[i] === 5) { rain++; if (rainSurface) rainDepthCm = Math.max(rainDepthCm, rainSurface[i] - zcm[i]); }
+      if (state[i] === WET || state[i] === 3) wet++; else if (state[i] === LOW) low++; else if (state[i] === 4) drain++; else if (state[i] === 5) { rain++; if (rainSurface) rainDepthCm = Math.max(rainDepthCm, rainSurface[i] - (crest && crest[i] > zcm[i] ? crest[i] : zcm[i])); }
       if (zcm[i] !== -32768) minFt = Math.min(minFt, zcm[i] / 30.48);
       if (water0[i] || (zcm[i] !== -32768 && zcm[i] < MSL_FT * 30.48)) water++; // open Bay, or a lagoon below mean sea level
     }

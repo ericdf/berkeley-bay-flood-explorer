@@ -87,6 +87,12 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   const mix = analyze(D, 12, null, { ari: '10', duration: '6-hr', blocked: 0.1 });
   const e158 = mix.segs.find(x => x.e.id === 158);
   ok(e158 && e158.cls !== 'low', `a street flooded by rain and drains together is counted (Bancroft Way edge 158: ${e158 ? e158.cls : 'missing'})`);
+  // Street rain depth is measured above the plan's ground, as the pools are (Codex example: a 10.5 ft
+  // NAVD88 wall drawn along Virginia St edge 329).
+  const e329 = D.streets.edges.find(e => e.id === 329);
+  const onWall = analyze(D, 7.4, { ...gates, walls: [{ label: 'test wall', crestFt: 10.5, lines: [e329.geom] }] }, { ari: '10', duration: '6-hr', blocked: 0.1 });
+  const v329 = onWall.segs.find(x => x.e.id === 329);
+  ok(v329 && v329.depthFt != null && v329.depthFt <= 0.34, `street rain depth uses the plan's ground (Virginia St edge 329 on a 10.5 ft wall: ${v329 && v329.depthFt != null ? v329.depthFt.toFixed(2) : 'not pooled'} ft, at most 0.33 above the wall's crest)`);
   const r10 = analyze(D, 7.4, gates, { ari: '10', duration: '6-hr', blocked: 0.1 });
   ok(r10.streets.some(s => s.name === '2ND ST' && s.cls === 'rain'), '10-year 6-hour storm, 10% held back: Second St under pooled rain (Draft EIR F8)');
 }
