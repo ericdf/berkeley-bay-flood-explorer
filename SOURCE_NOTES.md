@@ -335,6 +335,27 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   - 13.4 is also about where this explorer's fill first reaches these flats over the surface
     (13.35, C6): a floor at 13.4 sits at the threshold, not above a margin.
   Not read: the BKF assessment, the Caltrans interchange study, Section 4.9 (hazards).
+- **F19. The City's groundwater-rise screening of contaminated sites (read 2026-11-03; found by a
+  research agent asked by Eric for "other industrial sites of concern").** Rincon Consultants for
+  the City of Berkeley, *Groundwater Rise and Contaminated Site Analysis*, February 2025, 46 pp.
+  (https://berkeleyca.gov/sites/default/files/2026-06/Ground%20Water%20Analysis%20Report%202025-02.pdf).
+  PDF page numbers.
+  - PDF p. 10: "High Priority – projected GWR [groundwater rise] at a contaminated site is at the
+    ground surface (marine inundation, emergent groundwater) or within 6 feet (approximately 2
+    meters) of the ground surface"; it assumes every site adjoins a sewer, storm drain or other
+    utility corridor. PDF p. 11: "this is a screening analysis".
+  - PDF pp. 11 and 13: 427 contaminated sites (open and closed) from GeoTracker and EnviroStor;
+    under current conditions "100 are ranked as high priority, 100 as medium priority, and 227 as
+    low priority".
+  - Table 1, among others: Former Pacific Steel Casting (cleanup program, "OPEN - INACTIVE"; and
+    DTSC "VOLUNTARY AGREEMENT ACTIVE"), groundwater "0 m; emergent", High Priority now and at both
+    rises. City of Berkeley Transfer Station, 1201 Second St, "SINGLE-WALLED UST",
+    "SWT-NO PLAN RETURNED", "0 m; emergent", High Priority (PDF p. 36). "KAISER BIOMEDICAL
+    FACILITY", 1795 Second St, a closed leaking-tank case, "0 m; emergent", Low Priority
+    (PDF p. 40).
+  What it covers and what it does not: rising groundwater under today's level and two rises
+  (0.8 and 2.5 ft). It does not consider Bay water over the surface, Bay water through the storm
+  drains, trapped rain, or what operating plants store; that is what this explorer adds (C15).
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
@@ -631,6 +652,27 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     9.73: the illustrative experiment puts that watershed's pool there.
   Not checked: whether Kaiser has a newer Berkeley project; searches on 2026-11-03 found none
   after the 2021 building.
+  Across Second St, a closed leaking-tank case at "KAISER BIOMEDICAL FACILITY", 1795 Second St,
+  has groundwater "0 m; emergent" in the City's screening (F19).
+
+- **C15. Industrial and contaminated sites against the fill (derived, 2026-11-03).** Sites from a
+  research agent's search of the state and federal databases (working list kept outside the
+  repository; its database details are not re-read here except as F14–F19 record), checked like
+  C14: ground within 30 m of the database point, a site counting once 25% of that ground is
+  affected, outfalls assumed open for the drain column.
+  - On ground the explorer floods: former Pacific Steel (GeoTracker point; ground 9.8–12.3 ft
+    NAVD88; drains from 11.03, Bay from 13.4); 1255 Eastshore Hwy, solvents in groundwater per the
+    database (10.7–12.0; drains from 12, Bay from 13.4, 19% under the rain pool in the 10-year
+    experiment); Berkeley Marine Center boatyard, 1 Spinnaker Way, open lead and copper case
+    (median 13.3; Bay from 12.83); Terminal Manufacturing, 707 Gilman St, open PCE case (12.6–15.7;
+    Bay from 14.53); Eastshore State Park shoreline parcels (14.6–16.2; Bay from 16.23); Ravago /
+    Pacific Coast Chemicals, 2424 Fourth St, an operating distributor (15.2–17.3; Bay from 16.23).
+  - Not reached by any scenario (ground 18 ft NAVD88 or higher): former Flint Ink, 750 Gilman St;
+    WRE/Colortech, 1225 Sixth St; Peerless Lighting site, Fourth St; Electro-Coatings, 893 Carleton
+    St; Bayer, 800 Dwight Way. Rising groundwater (F19) is their exposure, not surface flooding.
+  - The former Berkeley Landfill under César Chávez Park: the database point is on the park's top
+    (about 52 ft). A still-water fill does not describe its hazard, which is waves and Bay water on
+    its shoreline edges and groundwater in the waste; not assessed here.
 
 ## Hazard data and press (read 2026-11-02)
 
