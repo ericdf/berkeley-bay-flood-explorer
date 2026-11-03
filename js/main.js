@@ -1,6 +1,6 @@
 // Berkeley Bay Flood Explorer: page logic. Loads the data files, runs the connected fill for the
 // chosen level and plan (js/analyze.js), and draws the map and results.
-import { analyze, FLANKED, DRAIN } from './analyze.js';
+import { analyze, FLANKED, DRAIN, RAIN } from './analyze.js';
 import { WET, LOW } from './fill.js';
 
 const $ = (id) => document.getElementById(id);
@@ -22,13 +22,14 @@ const REFS = [
 async function load() {
   const j = (p) => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
   const b = (p) => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.arrayBuffer(); });
-  const [dem, zbuf, streets, fac, facCells, scen, bits, art, drains, wsIds, plans] = await Promise.all([
+  const [dem, zbuf, streets, fac, facCells, scen, bits, art, drains, wsIds, plans, atlas, imp] = await Promise.all([
     j('data/terrain/dem.json'), b('data/terrain/dem.i16'), j('data/streets.json'), j('data/facilities.json'),
     j('data/facility-cells.json'), j('data/scenarios.json'), b('data/terrain/berkeley.bits'),
     j('data/hazard/art.json').catch(() => null), j('data/drains.json'), b('data/hazard/watersheds.u8'), j('data/plans.json'),
+    j('data/raw/noaa/atlas14-berkeley.json'), j('data/raw/nlcd/impervious-by-watershed.json'),
   ]);
   return { dem, z: new Int16Array(zbuf), streets, facilities: fac.facilities, facilityCells: facCells, scenarios: scen.scenarios,
-    berkeley: new Uint8Array(bits), art, drains, watershedIds: new Uint8Array(wsIds), plans: plans.presets };
+    berkeley: new Uint8Array(bits), art, drains, watershedIds: new Uint8Array(wsIds), plans: plans.presets, atlas, impervious: imp.watersheds };
 }
 
 function shade(D) {
@@ -46,7 +47,7 @@ function shade(D) {
 
 let D, base, canvas, ctx, artMasks = {};
 // The plan the reader has built: preset ids, tide gates, and walls they drew.
-const ui = { presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7 };
+const ui = { presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null };
 
 function currentPlan() {
   const plan = { walls: [], roads: [], gates: {} };
@@ -63,9 +64,9 @@ function currentPlan() {
 function draw(res, baseRes, plan) {
   const { dem } = D, W = dem.width, H = dem.height;
   const img = new ImageData(new Uint8ClampedArray(base), W, H), p = img.data, s = res.state;
-  const wet = [47, 127, 214], low = [224, 138, 30], fl = [139, 63, 184], sea = [15, 39, 71], drain = [38, 178, 160], kept = [70, 200, 90];
+  const wet = [47, 127, 214], low = [224, 138, 30], fl = [139, 63, 184], sea = [15, 39, 71], drain = [38, 178, 160], kept = [70, 200, 90], rainc = [123, 92, 255];
   for (let i = 0; i < s.length; i++) {
-    let col = D.water0[i] ? sea : s[i] === WET ? wet : s[i] === FLANKED ? fl : s[i] === LOW ? low : s[i] === DRAIN ? drain : null;
+    let col = D.water0[i] ? sea : s[i] === WET ? wet : s[i] === FLANKED ? fl : s[i] === LOW ? low : s[i] === DRAIN ? drain : s[i] === RAIN ? rainc : null;
     if (!col && baseRes && isWet(baseRes.state[i])) col = kept; // wet with no plan, dry with this plan
     if (col) { p[i * 4] = col[0]; p[i * 4 + 1] = col[1]; p[i * 4 + 2] = col[2]; }
   }
@@ -83,7 +84,7 @@ function draw(res, baseRes, plan) {
   const path = (pts) => { ctx.beginPath(); pts.forEach((q, k) => { const [x, y] = toPx(q); k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); };
   ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   for (const e of D.streets.edges) { path(e.geom); ctx.strokeStyle = e.freeway ? 'rgba(255,255,255,.55)' : 'rgba(255,255,255,.28)'; ctx.lineWidth = e.freeway ? 3 : 1.5; ctx.stroke(); }
-  for (const sg of res.segs) { path(sg.e.geom); ctx.strokeStyle = sg.cls === 'wet' ? '#d22' : sg.cls === 'drain' ? '#0e8f7e' : '#f0a020'; ctx.lineWidth = 4; ctx.stroke(); }
+  for (const sg of res.segs) { path(sg.e.geom); ctx.strokeStyle = sg.cls === 'wet' ? '#d22' : sg.cls === 'rain' ? '#5a3fd6' : sg.cls === 'drain' ? '#0e8f7e' : '#f0a020'; ctx.lineWidth = 4; ctx.stroke(); }
   for (const f of D.facilityCells) for (const poly of f.outline) { path(poly[0]); ctx.closePath(); ctx.strokeStyle = '#ffe14d'; ctx.lineWidth = 2.5; ctx.stroke(); }
   // The plan: walls and raised roads in black over white, so they read on any color.
   if (plan) {
@@ -116,11 +117,11 @@ const title = (n) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase())
 
 function render(levelFt, sc) {
   const plan = currentPlan();
-  const res = analyze(D, levelFt, plan);
-  const baseRes = plan ? analyze(D, levelFt, null) : null;
+  const res = analyze(D, levelFt, plan, ui.rain);
+  const baseRes = plan ? analyze(D, levelFt, null, ui.rain) : null;
   draw(res, baseRes, plan);
   const bStreets = res.streets.filter(s => s.berkeley), oStreets = res.streets.filter(s => !s.berkeley);
-  const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, lowest ground ${fmt(s.minFt, 1)} ft</li>`;
+  const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft`}</li>`;
   const art = nearestArt(levelFt);
   $('artNote').textContent = D.art ? (art ? `Nearest ART level: MHHW + ${art.inches} in, about ${fmt(art.levelFt, 1)} ft NAVD88 (SOURCE_NOTES H5).` : '') : 'ART map not loaded.';
   const row = (label, a, b, unit, d = 1) => `<tr><td>${label}</td><td class="n">${fmt(a, d)} ${unit}</td>${plan ? `<td class="n">${fmt(b, d)} ${unit}</td>` : ''}</tr>`;
@@ -139,27 +140,34 @@ function render(levelFt, sc) {
       ${plan ? '<tr><th></th><th class="n">No plan</th><th class="n">Your plan</th></tr>' : ''}
       ${row('Ground under water (connected to the Bay)', B.wetLandHa, res.wetLandHa, 'ha')}
       ${row('&nbsp;&nbsp;of which reached only through Albany or Emeryville land', B.flankedHa, res.flankedHa, 'ha')}
+      ${ui.rain ? row('Ground under pooled rain', B.rainLandHa, res.rainLandHa, 'ha') : ''}
       ${row('Low ground that can fill through the storm drains', B.drainLandHa, res.drainLandHa, 'ha')}
       ${row('Low ground not connected, even through drains', B.lowLandHa, res.lowLandHa, 'ha')}
       ${row('Streets under water', B.wetStreetM / 1000, res.wetStreetM / 1000, 'km', 2)}
+      ${ui.rain ? row('Streets under pooled rain', B.rainStreetM / 1000, res.rainStreetM / 1000, 'km', 2) : ''}
       ${row('Streets that can flood through drains', B.drainStreetM / 1000, res.drainStreetM / 1000, 'km', 2)}
       ${row('Streets on low ground, not connected', B.lowStreetM / 1000, res.lowStreetM / 1000, 'km', 2)}
     </table>
+    ${res.rain ? `<h2>Rain on this tide <span class="cat">derived</span></h2>
+    <p class="src">${fmt(res.rain.depthIn, 2)} in of rain (NOAA Atlas 14, ${esc(ui.rain.ari)}-year, ${esc(ui.rain.duration.replace('-hr', ' hours'))}), ${fmt(100 * ui.rain.blocked)}% of the runoff unable to drain. Each watershed's runoff pools at its lowest inlet: one pool per watershed, so depth there is overstated and smaller ponds elsewhere are missed.</p>
+    <table><tr><th>Watershed</th><th class="n">Runoff share</th><th class="n">Water</th><th class="n">Pool surface</th><th class="n">Area</th></tr>
+    ${res.rain.pools.map(p => `<tr><td>${esc(p.watershed)}</td><td class="n">${fmt(p.runoffShare, 2)}</td><td class="n">${fmt(p.volumeM3 / 1000)}k m³</td><td class="n">${fmt(p.levelFt, 1)} ft${p.spilledToBay ? '<br>spills to the Bay' : ''}</td><td class="n">${fmt(p.berkeleyLandHa, 1)} ha</td></tr>`).join('')}</table><p class="src">Area: Berkeley land under the pool, not counting the Aquatic Park lagoon.</p>` : ''}
     ${drainWs ? `<p class="src">Through the drains, by City watershed: ${drainWs}. ${ui.gates ? '' : 'Tide gates: status unknown, shown open (an upper bound).'}</p>` : ''}
     <h2>Places <span class="cat">derived</span></h2>
-    <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft</td></tr>`).join('')}</table>
+    <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${ui.rain ? `${fmt(100 * f.rainShare)}% under pooled rain<br>` : ''}${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft</td></tr>`).join('')}</table>
     <h2>Berkeley streets <span class="cat">derived</span></h2>
     ${bStreets.filter(s => s.cls === 'wet').length ? `<p class="src">Under water:</p><ul>${bStreets.filter(s => s.cls === 'wet').map(li).join('')}</ul>` : '<p class="src">No Berkeley street segment is under water at this level.</p>'}
+    ${bStreets.filter(s => s.cls === 'rain').length ? `<p class="src">Under pooled rain:</p><ul>${bStreets.filter(s => s.cls === 'rain').map(li).join('')}</ul>` : ''}
     ${bStreets.filter(s => s.cls === 'drain').length ? `<p class="src">On low ground that can fill through the storm drains:</p><ul>${bStreets.filter(s => s.cls === 'drain').map(li).join('')}</ul>` : ''}
     ${bStreets.filter(s => s.cls === 'low').length ? `<p class="src">On low ground, not connected (rain decides these):</p><ul>${bStreets.filter(s => s.cls === 'low').map(li).join('')}</ul>` : ''}
-    ${oStreets.length ? `<h2>Outside Berkeley <span class="cat">derived</span></h2><ul>${oStreets.map(s => li(s).replace('</li>', s.cls === 'wet' ? '</li>' : s.cls === 'drain' ? ' (through drains)</li>' : ' (low, not connected)</li>')).join('')}</ul>` : ''}
+    ${oStreets.length ? `<h2>Outside Berkeley <span class="cat">derived</span></h2><ul>${oStreets.map(s => li(s).replace('</li>', s.cls === 'wet' ? '</li>' : s.cls === 'drain' ? ' (through drains)</li>' : s.cls === 'rain' ? ' (pooled rain)</li>' : ' (low, not connected)</li>')).join('')}</ul>` : ''}
     ${res.overWater.length ? `<p class="src">Not counted: ${[...new Set(res.overWater.map(s => esc(s.e.name)))].join(', ')}, whose mapped line crosses water in the terrain (a bridge, or a street drawn across water).</p>` : ''}
     <h2>What this cannot tell you</h2>
     <details open><summary>Limits of the map</summary><ul>
       <li>Still water only. Waves add height on the exposed Marina shoreline (FEMA VE zones, 12 to 14 ft NAVD88).</li>
       <li>No timing or duration: a storm tide lasts hours around high tide.</li>
       <li>"Through the drains" is an upper bound: it assumes every inlet in the watershed connects to an outfall without a tide gate, and that the pipes fill. The City does not publish its pipes, outfalls or tide gates.</li>
-      <li>Rain is not modeled. Second St beside the transfer station floods today in a 10-year rainstorm because the Gilman St storm drain and the Codornices Creek culvert under I-80 are undersized (transfer station Draft EIR, SOURCE_NOTES F7, F8).</li>
+      <li>Rain is modeled only as pools at each watershed's lowest inlet when "Add a rainstorm" is on, with no pipe capacity, timing or overland flow. Second St beside the transfer station floods today in a 10-year rainstorm because the Gilman St storm drain and the Codornices Creek culvert under I-80 are undersized (transfer station Draft EIR, SOURCE_NOTES F7, F8).</li>
       <li>Rising groundwater is not modeled (5 to 10 ft below ground at the transfer station, F6).</li>
       <li>Walls and berms narrower than the 4 m grid may be missed; bare-earth lidar removes bridges and overpasses, so freeway results need Caltrans profiles to confirm.</li>
     </ul></details>
@@ -222,5 +230,11 @@ function planPanel(rerender) {
   });
   $('showArt').addEventListener('change', () => render(levelNow, scNow));
   planPanel(() => render(levelNow, scNow));
+  const rainUpdate = () => {
+    ui.rain = $('rainOn').checked ? { ari: $('rainAri').value, duration: $('rainDur').value, blocked: Number($('rainBlocked').value) } : null;
+    $('rainNote').textContent = ui.rain ? `${D.atlas.depthIn[ui.rain.duration][ui.rain.ari]} in of rain (NOAA Atlas 14, SOURCE_NOTES R1).` : '';
+    render(levelNow, scNow);
+  };
+  for (const id of ['rainOn', 'rainAri', 'rainDur', 'rainBlocked']) $(id).addEventListener('change', rainUpdate);
   pick(current);
 })();

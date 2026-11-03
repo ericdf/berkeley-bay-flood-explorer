@@ -1,7 +1,7 @@
 # Plans (barriers, raised roads, tide gates) and storm drain backup: design note
 
-Status: design note, 2026-11-03. Parts 1 and 2 are built; part 3 is proposed. Sources are
-logged in `SOURCE_NOTES.md` (rows P1–P9, D1–D6); results in C9–C11. The explorer is an educational
+Status: design note, 2026-11-03. Parts 1, 2 and 3 are built. Sources are logged in
+`SOURCE_NOTES.md` (rows P1–P9, D1–D6, R1–R5); results in C9–C12. The explorer is an educational
 comparison tool, not a flood forecast; that holds for every plan here.
 
 ## Summary
@@ -62,23 +62,26 @@ diagonal steps still holds. A raised road stays open when the level is below its
   Strawberry (40), Schoolhouse (27) and Codornices (25) watersheds (D5); they come from the
   winter 2023 rains, not from tides.
 
-## 3. Rain that cannot drain (proposed)
+## 3. Rain that cannot drain (built)
 
-- **Storm.** A design rainstorm from NOAA Atlas 14 for Berkeley (for example the 10-year,
-  6-hour storm the Draft EIR uses for Second St), not yet retrieved.
-- **Runoff.** Rain on each watershed, times a runoff share (assumption; the transfer station
-  site is 98% impervious, F-row to add), routed downhill.
-- **Storage.** While the outfall is below the Bay level (the hours around high tide, from the
-  NOAA prediction), runoff fills the lowest depressions in turn (fill-and-spill). Result:
-  depth and extent of ponding, and which streets and places it reaches.
-- **Check against** Second St flooding in the 10-year storm (F8) and the 2023 work-order
-  counts (D5).
-- **Effort.** About the size of Phase 1. Needs Eric's go-ahead (Needs, 2).
+- **Storm.** NOAA Atlas 14 rain depths for Berkeley (R1): 2-, 10- or 100-year, 6 or 24 hours.
+- **Runoff.** Rain × a runoff share per watershed from its NLCD 2021 imperviousness by the Simple
+  Method (R2, R3) × the share that cannot drain × the watershed's full area, hills included (R4).
+- **Where it goes.** With the outfalls closed by the tide, the drains back up and the water comes
+  out first at the watershed's lowest inlet that is not under Bay water; it fills the ground around
+  that inlet upward, stays inside the watershed and stops rising when it reaches Bay water (R5).
+- **Share that cannot drain.** Stands for how long the tide holds the outfalls shut during the
+  storm. Outfall inverts are not published, so the reader picks 100%, 50%, 25% or 10%.
+- **Check.** Second St beside the transfer station is under pooled rain in every storm and share
+  tested, as the Draft EIR documents for a 10-year storm (F8); `tests/check.mjs` holds that at the
+  smallest share. Results: C12.
+- **Limits.** One pool per watershed overstates depth at the lowest inlet and misses smaller ponds
+  elsewhere; pipe capacity, timing, overland flow between watersheds and infiltration beyond the
+  runoff share are not modeled.
 
 ## Needs
 
 1. **Tide gates.** Which Berkeley outfalls have flap gates or check valves, and their inverts.
    Ask Public Works (Storm Drain unit) or by public records request.
-2. **Go-ahead for part 3** (rain on a high tide).
 3. **The DoubleTree's temporary barriers** that Scott Ferris mentioned (M1): where and how
    high. Until known, a reader can draw them.

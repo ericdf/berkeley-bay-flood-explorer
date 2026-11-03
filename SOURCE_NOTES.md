@@ -316,11 +316,13 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   11.5; Aquatic Park 3.1 (mostly lagoon); César Chávez Park 30.6.
 
 - **C9. Drains change the "low, not connected" picture (D6).** With every outfall open, at
-  this winter's highest tide (7.4 ft NAVD88) 31 ha of Berkeley low ground can fill through the
-  drains (Aquatic Park watershed 25 ha, much of it the lagoon; Derby 6 ha), and Bolivar Dr is on
-  it; at the 100-year level (9.73) 39 ha, with Second St (680 m), Bolivar Dr, Eastshore Hwy and
-  Potter St; at 12 ft 67 ha, including 18% of the transfer station. With tide gates on every
-  outfall, none. An upper bound until the City's outfalls and gates are known.
+  this winter's highest tide (7.4 ft NAVD88) 5.1 ha of Berkeley land can fill through the drains
+  (Aquatic Park watershed 3.0 ha, Derby 2.1 ha), including Bolivar Dr; at the 100-year level (9.73)
+  13.2 ha, with Second St (680 m), Bolivar Dr, Eastshore Hwy and Potter St; at 12 ft 40.4 ha,
+  including 18% of the transfer station. With tide gates on every outfall, none. Land counts leave
+  out the Aquatic Park lagoon (ground below mean sea level, not connected to the Bay); a first
+  version counted it and reported 31, 39 and 67 ha. An upper bound until the City's outfalls and
+  gates are known.
 - **C10. Raised roads (P6, P7).** Spinnaker Way and University Ave west of I-80 raised to 12.7 ft
   NAVD88 keep every Berkeley street segment dry at the City study's 2050 100-year level (10.7),
   Marina Blvd included, because water reached it from University Ave. They are overtopped above
@@ -332,6 +334,44 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   reaches the hotel parking along the harbor, which the 2050 alignment leaves outside. The
   figures do not show how the walls tie into high ground, and the tracing is ±30 m, so this is
   a question to put to the alignment, not a verdict on the study's plan.
+
+## Rain on a high tide: sources (read 2026-11-03)
+
+- **R1.** NOAA Atlas 14, Volume 6 (California), Precipitation Frequency Data Server, point
+  37.870 N, 122.295 W, partial-duration series, depth in inches (`data/raw/noaa/atlas14-berkeley.json`).
+  6-hour storm: 1-year 1.14, 2-year 1.40, 10-year 2.04, 100-year 3.10. 24-hour: 2-year 2.46,
+  10-year 3.76, 100-year 5.93. 60-minute: 10-year 0.783.
+- **R2.** NLCD 2021 percent developed imperviousness (MRLC GeoServer WCS, 30 m), averaged over each
+  City watershed (`tools/fetch-impervious.py`, `data/raw/nlcd/impervious-by-watershed.json`):
+  Gilman 79.2%, Schoolhouse 65.8%, Derby 61.5%, Cerrito 42.9%, Strawberry 40.0%, Aquatic Park
+  39.1%, Marin 36.9%, Codornices 34.6%, Wildcat 15.9%, Temescal 14.6%.
+- **R3.** Runoff share from imperviousness: the Simple Method, Rv = 0.05 + 0.009 × percent
+  impervious (Schueler, *Controlling Urban Runoff*, Metropolitan Washington Council of Governments,
+  1987). Formula from general knowledge; the publication was not re-read here. Gives Gilman 0.76,
+  Schoolhouse 0.64, Derby 0.60, Strawberry 0.41, Aquatic Park 0.40, Codornices 0.36. The Alameda
+  County Flood Control District's Hydrology and Hydraulics Manual (2016) has its own runoff
+  coefficients; its PDF could not be retrieved (the server answered with a script, not the file).
+- **R4.** Watershed areas (`tools/build-drains.mjs`, from D1 in UTM): Derby 9.16 km², Strawberry
+  8.00, Schoolhouse 2.79, Codornices 2.72, Gilman 0.88, Aquatic Park 0.53; most of Derby,
+  Strawberry and Codornices lie east of the map, and their runoff reaches the flats through the
+  same drains.
+- **R5.** Rule (model rule, `js/rain.js`): runoff = rain × runoff share × share that cannot drain
+  × watershed area; it comes up at the watershed's lowest inlet not under Bay water and fills the
+  ground around it upward (one pool per watershed), stays inside the watershed, and stops rising
+  when it reaches Bay water. The share that cannot drain stands for how long the outfalls are
+  closed by the tide during the storm; the City's outfall inverts are not published, so the page
+  offers 100%, 50%, 25% and 10%. Upper bound for the pool's location: real ponding spreads over
+  several low spots.
+- **C12. Rain results (derived).** At this winter's highest tide (7.4 ft) with tide gates on every
+  outfall, a 10-year 6-hour storm (2.04 in) pools on 59.5 ha of Berkeley land with all its runoff
+  held back, 40.8 with half, 30.7 with a quarter and 17.5 with a tenth. Second St is under pooled
+  rain in every case tested, 1.6–1.8 km of it, which matches the Draft EIR's 10-year flooding there
+  (F8); the deepest point on the street is about 3.6 ft, possibly where Codornices Creek crosses.
+  The transfer station is 20–54% under pooled rain across the storms and shares tested. The pools
+  start at the lowest inlets: Gilman and Codornices on Second St beside the transfer station,
+  Aquatic Park and Strawberry on Bolivar Dr, Derby by Eastshore Hwy near Ashby Ave. The amount of
+  ground pooled levels off above about 60–66 ha because the larger pools reach the I-80 corridor
+  and spill to the Bay.
 
 ## Hazard data and press (read 2026-11-02)
 

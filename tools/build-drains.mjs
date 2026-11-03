@@ -25,7 +25,10 @@ ws.forEach((f, k) => {
     xs.sort((a, c) => a - c);
     for (let q = 0; q + 1 < xs.length; q += 2) for (let c = Math.max(0, Math.ceil(xs[q] / R - 0.5)); c < W && (c + 0.5) * R <= xs[q + 1]; c++) ids[r * W + c] = id;
   }
-  out.push({ name: f.properties.NAME, id });
+  // Full watershed area (m2, UTM), including any part outside the map: runoff from the hills reaches
+  // the flats through the same drains (rain on a high tide, js/rain.js).
+  let area = 0; for (const ring of rings) { let a2 = 0; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) a2 += (ring[j][0] + ring[i][0]) * (ring[j][1] - ring[i][1]); area += a2 / 2; }
+  out.push({ name: f.properties.NAME, id, areaM2: Math.round(Math.abs(area)) });
 });
 // Outfall point (derived): the watershed's cell nearest to open water, by a breadth-first distance
 // over the grid (4-neighbor steps of 4 m). Watersheds that end at I-80 or the city line still drain

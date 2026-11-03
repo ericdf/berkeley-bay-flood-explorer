@@ -18,8 +18,9 @@ the ground below the level that the Bay does not reach over the surface, the str
 each, and what happens at the transfer station, the DoubleTree hotel, César Chávez Park
 and Aquatic Park. Plans are built: the City study's floodwalls and raised roads, tide gates
 on the storm drain outfalls, and walls you draw, each compared with no plan at the same level
-([`docs/design/levers-and-drains.md`](docs/design/levers-and-drains.md)). Rain on a high tide
-is designed, not built. Every fact taken from a
+([`docs/design/levers-and-drains.md`](docs/design/levers-and-drains.md)). A rainstorm can be
+added on top of any Bay level: NOAA design storms, runoff from each watershed's imperviousness,
+pooled at its lowest inlet while the tide holds the outfalls shut. Every fact taken from a
 document, with its source, is in [`SOURCE_NOTES.md`](SOURCE_NOTES.md); data in hand and
 still needed is in [`DATA_INVENTORY.md`](DATA_INVENTORY.md).
 
@@ -50,6 +51,9 @@ Port 8767, because the wildfire simulator uses 8766.
 - **Open water**: ground below mean sea level (3.31 ft NAVD88) connected to the Bay.
 - **Through the drains** (model rule, upper bound): in a City watershed whose outfall has no
   tide gate, low ground that holds a storm drain inlet can fill through the pipes.
+- **Rain on a high tide** (`js/rain.js`, model rule, upper bound): NOAA Atlas 14 rain × a runoff
+  share from NLCD imperviousness × the share that cannot drain × the watershed's area, pooled
+  upward from the watershed's lowest inlet.
 - **Plans** (`js/plan.js`, `data/plans.json`): walls and raised roads become crest elevations
   the fill must exceed; tide gates close drain links. Presets come from the City's 2019 Marina
   study; alignments are traced from its figures (about ±30 m) and crests are an assumption.
@@ -61,12 +65,12 @@ Port 8767, because the wildfire simulator uses 8766.
 - **Checks** (`node tests/check.mjs`): sources cited by every scenario exist; the fill is
   monotonic; the City study's 2050 results for Marina Blvd and the DoubleTree hold; and the
   fill is compared, level by level, with the published ART flood maps.
-- `node tools/report.mjs [levels] [--plan walls2050,roads,gates]` prints the results for every
+- `node tools/report.mjs [levels] [--plan walls2050,roads,gates] [--rain 10:6-hr:0.25]` prints the results for every
   scenario, or for given levels, with or without a plan.
 
 Rebuilding the data: `node tools/fetch-dem.mjs`, `node tools/build-streets.mjs
 ../berkeley-wildfire-simulator`, `node tools/build-mask.mjs`, `node tools/build-facilities.mjs`, `node tools/build-drains.mjs`,
-`node tools/build-plans.mjs`,
+`node tools/build-plans.mjs`, `python3 -I tools/fetch-impervious.py`,
 and for the ART layer `python3 -I tools/fetch-art.py` (in a scratch folder) then
 `node tools/build-art.mjs <that folder>`.
 

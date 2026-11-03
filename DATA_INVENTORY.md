@@ -16,6 +16,8 @@ What is in hand, what is still needed, and each dataset's license.
 | City watersheds | `data/raw/city/watersheds.geojson`, rasterized to `data/hazard/watersheds.u8` | City of Berkeley open data (D1) | Ten watersheds; six get drain links (D3). |
 | Storm drain inlets | `data/raw/city/inlets.json`, cells in `data/drains.json` | City of Berkeley open data (D2) | Coordinates only; adoption fields with names not stored. |
 | Storm work orders, Jan–Jun 2023 | `data/raw/city/overflow-counts.json` | City of Berkeley open data (D5) | Counts by watershed only; records name staff and give addresses. |
+| NOAA Atlas 14 rain depths, Berkeley | `data/raw/noaa/atlas14-berkeley.json` | NOAA HDSC Precipitation Frequency Data Server; public domain (R1) | Point estimates, partial-duration series. |
+| NLCD 2021 imperviousness by watershed | `data/raw/nlcd/impervious-by-watershed.json` | MRLC (USGS); public domain (R2) | Watershed means; the raster is not stored. |
 | City study mitigation plans | `data/plans.json` | City 2019 Marina study §5 (P1–P9) | Floodwall alignments traced from Figures 5.7 and 5.8. |
 | Transfer station Draft EIR, §3.9 and Appendix H | not stored (CEQAnet) | City of Berkeley, SCH 2023080733 (F6–F11) | Drainage, groundwater, flood zone, sea level rise finding. |
 
@@ -28,7 +30,8 @@ What is in hand, what is still needed, and each dataset's license.
 | CoSMoS v3.1 flood depth rasters, Alameda County | USGS ScienceBase (public domain) | A second published depth map, with storms of given return periods. |
 | FEMA flood insurance rate map, Berkeley shoreline | FEMA NFHL (public domain) | Zone boundaries; VE vs AE. |
 | Storm drain pipes, outfalls, inverts and tide gates | City of Berkeley Public Works (not in its open data); the 2019 Marina study lists Marina outfall elevations | Which outfalls have tide gates decides the drain results (D6, C9). |
-| Design rainstorm for Berkeley | NOAA Atlas 14 | The proposed rain-on-a-high-tide scenario. |
+| Storm drain outfall inverts and pipe capacities | City of Berkeley Public Works | Replaces the "share that cannot drain" setting with how long the tide holds each outfall shut (R5). |
+| Alameda County Flood Control District Hydrology and Hydraulics Manual (2016) | acfloodcontrol.org | The County's runoff coefficients, to check the Simple Method shares (R3). |
 | Floodwall alignments and tie-ins as drawings | City of Berkeley / the study's consultant | The traced alignments are ±30 m (P9, C11). |
 | Building footprints and floor elevations at the DoubleTree | OpenStreetMap buildings; the City study's figures | To test "three of the Doubletree buildings flood at 10 ½ feet" (M1) building by building. |
 | More facilities: sewer pump stations, hazardous-materials sites, the rail line | City, EBMUD, state databases, Union Pacific | What a level reaches besides streets. |

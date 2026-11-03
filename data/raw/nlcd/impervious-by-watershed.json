@@ -1,0 +1,47 @@
+{
+ "source": "NLCD 2021 Percent Developed Imperviousness (CONUS), MRLC GeoServer WCS, coverage mrlc_download__NLCD_2021_Impervious_L48",
+ "url": "https://www.mrlc.gov/geoserver/ows?service=WCS&version=2.0.1&request=GetCoverage&coverageId=mrlc_download__NLCD_2021_Impervious_L48&subset=X(-2264310,-2254380)&subset=Y(1958670,1967460)&format=image/geotiff",
+ "method": "mean over sample points every 0.0003 degrees (about 30 m) inside each City watershed (data/raw/city/watersheds.geojson)",
+ "watersheds": {
+  "Wildcat": {
+   "imperviousPct": 15.9,
+   "samples": 689
+  },
+  "Strawberry": {
+   "imperviousPct": 40.0,
+   "samples": 9105
+  },
+  "Temescal": {
+   "imperviousPct": 14.6,
+   "samples": 4162
+  },
+  "Aquatic Park": {
+   "imperviousPct": 39.1,
+   "samples": 603
+  },
+  "Schoolhouse": {
+   "imperviousPct": 65.8,
+   "samples": 3181
+  },
+  "Derby": {
+   "imperviousPct": 61.5,
+   "samples": 10413
+  },
+  "Gilman": {
+   "imperviousPct": 79.2,
+   "samples": 1001
+  },
+  "Codornices": {
+   "imperviousPct": 34.6,
+   "samples": 3099
+  },
+  "Cerrito": {
+   "imperviousPct": 42.9,
+   "samples": 628
+  },
+  "Marin": {
+   "imperviousPct": 36.9,
+   "samples": 2978
+  }
+ }
+}

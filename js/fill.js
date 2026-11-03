@@ -49,7 +49,7 @@ export function openWater(zcm, W, H) {
 // Sample a street's geometry (grid meters) every `step` meters; returns the share of samples in
 // each state and the lowest ground elevation (ft) along it.
 export function sampleLine(geom, state, zcm, meta, water0, step = 4) {
-  let n = 0, wet = 0, low = 0, drain = 0, water = 0, minFt = Infinity;
+  let n = 0, wet = 0, low = 0, drain = 0, rain = 0, water = 0, minFt = Infinity;
   for (let k = 1; k < geom.length; k++) {
     const [x0, y0] = geom[k - 1], [x1, y1] = geom[k];
     const L = Math.hypot(x1 - x0, y1 - y0), m = Math.max(1, Math.ceil(L / step));
@@ -58,10 +58,10 @@ export function sampleLine(geom, state, zcm, meta, water0, step = 4) {
       const c = Math.floor(x / meta.resolution), r = Math.floor((meta.ymax - meta.ymin - y) / meta.resolution);
       if (c < 0 || r < 0 || c >= meta.width || r >= meta.height) continue;
       const i = r * meta.width + c; n++;
-      if (state[i] === WET || state[i] === 3) wet++; else if (state[i] === LOW) low++; else if (state[i] === 4) drain++;
+      if (state[i] === WET || state[i] === 3) wet++; else if (state[i] === LOW) low++; else if (state[i] === 4) drain++; else if (state[i] === 5) rain++;
       if (zcm[i] !== -32768) minFt = Math.min(minFt, zcm[i] / 30.48);
       if (water0[i] || (zcm[i] !== -32768 && zcm[i] < MSL_FT * 30.48)) water++; // open Bay, or a lagoon below mean sea level
     }
   }
-  return { n, wetShare: n ? wet / n : 0, lowShare: n ? low / n : 0, drainShare: n ? drain / n : 0, waterSamples: water, minFt };
+  return { n, wetShare: n ? wet / n : 0, lowShare: n ? low / n : 0, drainShare: n ? drain / n : 0, rainShare: n ? rain / n : 0, waterSamples: water, minFt };
 }

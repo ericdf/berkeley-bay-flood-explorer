@@ -54,6 +54,27 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   ok(!r.streets.some(s => s.berkeley && s.cls === 'wet'), 'Spinnaker Way and University Ave raised to 12.7 ft: no Berkeley street under water at 10.7 ft');
 }
 
+// 6. Rain on a high tide (js/rain.js). No runoff held back means no pools; more held back never pools
+//    less; pools never sit on ground already under Bay water; the Gilman and Codornices pools reach
+//    Second St beside the transfer station, where the Draft EIR documents flooding in a 10-year storm (F8).
+{
+  const { planFrom } = await import('../tools/report.mjs');
+  const gates = planFrom(D, 'gates');
+  const none = analyze(D, 7.4, gates, { ari: '10', duration: '6-hr', blocked: 0 });
+  ok(none.rainLandHa === 0, `rain with nothing held back: no pools (${none.rainLandHa.toFixed(1)} ha)`);
+  let prevHa = 0;
+  for (const b of [0.1, 0.25, 0.5, 1]) {
+    const r = analyze(D, 7.4, gates, { ari: '10', duration: '6-hr', blocked: b });
+    ok(r.rainLandHa >= prevHa - 1e-9, `rain held back ${b}: ${r.rainLandHa.toFixed(1)} ha pooled, not less than with less held back`);
+    prevHa = r.rainLandHa;
+  }
+  const bay = analyze(D, 9.73, gates), wr = analyze(D, 9.73, gates, { ari: '10', duration: '6-hr', blocked: 1 });
+  let onBay = 0; for (let i = 0; i < bay.state.length; i++) if (isW(bay.state[i]) && wr.state[i] === 5) onBay++;
+  ok(onBay === 0, `rain pools never cover ground already under Bay water (${onBay} cells)`);
+  const r10 = analyze(D, 7.4, gates, { ari: '10', duration: '6-hr', blocked: 0.1 });
+  ok(r10.streets.some(s => s.name === '2ND ST' && s.cls === 'rain'), '10-year 6-hour storm, 10% held back: Second St under pooled rain (Draft EIR F8)');
+}
+
 if (fs.existsSync('data/hazard/art.json')) {
   const art = JSON.parse(fs.readFileSync('data/hazard/art.json'));
   const inB = (i) => (D.berkeley[i >> 3] >> (i & 7)) & 1;

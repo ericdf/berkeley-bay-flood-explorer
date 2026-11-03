@@ -62,13 +62,21 @@
       <div><span style="background:var(--wet)"></span>Under water: below the level and connected to the Bay</div>
       <div><span style="background:var(--flank)"></span>Under water, reached only through Albany or Emeryville land</div>
       <div><span style="background:#26b2a0"></span>Low ground that can fill through the storm drains</div>
+      <div><span style="background:#7b5cff"></span>Rain that cannot drain, pooled at the low ground</div>
       <div><span style="background:var(--low)"></span>Below the level, not connected even through drains</div>
       <div><span style="background:#46c85a"></span>Kept dry by your plan (wet with no plan)</div>
       <div><span style="background:#111;outline:2px solid #fff"></span>Wall or raised road in your plan</div>
-      <div><span style="background:#d22"></span>Street under water &nbsp;<span style="background:#0e8f7e"></span>through drains &nbsp;<span style="background:#f0a020"></span>low ground</div>
+      <div><span style="background:#d22"></span>Street under water &nbsp;<span style="background:#0e8f7e"></span>through drains &nbsp;<span style="background:#5a3fd6"></span>rain &nbsp;<span style="background:#f0a020"></span>low ground</div>
     </div>
     <label class="row"><input id="showArt" type="checkbox"> Outline the published ART map at the nearest level</label>
     <p class="src" id="artNote"></p>
+    <h2>Rain on this tide</h2>
+    <p class="src">A rainstorm while the Bay is at the level above, with the storm drain outfalls unable to discharge. Each watershed's runoff comes up at its lowest inlet and fills the ground around it (model rule, an upper bound).</p>
+    <label class="row"><input id="rainOn" type="checkbox"> Add a rainstorm</label>
+    <div class="row"><label>Storm <select id="rainAri"><option value="2">2-year</option><option value="10" selected>10-year</option><option value="100">100-year</option></select></label>
+      <select id="rainDur"><option value="6-hr" selected>6 hours</option><option value="24-hr">24 hours</option></select></div>
+    <div class="row"><label>Share that cannot drain <select id="rainBlocked"><option value="1" selected>100% (outfalls closed the whole storm)</option><option value="0.5">50%</option><option value="0.25">25%</option><option value="0.1">10%</option></select></label></div>
+    <p class="src" id="rainNote"></p>
     <h2>Plan</h2>
     <p class="src">What Berkeley controls. A plan changes the ground, never the water; results compare it with no plan at the same level.</p>
     <div id="plan"></div>
