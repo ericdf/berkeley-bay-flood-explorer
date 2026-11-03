@@ -15,9 +15,11 @@ and clean up. That includes options no agency has proposed, such as moving the t
 whose Draft EIR rejected another site without weighing flood exposure (F20). Each option is shown
 with what is known about it (source, cost, who decides) and what is not.
 
-## What the reader sees: a scorecard by E6's measures
+## What the reader sees: "What's exposed", by E6's measures
 
-For the chosen level, plan and rain, a panel lists:
+The panel is titled "What's exposed", not a panel. A score implies points and a ranking, and
+the explorer ranks nothing (Neutrality, below). It has two columns: **Do nothing**, the base case
+(E7), and **Your choices**. For the chosen level, plan and rain, it lists:
 
 1. **Pollutant release.** Each site in `data/sites-checked.json` and each mapped place that takes
    water, and how: Bay water over the surface, through the drains, pooled rain, or inside the
@@ -45,16 +47,16 @@ Each line names its source row. A site with no published record of what it store
 | Protect | A berm around one site (for example, the transfer station) | New | A drawn wall preset to the site's outline | Not published | City or owner |
 | Accommodate | Raise a site's floor or storage to a chosen level | New | Marks the site's materials as kept dry up to that level; the ground still floods | Not published | Owner; City by permit |
 | Accommodate | Flood-proof hazardous materials storage (as Gilman Gateway HYD-4, F18) | New | As above, for stored materials only | Not published | Owner; City as CUPA |
-| Retreat | Move the transfer station | New | Takes the station's operations off the scorecard; its ground and any contamination stay | Not published; the Draft EIR found no site meeting its criteria (F20) | City |
+| Retreat | Close the transfer station and use a regional one, as neighbors with franchised haulers do (F21) | New | Takes the station's operations, its stored waste and the 110+ service vehicles parked there off the panel; its ground and any contamination stay. Shows what the City's records say it would lose: an in-town facility, which E4 and the Draft EIR (F20) count as vital, including for cleanup after a disaster | Not published | City |
 | Retreat | Move an operating hazardous-materials business | New | As above, for that business | Not published | Owner |
 | Clean up | Remove a site's contamination (excavation and off-site disposal, groundwater treatment) | New | Takes the site off the contamination list, as the reader's explicit assumption, beside the case's real status (F17, F19) | Not published | DTSC or the Water Board, with the owner |
 | Clean up | Contain a site's contamination (caps, vapor barriers, land use covenants) | New | Keeps the site on the list, marked "contained", with its controls and their limits: flooding or rising groundwater can defeat a vapor-control system (F17) | Not published | DTSC or the Water Board, with the owner |
 
 Rules:
 - **Retreat does not delete contamination.** Moving an operation removes what it stores. A
-  contaminated site stays on the scorecard until the reader also assumes the contamination is
+  contaminated site stays on the panel until the reader also assumes the contamination is
   removed (E6's table).
-- **Containment is not removal.** A contained site stays on the scorecard, with its controls named
+- **Containment is not removal.** A contained site stays on the panel, with its controls named
   and what can defeat them; only an explicit removal assumption takes it off.
 - **A lever never changes the water.** Protection changes the ground; accommodation and retreat
   change what is exposed; removal changes what the ground carries; containment changes how it is
@@ -67,29 +69,28 @@ Rules:
 ## Neutrality
 
 The explorer shows tradeoffs and does not rank options. Each lever shows:
-- what it changes on the scorecard;
+- what it changes on the panel;
 - what it leaves unchanged;
 - who would have to decide.
 
-Retreat sits beside protection on equal terms; so does doing nothing.
+Retreat sits beside protection on equal terms. Doing nothing is the base case every option is
+compared against, and an option in its own right (E7).
 
 ## Data needed
 
 - **What operating sites store.** Hazardous materials business plans are filed with the City's
   Toxics Management Division (the CUPA) through CERS. The public portion may give the facility
-  list and categories but not quantities. Without it, the scorecard says "not published".
+  list and categories but not quantities. Without it, the panel says "not published".
 - **Costs** of relocation, raising a site, flood-proof storage and cleanup, wherever a public
   document gives them (for example, the Gilman Gateway cleanup's financing argument, F17).
 - **The tsunami mitigation research now running** (the City's after-action report, the hazard
   mitigation plan, hazardous materials planning rules). It may supply existing plans for the
-  scorecard's "what is in place" column.
+  panel's "what is in place" column.
 
 ## Open for Eric
 
-1. Should the scorecard show a site's kind of risk (in use, in the ground) from the research
+1. Should the panel show a site's kind of risk (in use, in the ground) from the research
    agent's reading of the databases, or only rows we have re-read ourselves?
-2. Should doing nothing be its own explicit option, with the scorecard showing today's exposure
-   at the chosen level?
-3. Should moving the transfer station have a sketched destination? A destination would need a
-   real site and its own flood check; without one, the lever only removes the current site's
-   exposure.
+
+Settled (E7): doing nothing is the base case and stays an option; the transfer station lever
+needs no new site, since a regional station can take Berkeley's waste.

@@ -379,6 +379,30 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   over its mapped outline (`node tools/report.mjs`), inside the State's Tsunami Hazard Area (C16), reached by Bay water in this
   explorer at about 13.4 ft (C6), which the State's 2100 High scenario for critical infrastructure
   exceeds (16.23; C13, E4). Retreat for this facility (E6) was not on the table in the EIR.
+- **F21. How the transfer station compares with other cities' arrangements (read 2026-11-03,
+  asked by Eric: "What do other cities do for a transfer station? Do they all have one?").**
+  - City Council work session, 2019-11-05, Item 1, "Solid Waste and Recycling Transfer Station
+    Feasibility Study Presentation" (berkeleyca.gov; 415 PDF pages, the study attached). PDF p. 1:
+    the transfer station at 1201 Second St "opened in 1983, handling both City curbside collected
+    and self-haul refuse"; recycling, run by Community Conservation Centers, moved there in the
+    late 1980s, with a universal waste drop-off. Both concepts park "110+ service vehicles" on the
+    site. PDF p. 105, "Potential Risk Design Factors" from the 1980 EIR: "100-year flood hazard area
+    and impact to critical City waste transfer operations"; also liquefaction and "caustic lime
+    bed areas". PDF p. 31: the designs add "a northerly berm wall to redirect occasional creek
+    surges" from Codornices Creek. The pages searched do not mention sea level rise or tsunami.
+  - PDF p. 107, Table 1, compares Berkeley's fees with three other Bay Area transfer stations:
+    Davis Street (San Leandro), Golden Bear (Richmond) and Shoreway (San Carlos).
+  - WM's Davis Street Transfer Station page (wmnorcalnev.com, read 2026-11-03): the facility is
+    "particularly relevant for residents, contractors and businesses in San Leandro, Oakland,
+    Hayward, Emeryville, Albany and other Alameda County communities"; its trash goes to Altamont
+    Landfill. A marketing page; each city's franchise agreement, not read, would say where its
+    hauler takes waste.
+  What it bears on (inference, ours): Berkeley owns and runs its own transfer station; neighbors
+  whose waste is collected by a franchised hauler rely on a regional, privately run station such
+  as Davis Street. So a city need not have its own, and "retreat" for Berkeley's station need not
+  mean a new Berkeley site (E7). The City's own design record names the flood hazard to "critical
+  City waste transfer operations" (p. 105), which supports E4. Whether Davis Street or Golden Bear
+  are themselves exposed to flooding was not checked; both are outside this explorer's grid.
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
@@ -810,3 +834,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   | Hazardous materials in use (operating sites, the transfer station's hazardous waste) | Yes: moving the operation moves what it stores | Flood-proof storage (as Gilman Gateway HYD-4, F18), shut-down plans |
   | Contamination already in the ground (Pacific Steel, plating plumes, the landfill) | No, unless paired with cleanup: leaving a site leaves its pollutants, and nobody maintains its controls | Excavation, containment, monitoring (F17) |
   | Critical services | Yes, for facilities that can move, such as the transfer station (F20) | Raise, protect or gate what cannot move: I-80, frontage roads, sewer mains |
+- **E7. No new site needed; doing nothing is the base case (2026-11-03).** Eric: "We do not have to
+  find an alternative location for a transfer station." Retreat for the transfer station can mean
+  closing it and using a regional transfer station, as neighbors with franchised haulers do (F21);
+  the lever does not require a sketched destination. "Do nothing is the base case and definitely
+  worth keeping": every comparison starts from today's arrangements at the chosen level, and doing
+  nothing stays an option the reader can choose. Applied in `docs/design/mitigations.md`.
