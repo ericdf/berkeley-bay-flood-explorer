@@ -224,6 +224,32 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   Used for: the environmental consequence behind E4, as context. Not used: Baykeeper's 2026
   ruling on creek pollution (Maven's Notebook, 2026-04-02), which concerns Sunnyvale and Mountain
   View, not Berkeley. Berkeley's sewers are under a separate consent decree (F15).
+- **F16. Two more Berkeley Baykeeper settlements, beside the transfer station.** San Francisco
+  Baykeeper, "Baykeeper's Legal Action to Clean Up Industrial Pollution"
+  (https://baykeeper.org/baykeepers-legal-action-to-clean-up-industrial-pollution/; refused
+  automated access; Eric saved it as a 31-page PDF and supplied it, 2026-11-03). Its Berkeley
+  entries are the transfer station (p. 10, as in F14) and:
+  - **Pacific Steel Casting Company** (p. 24): "Toxic brownish water will no longer gush toward
+    San Francisco Bay from Pacific Steel Casting Company in Berkeley, as a result of Baykeeper's
+    successful Clean Water Act lawsuit"; "the fourth largest steel foundry in the U.S., agreed in
+    June 2013 to stop its rainy-season runoff pollution of the Bay", and funds restoration.
+  - **Berkeley Forge & Tool, Inc.** (pp. 25–26): agreed in August 2012 "to reduce its
+    rainy-season pollution" after Baykeeper notified it that its runoff, "which flows into storm
+    drains that lead directly to the Bay, contained high levels of aluminum, copper, iron, zinc,
+    and other pollutants"; upgrades include "carbon filters in downspouts".
+  No Albany or Emeryville facility is named on the page. Whether each facility still operates
+  is not established here.
+  Terrain check (derived, `tools/report.mjs` functions; ground within 30 m of the OpenStreetMap
+  point, Nominatim 2026-11-03; a site counts once at least 25% of that ground is affected):
+  - Pacific Steel, 1333 Second St: ground 10.9–13.9 ft NAVD88 (median 12.0); can fill through
+    the drains from 12 ft, outfalls assumed open; under Bay water from 13.4. OpenStreetMap also
+    places Pacific Steel at 1421 Second St: ground 10.6–12.5 (median 11.7), the same thresholds.
+  - Berkeley Forge & Tool, 1331 Eastshore Hwy: ground 8.7–11.5 (median 10.1); can fill through
+    the drains from 11.03 (the 2050 High scenario); under Bay water from 13.4; 13% under the rain
+    pool in the 10-year 6-hour experiment with gates, 10% held back, at 7.4 ft.
+  All three Baykeeper sites in Berkeley sit within about 300 m of each other on Second St and
+  Eastshore Hwy south of Gilman St, and all three join the Bay at the same modeled connection
+  behind I-80 (C6), so one crossing decides their exposure to Bay water.
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
