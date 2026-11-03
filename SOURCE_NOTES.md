@@ -66,9 +66,9 @@ https://www.adaptingtorisingtides.org/wp-content/uploads/2016/05/20160429.SFBay_
   10-year 8.47, 100-year 9.73, 500-year 10.91. The appendix labels its coordinates "UTM
   Zone 10N – Meters", but the values are California State Plane Zone III (NAD83, US survey
   feet); converted that way they fall on the Berkeley shoreline (derived, ours).
-- **W12** (Table 3-5, p. 54). Sample levels at Richmond: 1-year 7.33, 10-year 8.34,
-  100-year 9.53, 500-year 10.59. "There is considerable uncertainty in estimates of the
-  500-year extreme tide elevation."
+- **W12** (Table 3-5, p. 3-18, PDF p. 54). Sample levels at Richmond: 1-year 7.33, 10-year 8.34,
+  100-year 9.53, 500-year 10.59. The table's footnote: "There is considerable uncertainty in estimates of
+  the 500-year extreme tide elevation, especially in the far South Bay."
 - **W13** (p. 28). "High coastal waters, by themselves or in combination with rain, may
   overtop seawalls, back up into storm drains, and delay drainage of stormwater into the
   Bay", illustrated with a photo of surface flooding in Berkeley (Figure 2-7A).
@@ -95,14 +95,14 @@ rows rested on press reports and the future levels on superseded guidance.
   Rise Policy Guidance*, Final Adopted 2024 Update (2024-11-13), Appendix A, p. 278: "strong
   El Niño events can temporarily elevate local sea levels by six to twelve inches over several
   months." The 2016 extreme-tide study says the same for the Bay: "Water levels are often 0.5
-  to 1.0 ft above normal for months at a time" (p. 28 of the report, PDF p. 47). These are the
+  to 1.0 ft above normal for months at a time" (p. 2-8, PDF p. 28). These are the
   primary statements behind H3's press figure. Used for: the two "plus 1 ft (El Niño)"
   scenarios, now labeled sensitivity tests. A Kelvin wave is one mechanism of that rise; the
   sources give the size of the El Niño rise, not of a single wave.
 - **W16. The extreme tides already contain El Niño winters.** The 2016 study fitted its
   Central and North Bay extreme tides, which include point 518 (W11), to a 31-year modeled
-  record, January 1, 1973, to December 31, 2003 (§3.2.1, p. 3-11, PDF p. 48). It names
-  El Niño winters in 1977–78, 1982–83, 1997–98, 2009–10 and 2015–16 (p. 28); the first three
+  record, January 1, 1973, to December 31, 2003 (§3.2.1, p. 3-12, PDF p. 48). It names
+  El Niño winters in 1977–78, 1982–83, 1997–98, 2009–10 and 2015–16 (p. 2-8, PDF p. 28); the first three
   fall in that record. Adding 1 ft to a return level therefore counts part of the El Niño
   effect twice, and the sum has no return period. Used for: the sensitivity-test labels.
 - **W17. The 2024 scenarios at the San Francisco gauge.** Same Coastal Commission guidance,
@@ -257,7 +257,9 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   ("Gilman Forge"; Berkeleyside, 2023-03-27 and 2023-08-02, from search summaries, not read).
   City Council item, 2025-03-25, Item 8 ("Establishment of M-RD Zoning District"; read for the
   recommendation only): first reading of the M-RD zoning ordinance and adoption of the CEQA
-  findings. Whether it passed was not checked.
+  findings. It passed: the first reading of Ordinance 7,957-N.S. and Resolution 71,708-N.S.,
+  certifying the EIR, were adopted, all ayes, with the second reading set for 2025-04-15 (annotated
+  agenda, 2025-03-25, Item 8; C19).
   Response to Comments Document and Final EIR, Gilman Gateway Rezone Project, SCH# 2022120549,
   March 2025, 86 pp. (CEQAnet; read 2026-11-03), Response HAZ-2, "Sea Level/Groundwater Rise and
   Remediation Methods", pp. 3-20 and 3-21, answering EBMUD (letter 2024-12-02) and two Planning
@@ -276,7 +278,7 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
     by surface water", which could expose occupants to vapor intrusion, "a potentially significant
     impact"; Mitigation Measure HAZ-2d requires the design to "account for potential shallow
     groundwater and flooding conditions".
-  - PCBs may be present in the plant's concrete (Response HAZ-1, p. 3-19).
+  - "Potential PCB contaminated concrete" at the project site (Response HAZ-1, p. 3-20).
   What it bears on: the City's own EIR states that flooding and rising groundwater can defeat
   this site's contamination controls, and makes the design account for it, without a stated
   design water level in the pages read. The site's ground is 10.6–13.9 ft NAVD88 (F16); the
@@ -443,17 +445,18 @@ documents' printed numbers, with PDF pages in brackets.
   active contamination cleanup programs", "the most notable being an actively managed
   hexavalent chromium plume associated with the WRE/Colortech Facility located on 6th
   Street", with petroleum byproducts, tetrachloroethylene, lead and other heavy metals.
-- **F7** (p. 3.9-12 [455]). The site is in FEMA's 0.2 percent annual chance (500-year)
-  flood hazard area, "generally between I-580/I-80 and Fourth Street". The Gilman Street
-  storm drain outfall "is currently undersized for the 10-year peak flow event"; flows
+- **F7** (p. 3.9-12 [454]). The site is in FEMA's 0.2 percent annual chance (500-year)
+  flood hazard area, "generally between I-580/I-80 and Fourth Street". The storm drain
+  infrastructure downstream of the site, down to the Gilman Street outfall, "is currently
+  undersized for the 10-year peak flow event"; flows
   above it "backup within the storm drain system and cause ponding on surface streets".
-- **F8** (p. 3.9-12 [455], footnote 18). The Codornices Creek culvert under I-80
+- **F8** (p. 3.9-12 [454], footnote 18). The Codornices Creek culvert under I-80
   constricts flow and induces flooding on Second St beside the site; per Klein (2009, for
   Caltrans) the creek overtops upstream of I-80 above 190 cfs, and Balance Hydrologics'
   2011 City model shows flooding at Second St in the 10-year 6-hour design storm. Appendix
   H (p. 18 [22]): the I-80 culvert "lacks the necessary conveyance for events equal to or
   greater than the 10-year recurrence interval."
-- **F9** (pp. 3.9-11 to 3.9-21 [454–463], Exhibits 3.9-2a–d, maps by AECOM, June 2017).
+- **F9** (pp. 3.9-11 to 3.9-21 [453–463], Exhibits 3.9-2a–d, maps by AECOM, June 2017).
   Sea level rise is mapped as MHHW plus 24, 52, 84 and 108 inches; "the project site would
   begin to experience inundation at the MHHW plus 84-inch SLR scenario" (p. 3.9-13). The
   exhibits list equivalent combinations: MHHW + 24 in ≈ 0 in of sea level rise plus a
@@ -494,7 +497,7 @@ Same study as W4–W9; printed page numbers; figure pages rendered from the PDF.
 - **P4.** Figures 5.9 and 5.10 (floodwall schematics) give the wall top as "EL VARIES"; no crest
   elevation is stated. The explorer uses the design level plus the 2 ft freeboard of P6:
   12.7 ft NAVD88 (2050), 15.0 (2100). Assumption.
-- **P5.** Costs (executive summary and §5.4, 2019 dollars, cumulative): revetment and breakwater
+- **P5.** Costs (executive summary and §5.4, cumulative; the study states no price year): revetment and breakwater
   $3.2 million by 2030, $5.4 million by 2050, $60.5 million by 2100; floodwalls $14.3 million
   for 2050 protection and $31.5 million for 2100.
 - **P6.** Shoreline Zone 7 (east side of César E. Chávez Park): Spinnaker Way "would need to be
@@ -541,6 +544,8 @@ City ArcGIS organization services1.arcgis.com/IYiCpZoSIq9lAxi8.
   tide gate closes the link. Upper bound: pipe connectivity, capacity, inverts and duration are
   ignored. Which outfalls already have gates is unknown; the page shows them open unless the
   reader adds gates.
+  One gate is documented at design stage: the I-80/Gilman interchange project's tidal flap gate at
+  the Gilman outfall (V3); whether it was built is unchecked.
 
 ## Explorer checks and findings (derived, 2026-11-02)
 
@@ -775,6 +780,27 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     None were identified" (sic). The order's own facts are in T5.
   The flood and tsunami figures for these sites (C15, C16) do not change.
 
+- **C19. Citation spot-check (2026-11-03).** 20 of the 74 rows that cite a document were checked
+  against the documents: 10 matched, 6 had a page or wording slip, none had a wrong figure or
+  quote, and 4 could not be checked. The draw was seeded (Python `random.seed(20261103)`) and gave
+  F11, F16, F17, F19, F21, F3, F5, F7, F9, H4, M2, P9, T2, W12, W16, W7, W8, Z3, Z4 and Z6. Five
+  draws cite no document to read (F5, M2, P9, H4, Z6) and were replaced by the next draws in the
+  same order: P5, F20, T4 and T5, then W13, taken by hand in place of R2 (a data fetch) and W15.
+  Documents came from `berkeley-public-records` where it holds them, otherwise from the cited URLs.
+  - Matched: F3, F11, F19, F20, T4, T5, W7, W8, W13, Z3.
+  - Corrected: P5 (the study states no price year; "2019 dollars" was ours), F7 (PDF page, and
+    the undersized part is the downstream system to the outfall, not the outfall alone), F9 (PDF
+    pages), F17 (the PCB sentence's page and wording; the Council vote, found in the annotated
+    agenda), W12 (printed page, and the footnote quoted in full), W16 (printed pages). F8 shares
+    F7's page and was corrected with it; W15, outside the sample, cited the wrong PDF page and was
+    corrected.
+  - Not checked: F16 (baykeeper.org refused automated access; needs the PDF), F21 and Z4 (the
+    2019-11-05 feasibility study and the 2015-02-10 franchising study are not in the archive and
+    the rows give no URL), T2 (the 2024 Local Hazard Mitigation Plan is not archived; its page
+    numbers were taken from an agent's reading).
+  - Not sampled and possibly affected: F6 gives p. 3.9-8 as PDF [449], which does not fit the
+    offset found for p. 3.9-12; unchecked.
+
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
@@ -955,6 +981,43 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   warning, not a flood depth, and does not change with the explorer's water level.
   What it bears on: a tsunami's damage in the Bay in 2011 came from currents and short surges in
   harbors, with a water-level change of about half a meter; a still-water fill models neither.
+
+## Claims from the 2026-11-03 outside review (checked 2026-11-03)
+
+Three claims in the outside review behind E9, checked against primary sources before use.
+
+- **V1. A November 17 ferry terminal vote: unconfirmed.** A Council meeting on 2026-11-17 is
+  confirmed: the 2026-10-27 annotated agenda sets second readings of Ordinances 8,036, 8,037 and
+  8,038 for that date. A WETA letter to residents, quoted elsewhere and not read here, says the
+  Council is to "certify the environmental review and approve the project" that night. No posted
+  agenda lists the item as of 2026-11-03, and the City's Berkeley Pier-Ferry Access Project page
+  (berkeleyca.gov) gives no Final EIR or approval date. Whether the item touches shoreline flooding
+  is unchecked: the Draft EIR and BCDC's 2026 comment letter were not read. Used for: nothing yet.
+  The agenda should post about 11 days ahead.
+- **V2. BCDC and a Berkeley subregional plan: partly confirmed.** The duty comes from the statute,
+  SB 272 (Laird, 2023), which BCDC administers: local governments on the Bay shoreline must address
+  sea level rise "through Local Coastal Programs or San Francisco Bay Shoreline Resiliency Plans by
+  January 1, 2034" (BCDC staff report on the Regional Shoreline Adaptation Plan, 2024-10-07). BCDC's
+  "Local Sea Level Rise Plans" page: a plan "can be for a single city or county or can cover multiple
+  jurisdictions", and plans "must be submitted for approval by January 1, 2034". The City of
+  Emeryville's sea level rise page says Emeryville, Berkeley and Albany, under the San Francisco
+  Estuary Partnership, applied for and were awarded State funding to prepare one plan; the
+  Partnership's 2025-10-28 slides name a "Shoreline Adaptation Plan for the Cities of Emeryville,
+  Berkeley and Albany in close partnership with Oakland". Conflict: BCDC's 2026-01-15 status report
+  on subregional plans (Agenda Item 10) does not list it among the five publicly initiated plans.
+  The statute text itself was not read. Used for: nothing yet; it bears on E2 (neighbors' plans).
+- **V3. The I-80/Gilman interchange: built, and its documents state flood levels.** Caltrans
+  announced it complete on 2025-05-30: two roundabouts and a bicycle and pedestrian bridge over
+  I-80 (CEQAnet SCH 2018122057). Location Hydraulic Study Report Addendum, November 2018 (Alameda
+  CTC), printed p. 10: site ground 9.0–20.0 ft NAVD88; a 100-year still water level of 10.2 ft
+  NAVD88, and about 11.2 ft NAVD88 with 1.0 ft of sea level rise by 2040; low points of about
+  10.4 ft NAVD88 (the drain inlet at the westbound roundabout) and 9.0 ft NAVD88 (the Gilman St
+  extension). Its one sea level rise measure is a tidal flap gate at the Gilman outfall; the May
+  2018 study calls preventing sea level rise impacts "beyond the scope of this Project". Design
+  figures; whether the gate was built, and the as-built elevations, are unchecked. Conflict: its
+  100-year still water level (10.2) is 0.5 ft above the 2016 study's 9.73 at point 518 (W11); the
+  addendum's source for 10.2 was not read. Used for: D6 (the first documented tide gate on a
+  Berkeley outfall) and the CPRA request.
 
 ## Eric's decisions, 2026-11-02 (Claude Code session)
 
