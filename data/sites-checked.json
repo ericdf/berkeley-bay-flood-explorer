@@ -1,22 +1,185 @@
 {
   "note": "Points checked against the connected fill in SOURCE_NOTES C14, C15 and F16; run `node tools/site-check.mjs` to reproduce. Each site is the ground within 30 m of the point (or the bounding box, where given). Coordinates are WGS 84 as the named record gives them; ids are the records' own (GeoTracker global ID, EPA FRS or RCRA ID, State Water Board SMARTS WDID). Business and public facility names only.",
   "sites": [
-    { "id": "kaiser-mob", "name": "Kaiser Permanente Berkeley Medical Offices, 2610 10th St", "bbox": [37.8582834, -122.2900535, 37.8591358, -122.2889556], "point_source": "OpenStreetMap way 294034828 bounding box (Nominatim, 2026-11-03)", "notes": "C14" },
-    { "id": "kaiser-1780", "name": "Kaiser Permanente office, 1780 Second St", "lat": 37.8698105, "lon": -122.3034402, "point_source": "OpenStreetMap node 12790070625 (Nominatim, 2026-11-03)", "notes": "C14" },
-    { "id": "pacific-steel-1333", "name": "Pacific Steel Casting, 1333 Second St", "lat": 37.8776596, "lon": -122.3046598, "point_source": "Nominatim, 2026-11-03", "notes": "F16" },
-    { "id": "pacific-steel-1421", "name": "Pacific Steel Casting, 1421 Second St", "lat": 37.876228, "lon": -122.3045307, "point_source": "Nominatim, 2026-11-03", "notes": "F16" },
-    { "id": "berkeley-forge", "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy", "lat": 37.8768301, "lon": -122.3057827, "point_source": "Nominatim, 2026-11-03", "ids": { "smarts": "2 01I009954" }, "notes": "F16" },
-    { "id": "pacific-steel-geotracker", "name": "Former Pacific Steel Casting (cleanup case)", "lat": 37.877482, "lon": -122.305009, "point_source": "GeoTracker T10000005594 (also the City screening, F19)", "ids": { "geotracker": "T10000005594" }, "notes": "C15" },
-    { "id": "eastshore-1255", "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)", "lat": 37.87948, "lon": -122.30658, "point_source": "GeoTracker T10000011080", "ids": { "geotracker": "T10000011080" }, "notes": "C15" },
-    { "id": "marine-center", "name": "Berkeley Marine Center, 1 Spinnaker Way", "lat": 37.8685, "lon": -122.3183, "point_source": "GeoTracker T10000001877", "ids": { "geotracker": "T10000001877" }, "notes": "C15" },
-    { "id": "terminal-mfg", "name": "Terminal Manufacturing, 707 Gilman St", "lat": 37.87926, "lon": -122.30426, "point_source": "GeoTracker T10000009006", "ids": { "geotracker": "T10000009006" }, "notes": "C15" },
-    { "id": "eastshore-park", "name": "Eastshore State Park shoreline parcels", "lat": 37.876615, "lon": -122.30812, "point_source": "GeoTracker SL0600164054", "ids": { "geotracker": "SL0600164054" }, "notes": "C15" },
-    { "id": "ravago", "name": "Ravago Chemical Distribution (Pacific Coast Chemicals), 2424 Fourth St", "lat": 37.869596, "lon": -122.300512, "point_source": "EPA ECHO, FRS 110070429106", "ids": { "frs": "110070429106", "rcra": "CAL000427268" }, "notes": "C15" },
-    { "id": "flint-ink", "name": "Former Flint Ink, 750 Gilman St", "lat": 37.87863, "lon": -122.30295, "point_source": "GeoTracker SL0600172262", "ids": { "geotracker": "SL0600172262" }, "notes": "C15" },
-    { "id": "colortech", "name": "WRE/Colortech, 1225 Sixth St", "lat": 37.88053, "lon": -122.30131, "point_source": "GeoTracker SL20228846", "ids": { "geotracker": "SL20228846" }, "notes": "C15" },
-    { "id": "peerless", "name": "Peerless Lighting / O.H. Olsen site, Fourth St", "lat": 37.8641, "lon": -122.299, "point_source": "GeoTracker T0600101057", "ids": { "geotracker": "T0600101057" }, "notes": "C15" },
-    { "id": "electro-coatings", "name": "Electro-Coatings of California, 893 Carleton St", "lat": 37.8572, "lon": -122.2934, "point_source": "GeoTracker SLT2O363253", "ids": { "geotracker": "SLT2O363253" }, "notes": "C15" },
-    { "id": "bayer", "name": "Bayer, 800 Dwight Way", "lat": 37.85866, "lon": -122.29534, "point_source": "GeoTracker T0600191476", "ids": { "geotracker": "T0600191476" }, "notes": "C15" },
-    { "id": "landfill", "name": "Former Berkeley Landfill (César Chávez Park)", "lat": 37.87289, "lon": -122.31967, "point_source": "GeoTracker L10006224883", "ids": { "geotracker": "L10006224883" }, "notes": "C15" }
+    {
+      "id": "kaiser-mob",
+      "name": "Kaiser Permanente Berkeley Medical Offices, 2610 10th St",
+      "bbox": [
+        37.8582834,
+        -122.2900535,
+        37.8591358,
+        -122.2889556
+      ],
+      "point_source": "OpenStreetMap way 294034828 bounding box (Nominatim, 2026-11-03)",
+      "notes": "C14"
+    },
+    {
+      "id": "kaiser-1780",
+      "name": "Kaiser Permanente office, 1780 Second St",
+      "lat": 37.8698105,
+      "lon": -122.3034402,
+      "point_source": "OpenStreetMap node 12790070625 (Nominatim, 2026-11-03)",
+      "notes": "C14"
+    },
+    {
+      "id": "pacific-steel-1333",
+      "name": "Pacific Steel Casting, 1333 Second St",
+      "lat": 37.8776596,
+      "lon": -122.3046598,
+      "point_source": "Nominatim, 2026-11-03",
+      "notes": "F16"
+    },
+    {
+      "id": "pacific-steel-1421",
+      "name": "Pacific Steel Casting, 1421 Second St",
+      "lat": 37.876228,
+      "lon": -122.3045307,
+      "point_source": "Nominatim, 2026-11-03",
+      "notes": "F16"
+    },
+    {
+      "id": "berkeley-forge",
+      "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
+      "lat": 37.8768301,
+      "lon": -122.3057827,
+      "point_source": "Nominatim, 2026-11-03",
+      "ids": {
+        "smarts": "2 01I009954"
+      },
+      "notes": "F16"
+    },
+    {
+      "id": "pacific-steel-geotracker",
+      "name": "Former Pacific Steel Casting (cleanup case)",
+      "lat": 37.877482,
+      "lon": -122.305009,
+      "point_source": "GeoTracker T10000005594 (also the City screening, F19)",
+      "ids": {
+        "geotracker": "T10000005594"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "eastshore-1255",
+      "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
+      "lat": 37.87948,
+      "lon": -122.30658,
+      "point_source": "GeoTracker T10000011080",
+      "ids": {
+        "geotracker": "T10000011080"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "marine-center",
+      "name": "Berkeley Marine Center, 1 Spinnaker Way",
+      "lat": 37.8685,
+      "lon": -122.3183,
+      "point_source": "GeoTracker T10000001877",
+      "ids": {
+        "geotracker": "T10000001877"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "terminal-mfg",
+      "name": "Terminal Manufacturing, 707 Gilman St",
+      "lat": 37.87926,
+      "lon": -122.30426,
+      "point_source": "GeoTracker T10000009006",
+      "ids": {
+        "geotracker": "T10000009006"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "eastshore-park",
+      "name": "Eastshore State Park shoreline parcels",
+      "lat": 37.876615,
+      "lon": -122.30812,
+      "point_source": "GeoTracker SL0600164054",
+      "ids": {
+        "geotracker": "SL0600164054"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "ravago",
+      "name": "Ravago Chemical Distribution (Pacific Coast Chemicals), 2424 Fourth St",
+      "lat": 37.8607986,
+      "lon": -122.2978195,
+      "point_source": "Nominatim geocode of 2424 Fourth St, 2026-11-03. EPA ECHO's point (37.869596, -122.300512) lies about 1 km north, near University Ave, which does not match the 2400 block; not used (C17)",
+      "ids": {
+        "frs": "110070429106",
+        "rcra": "CAL000427268"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "flint-ink",
+      "name": "Former Flint Ink, 750 Gilman St",
+      "lat": 37.87863,
+      "lon": -122.30295,
+      "point_source": "GeoTracker SL0600172262",
+      "ids": {
+        "geotracker": "SL0600172262"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "colortech",
+      "name": "WRE/Colortech, 1225 Sixth St",
+      "lat": 37.88053,
+      "lon": -122.30131,
+      "point_source": "GeoTracker SL20228846",
+      "ids": {
+        "geotracker": "SL20228846"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "peerless",
+      "name": "Peerless Lighting / O.H. Olsen site, Fourth St",
+      "lat": 37.8641,
+      "lon": -122.299,
+      "point_source": "GeoTracker T0600101057",
+      "ids": {
+        "geotracker": "T0600101057"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "electro-coatings",
+      "name": "Electro-Coatings of California, 893 Carleton St",
+      "lat": 37.8572,
+      "lon": -122.2934,
+      "point_source": "GeoTracker SLT2O363253",
+      "ids": {
+        "geotracker": "SLT2O363253"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "bayer",
+      "name": "Bayer, 800 Dwight Way",
+      "lat": 37.85866,
+      "lon": -122.29534,
+      "point_source": "GeoTracker T0600191476",
+      "ids": {
+        "geotracker": "T0600191476"
+      },
+      "notes": "C15"
+    },
+    {
+      "id": "landfill",
+      "name": "Former Berkeley Landfill (César Chávez Park)",
+      "lat": 37.87289,
+      "lon": -122.31967,
+      "point_source": "GeoTracker L10006224883",
+      "ids": {
+        "geotracker": "L10006224883"
+      },
+      "notes": "C15"
+    }
   ]
 }

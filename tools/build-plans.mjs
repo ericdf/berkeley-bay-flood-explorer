@@ -32,7 +32,7 @@ const plans = {
       cost: '$31.5 million cumulative for 2100 protection (2019 dollars)', source: 'City 2019 Marina study §5.3.1, Figure 5.8; cost §5.4 (P3, P4, P5)',
       walls: [{ id: 'northBasin', lines: [lines.northBasin] }, { id: 'harborRing', lines: [lines.harborRing] }, { id: 'universityNorth', lines: [lines.universityNorth] }, { id: 'seawall', lines: [lines.seawall] }] },
     { id: 'roads', label: 'Raise Spinnaker Way and University Ave west of I-80 (Zones 7, 8)', crestFt: 12.7, category: 'sourced (freeboard rule), assumed design level',
-      cost: 'Part of the revetment program, $5.4 million cumulative by 2050 (2019 dollars)', source: 'City 2019 Marina study §5.3.1, Shoreline Zones 7 and 8; cost §5.4 (P5, P6, P7)',
+      cost: "Cost not stated separately; the study's figure for revetment and breakwater work, $5.4 million cumulative by 2050 (2019 dollars), is for different work", source: 'City 2019 Marina study §5.3.1, Shoreline Zones 7 and 8; cost §5.4 (P5, P6, P7)',
       roads: [{ names: ['SPINNAKER WY', 'UNIVERSITY AV'], maxX: 2300 }] },
   ],
 };

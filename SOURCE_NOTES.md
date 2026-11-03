@@ -353,12 +353,59 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
     "SWT-NO PLAN RETURNED", "0 m; emergent", High Priority (PDF p. 36). "KAISER BIOMEDICAL
     FACILITY", 1795 Second St, a closed leaking-tank case, "0 m; emergent", Low Priority
     (PDF p. 40).
+    The transfer station's tanks have since gone: its Draft EIR (PDF p. 82 [2-28]) says the two
+    10,000-gallon diesel USTs "are permanently closed as of November 14, 2025, and were removed in
+    December 2025" (T4).
   What it covers and what it does not: the USGS CoSMoS groundwater model's rising groundwater and
   its marine inundation at mean higher high water, the average daily high tide, for today and two
   rises (0.8 and 2.5 ft); PDF p. 8 lists "Marine inundation (mean higher high water [MHHW] sea
   level)" among the model's outputs and PDF p. 10 overlays the sites on "the marine inundation and
   GWR projections". It does not consider storm tides above MHHW, Bay water through the storm
   drains, trapped rain, or what operating plants store; those are what this explorer adds (C15).
+- **F20. The transfer station Draft EIR rejected another site (read 2026-11-03, asked by Eric).**
+  Transfer station Draft EIR (SCH 2023080733; F6–F11), Chapter 6, Alternatives to the Proposed
+  Project, §6.4.1 "Alternative Location", pp. 6-4 to 6-5: an alternative site would need to be "At
+  least 7.48 acres in size", "Located on an infill site in an industrial area", "Designated and
+  zoned for manufacturing", "Served by available infrastructure" and "Available for purchase and
+  development". "No potential alternative locations were identified that could satisfy the
+  above-referenced criteria"; "any such site would have similar characteristics as the project site
+  and would not result in a reduction or avoidance of impacts at issue"; the alternative location
+  "was rejected as infeasible". §6.4.2 rejects another use of the site because losing the transfer
+  station and recycling facility, "vital public facilities", would cause "severe disruption".
+  The two alternatives analyzed, No Project (1) and One Building (2), are both on the same site;
+  for Alternative 2, p. 6-27, it is "on the same site as the proposed project, and subject to the
+  same flooding and storm drainage issues". The chapter does not mention sea level rise or tsunami
+  (searched for "sea level", "sea-level" and "tsunami").
+  What it bears on (inference, ours): the site search tested size, zoning, infrastructure and
+  availability, and whether another site would lessen the project's impacts; it did not test a
+  site's exposure to flooding, sea level rise or tsunami. The site's median ground is 13.8 ft NAVD88
+  over its mapped outline (`node tools/report.mjs`), inside the State's Tsunami Hazard Area (C16), reached by Bay water in this
+  explorer at about 13.4 ft (C6), which the State's 2100 High scenario for critical infrastructure
+  exceeds (16.23; C13, E4). Retreat for this facility (E6) was not on the table in the EIR.
+- **F21. How the transfer station compares with other cities' arrangements (read 2026-11-03,
+  asked by Eric: "What do other cities do for a transfer station? Do they all have one?").**
+  - City Council work session, 2019-11-05, Item 1, "Solid Waste and Recycling Transfer Station
+    Feasibility Study Presentation" (berkeleyca.gov; 415 PDF pages, the study attached). PDF p. 1:
+    the transfer station at 1201 Second St "opened in 1983, handling both City curbside collected
+    and self-haul refuse"; recycling, run by Community Conservation Centers, moved there in the
+    late 1980s, with a universal waste drop-off. Both concepts park "110+ service vehicles" on the
+    site. PDF p. 105, "Potential Risk Design Factors" from the 1980 EIR: "100-year flood hazard area
+    and impact to critical City waste transfer operations"; also liquefaction and "caustic lime
+    bed areas". PDF p. 31: the designs add "a northerly berm wall to redirect occasional creek
+    surges" from Codornices Creek. The pages searched do not mention sea level rise or tsunami.
+  - PDF p. 107, Table 1, compares Berkeley's fees with three other Bay Area transfer stations:
+    Davis Street (San Leandro), Golden Bear (Richmond) and Shoreway (San Carlos).
+  - WM's Davis Street Transfer Station page (wmnorcalnev.com, read 2026-11-03): the facility is
+    "particularly relevant for residents, contractors and businesses in San Leandro, Oakland,
+    Hayward, Emeryville, Albany and other Alameda County communities"; its trash goes to Altamont
+    Landfill. A marketing page; each city's franchise agreement, not read, would say where its
+    hauler takes waste.
+  What it bears on (inference, ours): Berkeley owns and runs its own transfer station; neighbors
+  whose waste is collected by a franchised hauler rely on a regional, privately run station such
+  as Davis Street. So a city need not have its own, and "retreat" for Berkeley's station need not
+  mean a new Berkeley site (E7). The City's own design record names the flood hazard to "critical
+  City waste transfer operations" (p. 105), which supports E4. Whether Davis Street or Golden Bear
+  are themselves exposed to flooding was not checked; both are outside this explorer's grid.
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
@@ -672,12 +719,12 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     database (10.7–12.0; drains from 12, Bay from 13.4, 19% under the rain pool in the 10-year
     experiment); Berkeley Marine Center boatyard, 1 Spinnaker Way, open lead and copper case
     (median 13.3; Bay from 12.83); Terminal Manufacturing, 707 Gilman St, open PCE case (12.6–15.7;
-    Bay from 14.53); Eastshore State Park shoreline parcels (14.6–16.2; Bay from 16.23); Ravago /
-    Pacific Coast Chemicals, 2424 Fourth St, an operating distributor (15.2–17.3; Bay from 16.23).
+    Bay from 14.53); Eastshore State Park shoreline parcels (14.6–16.2; Bay from 16.23).
   - No scenario puts 25% of their ground under water (median ground 18 ft NAVD88 or higher):
     former Flint Ink, 750 Gilman St (lowest ground 15.4);
     WRE/Colortech, 1225 Sixth St; Peerless Lighting site, Fourth St; Electro-Coatings, 893 Carleton
-    St; Bayer, 800 Dwight Way. Rising groundwater (F19) is their exposure, not surface flooding.
+    St; Bayer, 800 Dwight Way; Ravago / Pacific Coast Chemicals, 2424 Fourth St (29.1–31.1, after
+    the point correction in C17). Rising groundwater (F19) is their exposure, not surface flooding.
   - The former Berkeley Landfill under César Chávez Park: the database point is on the park's top
     (about 52 ft). A still-water fill does not describe its hazard, which is waves and Bay water on
     its shoreline edges and groundwater in the waste; not assessed here.
@@ -688,8 +735,81 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   transfer station, the DoubleTree grounds, César Chávez Park (the former landfill) and Aquatic
   Park. Of the sites in `data/sites-checked.json` (`node tools/site-check.mjs`), inside: the Kaiser office at 1780 Second St, Pacific Steel, Berkeley
   Forge & Tool, 1255 Eastshore Hwy, the Berkeley Marine Center, Terminal Manufacturing, Eastshore
-  State Park parcels, Ravago / Pacific Coast Chemicals and former Flint Ink. Outside: the Kaiser
-  medical offices on 10th St, WRE/Colortech, the Peerless site, Electro-Coatings and Bayer.
+  State Park parcels and former Flint Ink. Outside: the Kaiser medical offices on 10th St,
+  WRE/Colortech, the Peerless site, Electro-Coatings, Bayer and Ravago / Pacific Coast Chemicals
+  (C17).
+- **C17. Ravago's point corrected (2026-11-03).** The first check used EPA ECHO's point for 2424
+  Fourth St (37.869596, −122.300512), which lies near University Ave, about 1 km north of the
+  2400 block; the tsunami mitigation research flagged it. Nominatim geocodes the address at
+  37.8607986, −122.2978195. With that point the site's ground is 29.1–31.1 ft NAVD88, outside every
+  scenario and outside the tsunami hazard area; C15 and C16 earlier placed it on 15.2–17.3 ft ground
+  inside the area. The City's hazard mitigation plan lists "PC Cargo, 2424 Fourth Street" among its
+  high-risk facilities (T2); that PC Cargo is the same business is an inference from the address.
+
+## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
+
+From a research agent's reading; the quotes marked "verified" were checked against the downloaded
+documents in this session. In short: what is in place protects people, not sites. No document read
+assesses what a tsunami would release from the sites in the hazard area, and no general rule read
+requires existing sites to prepare for one (T2, T3). The one tsunami requirement found is
+project-specific: the Gilman Gateway EIR's Mitigation Measure HYD-4 requires flood- and
+tsunami-proof hazardous materials storage, for future development on that site only (F18, T4). No source estimates a release, so this does not establish that a disaster would
+follow; it is a planning gap.
+
+- **T1. The City's after-action report on the 2024-12-05 warning.** *2024 Tsunami Warning: After
+  Action Report & Community Survey Summary*, information report to Council, 2025-04-18 (PDF pages).
+  An M7.0 earthquake at 10:44 am; federal warning 10:49; the City's Emergency Operations Center
+  activated within 5 minutes; responders "evacuated the Berkeley waterfront and Marina in 45
+  minutes" (p. 14, verified); orders out "by 11:45 am, approximately 30 minutes before the tsunami
+  was expected to hit San Francisco" (p. 1, verified); warning cancelled 11:54. Problems: the
+  federal phone alert reached nearly the whole city; sirens ran about two minutes and "some
+  mistakenly believed that the evacuation order was canceled" (p. 23, verified); off-ramps jammed;
+  schools and other critical facilities had no tsunami plan. Its twelve recommendations concern
+  alerting, education, off-ramps and transit; the report never mentions hazardous materials,
+  chemicals, industry or the transfer station (searched; verified). Background, p. 5: in 2011 "a
+  half-meter-tall surge" with "4-6 knot current" caused "$158,000 of damage to docks and boats"
+  (verified; compare H6's secondary "25 mph").
+- **T2. The City's 2024 Local Hazard Mitigation Plan** (adopted 2025-03-18). Its tsunami section has
+  one sentence on pollutants: "Tsunamis can cause the release of pollutants, toxic substances, and
+  other hazardous materials, threatening public health, water, and the environment" (verified),
+  naming no facility. Its two tsunami actions are Low priority and at the Marina: dock repair, and
+  to "document and explore additional tsunami hazard mitigation measures for Berkeley's maritime
+  communities" (verified). Its hazardous materials actions are the existing inspection programs,
+  with no tsunami or flood element. It lists 14 high-risk facilities (verified in part: Berkeley
+  Forge & Tool, 1331 Eastshore Hwy; Comeback Brewing / Trumer, 1404 Fourth St; PC Cargo, 2424 Fourth
+  St; the Kaiser regional lab, 1725 Eastshore Hwy). Page numbers per the agent.
+- **T3. State rules for hazardous materials sites.** Business plans must include "Emergency response
+  plans and procedures in the event of a release or threatened release" (Health and Safety Code
+  § 25505(a)(3)), naming no hazard; the regulations name one natural hazard, earthquake (19 CCR
+  § 5030.9(e)); CalARP requires "consideration of external events, including seismic events, if
+  applicable" (HSC § 25534.05(c)). No requirement to plan for flood or tsunami was found. The CGS
+  hazard area map "is not a legal document and does not meet disclosure requirements ... nor for
+  any other regulatory purpose", so it triggers no duty for the sites inside it. Statute text from
+  secondary hosts (leginfo refused automated access); not verified here.
+- **T4. The transfer station Draft EIR's tsunami finding.** Impact HYD-4 (PDF p. 486 [3.9-44],
+  verified): the project "would be located in a flood hazard zone, tsunami, or seiche zone, but
+  would not risk release of pollutants due to project inundation", because it "would not cause the
+  site to be more susceptible to tsunami inundation, and thus the risk of resultant pollutant
+  release would be less than significant when compared to existing conditions". No mitigation. The
+  site "is in a Tsunami Hazard Area" (p. 455 [3.9-13], verified). Its diesel USTs were removed in
+  December 2025 (p. 82 [2-28], verified; F19 predates that).
+  Compare (inference, ours): the Gilman Gateway EIR next door asked whether storage would survive
+  inundation and required flood- and tsunami-proof storage (HYD-4, F18); its cumulative analysis,
+  per the agent, names the "Gilman Transfer Station" among projects storing hazardous materials
+  whose inundation "could result in a cumulative impact" (p. 4.10-41, not verified). The transfer
+  station's EIR asked only whether the project made things worse.
+- **T5. The landfill under César Chávez Park.** Water Board Order R2-2010-0064 (per the agent; not
+  verified): perimeter levees 1957–1968, riprap in the late 1970s, "no engineered base liner",
+  about 1.5 million tons of waste; protection against "washout or erosion of wastes from
+  inundation" by the 100-year flood; a five-year flood protection report; no mention of tsunami. A
+  tentative 2026 general order (not adopted) would require protection for the 100-year storm with
+  2050 sea level rise, including wave run-up, also without tsunami.
+- **T6. Not read:** the City's Hazardous Materials Area Plan (no public copy found); the 2023
+  Alameda County tsunami evacuation playbook; the Marina's maritime playbook 2015-Alam-02 (CGS
+  shares it only with harbor officials); the transfer station Draft EIR's hazards appendix.
+  The agent also reports two errors in City documents, not verified here: the City's tsunami page
+  says to "get west of 7th Street" (east is out of the zone), and a heading in the after-action
+  report is dated 2025.
 
 ## Hazard data and press (read 2026-11-02)
 
@@ -783,3 +903,37 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   and losing a service is a loss that evacuation does not prevent (E4's cleanup point). Basis for
   the long warning: king tides are predicted years ahead (W14), storm tides and rain days ahead, and
   the 2011 tsunami reached the Bay hours after the earthquake (H6).
+  Added 2026-11-03 (Eric: "Yes e6"), after Eric asked whether managed retreat applies only to
+  pollutant release. What each kind of mitigation reaches:
+  | What is at risk | Does retreat help? | Other tools |
+  |---|---|---|
+  | Hazardous materials in use (operating sites, the transfer station's hazardous waste) | Yes: moving the operation moves what it stores | Flood-proof storage (as Gilman Gateway HYD-4, F18), shut-down plans |
+  | Contamination already in the ground (Pacific Steel, plating plumes, the landfill) | No, unless paired with cleanup: leaving a site leaves its pollutants, and nobody maintains its controls | Excavation, containment, monitoring (F17) |
+  | Critical services | Yes, for facilities that can move, such as the transfer station (F20) | Raise, protect or gate what cannot move: I-80, frontage roads, sewer mains |
+- **E7. No new site needed; doing nothing is the base case (2026-11-03).** Eric: "We do not have to
+  find an alternative location for a transfer station." Retreat for the transfer station can mean
+  closing it and using a regional transfer station, as neighbors with franchised haulers do (F21);
+  the lever does not require a sketched destination. "Do nothing is the base case and definitely
+  worth keeping": every comparison starts from today's arrangements at the chosen level, and doing
+  nothing stays an option the reader can choose. Applied in `docs/design/mitigations.md`.
+  Eric, same day: retreat "can mean that we exit the business of running a transfer station as we
+  are no longer a viable site". So the lever is "the City stops running a transfer station; its
+  waste goes to a regional one", a decision about the City's role, not a site search. Two
+  qualifications, recorded with it: when the site stops working depends on the scenario, and the
+  explorer shows that instead of asserting it. The transfer station's mapped ground, outfalls
+  assumed open (`analyze`, derived): 3% can fill through the drains at 11.03 ft NAVD88, 18% at 12,
+  35% at 12.83; 45% under Bay water at 13.4 (C6), about 2076 under the State's High scenario (C13).
+  It lies inside the State's tsunami hazard area today (C16). Second, exiting leaves pieces that
+  still need a home or a decision: the City's 110+ collection vehicles parked on the site, the
+  recycling center run by Community Conservation Centers, and the public drop-off and buyback
+  (F21).
+- **E8. The panel's name, and where criticality lies (2026-11-03).** Eric accepted "What's
+  exposed" for the panel ("Yes, on the scorecard"). And: "I only consider it vital if we are
+  depending on it for that function. If we outsourced to a regional facility, then that facility
+  is the vital one." So a critical service is a function the City depends on, attached to whatever
+  facility performs it. E4 applies to the transfer station while Berkeley depends on it; under the
+  exit lever (E7) the function moves to the regional station, which then appears in the panel's
+  critical services. Its exposure reads "not checked here" while it lies outside the map (F21),
+  never as safe. Eric, same day: "selection of a third-party site would have to include scrutiny for
+  safety". So choosing a regional station is itself a decision with a flood and tsunami check, and
+  the exit lever names that check as a step, not a given.
