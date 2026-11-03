@@ -811,6 +811,62 @@ follow; it is a planning gap.
   says to "get west of 7th Street" (east is out of the zone), and a heading in the after-action
   report is dated 2025.
 
+## The transfer station's money (read 2026-11-03, asked by Eric about "the economics of running our own")
+
+From a research agent's reading of City budgets, capital plans, financial statements, Council
+items and a regional rate survey; the figures marked "verified" were checked against the downloaded
+documents in this session. Bears on the cost column of the exit lever (E7) in
+`docs/design/mitigations.md`. Nothing here weighs one model against the other.
+
+- **Z1. The rebuild is unfunded.** City Capital Improvement Program FY2023-27, unfunded capital
+  summary: "Transfer Station ... Capital & Maint. Need $76,000,000", none available (verified).
+  Proposed FY2027-31 CIP overview (Council item 2, document dated 2026-05-27): "Capital & Maint. Need
+  $120,000,000", available funding $1,350,000 (FY2027) and $500,000 (FY2028), "Unfunded Capital
+  $(144,940,796)" by FY2031 (verified). The adopted FY2025-29 project sheet funds pre-construction
+  work only ("Pre-construction costs, planning, permitting, CEQA, design and engineering"; verified).
+  The 2023 rate schedule (Council 2023-04-25 Item 27) funds "$6.773 million in pre-construction
+  costs" and says "construction costs for the SW&RTS's replacement" are "not included in the
+  proposed rate schedules" (verified). Zero Waste Commission draft minutes, 2026-05-20: if the
+  rebuild were authorized "there would be a bond to pay for it (no existing transfer station bond
+  yet)" (verified).
+- **Z2. The Zero Waste Fund.** FY2025 Annual Comprehensive Financial Report (PDF p. 57): Zero
+  Waste total net position −$923,233, unrestricted −$4,564,642 (verified). Council 2025-10-28
+  Item 22: the "fund balance has been depleted at a faster pace than anticipated" (verified),
+  requiring a new rate schedule a year early, citing fleet electrification, labor raises and
+  emergency repairs to the transfer station's tipping floor (per the agent), and a "comprehensive
+  rate study for both the collection operation and" the transfer station (verified). The station's
+  own operating cost is not published; its revenue is about $10 million a year (per the agent,
+  from the budget).
+- **Z3. Tonnage** (ACFR FY2025, PDF p. 367, verified): tons through the station landfilled 71,400,
+  68,914 and 74,833, and recycled or composted 47,506, 46,117 and 43,073, in the three years shown
+  (FY2023 to FY2025 per the agent).
+- **Z4. Outsourcing on record.** The station was first built and run privately: "the City selected
+  a firm (BFI Industries, Inc.) to construct and initially operate a Transfer Station" (2019
+  feasibility study, Council work session 2019-11-05 Item 1; verified). The one franchising study
+  found covers commercial service only (Council work session 2015-02-10 Item 1): "Berkeley is one
+  of very few cities in California that operates its own waste management services, as well as
+  owning and operating a Transfer Station" (PDF p. 1, verified). Its single-franchisee option
+  (PDF p. 5, verified): "Additional franchise fee revenue of $4M/year"; "Residential services and
+  Transfer Station share of overhead increases significantly by $2.2M/year", which "New revenue
+  would cover"; "Loss of 25 employees"; "Rate increase unlikely, possible reductions if rate
+  structure is well designed"; "Require flow control of franchise tonnage to Berkeley Transfer
+  Station". No study of closing the station or franchising residential service was found. Labor
+  and code limits, per the agent and not verified here: the SEIU 1021 agreement requires notice and
+  meet-and-confer before subcontracting that lays off permanent employees; the municipal code says
+  collection "is provided by the City" (as quoted in City documents).
+- **Z5. Rates** (StopWaste "AlCo Rates & Services Matrix", 2026-07-22; verified for the rows
+  shown): monthly 32-gallon or nearest cart, Berkeley $67.66 (City; 2026-07-01), Albany $68.26 (WM),
+  Oakland $64.66 (WM), Emeryville $26.17 (WM); per the agent also San Leandro $43.34, Hayward
+  $47.05, Fremont $48.84, Alameda $52.74, Piedmont $113.12. Services bundled in the rate differ
+  (per the agent, about 13% of Zero Waste costs pay for street sweeping, illegal dumping and
+  outreach); the rates are not like for like.
+- **Z6. What the exit lever would move or leave** (per the agent): self-haul drop-off (about
+  130,000 visits a year), Urban Ore's salvage, the Community Conservation Centers recycling center
+  and buyback (contract to 2031), and the 110+ vehicle yard (F21). No document found addresses
+  disaster debris under either model.
+  Also: the Air District fined the City $130,000 for landfill gas violations at César Chávez Park,
+  2019-2022 (Air District release, 2024-04-04; verified). The landfill, not the transfer station.
+
 ## Hazard data and press (read 2026-11-02)
 
 - **H1.** USGS Coastal Storm Modeling System (CoSMoS) v3.1, Central California including

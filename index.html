@@ -47,6 +47,11 @@
   .lever { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; padding: 6px; border: 1px solid var(--line); border-radius: 6px; }
   label.lever { flex-direction: row; align-items: flex-start; }
   button { font: inherit; font-size: 13px; padding: 3px 8px; }
+  section.exposed { grid-column: 1 / -1; padding: 12px 16px 24px; background: var(--panel); border-top: 1px solid var(--line); }
+  section.exposed table { max-width: 1400px; }
+  section.exposed td:first-child { width: 34%; }
+  section.exposed ul { max-width: 1100px; }
+  section.exposed th { background: color-mix(in srgb, var(--accent) 6%, transparent); }
 </style>
 </head>
 <body>
@@ -87,12 +92,15 @@
     <h2>Plan</h2>
     <p class="src">What Berkeley controls. A plan changes the ground, never the water; results compare it with no plan at the same level.</p>
     <div id="plan"></div>
+    <h2>Sites</h2>
+    <div id="sitesPanel"></div>
   </aside>
   <div id="mapwrap" tabindex="0" aria-label="Map of west Berkeley. Scroll, pinch or use the plus and minus keys to zoom; drag or use the arrow keys to pan; 0 shows the whole map.">
     <canvas id="map" aria-hidden="true"></canvas>
     <div class="zoom"><button type="button" id="zoomIn" aria-label="Zoom in" title="Zoom in">+</button><button type="button" id="zoomOut" aria-label="Zoom out" title="Zoom out">&minus;</button><button type="button" id="zoomFit" aria-label="Show the whole map" title="Show the whole map">&#x2922;</button></div>
   </div>
   <section class="results" id="results" aria-live="polite"></section>
+  <section class="exposed" id="exposed" aria-live="polite"></section>
 </main>
 <script type="module" src="js/main.js"></script>
 </body>

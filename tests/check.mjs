@@ -107,6 +107,48 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   ok(c.every(on), 'the transfer station lies inside the State tsunami hazard area');
 }
 
+// 8. "What's exposed" (js/exposure.js). The transfer station is reached by Bay water at 13.4 ft
+//    (C6, E7); choosing to exit moves waste transfer off the map (E8); removing a site's
+//    contamination takes it off the count only as the reader's choice; containment does not.
+{
+  const { exposure } = await import('../js/exposure.js');
+  const { planFrom } = await import('../tools/report.mjs');
+  const X = { ...D, exposure: JSON.parse(fs.readFileSync('data/exposure.json')), siteCells: JSON.parse(fs.readFileSync('data/site-cells.json')),
+    tsunami: { mask: new Uint8Array(fs.readFileSync('data/hazard/tsunami.bits')) } };
+  const r = analyze(X, 13.4), e0 = exposure(X, r);
+  const st = e0.sites.find(s => s.site.id === 'transfer-station');
+  ok(st.reach && /Bay water over/.test(st.reach.main) && st.counts, `13.4 ft: transfer station reached by Bay water (${st.reach ? Math.round(100 * st.reach.share) : 0}% of its ground)`);
+  const ex = exposure(X, r, { 'transfer-station': 'exit' });
+  ok(/not checked here/.test(ex.services[0].status) && !ex.sites.find(s => s.site.id === 'transfer-station').counts, 'exit: waste transfer moves to a regional station, shown as not checked; the site no longer counts');
+  const ps0 = e0.sites.find(s => s.site.id === 'pacific-steel-geotracker');
+  const con = exposure(X, r, { 'pacific-steel-geotracker': 'contain' }).sites.find(s => s.site.id === 'pacific-steel-geotracker');
+  const rem = exposure(X, r, { 'pacific-steel-geotracker': 'remove' }).sites.find(s => s.site.id === 'pacific-steel-geotracker');
+  ok(ps0.counts && con.counts && !rem.counts, 'Pacific Steel at 13.4 ft: containment still counts, removal does not');
+  const fp = exposure(X, r, { 'berkeley-forge': 'floodproof' }, 14).sites.find(s => s.site.id === 'berkeley-forge');
+  const fpLow = exposure(X, r, { 'berkeley-forge': 'floodproof' }, 13).sites.find(s => s.site.id === 'berkeley-forge');
+  ok(!fp.counts && fpLow.counts, 'flood-proofing to 14 ft keeps Berkeley Forge dry at 13.4; to 13 ft it does not');
+  // Flood-proofing is checked against the water on the site, including a rain pool above the Bay
+  // (Codex, PR #6): Bay at 7.4 ft, gates, 10-year 6-hour storm, all runoff held back.
+  const rr = analyze(X, 7.4, planFrom(X, 'gates'), { ari: '10', duration: '6-hr', blocked: 1 });
+  const bf = exposure(X, rr, { 'berkeley-forge': 'floodproof' }, 12).sites.find(s => s.site.id === 'berkeley-forge');
+  ok(bf.reach && bf.reach.main === 'pooled rain' && bf.counts, `flood-proofing to 12 ft does not keep Berkeley Forge dry under a ${bf.sh.waterFt.toFixed(2)} ft NAVD88 rain pool`);
+  // Each run keeps its own rain surface: with a plan run first and the no-plan run second (the
+  // page's order), the plan's exposure still reads the plan's pools (Codex, PR #6).
+  const rain12 = { ari: '10', duration: '6-hr', blocked: 1 }, gates = planFrom(X, 'gates');
+  const rPlan = analyze(X, 12, gates, rain12); analyze(X, 12, null, rain12);
+  const bf13 = exposure(X, rPlan, { 'berkeley-forge': 'floodproof' }, 13, gates).sites.find(s => s.site.id === 'berkeley-forge');
+  ok(!bf13.counts, `12 ft, gates, rain: Berkeley Forge's own pool (${bf13.sh.waterFt.toFixed(2)} ft NAVD88) is under flood-proofing at 13 ft, read from its own run`);
+  // The 25% threshold applies to all the water on a site together (Codex, PR #6): the transfer
+  // station at 12 ft with open outfalls and rain is flooded through drains and by rain.
+  const rMix = analyze(X, 12, null, rain12), stMix = exposure(X, rMix).sites.find(s => s.site.id === 'transfer-station');
+  ok(stMix.reach && stMix.counts, `12 ft, open outfalls, rain: transfer station reached (${stMix.reach ? stMix.reach.how : 'not reached'})`);
+  // I-80 counts rain and drain flooding too (Codex, PR #6): Bay at 7.4 ft, gates, all runoff held back.
+  const rI = analyze(X, 7.4, planFrom(X, 'gates'), { ari: '10', duration: '6-hr', blocked: 1 });
+  const i80 = exposure(X, rI).services.find(s => s.name === 'I-80');
+  ok(i80.reached && /pooled rain/.test(i80.status), `I-80 under pooled rain is reported: ${i80.status.split(':')[0]}`);
+  ok(e0.tsunamiCount >= 8, `${e0.tsunamiCount} listed pollution sources inside the State tsunami hazard area`);
+}
+
 if (fs.existsSync('data/hazard/art.json')) {
   const art = JSON.parse(fs.readFileSync('data/hazard/art.json'));
   const inB = (i) => (D.berkeley[i >> 3] >> (i & 7)) & 1;

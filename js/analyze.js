@@ -111,6 +111,8 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     levelFt, state, segs,
     wetLandHa: wetLand * cellHa, lowLandHa: lowLand * cellHa, flankedHa: flanked * cellHa, drainLandHa: drainLand * cellHa, drainHa,
     rainLandHa: rainLand * cellHa, rain: rainRes,
+    // This run's pool surface (cm NAVD88); D.rainSurface is overwritten by the next run with rain.
+    rainSurface: rainRes ? D.rainSurface : null,
     wetStreetM: sumB('wet'), lowStreetM: sumB('low'), drainStreetM: sumB('drain'), rainStreetM: sumB('rain'),
     freewayWet: streetsOut.filter(s => s.wet && s.freeway),
     streets: streetsOut, facilities: fac, overWater, overtopped,
