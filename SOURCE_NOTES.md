@@ -506,6 +506,12 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 
 ## Eric's decisions, 2026-11-03 (Claude Code session)
 
-- **E4.** The transfer station is critical infrastructure ("It is critical."). Applied in
-  `data/scenarios.json` (both State 2024 High scenarios) and C13: the guidance's High scenario
-  (W17) is the one that applies to it.
+- **E4.** The transfer station is critical infrastructure ("It is critical."). Eric's reasons:
+  flooding it would have disastrous environmental consequences, and with it offline, cleanup
+  after a disaster is hindered. Both match the guidance's own test for the High scenario:
+  development that "would have considerable public health, public safety, or environmental
+  impacts should that level of sea level rise occur, such as most critical infrastructure"
+  (Coastal Commission 2024 guidance, Ch. 3, p. 66; W17). The Draft EIR lists hazardous
+  materials among the project's potentially significant effects, which it finds mitigable (F3).
+  Applied in `data/scenarios.json` (both State 2024 High scenarios) and C13: the guidance's High
+  scenario (W17) is the one that applies to it.
