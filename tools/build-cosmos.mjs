@@ -24,8 +24,9 @@ const STORM = { w000: 'background tide, no storm', w001: 'annual storm', w020: '
 // Berkeley land, not open Bay: the cells every comparison counts (as SOURCE_NOTES C1).
 const land = []; for (let i = 0; i < N; i++) if (inB(i) && !water0[i]) land.push(i);
 
-// Connected fill at every level from 6.0 to 16.5 ft NAVD88 in 0.05 ft steps, Berkeley land only.
-const STEP = 0.05, LEVELS = []; for (let k = 0; k <= 210; k++) LEVELS.push(Math.round((6 + k * STEP) * 100) / 100);
+// Connected fill at every level from 6.0 to 30.0 ft NAVD88 in 0.05 ft steps, Berkeley land only.
+// The range must contain every scenario's best match; a best match at either end is an error.
+const STEP = 0.05, LEVELS = []; for (let k = 0; k <= 480; k++) LEVELS.push(Math.round((6 + k * STEP) * 100) / 100);
 const fills = LEVELS.map(lv => { const s = connectedFill(z, W, H, lv); const m = new Uint8Array(land.length); land.forEach((i, k) => { m[k] = s[i] === WET ? 1 : 0; }); return m; });
 
 const out = [];
@@ -69,11 +70,12 @@ for (const [key, sc] of Object.entries(clips.scenarios).sort(([, a], [, b]) => a
   const ha = (x) => Math.round(x * 10) / 10;
   out.push({ id: key, slrM: sc.slrM, storm: sc.storm, label: `${sc.slrM} m of sea level rise, ${STORM[sc.storm]}`, file, source: sc.depthSource,
     cosmosHa: ha(cosmosHa * R * R / 1e4), waterSurface: wse,
+    ...(best.levelFt === LEVELS[0] || best.levelFt === LEVELS[LEVELS.length - 1] ? (() => { throw new Error(`${key}: best match at the search edge (${best.levelFt} ft NAVD88)`); })() : {}),
     bestMatch: { levelFt: best.levelFt, agreement: best.agreement, oursHa: ha(best.oursHa), cosmosOnlyHa: ha(cosmosHa * R * R / 1e4 - best.bothHa), oursOnlyHa: ha(best.oursHa - best.bothHa) } });
   console.log(`${key}: ${ha(cosmosHa * R * R / 1e4)} ha of Berkeley land; water surface off Berkeley ${wse ? wse.medianFt.toFixed(2) + ' ft NAVD88' : 'n/a'}; best fill match ${best.levelFt} ft NAVD88, agreement ${(100 * best.agreement).toFixed(0)}%`);
 }
 fs.writeFileSync('data/hazard/cosmos.json', JSON.stringify({
-  note: 'USGS Coastal Storm Modeling System (CoSMoS) v2.1, San Francisco Bay, Alameda County flood depth rasters (Our Coast, Our Future download, 2 m, NAVD88), rasterized to this grid: a cell is flooded where CoSMoS gives a depth (any depth). CoSMoS models total water levels with tides, storms (in-Bay wind waves and ocean swell), river discharge and sea level rise: not still water (SOURCE_NOTES H1). waterSurface: CoSMoS water surface elevation, ft NAVD88, over the open Bay inside the City limits (sourced values, our summary). bestMatch: the still water level, ft NAVD88, at which the explorer\'s connected fill best matches the CoSMoS extent on Berkeley land (agreement = both / either, 0.05 ft steps; derived).',
+  note: 'USGS Coastal Storm Modeling System (CoSMoS) v2.1, San Francisco Bay, Alameda County flood depth rasters (Our Coast, Our Future download, 2 m, NAVD88), rasterized to this grid: a cell is flooded where CoSMoS gives a depth (any depth). CoSMoS models total water levels with tides, storms (in-Bay wind waves and ocean swell), river discharge and sea level rise: not still water (SOURCE_NOTES H1). waterSurface: CoSMoS water surface elevation, ft NAVD88, over the open Bay inside the City limits (sourced values, our summary). bestMatch: the still water level, ft NAVD88, at which the explorer\'s connected fill best matches the CoSMoS extent on Berkeley land (agreement = both / either, 0.05 ft steps from 6.0 to 30.0 ft NAVD88; derived).',
   provenance: { category: 'sourced', retrieved: clips.retrieved, page: clips.page },
   scenarios: out,
 }, null, 1) + '\n');

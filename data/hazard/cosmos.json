@@ -1,5 +1,5 @@
 {
- "note": "USGS Coastal Storm Modeling System (CoSMoS) v2.1, San Francisco Bay, Alameda County flood depth rasters (Our Coast, Our Future download, 2 m, NAVD88), rasterized to this grid: a cell is flooded where CoSMoS gives a depth (any depth). CoSMoS models total water levels with tides, storms (in-Bay wind waves and ocean swell), river discharge and sea level rise: not still water (SOURCE_NOTES H1). waterSurface: CoSMoS water surface elevation, ft NAVD88, over the open Bay inside the City limits (sourced values, our summary). bestMatch: the still water level, ft NAVD88, at which the explorer's connected fill best matches the CoSMoS extent on Berkeley land (agreement = both / either, 0.05 ft steps; derived).",
+ "note": "USGS Coastal Storm Modeling System (CoSMoS) v2.1, San Francisco Bay, Alameda County flood depth rasters (Our Coast, Our Future download, 2 m, NAVD88), rasterized to this grid: a cell is flooded where CoSMoS gives a depth (any depth). CoSMoS models total water levels with tides, storms (in-Bay wind waves and ocean swell), river discharge and sea level rise: not still water (SOURCE_NOTES H1). waterSurface: CoSMoS water surface elevation, ft NAVD88, over the open Bay inside the City limits (sourced values, our summary). bestMatch: the still water level, ft NAVD88, at which the explorer's connected fill best matches the CoSMoS extent on Berkeley land (agreement = both / either, 0.05 ft steps from 6.0 to 30.0 ft NAVD88; derived).",
  "provenance": {
   "category": "sourced",
   "retrieved": "2026-11-03",
@@ -966,11 +966,11 @@
     "samples": 19743
    },
    "bestMatch": {
-    "levelFt": 16.5,
-    "agreement": 0.798,
-    "oursHa": 231.2,
-    "cosmosOnlyHa": 54.2,
-    "oursOnlyHa": 3.4
+    "levelFt": 22.3,
+    "agreement": 0.942,
+    "oursHa": 290.2,
+    "cosmosOnlyHa": 4.4,
+    "oursOnlyHa": 12.7
    }
   },
   {
@@ -988,11 +988,11 @@
     "samples": 19743
    },
    "bestMatch": {
-    "levelFt": 16.5,
-    "agreement": 0.798,
-    "oursHa": 231.2,
-    "cosmosOnlyHa": 54.3,
-    "oursOnlyHa": 3.4
+    "levelFt": 22.4,
+    "agreement": 0.942,
+    "oursHa": 291,
+    "cosmosOnlyHa": 4,
+    "oursOnlyHa": 13
    }
   },
   {
@@ -1010,11 +1010,11 @@
     "samples": 19743
    },
    "bestMatch": {
-    "levelFt": 16.5,
-    "agreement": 0.767,
-    "oursHa": 231.2,
-    "cosmosOnlyHa": 66.7,
-    "oursOnlyHa": 2.8
+    "levelFt": 23.5,
+    "agreement": 0.943,
+    "oursHa": 301.7,
+    "cosmosOnlyHa": 5.5,
+    "oursOnlyHa": 12.2
    }
   },
   {
@@ -1032,11 +1032,11 @@
     "samples": 19743
    },
    "bestMatch": {
-    "levelFt": 16.5,
-    "agreement": 0.767,
-    "oursHa": 231.2,
-    "cosmosOnlyHa": 66.5,
-    "oursOnlyHa": 2.8
+    "levelFt": 23.55,
+    "agreement": 0.943,
+    "oursHa": 302,
+    "cosmosOnlyHa": 5.2,
+    "oursOnlyHa": 12.3
    }
   },
   {
@@ -1049,11 +1049,11 @@
    "cosmosHa": 287.7,
    "waterSurface": null,
    "bestMatch": {
-    "levelFt": 16.5,
-    "agreement": 0.783,
-    "oursHa": 231.2,
-    "cosmosOnlyHa": 59.9,
-    "oursOnlyHa": 3.4
+    "levelFt": 22.75,
+    "agreement": 0.944,
+    "oursHa": 294.2,
+    "cosmosOnlyHa": 5.2,
+    "oursOnlyHa": 11.7
    }
   }
  ]

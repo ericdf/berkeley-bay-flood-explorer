@@ -830,14 +830,14 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 
 - **C21. Terrain against USGS CoSMoS v2.1 (H1).** For each CoSMoS scenario, the still-water level at
   which the connected fill best matches CoSMoS's flooded extent on Berkeley land (both / either, as C1;
-  levels 6.0–16.5 ft NAVD88 in 0.05 ft steps; derived). With the 100-year storm: 1.25 m of rise 63% at
+  levels 6.0–30.0 ft NAVD88 in 0.05 ft steps; derived). With the 100-year storm: 1.25 m of rise 63% at
   12.40 ft, 1.5 m 70% at 13.15, 1.75 m 71% at 13.35, 2.0 m 68% at 13.35; 1.0 m 47% at 11.20; 0–0.75 m
   13–45%, where CoSMoS floods 1.4–14 ha and keeps dry the North Basin shoreline strip (37.8749 N,
   122.3089 W) and the west edge of Aquatic Park that the fill wets. The Marina agrees: at 1.5 m + 100-year,
   DoubleTree grounds 83% in CoSMoS and 89% in the fill, Marina Blvd 93% and 98%. CoSMoS floods none of the
   transfer station, Second St, Bolivar Dr, Eastshore Hwy or the I-80 corridor at 37.8812 N, 122.3073 W in
   any scenario up to 2.0 m, though its water surface over the Bay off Berkeley reaches 13.82 ft NAVD88
-  (2.0 m, 100-year storm) and 14.21 (2.0 m, background tide); at 5 m it covers all of the transfer station.
+  (2.0 m, 100-year storm) and 14.21 (2.0 m, background tide); at 5 m it covers all of the transfer station. At 5 m the fill matches at 22.3–23.55 ft NAVD88 (94%, every storm); a first run searched only to 16.5 ft and reported that edge as the best match (Codex review, PR 8).
   The fill crosses at 13.35 (C6) and ART at + 96 in (C1). CoSMoS's surface is a total water level, so it does
   not test the still-water threshold directly, and its handling of the freeway embankment is not documented;
   C6 stays a question for the Caltrans profile. Closest ART maps: 1.0–2.0 m + 100-year match ART + 66 in at
@@ -1093,9 +1093,17 @@ Three claims in the outside review behind E9, checked against primary sources be
   10.4 ft NAVD88 (the drain inlet at the westbound roundabout) and 9.0 ft NAVD88 (the Gilman St
   extension). Its one sea level rise measure is a tidal flap gate at the Gilman outfall; the May
   2018 study calls preventing sea level rise impacts "beyond the scope of this Project". Design
-  figures; whether the gate was built, and the as-built elevations, are unchecked. Conflict: its
-  100-year still water level (10.2) is 0.5 ft above the 2016 study's 9.73 at point 518 (W11); the
-  addendum's source for 10.2 was not read. Used for: D6 (the first documented tide gate on a
+  figures; whether the gate was built, and the as-built elevations, are unchecked. The gate goes "at
+  the existing headwall of the 60-inch RCP at the west end terminus of Gilman Street" and addresses
+  tidal backwater only (p. 10); no invert elevation is given. Conflict: the addendum's 100-year still
+  water level (10.2 ft NAVD88) is 0.47 ft above the 2016 study's 9.73 ft NAVD88 at point 518 (W11).
+  The addendum cites FEMA's Flood Insurance Study for Alameda County (FIS 06001CV001B–003B, "expected
+  to be adopted on December 21, 2018"; not read) and calls 10.2 the still water elevation at the
+  Zone AE boundary "in the City of Berkeley" (p. 7). The May 2018 study used FEMA's earlier Zone VE
+  levels, 10 and 9 ft NAVD88, which "account for storm surge and wave run-up". The two still water
+  figures come from different studies, and no document read explains the gap, so the explorer keeps
+  9.73 and treats 10.2 as a FEMA figure to check against the FIS table (the FEMA map service failed
+  to connect, 2026-11-03). Used for: D6 (the first documented tide gate on a
   Berkeley outfall) and the CPRA request.
 
 ## Eric's decisions, 2026-11-02 (Claude Code session)
