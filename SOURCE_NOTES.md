@@ -438,10 +438,28 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   - The modeled connection behind I-80 (13.35, C6) is a rise of 3.62 ft on today's 100-year
     tide. Interpolating Table F-5's decades linearly, the median rise reaches 3.62 ft about
     2076 under High, 2088 under Intermediate-High and 2107 under Intermediate. The guidance
-    names High for "most critical infrastructure" (W17); reading the transfer station as
-    critical infrastructure is our inference, and on that reading the High date is the one the
+    names High for "most critical infrastructure" (W17), and the project treats the transfer
+    station as critical infrastructure (E4), so the High date, about 2076, is the one the
     guidance points to. All three dates inherit C6's
     unquantified uncertainty and W18's baseline offset.
+
+- **C14. Kaiser Permanente sites (asked by Eric, 2026-11-03).** Two Kaiser addresses in
+  OpenStreetMap (Nominatim, read 2026-11-03), checked against the terrain and the fill:
+  - The Berkeley Medical Offices, 2610 10th St off San Pablo Ave, opened May 2021 (Berkeleyside,
+    2021-03-24): ground 49.8 to 55.5 ft NAVD88 over the site's bounding box, median 54.1. No
+    scenario reaches it, the highest (16.23) included, with or without the rain experiment:
+    the ground is 33 ft or more above that level. Bay flooding is not its exposure; earthquake
+    shaking and liquefaction are outside this explorer.
+  - 1780 Second St, between Hearst Ave and I-80, listed by business directories as Kaiser
+    Permanente Construction Services and the Kaiser Permanente Foundation, an office, not a clinic
+    (the listings disagree on name and phone; not confirmed with Kaiser). Ground 9.4 to
+    12.2 ft NAVD88 within 30 m of the point, median 10.7. Outfalls assumed open, 67% of that ground
+    can fill through the drains at 11.03 (2050 High) and 98% at 12; under Bay water at 13.4 and
+    above. With gates and a 10-year 6-hour storm, 10% of the runoff held back, the Schoolhouse
+    watershed's rain pool (surface 10.8 ft NAVD88) covers 54% of it, at any tide from 7.4 to
+    9.73: the illustrative experiment puts that watershed's pool there.
+  Not checked: whether Kaiser has a newer Berkeley project; searches on 2026-11-03 found none
+  after the 2021 building.
 
 ## Hazard data and press (read 2026-11-02)
 
@@ -485,3 +503,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   (`js/scenarios.js`, e.g. "a fall night, when Diablo winds are strongest"). Applied in
   `specification.md` (Joint scenario): a same-day November king tide case and a later
   sea level rise case in which segments are wet at every high tide.
+
+## Eric's decisions, 2026-11-03 (Claude Code session)
+
+- **E4.** The transfer station is critical infrastructure ("It is critical."). Applied in
+  `data/scenarios.json` (both State 2024 High scenarios) and C13: the guidance's High scenario
+  (W17) is the one that applies to it.

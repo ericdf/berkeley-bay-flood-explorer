@@ -97,7 +97,7 @@
       "label": "100-year storm tide in 2050, State 2024 High scenario",
       "levelFt": 11.03,
       "category": "derived",
-      "source": "9.73, today's 100-year storm tide (W11), plus 1.3 ft, the High scenario's rise by 2050 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17). Whether the transfer station counts is this project's inference, not the guidance's; if it does, High is the scenario the guidance points to for it (C13)."
+      "source": "9.73, today's 100-year storm tide (W11), plus 1.3 ft, the High scenario's rise by 2050 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17); the project treats the transfer station as critical infrastructure (Eric's decision, E4), so this is the scenario the guidance points to for it (C13)."
     },
     {
       "id": "ferris12",
@@ -140,7 +140,7 @@
       "label": "100-year storm tide in 2100, State 2024 High scenario",
       "levelFt": 16.23,
       "category": "derived",
-      "source": "9.73, today's 100-year storm tide (W11), plus 6.5 ft, the High scenario's rise by 2100 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17). Whether the transfer station counts is this project's inference, not the guidance's; if it does, High is the scenario the guidance points to for it (C13)."
+      "source": "9.73, today's 100-year storm tide (W11), plus 6.5 ft, the High scenario's rise by 2100 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17); the project treats the transfer station as critical infrastructure (Eric's decision, E4), so this is the scenario the guidance points to for it (C13)."
     }
   ]
 }
