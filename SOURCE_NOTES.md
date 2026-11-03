@@ -932,4 +932,6 @@ follow; it is a planning gap.
   facility performs it. E4 applies to the transfer station while Berkeley depends on it; under the
   exit lever (E7) the function moves to the regional station, which then appears in the panel's
   critical services. Its exposure reads "not checked here" while it lies outside the map (F21),
-  never as safe.
+  never as safe. Eric, same day: "selection of a third-party site would have to include scrutiny for
+  safety". So choosing a regional station is itself a decision with a flood and tsunami check, and
+  the exit lever names that check as a step, not a given.
