@@ -90,10 +90,9 @@ compared against, and an option in its own right (E7).
   mitigation plan, hazardous materials planning rules). It may supply existing plans for the
   panel's "what is in place" column.
 
-## Open for Eric
-
-1. Should the panel show a site's kind of risk (in use, in the ground) from the research
-   agent's reading of the databases, or only rows we have re-read ourselves?
+Settled 2026-11-03: every site in the panel has been re-read against the State record (C18,
+T5), so the open question of showing unverified rows is moot. The "not re-read" tag stays in
+the code for any site added later.
 
 Settled (E7): doing nothing is the base case and stays an option; the transfer station lever
 needs no new site, since a regional station can take Berkeley's waste.

@@ -712,8 +712,8 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   F16. Method: ground within 30 m of the point, a site counting once 25% of that ground is affected
   at a scenario level, outfalls assumed open for the drain column; rain pool from the 10-year
   6-hour experiment with gates, 10% held back, Bay at 7.4. What the records say about each site
-  (contaminants, case status) is the agent's reading and is not re-read here, except as F14–F19
-  record.
+  (contaminants, case status) was the agent's reading; for the six panel sites it was re-read
+  against the State record on 2026-11-03 (C18).
   - On ground the explorer floods: former Pacific Steel (GeoTracker point; ground 9.8–12.3 ft
     NAVD88; drains from 11.03, Bay from 13.4); 1255 Eastshore Hwy, solvents in groundwater per the
     database (10.7–12.0; drains from 12, Bay from 13.4, 19% under the rain pool in the 10-year
@@ -745,6 +745,35 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   scenario and outside the tsunami hazard area; C15 and C16 earlier placed it on 15.2–17.3 ft ground
   inside the area. The City's hazard mitigation plan lists "PC Cargo, 2424 Fourth Street" among its
   high-risk facilities (T2); that PC Cargo is the same business is an inference from the address.
+
+- **C18. The six panel sites re-read against the State record (2026-11-03; Eric asked).** Source:
+  the State Water Board's GeoTracker site export, `geotracker_sites_2026-10-01.csv` on data.ca.gov
+  (dataset "Ground Water - Water Quality Regulatory Information"), which carries each case's status,
+  contaminants, media and site history; the GeoTracker website itself refuses automated access. Each
+  point in `data/sites-checked.json` matches the export's latitude and longitude. What changed:
+  - 1255 Eastshore Hwy (T10000011080): TCE, DCE, vinyl chloride, ethylbenzene and gasoline in soil,
+    shallow groundwater and soil vapor; open, eligible for closure (2022-04-21); the chlorinated
+    solvents detected in 2019 "are belived to be from an off-site source" (sic). The agent's
+    "solvents in groundwater" left out the hydrocarbons, the near-closure status and that note.
+  - Berkeley Marine Center (T10000001877): copper, lead and other metals in soil; open, site
+    assessment (2020-07-24); found after a City Parks complaint, by 2008, more on the waterfront in
+    2009; stopped by "Procedural changes and stormwater collection and filtering". Confirmed. The
+    record does not say whether the boatyard operates now; the panel says so.
+  - Terminal Manufacturing (T10000009006): PCE, diesel and gasoline in groundwater and soil vapor;
+    open, verification monitoring (2023-07-05); groundwater treatment injections reported in 2020.
+    Confirmed; operation now is likewise not in the record.
+  - Eastshore State Park remainder (SL0600164054): PCBs, lead and other metals in soil and
+    groundwater; open, long-term management (2024-12-03); Order 98-072; 4,600 cubic yards dug out
+    at 17 locations in 1998; cap maintenance and shoreline erosion control with annual inspections.
+    Confirmed; the record covers the park across several cities, not one Berkeley parcel.
+  - Former Flint Ink (SL0600172262): lead, kerosene, other petroleum, TPH; open, eligible for
+    closure (2021-10-22); VOCs in groundwater in the northeast corner; 19,000 tons of soil and about
+    370,000 gallons of groundwater removed in 2005–06; two possibly leaking USTs closed in place
+    under slabs. The agent's "solvents" is better read as VOCs and petroleum.
+  - Berkeley Landfill (L10006224883): a land disposal site, open, verification monitoring
+    (2009-09-25); "The City perfomred a groundwater investigation to identify potential impacts.
+    None were identified" (sic). The order's own facts are in T5.
+  The flood and tsunami figures for these sites (C15, C16) do not change.
 
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
@@ -798,12 +827,26 @@ follow; it is a planning gap.
   per the agent, names the "Gilman Transfer Station" among projects storing hazardous materials
   whose inundation "could result in a cumulative impact" (p. 4.10-41, not verified). The transfer
   station's EIR asked only whether the project made things worse.
-- **T5. The landfill under César Chávez Park.** Water Board Order R2-2010-0064 (per the agent; not
-  verified): perimeter levees 1957–1968, riprap in the late 1970s, "no engineered base liner",
-  about 1.5 million tons of waste; protection against "washout or erosion of wastes from
-  inundation" by the 100-year flood; a five-year flood protection report; no mention of tsunami. A
-  tentative 2026 general order (not adopted) would require protection for the 100-year storm with
-  2050 sea level rise, including wave run-up, also without tsunami.
+- **T5. The landfill under César Chávez Park.** Read 2026-11-03: the Water Board's tentative
+  order, *Updated Waste Discharge Requirements and Rescission of Order Nos. 76-9, 77-138, and 86-41,
+  City of Berkeley, Berkeley Landfill* (February 2010 agenda), and the staff summary report for the
+  Board's April 14, 2010 meeting, Item 5.B (both at waterboards.ca.gov, `board_info/agendas/2010/`).
+  The tentative order: waste accepted 1961–1983, closed in phases 1981–1990; perimeter levees
+  "Built between 1957 and 1968", improved in the late 1970s with slurry trenches and riprap; "approximately
+  1.5 million tons of residential, commercial, and industrial waste"; "There is no engineered base
+  liner at the Landfill", waste placed directly on 3.5–16.5 ft of Bay Mud (p. 2); "The site shall
+  be protected from any washout or erosion of wastes from inundation, which could occur as a result
+  of a 100-year, 24-hour storm event, or as the result of flooding with a return frequency of 100
+  years" (p. 13). Neither document mentions tsunami. The staff summary says the revised tentative
+  order added "a new provision that requires the City to periodically evaluate the Landfill's need
+  for increased flood protection due to sea level rise", and a finding that investigations show
+  leachate "is not in hydraulic connection to the Bay"; San Francisco Baykeeper commented on the
+  draft and agreed to the revision. Corrections to the agent's reading: the order number
+  R2-2010-0064 and the adopted text were not read here (the revised order is not at the guessed
+  URLs), and the tentative order's five-year report is for financial assurance, not flood
+  protection; how often the sea level rise evaluation recurs is in the revised order, not read. Not
+  verified: a tentative 2026 general order (not adopted) that would require protection for the
+  100-year storm with 2050 sea level rise, including wave run-up, also without tsunami.
 - **T6. Not read:** the City's Hazardous Materials Area Plan (no public copy found); the 2023
   Alameda County tsunami evacuation playbook; the Marina's maritime playbook 2015-Alam-02 (CGS
   shares it only with harbor officials); the transfer station Draft EIR's hazards appendix.
@@ -993,3 +1036,23 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   never as safe. Eric, same day: "selection of a third-party site would have to include scrutiny for
   safety". So choosing a regional station is itself a decision with a flood and tsunami check, and
   the exit lever names that check as a step, not a given.
+- **E9. The 12 ft scenario's label, and the outside review's page fixes (2026-11-03).** A second
+  outside AI review said the label "Scott Ferris's 12 ft" personalizes a hazard and reads as a
+  gotcha. Eric: "Yes, adjust the label." It now reads "A 12 ft level quoted at a Council committee
+  (Oct 22, 2026)", in a group "Quoted at a public meeting"; his name stays in the source line (M1).
+  Eric also approved, from the same review: (1) a stamp on the map with the scenario, level and
+  datum, "Not a flood forecast", the date and the site address, so a screenshot keeps them;
+  (2) no pool surface for a rain pool under 1 ha (the review found 18–21 ft NAVD88 reported on
+  0.0–0.7 ha at 14.53 ft, where every pool spills into Bay water already over its inlet);
+  (3) I-80 moved below the other roads in "What's exposed", with the bare-earth caveat first;
+  (4) the map before the controls on a phone, scenarios grouped by kind, street lists folded, and
+  landmark names on the map.
+- **E10. A king tide field check (2026-11-03).** Eric asked for a field guide a non-expert can use
+  while he is away: `field-guide.html`. Stops and what the explorer shows at 7.4 ft NAVD88
+  (`analyze`, no plan): Bolivar Dr by Aquatic Park, lowest street ground in Berkeley in the
+  terrain (7.0–7.2 ft), on low ground that can fill through the storm drains; the frontage road at
+  the south end of Aquatic Park (7.6–7.8 ft), dry until about 8.4; Marina Blvd at University Ave
+  (lowest street ground 9.9), dry; Second St north of Gilman (9.1–9.3), dry. Tide times are NOAA's
+  Richmond predictions (W14), re-read 2026-11-03; the California Coastal Commission's King Tides
+  Project names Nov 24–26, Dec 23–25 and Jan 21–22. Results, when they come, are recorded here
+  against NOAA's measured water level at Richmond for that morning.

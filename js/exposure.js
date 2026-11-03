@@ -90,10 +90,12 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
       status: exited ? 'not checked here: outside the map; choosing a regional station includes its own flood and tsunami check (E8)'
         : station.reach ? `reached: ${station.reach.how}, ${Math.round(100 * station.reach.share)}% of its ground` : 'not reached at this level',
       reached: !exited && !!station.reach, tsunami: !exited && station.tsunami >= REACH },
-    { name: 'I-80', status: i80 > 0 ? `${(i80 / 1000).toFixed(2)} km of freeway lines flooded (${i80Parts.join(', ')}): both directions and ramps, in Berkeley and beyond (bare-earth lidar may miss the deck; F2)` : 'not reached at this level', reached: i80 > 0 },
     { name: 'Frontage roads', roads: roadM(X.frontageRoads), reachedKey: true },
     { name: 'Marina access roads, also the ways off the waterfront', roads: roadM(X.marinaRoutes, X.marinaMaxX), reachedKey: true, wayOut: true },
     { name: 'Storm drain outfalls', status: gates ? 'tide gates on every outfall (your assumption)' : 'assumed open: which outfalls have working tide gates is not published (D6)', reached: !gates },
+    // I-80 last among the roads: bare-earth lidar removes the raised deck and overpasses, so its
+    // figure is the least certain here (an outside review, 2026-11-03); the caveat leads.
+    { name: 'I-80', status: i80 > 0 ? `on bare-earth lidar, which removes the raised deck and overpasses, ${(i80 / 1000).toFixed(2)} km of freeway lines in both directions and ramps, in Berkeley and beyond, are flooded (${i80Parts.join(', ')}); Caltrans road profiles are needed to confirm (F2)` : 'not reached at this level', reached: i80 > 0 },
     { name: 'Sanitary sewers', status: 'not modeled (F15)', reached: null },
   ];
   for (const s of services) if (s.reachedKey) {
