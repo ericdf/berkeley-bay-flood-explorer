@@ -281,8 +281,60 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   this site's contamination controls, and makes the design account for it, without a stated
   design water level in the pages read. The site's ground is 10.6–13.9 ft NAVD88 (F16); the
   explorer shows it filling through the drains from 12 ft with outfalls open and under Bay water
-  from 13.4. Not read: the Draft EIR's Section 4.9 (hazards) and its hydrology section, which may
-  give the flood and sea level rise levels the project assumed.
+  from 13.4. The Draft EIR's hydrology section is read in F18; its Section 4.9 (hazards) is not.
+- **F18. Gilman Gateway Draft EIR, Section 4.10 Hydrology and Water Quality (read 2026-11-03,
+  asked by Eric).** *Gilman Gateway Rezone Project Draft EIR*, SCH# 2022120549, October 2024
+  (CEQAnet, document 4, "Gilman Gateway Draft EIR_compiled_flat", 500 pp.; the section file is
+  dated 1/2/24). Page numbers are the section's printed numbers.
+  - p. 4.10-1: the site straddles the Schoolhouse and Gilman watersheds; "segments of the Gilman
+    Street storm drain system do not have capacity to convey 10-year design storm flows ... The
+    capacity limitation is related to tidal influence as well as floodwaters from Codornices Creek
+    that overtop the banks and flow south on Second Street" (citing the City's Watershed
+    Management Plan; matches F7, F8).
+  - p. 4.10-3: groundwater 1.5 to 15 ft below ground, "likely to be perched groundwater on the Bay
+    Mud". p. 4.10-4: the 2018 Phase I ESA found "multiple illegal releases or discharges to on-site
+    storm drains" at Pacific Steel, a City Notice of Stormwater Violation, and "groundwater
+    dewatering sumps and oil/water separators ... that discharged directly into the storm drain
+    system"; "it is not known whether any stormwater protection measures have been maintained ...
+    since" the 2018 closure. Berkeley Forge and Tool is "an active industrial facility" under the
+    Industrial General Permit (as of the Draft EIR).
+  - p. 4.10-5: FEMA Zone X (not a Special Flood Hazard Area); Zone AE, BFE 10 ft NAVD88, about
+    700 ft west; Zone VE, BFE 13 ft NAVD88, on the shoreline at the Gilman St outfall. Caltrans's
+    Gilman interchange study: the Gilman St storm drain "is low in elevation in relation to the
+    FEMA Zone VE water surface elevation".
+  - p. 4.10-6: sea level rise from the 2018 OPC guidance (likely range 1.6 to 3.4 ft by 2100 under
+    high emissions; medium-high risk aversion 5.7 to 6.9 ft; extreme 10.2 ft).
+  - p. 4.10-7: the ART maps show no inundation of the site up to MHHW (6.2 ft NAVD88) plus 7 ft
+    and the whole site inundated at plus 8 ft; about 13.2 and 14.2 ft NAVD88 (derived), which
+    brackets this explorer's modeled connection at 13.35 (C6). Caltrans: the Second St and Gilman St
+    intersection is "susceptible to backflow through the storm drain system or overland tidal
+    inundation when accounting for sea level rise".
+  - Impact HYD-4, pp. 4.10-36 to 4.10-38: the BKF *Preliminary Sea Level Rise Vulnerability
+    Assessment* (2022, not read) uses "a projected sea level rise of 3.4 feet by 2100 ... which
+    accounts for Low Risk Aversion projects under a high emission scenario" and "recommends that
+    the minimum finished floor elevations for critical infrastructure at the project site should
+    be 13.4 feet NAVD 88, which is equal to the Base Flood Elevation at the nearest Special Flood
+    Hazard Area of 10 feet NAVD 88 plus 3.4 feet." The Draft EIR adds: "it is not clear how FEMA's
+    mapping of a Special Flood Hazard Zone with a Base Flood Elevation of 13 feet NAVD88 around
+    the Gilman Street storm drain outfall could affect future flooding conditions". Unmitigated
+    flooding of stored hazardous materials "would be a potentially significant impact";
+    Mitigation Measure HYD-4 requires flood-proof hazardous materials storage and a future
+    "Flooding and Sea Level Rise Assessment" before permits, with no design level stated.
+  What it bears on (derived and inference, ours):
+  - The Draft EIR, published October 2024, uses the 2018 guidance; the OPC adopted the 2024 update
+    in June 2024 (Coastal Commission 2024 guidance, Executive Summary, p. 13: "in June 2024, the OPC adopted its most recent update"; W17). The section file is dated January
+    2024, before that adoption.
+  - The 13.4 ft floor is the BFE plus the 2018 low risk aversion rise. Today's 100-year storm tide
+    plus the 2024 rises at the San Francisco gauge for 2100 are 12.83 (Intermediate), 14.53
+    (Intermediate-High) and 16.23 (High) ft NAVD88 (C13): 13.4 is above the first, 1.1 ft below the
+    second and 2.8 ft below the third. On the Draft EIR's own base of 10 ft they would be 13.1,
+    14.8 and 16.5.
+  - The guidance assigns High to "most critical infrastructure" (W17), and the BKF figure is for
+    critical infrastructure. Whether anything on this site is critical infrastructure in the
+    guidance's sense is not established here.
+  - 13.4 is also about where this explorer's fill first reaches these flats over the surface
+    (13.35, C6): a floor at 13.4 sits at the threshold, not above a margin.
+  Not read: the BKF assessment, the Caltrans interchange study, Section 4.9 (hazards).
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
