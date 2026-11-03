@@ -65,13 +65,6 @@
       "source": "100-year extreme tide at point 518, 9.73 ft NAVD88 (W11); the City study rounds it to 9.8 (W5); annual chance from W10"
     },
     {
-      "id": "opc2050Intermediate",
-      "label": "100-year storm tide in 2050, State 2024 Intermediate scenario",
-      "levelFt": 10.53,
-      "category": "derived",
-      "source": "9.73, today's 100-year storm tide (W11), plus 0.8 ft, the Intermediate scenario's rise by 2050 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18)."
-    },
-    {
       "id": "y100y2050",
       "label": "100-year storm tide in 2050 (City study, 2018 guidance)",
       "levelFt": 10.7,
@@ -105,13 +98,6 @@
       "levelFt": 12.0,
       "category": "inference",
       "source": "Scott Ferris, Budget and Finance Policy Committee, 2026-10-22, as quoted by Kelly Hammargren: a \"5 or 10-year storm\" \"could result in a 12-foot sea level rise in the waterfront\" (M1). Read here as a 12 ft NAVD88 water level (M2, inference). Unconfirmed: its source, its datum, and whether it includes waves. As still water it is above the 500-year level (10.91, W11); FEMA's wave-inclusive flood elevations on the exposed Marina shoreline are 12 to 14 ft (W6), and a still-water fill shows no waves."
-    },
-    {
-      "id": "opc2100Intermediate",
-      "label": "100-year storm tide in 2100, State 2024 Intermediate scenario",
-      "levelFt": 12.83,
-      "category": "derived",
-      "source": "9.73, today's 100-year storm tide (W11), plus 3.1 ft, the Intermediate scenario's rise by 2100 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18)."
     },
     {
       "id": "y100y2100",

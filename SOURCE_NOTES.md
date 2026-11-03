@@ -738,3 +738,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   ordinary stormwater (F14).
   Applied in `data/scenarios.json` (both State 2024 High scenarios) and C13: the guidance's High
   scenario (W17) is the one that applies to it.
+- **E5.** Use the San Francisco gauge for the 2024 scenarios ("SF is ok"; W17), and list only the
+  Intermediate-High and High scenarios ("Yes trim"). Applied in `data/scenarios.json`: the two
+  Intermediate rows (10.53 and 12.83 ft NAVD88) are removed from the list; C13 keeps their results,
+  and the slider still reaches those levels.

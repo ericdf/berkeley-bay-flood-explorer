@@ -10,7 +10,9 @@ import { load, planFrom } from './report.mjs';
 import { analyze } from '../js/analyze.js';
 import { toUTM } from './utm.mjs';
 
-const LEVELS = [7.4, 9.73, 11.03, 12, 12.83, 13.4, 14.53, 16.23]; // ft NAVD88 (data/scenarios.json)
+// ft NAVD88: scenario levels from data/scenarios.json, plus 12 and the 2100 Intermediate level 12.83
+// (C13), which the page's list leaves out (E5).
+const LEVELS = [7.4, 9.73, 11.03, 12, 12.83, 13.4, 14.53, 16.23];
 const D = load(), dem = D.dem, W = dem.width;
 const cellOf = (lat, lon) => { const [x, y] = toUTM(lon, lat); return [Math.floor((x - dem.xmin) / dem.resolution), Math.floor((dem.ymax - y) / dem.resolution)]; };
 function cells(s) {
