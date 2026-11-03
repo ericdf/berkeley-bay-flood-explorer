@@ -10,11 +10,12 @@
       ],
       "verified": true,
       "holds": "Garbage, recycling and compost in transfer; a hazardous materials locker for illegally disposed hazardous materials pulled from the tipping floor; cathode ray tubes, fluorescent bulbs and batteries; a 1,000-gallon double-walled used oil tank (transfer station Draft EIR, PDF pp. 81-83). Its runoff carried metals, acid, oil and grease above state limits before a 2016 settlement (F14).",
-      "refs": "F14, T4, E4, E7",
+      "refs": "F14, T4, E4, E7, Z1-Z6",
       "choices": [
         "floodproof",
         "exit"
-      ]
+      ],
+      "costs": "Doing nothing here carries a rebuild need of $120 million in the City's proposed 2027-31 capital plan, unfunded beyond $1.85 million, with no bond yet; the Zero Waste Fund's net position was −$0.9 million in FY2025. The station's own operating cost is not published; it takes in about $10 million a year. No study of closing it or using a regional station was found; a 2015 study of franchising commercial service modeled $4 million a year in fees, 25 jobs lost, and $2.2 million a year of overhead moved onto residential and station customers, which the new fees would cover (Z1-Z4)."
     },
     {
       "id": "pacific-steel-geotracker",

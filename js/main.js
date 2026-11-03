@@ -323,7 +323,7 @@ function exposedPanel(levelFt, res, B, plan) {
     if (r.reach && !r.counts) parts.push('no longer counted as a pollution source here');
     return parts.join('<br>');
   };
-  const srow = (r0, r1) => `<tr><td><b>${esc(r0.site.name)}</b>${r0.site.verified ? '' : ' <span class="cat">not re-read</span>'}<details><summary>What it holds</summary>${esc(r0.site.holds)} (SOURCE_NOTES ${esc(r0.site.refs)})</details></td><td>${cell(r0)}</td>${mine ? `<td>${cell(r1)}</td>` : ''}</tr>`;
+  const srow = (r0, r1) => `<tr><td><b>${esc(r0.site.name)}</b>${r0.site.verified ? '' : ' <span class="cat">not re-read</span>'}<details><summary>What it holds</summary>${esc(r0.site.holds)} (SOURCE_NOTES ${esc(r0.site.refs)})</details>${r0.site.costs ? `<details><summary>Costs on record</summary>${esc(r0.site.costs)}</details>` : ''}</td><td>${cell(r0)}</td>${mine ? `<td>${cell(r1)}</td>` : ''}</tr>`;
   const vrow = (s0, s1) => `<tr><td><b>${esc(s0.name)}</b></td><td>${esc(s0.status)}</td>${mine ? `<td>${esc(s1.status)}</td>` : ''}</tr>`;
   const head = `<tr><th></th><th>Do nothing</th>${mine ? '<th>Your choices</th>' : ''}</tr>`;
   const ways0 = ex0.services.find(s => s.wayOut), ways1 = ex1.services.find(s => s.wayOut);
