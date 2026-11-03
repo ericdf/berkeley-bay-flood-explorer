@@ -188,6 +188,28 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   the mean of its 16 values (`tools/fetch-dem.mjs`). Where both grids show land, a 4 m
   bilinear export from the same service differs from the wildfire grid by a median of
   −0.16 ft (5th to 95th percentile −1.79 to +1.03 ft).
+- **F14. San Francisco Baykeeper and the transfer station (asked by Eric, 2026-11-03: "Berkeley
+  has been dinged by the SF Baykeeper").** Confirmed. Waste Dive, 2016-04-26
+  (Arlene Karidis, citing the Daily Californian, 2016-04-25): Baykeeper "filed a federal lawsuit
+  against [the City of Berkeley] and Community Conservation Centers for allegedly discharging
+  polluted storm water into the bay from the Berkeley Transfer Station and the Community
+  Conservation Centers' recycling center", alleging Clean Water Act violations for five years
+  "by surpassing a state-mandated limit on allowable storm water pollutants"; notice of intent
+  sent November 6 (2015, our inference from the April 2016 filing). Pollutants named: iron, aluminum and zinc. Baykeeper's update
+  "Berkeley Trash & Recycling Center Agrees to Protect the Bay from Toxic Runoff" (June 2016)
+  reports a legally binding agreement in May 2016: a cleaner site, repaired pavement, concrete
+  berms and trench drains around the plastic and glass sorting areas. That page refused
+  automated access (a browser check); its terms are from a search summary, not read here, and
+  whether the agreement was entered as a court consent decree is not established.
+  What it bears on: the complaint was about ordinary rain runoff from the working site, not
+  flooding. It shows the site's stormwater already carries metals to the Bay in ordinary
+  storms, and that its controls (berms, trench drains, capture) are sized for rain falling on
+  the site, not for Bay water or a rain pool standing on it (C6, C12, F7, F8). Used for: the
+  environmental consequence behind E4. Not used: Baykeeper's 2026 ruling on creek pollution
+  (Maven's Notebook, 2026-04-02), which concerns Sunnyvale and Mountain View, not Berkeley.
+  Also found, not read: Berkeley is one of seven East Bay cities under the 2014 EPA and
+  Baykeeper sewage consent decree with EBMUD (C09-00186 and 09-05684, N.D. Cal.), which requires
+  sewer repairs over 21 years. Our inference: storm tides and rain that get into sewers bear on it.
 
 ## Transfer station Draft EIR, Section 3.9 Hydrology and Water Quality, and Appendix H (FirstCarbon Solutions for the City, Draft EIR received by CEQAnet 2026-08-03)
 
@@ -512,6 +534,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   development that "would have considerable public health, public safety, or environmental
   impacts should that level of sea level rise occur, such as most critical infrastructure"
   (Coastal Commission 2024 guidance, Ch. 3, p. 66; W17). The Draft EIR lists hazardous
-  materials among the project's potentially significant effects, which it finds mitigable (F3).
+  materials among the project's potentially significant effects, which it finds mitigable (F3),
+  and Baykeeper's 2016 Clean Water Act suit concerned metals in the site's ordinary stormwater (F14).
   Applied in `data/scenarios.json` (both State 2024 High scenarios) and C13: the guidance's High
   scenario (W17) is the one that applies to it.
