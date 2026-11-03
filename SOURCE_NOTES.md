@@ -750,8 +750,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
 documents in this session. In short: what is in place protects people, not sites. No document read
-assesses what a tsunami would release from the sites in the hazard area, and none requires them to
-prepare for one. No source estimates a release, so this does not establish that a disaster would
+assesses what a tsunami would release from the sites in the hazard area, and no general rule read
+requires existing sites to prepare for one (T2, T3). The one tsunami requirement found is
+project-specific: the Gilman Gateway EIR's Mitigation Measure HYD-4 requires flood- and
+tsunami-proof hazardous materials storage, for future development on that site only (F18, T4). No source estimates a release, so this does not establish that a disaster would
 follow; it is a planning gap.
 
 - **T1. The City's after-action report on the 2024-12-05 warning.** *2024 Tsunami Warning: After
