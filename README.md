@@ -16,7 +16,10 @@ Phase 1 of [`specification.md`](specification.md) is built: pick one of 14 water
 (or any level with the slider) and the page shows, for Berkeley, the ground under water,
 the ground below the level that the Bay does not reach over the surface, the streets in
 each, and what happens at the transfer station, the DoubleTree hotel, César Chávez Park
-and Aquatic Park. Plans (barriers, raised roads) are not built yet. Every fact taken from a
+and Aquatic Park. Plans are built: the City study's floodwalls and raised roads, tide gates
+on the storm drain outfalls, and walls you draw, each compared with no plan at the same level
+([`docs/design/levers-and-drains.md`](docs/design/levers-and-drains.md)). Rain on a high tide
+is designed, not built. Every fact taken from a
 document, with its source, is in [`SOURCE_NOTES.md`](SOURCE_NOTES.md); data in hand and
 still needed is in [`DATA_INVENTORY.md`](DATA_INVENTORY.md).
 
@@ -45,6 +48,11 @@ Port 8767, because the wildfire simulator uses 8766.
   the level that do not connect are shown separately as "low, not connected": that is where
   storm drains, tide gates, rain and groundwater decide what floods, and a fill cannot.
 - **Open water**: ground below mean sea level (3.31 ft NAVD88) connected to the Bay.
+- **Through the drains** (model rule, upper bound): in a City watershed whose outfall has no
+  tide gate, low ground that holds a storm drain inlet can fill through the pipes.
+- **Plans** (`js/plan.js`, `data/plans.json`): walls and raised roads become crest elevations
+  the fill must exceed; tide gates close drain links. Presets come from the City's 2019 Marina
+  study; alignments are traced from its figures (about ±30 m) and crests are an assumption.
 - **Flanking**: Berkeley ground that the water reaches only by crossing land in Albany or
   Emeryville, found by filling again with the neighbors' land closed off.
 - **Streets** (`data/streets.json`, from the wildfire simulator's network): a segment counts
@@ -53,10 +61,12 @@ Port 8767, because the wildfire simulator uses 8766.
 - **Checks** (`node tests/check.mjs`): sources cited by every scenario exist; the fill is
   monotonic; the City study's 2050 results for Marina Blvd and the DoubleTree hold; and the
   fill is compared, level by level, with the published ART flood maps.
-- `node tools/report.mjs [levels]` prints the results for every scenario, or for given levels.
+- `node tools/report.mjs [levels] [--plan walls2050,roads,gates]` prints the results for every
+  scenario, or for given levels, with or without a plan.
 
 Rebuilding the data: `node tools/fetch-dem.mjs`, `node tools/build-streets.mjs
-../berkeley-wildfire-simulator`, `node tools/build-mask.mjs`, `node tools/build-facilities.mjs`,
+../berkeley-wildfire-simulator`, `node tools/build-mask.mjs`, `node tools/build-facilities.mjs`, `node tools/build-drains.mjs`,
+`node tools/build-plans.mjs`,
 and for the ART layer `python3 -I tools/fetch-art.py` (in a scratch folder) then
 `node tools/build-art.mjs <that folder>`.
 

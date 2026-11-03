@@ -110,6 +110,11 @@ Candidate levers, each with cost and provenance when known:
 A lever changes the terrain or the connectivity (a barrier is a wall in the grid; a tide
 gate disconnects a drain), never the water level.
 
+**Built (2026-11-03).** City study floodwalls for 2050 and 2100, raised Spinnaker Way and
+University Ave, tide gates on every outfall, and walls a reader draws, with "Bay water up the
+drains" as the connectivity a tide gate closes. Design, sources and the proposed rain-on-a-
+high-tide scenario: `docs/design/levers-and-drains.md`; results SOURCE_NOTES C9–C11.
+
 ## Results
 
 - Streets and freeway segments wet, by length; I-80 mainline and ramps listed by name.

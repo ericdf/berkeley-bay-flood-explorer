@@ -1,0 +1,26 @@
+{
+ "note": "City of Berkeley Public Works storm work orders, January-June 2023 (StormDrainOverflow_WFL1 layer 1, \"Areas of Observed Storm Drain Overflow\"), counted by City watershed. Only counts are stored; the records name staff and give street addresses. \"flooding\" = description matches flood, overflow, ponding, backed up, not draining, clogged or plugged (our keyword rule).",
+ "all": {
+  "Aquatic Park": 1,
+  "Strawberry": 61,
+  "Derby": 120,
+  "Wildcat": 4,
+  "Schoolhouse": 33,
+  "Marin": 22,
+  "Codornices": 34,
+  "Gilman": 7,
+  "Cerrito": 2,
+  "Temescal": 7
+ },
+ "flooding": {
+  "Wildcat": 4,
+  "Schoolhouse": 27,
+  "Strawberry": 40,
+  "Marin": 16,
+  "Codornices": 25,
+  "Derby": 92,
+  "Gilman": 5,
+  "Cerrito": 2,
+  "Temescal": 6
+ }
+}

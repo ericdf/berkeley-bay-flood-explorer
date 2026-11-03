@@ -10,6 +10,7 @@ import { analyze, FLANKED } from '../js/analyze.js';
 import { WET } from '../js/fill.js';
 
 let fail = 0;
+const isW = (v) => v === WET || v === FLANKED;
 const ok = (cond, msg) => { console.log(`${cond ? 'ok  ' : 'FAIL'} ${msg}`); if (!cond) fail++; };
 
 const notes = fs.readFileSync('SOURCE_NOTES.md', 'utf8');
@@ -34,6 +35,24 @@ const marinaAll = D.streets.edges.filter(e => e.name === 'MARINA BL').reduce((t,
 ok(marina && marina.m / marinaAll >= 0.5, `10.7 ft: Marina Blvd under water for ${marina ? Math.round(marina.m) : 0} of ${marinaAll} m (City study W8: "most likely" impassable by 2050)`);
 const dt = r107.facilities.find(f => /DoubleTree/.test(f.label));
 ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)}% under water (City study W7: two buildings' floors below the water)`);
+
+// 5. Plans (docs/design/levers-and-drains.md). A plan only raises ground, so it never wets a cell
+//    that no plan leaves dry; above every crest it changes nothing; tide gates close every drain link.
+{
+  const { planFrom } = await import('../tools/report.mjs');
+  for (const [spec, lv] of [['walls2050', 10.7], ['walls2100', 13], ['roads', 10.7]]) {
+    const plan = planFrom(D, spec), a = analyze(D, lv, null), b = analyze(D, lv, plan);
+    let extra = 0; for (let i = 0; i < a.state.length; i++) if (isW(b.state[i]) && !isW(a.state[i])) extra++;
+    ok(extra === 0, `${spec} at ${lv} ft wets no cell that no plan leaves dry (${extra})`);
+    const hi = analyze(D, 15.5, plan), hi0 = analyze(D, 15.5, null);
+    let diff = 0; for (let i = 0; i < hi.state.length; i++) if (isW(hi.state[i]) !== isW(hi0.state[i])) diff++;
+    ok(diff === 0, `${spec} above its crest (15.5 ft) changes nothing (${diff} cells differ)`);
+  }
+  const g = analyze(D, 12, planFrom(D, 'gates'));
+  ok(g.drainLandHa === 0, `tide gates on every outfall: no ground fills through drains at 12 ft (${g.drainLandHa.toFixed(1)} ha)`);
+  const r = analyze(D, 10.7, planFrom(D, 'roads'));
+  ok(!r.streets.some(s => s.berkeley && s.cls === 'wet'), 'Spinnaker Way and University Ave raised to 12.7 ft: no Berkeley street under water at 10.7 ft');
+}
 
 if (fs.existsSync('data/hazard/art.json')) {
   const art = JSON.parse(fs.readFileSync('data/hazard/art.json'));

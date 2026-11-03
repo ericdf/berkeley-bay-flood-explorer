@@ -1,0 +1,343 @@
+{
+ "note": "Preset plans. Walls: alignments traced from the City 2019 Marina study figures (tools/build-plans.mjs); crests are the study's design water level plus 2 ft freeboard (assumption). Roads: Shoreline Zones 7 and 8 of the same study. Costs are the study's cumulative estimates in 2019 dollars. SOURCE_NOTES P1-P8.",
+ "presets": [
+  {
+   "id": "walls2050",
+   "label": "City study floodwalls for 2050 (Figure 5.7)",
+   "crestFt": 12.7,
+   "category": "sourced alignment (traced), assumed crest",
+   "cost": "$14.3 million cumulative for 2050 protection (2019 dollars)",
+   "source": "City 2019 Marina study §5.3.1, Figure 5.7; cost §5.4 (P2, P4, P5)",
+   "walls": [
+    {
+     "id": "northBasin",
+     "lines": [
+      [
+       [
+        1382.1,
+        3507.2
+       ],
+       [
+        1490.5,
+        3358.2
+       ],
+       [
+        1592.1,
+        3381.2
+       ],
+       [
+        1714,
+        3402.9
+       ],
+       [
+        1849.5,
+        3430
+       ],
+       [
+        1984.9,
+        3457.1
+       ],
+       [
+        2032.3,
+        3473.3
+       ],
+       [
+        2093.3,
+        3503.1
+       ]
+      ]
+     ]
+    },
+    {
+     "id": "harborEdge",
+     "lines": [
+      [
+       [
+        1158.6,
+        3297.2
+       ],
+       [
+        1239.9,
+        3317.5
+       ],
+       [
+        1334.7,
+        3327
+       ],
+       [
+        1355,
+        3290.5
+       ],
+       [
+        1361.8,
+        3215.9
+       ],
+       [
+        1436.3,
+        3195.6
+       ],
+       [
+        1497.2,
+        3172.6
+       ],
+       [
+        1531.1,
+        3121.1
+       ],
+       [
+        1551.4,
+        3053.4
+       ]
+      ]
+     ]
+    },
+    {
+     "id": "universityNorth",
+     "lines": [
+      [
+       [
+        1625.9,
+        2782.5
+       ],
+       [
+        1646.3,
+        2836.6
+       ],
+       [
+        1700.4,
+        2870.5
+       ],
+       [
+        1781.7,
+        2890.8
+       ],
+       [
+        1917.2,
+        2915.2
+       ],
+       [
+        2052.7,
+        2947.7
+       ],
+       [
+        2147.5,
+        2972.1
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "walls2100",
+   "label": "City study floodwalls for 2100 (Figure 5.8)",
+   "crestFt": 15,
+   "category": "sourced alignment (traced), assumed crest",
+   "cost": "$31.5 million cumulative for 2100 protection (2019 dollars)",
+   "source": "City 2019 Marina study §5.3.1, Figure 5.8; cost §5.4 (P3, P4, P5)",
+   "walls": [
+    {
+     "id": "northBasin",
+     "lines": [
+      [
+       [
+        1382.1,
+        3507.2
+       ],
+       [
+        1490.5,
+        3358.2
+       ],
+       [
+        1592.1,
+        3381.2
+       ],
+       [
+        1714,
+        3402.9
+       ],
+       [
+        1849.5,
+        3430
+       ],
+       [
+        1984.9,
+        3457.1
+       ],
+       [
+        2032.3,
+        3473.3
+       ],
+       [
+        2093.3,
+        3503.1
+       ]
+      ]
+     ]
+    },
+    {
+     "id": "harborRing",
+     "lines": [
+      [
+       [
+        1043.4,
+        3107.6
+       ],
+       [
+        1036.7,
+        3209.2
+       ],
+       [
+        1070.5,
+        3263.4
+       ],
+       [
+        1158.6,
+        3299.9
+       ],
+       [
+        1334.7,
+        3324.3
+       ],
+       [
+        1355,
+        3294.5
+       ],
+       [
+        1361.8,
+        3202.4
+       ],
+       [
+        1470.1,
+        3195.6
+       ],
+       [
+        1524.3,
+        3168.5
+       ],
+       [
+        1551.4,
+        3121.1
+       ],
+       [
+        1585.3,
+        3033.1
+       ],
+       [
+        1612.4,
+        2958.6
+       ],
+       [
+        1632.7,
+        2890.8
+       ],
+       [
+        1605.6,
+        2850.2
+       ],
+       [
+        1443.1,
+        2816.3
+       ],
+       [
+        1239.9,
+        2768.9
+       ],
+       [
+        1158.6,
+        2775.7
+       ],
+       [
+        1138.3,
+        2877.3
+       ],
+       [
+        1124.7,
+        2999.2
+       ],
+       [
+        1090.8,
+        3012.7
+       ]
+      ]
+     ]
+    },
+    {
+     "id": "universityNorth",
+     "lines": [
+      [
+       [
+        1625.9,
+        2782.5
+       ],
+       [
+        1646.3,
+        2836.6
+       ],
+       [
+        1700.4,
+        2870.5
+       ],
+       [
+        1781.7,
+        2890.8
+       ],
+       [
+        1917.2,
+        2915.2
+       ],
+       [
+        2052.7,
+        2947.7
+       ],
+       [
+        2147.5,
+        2972.1
+       ]
+      ]
+     ]
+    },
+    {
+     "id": "seawall",
+     "lines": [
+      [
+       [
+        1632.7,
+        2890.8
+       ],
+       [
+        1646.3,
+        2823.1
+       ],
+       [
+        1646.3,
+        2687.6
+       ],
+       [
+        1402.4,
+        2647
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "roads",
+   "label": "Raise Spinnaker Way and University Ave west of I-80 (Zones 7, 8)",
+   "crestFt": 12.7,
+   "category": "sourced (freeboard rule), assumed design level",
+   "cost": "Part of the revetment program, $5.4 million cumulative by 2050 (2019 dollars)",
+   "source": "City 2019 Marina study §5.3.1, Shoreline Zones 7 and 8; cost §5.4 (P5, P6, P7)",
+   "roads": [
+    {
+     "names": [
+      "SPINNAKER WY",
+      "UNIVERSITY AV"
+     ],
+     "maxX": 2300
+    }
+   ]
+  }
+ ]
+}
