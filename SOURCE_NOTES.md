@@ -237,8 +237,7 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
     rainy-season pollution" after Baykeeper notified it that its runoff, "which flows into storm
     drains that lead directly to the Bay, contained high levels of aluminum, copper, iron, zinc,
     and other pollutants"; upgrades include "carbon filters in downspouts".
-  No Albany or Emeryville facility is named on the page. Whether each facility still operates
-  is not established here.
+  No Albany or Emeryville facility is named on the page. Pacific Steel's foundry has closed (F17).
   Terrain check (derived, `tools/report.mjs` functions; ground within 30 m of the OpenStreetMap
   point, Nominatim 2026-11-03; a site counts once at least 25% of that ground is affected):
   - Pacific Steel, 1333 Second St: ground 10.9–13.9 ft NAVD88 (median 12.0); can fill through
@@ -250,6 +249,40 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   All three Baykeeper sites in Berkeley sit within about 300 m of each other on Second St and
   Eastshore Hwy south of Gilman St, and all three join the Bay at the same modeled connection
   behind I-80 (C6), so one crossing decides their exposure to Bay water.
+- **F17. Pacific Steel closed; the Gilman Gateway rezoning takes in both Baykeeper sites (Eric,
+  2026-11-03: "One of those might be out of business").** Pacific Steel Casting's foundry shut
+  down in 2018 after 84 years (Berkeleyside, 2018-09-06, headline only; the article refused
+  automated access). The site and the former Berkeley Forge & Tool site are within the Gilman
+  Gateway Rezone Project, about 10 acres along I-80, with a conceptual life sciences campus
+  ("Gilman Forge"; Berkeleyside, 2023-03-27 and 2023-08-02, from search summaries, not read).
+  City Council item, 2025-03-25, Item 8 ("Establishment of M-RD Zoning District"; read for the
+  recommendation only): first reading of the M-RD zoning ordinance and adoption of the CEQA
+  findings. Whether it passed was not checked.
+  Response to Comments Document and Final EIR, Gilman Gateway Rezone Project, SCH# 2022120549,
+  March 2025, 86 pp. (CEQAnet; read 2026-11-03), Response HAZ-2, "Sea Level/Groundwater Rise and
+  Remediation Methods", pp. 3-20 and 3-21, answering EBMUD (letter 2024-12-02) and two Planning
+  Commission speakers (2024-11-06):
+  - A Response Plan, approved by DTSC before any demolition or construction permit, would use
+    "source reduction (e.g., excavation and off-site disposal, in-situ groundwater treatment ...)",
+    "engineering controls (e.g., capping of residual soil contamination and vapor intrusion
+    mitigation systems)" and "institutional controls (e.g., land use covenants ...)".
+  - Groundwater "in areas of known free product" (a separate petroleum layer floating on the
+    groundwater, the document's footnote) may be pumped out and treated.
+  - "Groundwater has been identified to be as shallow as 1.5 feet below the ground surface at
+    the project site, and there is anecdotal evidence of Second Street flooding during periods of
+    intense rainfall. Sea level rise could contribute to a rise in the already shallow groundwater
+    levels at the project site and could also increase the flooding risks at the project site."
+    A sub-slab venting system "would not function properly if it is beneath groundwater or flooded
+    by surface water", which could expose occupants to vapor intrusion, "a potentially significant
+    impact"; Mitigation Measure HAZ-2d requires the design to "account for potential shallow
+    groundwater and flooding conditions".
+  - PCBs may be present in the plant's concrete (Response HAZ-1, p. 3-19).
+  What it bears on: the City's own EIR states that flooding and rising groundwater can defeat
+  this site's contamination controls, and makes the design account for it, without a stated
+  design water level in the pages read. The site's ground is 10.6–13.9 ft NAVD88 (F16); the
+  explorer shows it filling through the drains from 12 ft with outfalls open and under Bay water
+  from 13.4. Not read: the Draft EIR's Section 4.9 (hazards) and its hydrology section, which may
+  give the flood and sea level rise levels the project assumed.
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
