@@ -708,6 +708,21 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   MapServer, depth classes in feet; no 84-inch layer in that service) and downloadable as
   county geodatabases from explorer.adaptingtorisingtides.org. Used as the published
   hazard layer the connected-fill rule is checked against, and shown in the explorer.
+- **H6. Tsunami, 2011 (asked by Eric, 2026-11-03, recalling water "at high speed. 20 knots?").**
+  California Geological Survey, "Table of Tōhoku-oki tsunami forecast and observation times,
+  tsunami amplitudes, and reported damage" (conservation.ca.gov; read 2026-11-03): Oakland,
+  observed 8:36, maximum amplitude 0.51 m (about 1.7 ft), "Minor damage at nearby Berkeley Marina";
+  San Francisco 0.62 m, "Two piles broken"; Sausalito 1.2–1.5 m, "Houseboat damage". A 2011 news
+  report reposted on a blog (secondary, not checked against the original) quotes the Berkeley
+  harbormaster on at least four surges "at about 25 mph" (about 22 knots), with docks, slips and a
+  piling damaged; no measured current speed for Berkeley was found. The Gilman Gateway Draft EIR
+  places that site "within a tsunami hazard area" (CGS 2021 map; F18). Press coverage of the CGS
+  2021 Alameda County maps (not read) describes the West Berkeley hazard area reaching about Sixth
+  St, for a tsunami with a 975-year average return period.
+  What it bears on: a tsunami's damage in the Bay came from currents and short surges in harbors,
+  with a water-level change of about half a meter in 2011; a still-water fill models neither.
+  Not used in the explorer. Candidate layer: the CGS tsunami hazard area as an outline, like the
+  ART map (H5).
 
 ## Eric's decisions, 2026-11-02 (Claude Code session)
 
