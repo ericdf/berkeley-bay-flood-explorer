@@ -165,10 +165,41 @@ if (fs.existsSync('data/hazard/art.json')) {
     }
     const ha = (n) => (n * 16 / 1e4).toFixed(1).padStart(7);
     const agree = a + o - b ? b / (a + o - b) : 1;
-    ok(agree >= 0.6, `ART + ${l.inches} in: agreement ${(100 * agree).toFixed(0)}%, at least 60%, a floor under the 68-91% recorded in SOURCE_NOTES C1`);
+    ok(agree >= 0.6, `ART + ${l.inches} in: agreement ${(100 * agree).toFixed(0)}%, at least 60%, a floor under the 68-92% recorded in SOURCE_NOTES C1`);
     console.log(`${String(l.inches).padStart(6)}  ${l.levelFt.toFixed(2).padStart(5)} ${ha(a)}  ${ha(o)}  ${ha(b)}  ${ha(a - b)}  ${ha(o - b)}    ${(a + o - b ? 100 * b / (a + o - b) : 100).toFixed(0)}%`);
   }
 }
+// 4b. ART's ten levels and its disconnected low-lying areas (SOURCE_NOTES H5, C1, C6, C20). art.json
+//     lists all ten levels, the three the Caltrans service lacks read from the Alameda County
+//     geodatabase; art-dc.json lists the same ten, so the page's disconnected outline can follow the
+//     ART outline's nearest level; at + 84 in (13.20 ft NAVD88) ART has none of the transfer station
+//     under connected flooding and about two fifths of it disconnected; the page has the toggle, off by
+//     default, with its provenance line.
+if (fs.existsSync('data/hazard/art.json') && fs.existsSync('data/hazard/art-dc.json')) {
+  const art = JSON.parse(fs.readFileSync('data/hazard/art.json')), dc = JSON.parse(fs.readFileSync('data/hazard/art-dc.json'));
+  const TEN = [12, 24, 36, 48, 52, 66, 77, 84, 96, 108], NB = Math.ceil(D.dem.width * D.dem.height / 8);
+  ok(JSON.stringify(art.levels.map(l => l.inches)) === JSON.stringify(TEN), `art.json lists all ten ART levels (${art.levels.map(l => l.inches).join(', ')} in)`);
+  ok(art.levels.every(l => fs.readFileSync(`data/hazard/${l.file}`).length === NB), 'every ART connected mask matches the terrain grid');
+  ok(art.levels.filter(l => l.source === 'geodatabase').map(l => l.inches).join() === '48,77,84' && art.levels.filter(l => l.source === 'geodatabase').every(l => /^Alameda_inundation_poly_\d+$/.test(l.layer) && l.retrieved),
+    'ART + 48, + 77 and + 84 in are the geodatabase layers Alameda_inundation_poly_<N>, with retrieval dates');
+  ok(art.levels.every(l => Math.abs(l.levelFt - (6.2 + l.inches / 12)) < 0.006), 'ART levels in ft NAVD88 are MHHW 6.20 + N/12 (W11)');
+  ok(JSON.stringify(dc.levels.map(l => l.inches)) === JSON.stringify(TEN) && dc.levels.every(l => fs.readFileSync(`data/hazard/${l.file}`).length === NB),
+    'art-dc.json lists the same ten levels, each mask matching the terrain grid');
+  const k = D.facilities.findIndex(f => /Transfer station/.test(f.label)), tc = D.facilityCells[k].cells.filter(i => !D.water0[i]);
+  const share = (file) => { const m = new Uint8Array(fs.readFileSync(`data/hazard/${file}`)); return tc.filter(i => (m[i >> 3] >> (i & 7)) & 1).length / tc.length; };
+  const c84 = share(art.levels.find(l => l.inches === 84).file), d84 = share(dc.levels.find(l => l.inches === 84).file);
+  ok(c84 === 0 && d84 > 0.35 && d84 < 0.5, `ART + 84 in (13.20 ft NAVD88): transfer station ${(100 * c84).toFixed(0)}% connected flooding, ${(100 * d84).toFixed(0)}% disconnected low-lying (C6, C20: 0% and 42%)`);
+  ok(share(art.levels.find(l => l.inches === 96).file) > 0.9, 'ART + 96 in (14.20 ft NAVD88) floods the transfer station from the Bay');
+  const html = fs.readFileSync('index.html', 'utf8'), js = fs.readFileSync('js/main.js', 'utf8');
+  const box = /<input id="showArtDc" type="checkbox"[^>]*>/.exec(html);
+  ok(box && !/checked/.test(box[0]), 'index.html has the ART disconnected low-lying outline, off by default');
+  const line = html.slice(html.indexOf('id="showArtDc"'), html.indexOf('id="artDcNote"'));
+  ok(/published hazard layer/.test(line) && /ART, 2017/.test(line) && /not connected to the Bay/.test(line) && /one acre/.test(line) && /storm drains or from groundwater/.test(line) && /Not a flood forecast/.test(line),
+    'its provenance line names the published layer, the one-acre threshold, drains and groundwater, and says it is not a flood forecast');
+  ok(/function artDcLevel[\s\S]*nearestArt\(levelFt\)/.test(js) && /fetch\(`data\/hazard\/\$\{l\.file\}`\)/.test(js.slice(js.indexOf('function artDcMask'))),
+    'js/main.js draws it at the ART outline\'s nearest level and loads each mask when first shown');
+}
+
 // 9. USGS CoSMoS v2.1 (SOURCE_NOTES H1; tools/build-cosmos.mjs). Every scenario's mask fits the
 //    grid; the flooded area never shrinks as sea level rise grows, for a given storm; the stored
 //    best-matching still water level reproduces with the page's analysis, and nearby levels match no
@@ -207,6 +238,46 @@ if (fs.existsSync('data/hazard/cosmos.json')) {
   console.log('\nCoSMoS comparison on Berkeley land: ours = connected fill at the best-matching still water level (derived)');
   console.log('scenario      CoSMoS ha  water surface off Berkeley (ft NAVD88, median)  best level  ours ha  CoSMoS only  ours only  agreement');
   for (const s of cos.scenarios) console.log(`${s.id.padEnd(12)} ${String(s.cosmosHa).padStart(9)}  ${(s.waterSurface ? s.waterSurface.medianFt.toFixed(2) : 'n/a').padStart(46)}  ${s.bestMatch.levelFt.toFixed(2).padStart(10)}  ${String(s.bestMatch.oursHa).padStart(7)}  ${String(s.bestMatch.cosmosOnlyHa).padStart(11)}  ${String(s.bestMatch.oursOnlyHa).padStart(9)}  ${(100 * s.bestMatch.agreement).toFixed(0).padStart(8)}%`);
+}
+
+// 10. USGS CoSMoS-GW groundwater (SOURCE_NOTES H7, C22; tools/build-cosmos-gw.mjs and
+//     tools/compare-cosmos-gw.mjs). Self-contained. Masks fit the grid and do not overlap; stored
+//     areas reproduce; ground marine, emergent or within 1 m of the surface never shrinks as the rise
+//     grows; the transfer station has no cell deeper than 2 m at 0 m of rise (F6 measures 5 to 10 ft);
+//     Pacific Steel's point is emergent at 0 m, as the City's screening reports (F19); CoSMoS-GW's
+//     marine inundation agrees with the explorer's Bay water at the matched level (MHHW 6.20 ft NAVD88
+//     plus the rise, a derived choice) at 75% or more from 1.5 m of rise up, and like the fill it keeps
+//     the flats behind I-80 out at 2.0 m (12.76 ft NAVD88) and takes them at 2.5 m (14.40; C6: 13.35).
+if (fs.existsSync('data/hazard/cosmos-gw.json')) {
+  const gw = JSON.parse(fs.readFileSync('data/hazard/cosmos-gw.json'));
+  const gbit = (m, i) => (m[i >> 3] >> (i & 7)) & 1, NB = Math.ceil(D.dem.width * D.dem.height / 8);
+  const gm = {};
+  for (const s of gw.scenarios) gm[s.id] = Object.fromEntries(Object.entries(s.files).map(([k, f]) => [k, new Uint8Array(fs.readFileSync(`data/hazard/${f}`))]));
+  ok(gw.scenarios.length === 12 && gw.scenarios.every(s => Object.values(gm[s.id]).length === 4 && Object.values(gm[s.id]).every(m => m.length === NB)), `${gw.scenarios.length} CoSMoS-GW rises, four class masks each, match the terrain grid`);
+  ok(/not a flood depth/.test(gw.note) && /1\.0 m\/day/.test(gw.note) && gw.provenance.category === 'sourced', 'cosmos-gw.json says a groundwater depth is not a flood depth, names the conductivity case and carries its provenance');
+  let overlap = 0;
+  for (const s of gw.scenarios) { const ms = Object.values(gm[s.id]); for (let b = 0; b < NB; b++) { let seen = 0; for (const m of ms) { if (seen & m[b]) overlap++; seen |= m[b]; } } }
+  ok(overlap === 0, `CoSMoS-GW class masks never overlap (${overlap} bytes with a shared bit)`);
+  const gInB = (i) => gbit(D.berkeley, i), MSLC = 3.31 * 30.48;
+  let reproduced = true;
+  for (const s of gw.scenarios) for (const k of Object.keys(s.files)) {
+    let n = 0; for (let i = 0; i < D.z.length; i++) if (gInB(i) && !D.water0[i] && D.z[i] !== -32768 && D.z[i] >= MSLC && gbit(gm[s.id][k], i)) n++;
+    if (Math.abs(n * D.dem.resolution ** 2 / 1e4 - s.berkeleyLandHa[k]) > 0.06) reproduced = false;
+  }
+  ok(reproduced, 'CoSMoS-GW Berkeley land areas reproduce from the masks');
+  const near = gw.scenarios.map(s => s.berkeleyLandHa.marine + s.berkeleyLandHa.emergent + s.berkeleyLandHa['0to1m']);
+  ok(near.every((v, k) => !k || v >= near[k - 1] - 0.05), `CoSMoS-GW Berkeley land marine, emergent or within 1 m grows with the rise (${near.map(v => v.toFixed(0)).join(', ')} ha)`);
+  const { compare, PLACES } = await import('../tools/compare-cosmos-gw.mjs');
+  const cmp = compare(), at = (id) => cmp.find(o => o.id === id), pl = (o, name) => o.places[PLACES.findIndex(([n]) => n.startsWith(name))];
+  const ts0 = pl(at('slr000'), 'Transfer station');
+  ok(ts0.deeper === 0 && ts0.emergent + ts0['0to1m'] >= 0.85, `CoSMoS-GW at 0 m: transfer station ${(100 * ts0.emergent).toFixed(0)}% emergent, ${(100 * ts0['0to1m']).toFixed(0)}% 0-1 m, ${(100 * ts0['1to2m']).toFixed(0)}% 1-2 m, none deeper (Draft EIR F6: 5 to 10 ft below ground)`);
+  ok(pl(at('slr000'), 'Pacific Steel').emergent >= 0.95, 'CoSMoS-GW at 0 m: Pacific Steel, 1333 Second St, emergent (the City screening, F19: "0 m; emergent")');
+  for (const o of cmp.filter(x => x.slrM >= 1.5)) ok(o.agreeMarine >= 0.75, `CoSMoS-GW ${o.slrM} m: marine inundation vs the explorer's Bay water at ${o.levelFt} ft NAVD88, ${(100 * o.agreeMarine).toFixed(0)}% (both / either), at least 75%, a floor under the 79-97% recorded`);
+  const ts2 = pl(at('slr200'), 'Transfer station'), ts25 = pl(at('slr250'), 'Transfer station');
+  ok(ts2.marine === 0 && ts2.oursWet === 0 && ts25.marine >= 0.5 && ts25.oursWet >= 0.5, `transfer station: CoSMoS-GW marine 0% at 2.0 m and ${(100 * ts25.marine).toFixed(0)}% at 2.5 m; the fill 0% at 12.76 and ${(100 * ts25.oursWet).toFixed(0)}% at 14.40 ft NAVD88`);
+  console.log('\nCoSMoS-GW on Berkeley land (ha; MHHW, Kh 1.0 m/day; depth to groundwater, not a flood depth)');
+  console.log('rise m  marine  emergent  0-1 m  1-2 m');
+  for (const s of gw.scenarios) console.log(`${s.slrM.toFixed(2).padStart(6)}  ${String(s.berkeleyLandHa.marine).padStart(6)}  ${String(s.berkeleyLandHa.emergent).padStart(8)}  ${String(s.berkeleyLandHa['0to1m']).padStart(5)}  ${String(s.berkeleyLandHa['1to2m']).padStart(5)}`);
 }
 console.log(fail ? `\n${fail} check(s) failed` : '\nall checks passed');
 process.exit(fail ? 1 : 0);

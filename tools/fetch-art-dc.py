@@ -1,15 +1,20 @@
-# Download ART's disconnected low-lying areas (SOURCE_NOTES H5) for the explorer's area.
-#   python3 -I tools/fetch-art-dc.py            (run from the repository root)
+# Download ART's disconnected low-lying areas (SOURCE_NOTES H5) for the explorer's area, and, with
+# --connected, ART's connected flooding for the levels the Caltrans service lacks.
+#   python3 -I tools/fetch-art-dc.py                                  (run from the repository root)
+#   python3 -I tools/fetch-art-dc.py --connected --levels 48,77,84    (Alameda_inundation_poly_<N>)
+#   python3 -I tools/fetch-art-dc.py --connected --out DIR            (all ten connected levels, to DIR)
 # Source: the ART Bay Shoreline Flood Explorer's Alameda County geodatabase,
 # Alameda_SLR_ART_2017.gdb.zip (5.3 GB), served by https://explorer.adaptingtorisingtides.org/download.php
 # (POST r=prep&f=Alameda_gdb, then POST r=fetch in the same session). The server honors HTTP Range
 # requests, so only the zip's central directory and the ten Alameda_lowlying_poly_<N> feature
-# classes (about 15 MB compressed) are downloaded, not the whole archive.
-# Writes data/raw/art-dc/lowlying_<N>.json: every polygon ring of the layer whose bounding box meets
+# classes (about 15 MB compressed) are downloaded, not the whole archive; the connected tables
+# Alameda_inundation_poly_<N> are larger (10 to 77 MB compressed each; 48, 77 and 84 in: 150 MB).
+# Writes data/raw/art-dc/lowlying_<N>.json (or, with --connected, inundation_<N>.json): every polygon ring of the layer whose bounding box meets
 # the terrain grid (data/terrain/dem.json, with a 50 m margin), in the layer's coordinates, NAD83 /
 # UTM zone 10N (EPSG:26910), meters, rounded to 0.1 m. tools/build-art-dc.mjs rasterizes them.
-# The FileGDB reader below handles only what these tables hold (polygons, int32 and double fields).
-import json, os, struct, subprocess, sys, time, zlib, datetime
+# The FileGDB reader below handles only what these tables hold (polygons, and int16, int32, float,
+# double, string and date fields).
+import argparse, json, os, struct, subprocess, sys, time, zlib, datetime
 
 URL = 'https://explorer.adaptingtorisingtides.org/download.php'
 KEY = 'Alameda_gdb'
@@ -113,7 +118,11 @@ def rows(d, tablx):
                 isnull = (b[j >> 3] >> (j & 7)) & 1; j += 1
                 if isnull: rec[f['name']] = None; continue
             t = f['type']
-            if t == 1: rec[f['name']] = struct.unpack('<i', b[p:p + 4])[0]; p += 4
+            if t == 0: rec[f['name']] = struct.unpack('<h', b[p:p + 2])[0]; p += 2
+            elif t == 1: rec[f['name']] = struct.unpack('<i', b[p:p + 4])[0]; p += 4
+            elif t == 2: rec[f['name']] = struct.unpack('<f', b[p:p + 4])[0]; p += 4
+            elif t == 4: l, p = varuint(b, p); rec[f['name']] = b[p:p + l].decode('utf-8', 'replace'); p += l
+            elif t == 5: rec[f['name']] = struct.unpack('<d', b[p:p + 8])[0]; p += 8
             elif t == 3: rec[f['name']] = struct.unpack('<d', b[p:p + 8])[0]; p += 8
             elif t == 7: l, p = varuint(b, p); rec[f['name']] = b[p:p + l]; p += l
             else: raise SystemExit(f'row field type {t} not handled')
@@ -139,7 +148,14 @@ def rings(blob, geo):
     return out
 
 def main():
-    os.makedirs(OUT, exist_ok=True)
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--connected', action='store_true', help='read Alameda_inundation_poly_<N> (connected flooding) instead of the low-lying tables')
+    ap.add_argument('--levels', help='comma-separated levels in inches above MHHW (default: all ten)')
+    ap.add_argument('--out', default=OUT, help=f'output directory (default {OUT})')
+    args = ap.parse_args()
+    prefix, stem = ('Alameda_inundation_poly_', 'inundation') if args.connected else ('Alameda_lowlying_poly_', 'lowlying')
+    want = {int(v) for v in args.levels.split(',')} if args.levels else None
+    os.makedirs(OUT, exist_ok=True); os.makedirs(args.out, exist_ok=True)
     dem = json.load(open('data/terrain/dem.json')); M = 50
     X0, X1, Y0, Y1 = dem['xmin'] - M, dem['xmax'] + M, dem['ymin'] - M, dem['ymax'] + M
     zipname, size = prep(); print(zipname, size, 'bytes', flush=True)
@@ -156,8 +172,9 @@ def main():
         tables[b[p:p + l].decode()] = f'a{k + 1:08x}'
     retrieved = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'); log = []
     for name, tid in sorted(tables.items()):
-        if not name.startswith('Alameda_lowlying_poly_'): continue
+        if not name.startswith(prefix): continue
         inches = int(name.rsplit('_', 1)[1])
+        if want is not None and inches not in want: continue
         d = member(E, f'{GDB}/{tid}.gdbtable'); x = member(E, f'{GDB}/{tid}.gdbtablx')
         feats = []; nfeat = nring = 0; wkt = None
         for rec, geo in rows(d, x):
@@ -166,21 +183,24 @@ def main():
                 nring += 1; xs = [c[0] for c in r]; ys = [c[1] for c in r]
                 if max(xs) < X0 or min(xs) > X1 or max(ys) < Y0 or min(ys) > Y1: continue
                 keep.append(r)
-            if keep: feats.append({'gridcode': rec['gridcode'], 'rings': keep})
+            if keep: feats.append({'depth_ft': rec['DEPTH_FT'], 'rings': keep} if args.connected else {'gridcode': rec['gridcode'], 'rings': keep})
+        del d, x
         if 'NAD_1983_UTM_Zone_10N' not in wkt: raise SystemExit(f'unexpected CRS {wkt[:80]}')
         json.dump({'layer': name, 'inches': inches, 'crs': 'EPSG:26910 (NAD83 / UTM zone 10N), meters', 'retrieved': retrieved,
                    'source': f'{zipname} from {URL} (dl-key {KEY}), table {tid}', 'features': feats},
-                  open(f'{OUT}/lowlying_{inches}.json', 'w'), separators=(',', ':'))
+                  open(f'{args.out}/{stem}_{inches}.json', 'w'), separators=(',', ':'))
         kept = sum(len(f['rings']) for f in feats)
         log.append(f'{name} ({tid}): {nfeat} features, {nring} rings in the county; {kept} rings kept')
         print(log[-1], flush=True)
-    open(f'{OUT}/lowlying.retrieved', 'w').write(
+    meaning = ('Layer meaning (ART GIS data catalog, http://www.adaptingtorisingtides.org/wp-content/uploads/2017/04/GIS_data_catalog.pdf, p. 2): "These polygons identify low-lying areas greater than one acre. '
+               'They depict areas that are below the inundated water surface elevation, but are not hydraulically-connected to the inundated areas."\n') if not args.connected else \
+              ('Layer meaning: ART\'s connected flooding (inundated area hydraulically connected to the Bay), one feature per depth class (DEPTH_FT, feet), from the same ART study as '
+               'the Caltrans service CHhqenvi/DEA_BCDC_polygon_SLR, which serves seven of the ten levels and differs from these polygons in detail (SOURCE_NOTES H5, C1).\n')
+    open(f'{args.out}/{stem}.retrieved', 'w').write(
         f'ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), Alameda County geodatabase {zipname} ({size} bytes).\n'
-        f'Source: {URL}, POST r=prep&f={KEY} then r=fetch, HTTP Range requests for the zip directory and the low-lying tables only.\n'
+        f'Source: {URL}, POST r=prep&f={KEY} then r=fetch, HTTP Range requests for the zip directory and the {prefix}<N> tables only.\n'
         f'Retrieved {retrieved}. Rings whose bounding box meets the terrain grid plus 50 m are kept, coordinates EPSG:26910 rounded to 0.1 m.\n'
-        'Layer meaning (ART GIS data catalog, http://www.adaptingtorisingtides.org/wp-content/uploads/2017/04/GIS_data_catalog.pdf, p. 2): "These polygons identify low-lying areas greater than one acre. '
-        'They depict areas that are below the inundated water surface elevation, but are not hydraulically-connected to the inundated areas."\n'
-        + '\n'.join(log) + '\n')
+        + meaning + '\n'.join(log) + '\n')
     os.remove(COOKIES)
 
 if __name__ == '__main__':

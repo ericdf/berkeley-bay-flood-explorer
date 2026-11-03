@@ -13,40 +13,46 @@ each item here once it is done.
    Works email himself and deleted the Gmail draft. He also sent a records request (2026-11-03).
    A formal CPRA request was drafted as a backup and given to Eric in the session; it also asks
    whether the Gilman outfall's tidal flap gate (V3) was built.
-3. **CoSMoS choices (C21, H1).** Accept v2.1 as the Bay's CoSMoS (v3.1 stops at the Golden Gate);
-   keep the outline from the depth rasters (now) or switch to the extent polygons the City and Our
-   Coast, Our Future maps show; keep all 50 scenarios or only background tide and 100-year storm.
-4. **Documents for four rows the spot-check could not reach (C19).** F16 (Baykeeper PDF), F21 and
-   Z4 (the 2019-11-05 feasibility study and the 2015-02-10 franchising study), T2 (the 2024 Local
-   Hazard Mitigation Plan). Item 10 (archive intake) may supply three of them.
+3. **Layer choices on PR #8.**
+   - CoSMoS (C21, H1): accept v2.1 as the Bay's CoSMoS (v3.1 stops at the Golden Gate); keep the
+     outline from the depth rasters (now) or switch to the extent polygons the City and Our Coast,
+     Our Future maps show; keep all 50 scenarios or only background tide and 100-year storm.
+   - CoSMoS-GW (H7, C22): Kh 1.0 m/day was used, the middle of three cases the release does not rank;
+     today's land within 1 m of the water table is 66, 320 or 682 ha by case. Show one case, all
+     three, or a range; and whether to put it on the map at all.
+   - ART (C1): the seven Caltrans-served levels and the geodatabase's differ (74–93% agreement; a
+     ~1.5 m offset, and dry islands missing from Caltrans + 96 and + 108 in). Keep Caltrans for those
+     seven, or switch all ten to the geodatabase.
+4. **Documents for four rows the spot-check could not reach (C19).** T2 and F21 were archived by
+   Eric on 2026-11-03 (with the Draft EIR and Appendices G and H). Still needed: Z4's 2015-02-10 work
+   session Item 1 (City URL, or the Berkeleyside copy), a Wayback capture of the Baykeeper page for
+   F16, and the Gilman hydraulic study addendum (V3). Re-check those rows once archived.
 
 ## Ready to do, once Eric approves each
 
-5. **Groundwater: USGS CoSMoS-GW** (DATA_INVENTORY), the next step of the waves, groundwater and
-   duration phase. Same pattern as `tools/fetch-cosmos.py`.
-6. **ART + 84 in connected layer** from the county geodatabase, so C6's and C20's + 84 in figures
-   reproduce from the repository.
-7. **The Nov 17 Council agenda (V1).** It should post about Nov 6. Check whether the ferry item is
+5. **The Nov 17 Council agenda (V1).** It should post about Nov 6. Check whether the ferry item is
    on it and whether its EIR addresses shoreline flooding.
-8. **The Gilman study's 100-year level (V3).** It uses 10.2 ft NAVD88, 0.5 ft above the 2016
-   study's 9.73 at point 518; read the addendum's source for 10.2.
+6. **FEMA's 2018 Alameda County Flood Insurance Study (V3).** The Gilman study's 10.2 ft NAVD88 comes
+   from it; read its Berkeley still water table to explain the 0.47 ft gap with 9.73 (the FEMA map
+   service failed to connect on 2026-11-03).
+7. **Duration and waves.** The remaining piece of that phase; CoSMoS (C21) and CoSMoS-GW (C22) are in.
 
 ## After the king tides
 
-9. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
+8. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
     volunteer's photos and sheet with NOAA's measured water level at Richmond (9414863) for that
     morning, and with the explorer at 7.4 ft NAVD88. Record the result under E10 in
     `SOURCE_NOTES.md`, credited or anonymous as the volunteer chose.
 
 ## Archive (berkeley-public-records)
 
-10. **Large-file intake.** A separate session is running it (started 2026-11-03). It stages the
+9. **Large-file intake.** A separate session is running it (started 2026-11-03). It stages the
     2024 Local Hazard Mitigation Plan, the transfer station Draft EIR and its Appendix G, and the
     2019 feasibility study from Eric's Google Drive, and commits Appendix H. Check its PRs.
-11. **Wayback captures** of the source URLs for archive PRs #25 and #26, and for whatever the
+10. **Wayback captures** of the source URLs for archive PRs #25 and #26, and for whatever the
     intake session lists. Eric does these. Uploads to the Wayback Machine or the Internet Archive
     were blocked for the agent.
-12. **What else to archive.** Eric has not decided which State and federal documents belong in
+11. **What else to archive.** Eric has not decided which State and federal documents belong in
     the archive:
     - the Baykeeper consent decree;
     - the 2016 extreme tides study;

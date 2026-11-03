@@ -554,15 +554,26 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 (Census place boundary, excluding open water).
 
 - **C1. Terrain against the published ART maps (H5).** Agreement (cells under water in both,
-  over cells under water in either) on Berkeley land, by ART level: MHHW + 12 in 68%, + 24 in
-  74%, + 36 in 76%, + 52 in 84%, + 66 in 88%, + 96 in 86%, + 108 in 91%. With a 4 m bilinear
-  export of the same lidar it was 54–62% at the four lowest levels, with the fill wetting
-  ground behind narrow structures such as the revetment along University Ave east of the
-  Marina; averaging 1 m cells fixed most of that, so the explorer uses it (F13). Below
-  + 66 in the fill wets slightly more than ART (by 1.4–2.0 ha); at + 96 and + 108 in ART
-  wets more (by 10–17 ha). The service returned no polygons for the + 48 and + 77 in layers
-  (two tries each), and its + 108 in layer covers less of the transfer station (70%) than its
-  + 96 in layer (100%), which points to a gap in the served polygons.
+  over cells under water in either) on Berkeley land, by ART level: MHHW + 12 in (7.20 ft NAVD88) 68%,
+  + 24 in 74%, + 36 in 76%, + 48 in 82%, + 52 in 84%, + 66 in 88%, + 77 in 92%, + 84 in (13.20 ft
+  NAVD88) 92%, + 96 in 86%, + 108 in (15.20 ft NAVD88) 91%. The + 48, + 77 and + 84 in layers are
+  `Alameda_inundation_poly_<N>` from the ART Alameda County geodatabase, because the Caltrans service
+  returned no polygons for + 48 and + 77 in (two tries each) and has no + 84 in layer. The other
+  seven come from the Caltrans service. With a 4 m bilinear export of the same lidar it was 54–62% at
+  the four lowest levels, with the fill wetting ground behind narrow structures such as the revetment
+  along University Ave east of the Marina; averaging 1 m cells fixed most of that, so the explorer uses
+  it (F13). Below + 66 in the fill wets slightly more than ART (by 1.4–2.0 ha); at + 96 and + 108 in
+  ART wets more (by 10–17 ha). The two sources differ for the seven levels both carry: on Berkeley land
+  they agree at 74% (+ 12 in) to 93% (+ 108 in). The geodatabase polygons sit about 1.5 m east of the
+  Caltrans ones (shifting them 1.5 m west raises agreement at + 12 in from 74% to 80%), consistent
+  with the geodatabase's NAD83 coordinates being used without a datum shift (assumption,
+  `tools/build-art-dc.mjs`). The Caltrans + 96 and + 108 in layers include 11.6 and 7.8 ha of ground
+  more than 1 ft above the water level, against 1.9 and 2.9 ha in the geodatabase. The Caltrans + 96 in
+  layer covers all of the transfer station, while the geodatabase's covers 57%: the share of the site's
+  ground below 14.20 ft NAVD88, and the fill's share. So the gap noted earlier (Caltrans + 108 in
+  covering 70% of the site, less than + 96 in) lies in the Caltrans + 96 in layer, which is missing
+  dry islands. Against the geodatabase layers at all ten levels, the fill agrees at 71–96% (+ 96 in
+  95%). Which source the explorer should use is for Eric to decide.
 - **C2. City 2019 Marina study (W7, W8).** At 10.7 ft NAVD88 (its 2050 100-year level) the
   fill has all 675 m of Marina Blvd under water (W8: "most likely" impassable) and 25% of the
   DoubleTree grounds (W7: two buildings' floors below the water). At 10.1 (its 2030 level),
@@ -590,10 +601,12 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   route runs east from the North Basin across the I-80 corridor about 250 m south of Gilman
   St; its highest point (13.35 ft) is just east of the freeway, near Eastshore Hwy, at about
   37.8812 N, 122.3073 W. The Draft EIR's ART-based maps put the site's first flooding at MHHW
-  + 84 in, about 13.2 ft NAVD88 (F9); ART's + 84 in layers show that as a disconnected low-lying
-  area (42% of the site), with no connected flooding there (C20). ART has no connected flooding
-  there at + 66 in (11.7; its disconnected layer covers 16%) and floods all of it from the Bay at
-  + 96 in (14.2). The level sits just above the City study's 2100 100-year level (13.0, W5).
+  + 84 in, about 13.2 ft NAVD88 (F9); ART's + 84 in layers, both stored (`art-84.bits`,
+  `art-dc-84.bits`), show that as a disconnected low-lying area (42% of the site), with no connected
+  flooding there (C20). ART has no connected flooding
+  there at + 66 in (11.7; its disconnected layer covers 16%) and floods it from the Bay at + 96 in
+  (14.2): all of it in the Caltrans layer, 57% in the geodatabase layer, the share of its ground
+  below 14.20 ft NAVD88 (C1). The level sits just above the City study's 2100 100-year level (13.0, W5).
   Bare-earth lidar removes bridges and may misrepresent ramps and embankments; the
   crossing needs the Caltrans profile to confirm (DATA_INVENTORY).
 - **C7. Below that level, the flats flood from the land side.** Up to 13.35 ft, the transfer
@@ -815,13 +828,14 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   connected flooding covers at most 0.8 ha of the explorer's low ground (at + 96 in, 14.20 ft
   NAVD88). Bolivar Dr, Second St, Eastshore Hwy and the transfer station are disconnected in both
   through + 84 in and flooded from the Bay in both at + 96 in, consistent with C6's 13.35 ft
-  NAVD88. ART's + 84 in layers, read from the same geodatabase (the connected layer
-  `Alameda_inundation_poly_84` into a scratch file only; not stored, and `tools/fetch-art-dc.py`
-  does not fetch it), have the transfer station 0%
-  connected and 42% disconnected (the explorer: 42% low, not connected), so the Draft EIR's
-  "begin to experience inundation at the MHHW plus 84-inch SLR scenario" (F9) matches ART's
-  disconnected area, not Bay water reaching the site (our reading). The same + 84 in connected
-  layer agrees with the fill at 92% on Berkeley land, filling C1's missing level. Both maps use
+  NAVD88. ART's + 84 in layers, read from the same geodatabase (`Alameda_inundation_poly_84`,
+  stored as `data/hazard/art-84.bits` by `tools/fetch-art-dc.py --connected` and
+  `tools/build-art-dc.mjs --connected`, with + 48 and + 77 in), have the transfer station 0% connected
+  and 42% disconnected (the explorer: 42% low, not connected), so the Draft EIR's "begin to experience
+  inundation at the MHHW plus 84-inch SLR scenario" (F9) matches ART's disconnected area, not Bay
+  water reaching the site (our reading). The + 84 in connected layer agrees with the fill at 92% on
+  Berkeley land (C1). The explorer can show the disconnected areas as an optional lime outline at the
+  ART outline's level. Both maps use
   lidar terrain and a still-water connectivity rule, so this tests the explorer's classification,
   not the hazard; ART's report says these areas may connect through culverts and storm drains
   and may flood from groundwater (§3.5, pp. 20–21). The lagoon (26.3 ha below mean sea level)
@@ -1057,9 +1071,13 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   `data/hazard/art-dc-*.bits`). The catalog defines them as "low-lying areas greater than one
   acre … below the inundated water surface elevation, but … not hydraulically-connected to the
   inundated areas" (GIS data catalog, p. 2). ART joins cells by an "eight-side rule" on 1 m
-  DEMs (report §3.5, p. 20). The geodatabase also holds the + 48, + 77 and + 84 in connected
-  layers that the Caltrans service did not return (`Alameda_inundation_poly_84`, 143 MB
-  uncompressed). Used for: C20.
+  DEMs (report §3.5, p. 20). The geodatabase also holds the connected layers, `Alameda_inundation_poly_<N>`, one
+  feature per depth class (`DEPTH_FT`, 10–77 MB compressed each). The + 48, + 77 and + 84 in layers,
+  which the Caltrans service did not return, are stored (`tools/fetch-art-dc.py --connected --levels
+  48,77,84`, retrieved 2026-11-03; `data/raw/art-dc/inundation_*.json`, `data/hazard/art-48.bits`,
+  `art-77.bits`, `art-84.bits`). For the seven levels both carry, the geodatabase and Caltrans
+  polygons differ in registration and in dry islands (C1). Used for: C1, C6, C20, and the explorer's
+  optional disconnected outline.
 - **H6. Tsunami, 2011 (asked by Eric, 2026-11-03, recalling water "at high speed. 20 knots?").**
   California Geological Survey, "Table of Tōhoku-oki tsunami forecast and observation times,
   tsunami amplitudes, and reported damage" (conservation.ca.gov; read 2026-11-03): Oakland,

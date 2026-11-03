@@ -117,6 +117,19 @@ function draw(res, baseRes, plan) {
       if (on(i) && (!on(i - 1) || !on(i + 1) || !on(i - W) || !on(i + W))) { p[i * 4] = 255; p[i * 4 + 1] = 255; p[i * 4 + 2] = 255; }
     }
   }
+  // ART's disconnected low-lying areas (sourced layer, H5, C20): the inside edge, two cells (8 m)
+  // wide, in lime, at the same nearest ART level as the ART outline; the mask loads when first shown.
+  const dl = $('showArtDc').checked && artDcLevel(res.levelFt), dm = dl && artDcMask(dl);
+  if (dm) {
+    const on = (k) => (dm[k >> 3] >> (k & 7)) & 1, B = 2;
+    for (let r = B; r < H - B; r++) for (let c = B; c < W - B; c++) {
+      const i = r * W + c;
+      if (!on(i)) continue;
+      let edge = false;
+      for (let d = 1; d <= B && !edge; d++) edge = !on(i - d) || !on(i + d) || !on(i - d * W) || !on(i + d * W);
+      if (edge) { p[i * 4] = 166; p[i * 4 + 1] = 255; p[i * 4 + 2] = 0; }
+    }
+  }
   // Published USGS CoSMoS map (sourced layer, H1): the inside edge, two cells (8 m) wide, in cyan,
   // for the sea level rise and storm the reader chose; it does not follow the level.
   const cs = cosmosChoice(), cm = $('showCosmos').checked && cs && cosmosMasks[cs.file];
@@ -318,6 +331,30 @@ function nearestArt(levelFt) {
   return best;
 }
 
+// ART's disconnected low-lying areas (H5, C20), data/hazard/art-dc.json: the level the ART outline
+// uses (same inches), or the nearest one listed if that level is missing. Masks load when first drawn;
+// draw() asks for one, and the page redraws when it arrives (onArtDcLoad, set at start).
+const artDcMasks = {}, artDcPending = new Set();
+let onArtDcLoad = () => {};
+function artDcLevel(levelFt) {
+  if (!D.artDc) return null;
+  const a = nearestArt(levelFt), same = a && D.artDc.levels.find(l => l.inches === a.inches);
+  if (same) return same;
+  let best = null;
+  for (const l of D.artDc.levels) if (!best || Math.abs(l.levelFt - levelFt) < Math.abs(best.levelFt - levelFt)) best = l;
+  return best;
+}
+function artDcMask(l) {
+  if (artDcMasks[l.file]) return artDcMasks[l.file];
+  if (!artDcPending.has(l.file)) {
+    artDcPending.add(l.file);
+    fetch(`data/hazard/${l.file}`).then(r => { if (!r.ok) throw new Error(l.file); return r.arrayBuffer(); })
+      .then(b => { artDcMasks[l.file] = new Uint8Array(b); artDcPending.delete(l.file); onArtDcLoad(true); })
+      .catch(() => { artDcPending.delete(l.file); onArtDcLoad(false); });
+  }
+  return null;
+}
+
 function context(lv) {
   // A reference within 0.06 ft of the level is the level itself (the I-80 connection, shown as about 13.4).
   const near = (r) => Math.abs(r.ft - lv) < 0.06;
@@ -344,6 +381,7 @@ function render(levelFt, sc) {
     kingKelvin: 'A hypothetical combination with no established likelihood', y10Kelvin: 'A hypothetical combination with no established likelihood' };
   stamp = [`${sc ? sc.label : 'Level chosen with the slider'}: ${lvText} (level: ${sc ? sc.category : 'chosen'})${extras.length ? ', ' + extras.join(', ') : ''}`,
     ...(sc && QUAL[sc.id] ? [QUAL[sc.id]] : []),
+    ...($('showArtDc').checked && artDcLevel(levelFt) ? [`Lime outline: ART disconnected low-lying areas, MHHW + ${artDcLevel(levelFt).inches} in; low ground not connected to the Bay, which may flood through drains or groundwater`] : []),
     ...($('showCosmos').checked && cosmosChoice() ? [`Cyan outline: USGS CoSMoS v2.1, ${cosmosChoice().label}; a published map with waves, not still water, and not tied to the level`] : []),
     'Not a flood forecast: an educational comparison on bare-earth lidar',
     `Berkeley Bay Flood Explorer · ${new Date().toISOString().slice(0, 10)} · ${SITE_URL}`];
@@ -352,6 +390,8 @@ function render(levelFt, sc) {
   const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft NAVD88`}</li>`;
   const art = nearestArt(levelFt);
   $('artNote').textContent = D.art ? (art ? `Nearest ART level: MHHW + ${art.inches} in, about ${fmt(art.levelFt, 1)} ft NAVD88 (SOURCE_NOTES H5).` : '') : 'ART map not loaded.';
+  const dl = $('showArtDc').checked && artDcLevel(levelFt);
+  $('artDcNote').textContent = !D.artDc ? 'ART disconnected low-lying areas not loaded.' : dl ? `Disconnected low-lying areas at MHHW + ${dl.inches} in, about ${fmt(dl.levelFt, 1)} ft NAVD88${artDcMasks[dl.file] ? '' : ' (loading)'}.` : '';
   const cs = cosmosChoice();
   $('cosmosNote').textContent = D.cosmos ? (cs ? cosmosText(cs) : '') : 'CoSMoS map not loaded.';
   const row = (label, a, b, unit, d = 1) => `<tr><td>${label}</td><td class="n">${fmt(a, d)} ${unit}</td>${plan ? `<td class="n">${fmt(b, d)} ${unit}</td>` : ''}</tr>`;
@@ -491,6 +531,9 @@ function planPanel(rerender) {
   base = shade(D);
   if (D.art) await Promise.all(D.art.levels.map(async l => { artMasks[l.file] = new Uint8Array(await fetch(`data/hazard/${l.file}`).then(r => r.arrayBuffer())); }));
   else $('showArt').disabled = true;
+  // ART disconnected low-lying areas (H5, C20): the level list now, each level's mask when first drawn.
+  D.artDc = await fetch('data/hazard/art-dc.json').then(r => r.ok ? r.json() : null).catch(() => null);
+  if (!D.artDc) $('showArtDc').disabled = true;
   // USGS CoSMoS (H1): the scenario list now, each scenario's mask when first shown.
   D.cosmos = await fetch('data/hazard/cosmos.json').then(r => r.ok ? r.json() : null).catch(() => null);
   if (D.cosmos) {
@@ -516,6 +559,12 @@ function planPanel(rerender) {
     if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; show(Number($('level').value), null); }); }
   });
   $('showArt').addEventListener('change', () => render(levelNow, scNow));
+  $('showArtDc').addEventListener('change', () => render(levelNow, scNow));
+  onArtDcLoad = (ok) => {
+    if (!ok) $('showArtDc').checked = false;
+    if (levelNow != null) render(levelNow, scNow);
+    if (!ok) $('artDcNote').textContent = 'ART disconnected low-lying areas not loaded.';
+  };
   for (const id of ['showCosmos', 'cosmosSlr', 'cosmosStorm']) $(id).addEventListener('change', async () => {
     let failed = false;
     try { await loadCosmosMask(); } catch (e) { failed = true; $('showCosmos').checked = false; }
