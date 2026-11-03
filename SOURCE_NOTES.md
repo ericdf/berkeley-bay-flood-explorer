@@ -770,3 +770,16 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   Intermediate-High and High scenarios ("Yes trim"). Applied in `data/scenarios.json`: the two
   Intermediate rows (10.53 and 12.83 ft NAVD88) are removed from the list; C13 keeps their results,
   and the slider still reaches those levels.
+- **E6. What mitigations are measured by.** Eric: "All these scenarios have sufficient warning that
+  people can evacuate. So the KPI for mitigations is not loss of life, but environmental damage."
+  Agreed with three qualifications, which Eric accepted ("yes record it"). Plans and levers are
+  compared by: (1) pollutant release: which contaminated or hazardous-materials sites take water,
+  and at what level (C15, C16, F14–F19); (2) loss of critical services: the transfer station, the
+  sewer system (F15), I-80 and emergency routes, and for how long; (3) life safety as a check, not
+  the main measure. The qualifications: warning works only if people receive it and act on it
+  (Marina liveaboards and workers, shift workers at the industrial sites, people without cars;
+  the City's after-action report on the 2024-12-05 tsunami warning is the evidence to read);
+  warning times for the tsunami sources behind the State's hazard area are not yet confirmed (H6);
+  and losing a service is a loss that evacuation does not prevent (E4's cleanup point). Basis for
+  the long warning: king tides are predicted years ahead (W14), storm tides and rain days ahead, and
+  the 2011 tsunami reached the Bay hours after the earthquake (H6).
