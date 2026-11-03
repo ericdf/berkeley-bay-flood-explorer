@@ -851,3 +851,11 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   still need a home or a decision: the City's 110+ collection vehicles parked on the site, the
   recycling center run by Community Conservation Centers, and the public drop-off and buyback
   (F21).
+- **E8. The panel's name, and where criticality lies (2026-11-03).** Eric accepted "What's
+  exposed" for the panel ("Yes, on the scorecard"). And: "I only consider it vital if we are
+  depending on it for that function. If we outsourced to a regional facility, then that facility
+  is the vital one." So a critical service is a function the City depends on, attached to whatever
+  facility performs it. E4 applies to the transfer station while Berkeley depends on it; under the
+  exit lever (E7) the function moves to the regional station, which then appears in the panel's
+  critical services. Its exposure reads "not checked here" while it lies outside the map (F21),
+  never as safe.
