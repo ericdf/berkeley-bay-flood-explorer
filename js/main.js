@@ -204,13 +204,23 @@ function paint() {
   }
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   if (stamp) {
-    const pad = 8 * dd, lines = stamp, maxW = canvas.width - 2 * 10 * dd - 2 * pad;
-    let fs = 13 * dd; ctx.font = `600 ${fs}px system-ui, sans-serif`;
-    const widest = () => Math.max(...lines.map((t, k) => { ctx.font = `${k ? '' : '600 '}${k ? fs * 0.9 : fs}px system-ui, sans-serif`; return ctx.measureText(t).width; }));
-    while (fs > 8 * dd && widest() > maxW) fs -= dd;
-    const lh = fs * 1.35, bw = Math.min(maxW, widest()) + 2 * pad, bh = lines.length * lh + pad * 1.2, bx = 10 * dd, by = canvas.height - 10 * dd - bh;
+    // Shrink to a floor of 10 CSS px, then wrap each line by words to the map's width, so the
+    // level, datum and caveats are never clipped from a screenshot.
+    const pad = 8 * dd, maxW = canvas.width - 2 * 10 * dd - 2 * pad;
+    const fontOf = (k, fs) => `${k ? '' : '600 '}${k ? fs * 0.9 : fs}px system-ui, sans-serif`;
+    let fs = 13 * dd;
+    const widest = () => Math.max(...stamp.map((t, k) => { ctx.font = fontOf(k, fs); return ctx.measureText(t).width; }));
+    while (fs > 10 * dd && widest() > maxW) fs -= dd;
+    const rows = []; // [text, line index]
+    stamp.forEach((t, k) => {
+      ctx.font = fontOf(k, fs); let cur = '';
+      for (const w of t.split(' ')) { const next = cur ? `${cur} ${w}` : w; if (cur && ctx.measureText(next).width > maxW) { rows.push([cur, k]); cur = w; } else cur = next; }
+      if (cur) rows.push([cur, k]);
+    });
+    const bw = Math.min(maxW, Math.max(...rows.map(([t, k]) => { ctx.font = fontOf(k, fs); return ctx.measureText(t).width; }))) + 2 * pad;
+    const lh = fs * 1.35, bh = rows.length * lh + pad * 1.2, bx = 10 * dd, by = Math.max(0, canvas.height - 10 * dd - bh);
     ctx.fillStyle = 'rgba(255,255,255,.9)'; ctx.fillRect(bx, by, bw, bh);
-    lines.forEach((t, k) => { ctx.font = `${k ? '' : '600 '}${k ? fs * 0.9 : fs}px system-ui, sans-serif`; ctx.fillStyle = k === 1 ? '#a0300a' : '#111'; ctx.fillText(t, bx + pad, by + pad * 0.6 + lh * (k + 0.75)); });
+    rows.forEach(([t, k], n) => { ctx.font = fontOf(k, fs); ctx.fillStyle = k > 0 && k < stamp.length - 1 ? '#a0300a' : '#111'; ctx.fillText(t, bx + pad, by + pad * 0.6 + lh * (n + 0.75)); });
   }
   // Scale bar, top left: the longest round length that fits in about 120 CSS pixels.
   ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -299,7 +309,12 @@ function render(levelFt, sc) {
   const baseRes = plan ? analyze(D, levelFt, null, ui.rain) : null;
   const lvText = `${sc && sc.precision === 1 ? 'about ' : ''}${fmt(levelFt, sc && sc.precision != null ? sc.precision : 2)} ft NAVD88 still water`;
   const extras = [ui.rain ? `rain experiment (${ui.rain.ari}-year, ${ui.rain.duration.replace('-hr', ' h')})` : '', plan ? 'with a plan the reader built' : '', Object.values(ui.siteChoices).some(c => c && c !== 'none') ? 'site choices assumed' : ''].filter(Boolean);
-  stamp = [`${sc ? sc.label : 'Level chosen with the slider'}: ${lvText}${extras.length ? ', ' + extras.join(', ') : ''}`,
+  // The level's provenance travels with it; a qualified level carries its qualification.
+  const QUAL = { ferris12: 'Read here as ft NAVD88 still water (inference): its source, datum and whether it includes waves are unconfirmed',
+    spill: "A result of this explorer's terrain model, uncertain: the connection could open lower or higher",
+    kingKelvin: 'A hypothetical combination with no established likelihood', y10Kelvin: 'A hypothetical combination with no established likelihood' };
+  stamp = [`${sc ? sc.label : 'Level chosen with the slider'}: ${lvText} (level: ${sc ? sc.category : 'chosen'})${extras.length ? ', ' + extras.join(', ') : ''}`,
+    ...(sc && QUAL[sc.id] ? [QUAL[sc.id]] : []),
     'Not a flood forecast: an educational comparison on bare-earth lidar',
     `Berkeley Bay Flood Explorer · ${new Date().toISOString().slice(0, 10)} · ${SITE_URL}`];
   draw(res, baseRes, plan);
