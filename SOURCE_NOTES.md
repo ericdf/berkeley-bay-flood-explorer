@@ -386,10 +386,17 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   39.1%, Marin 36.9%, Codornices 34.6%, Wildcat 15.9%, Temescal 14.6%.
 - **R3.** Runoff share from imperviousness: the Simple Method, Rv = 0.05 + 0.009 × percent
   impervious (Schueler, *Controlling Urban Runoff*, Metropolitan Washington Council of Governments,
-  1987). Formula from general knowledge; the publication was not re-read here. The method was made
-  for annual runoff and pollutant loads (so says the 2026-11-03 outside review, citing EPA's BASINS
-  manual, which was not read here); applying it to one design storm is an exploratory assumption
-  that a hydrologist should review. Gives Gilman 0.76,
+  1987). Formula from general knowledge; the publication was not re-read here. EPA, *BASINS 4.5
+  Core Manual* (2019, partial 508 version; read 2026-11-03), PLOAD chapter, PDF p. 427: annual
+  pollutant loads "may be calculated ... using ... EPA's Simple Method", "an empirical approach
+  developed for estimating pollutant export from urban development sites", whose "application is
+  limited to small drainage areas of less than one square mile" (citing EPA's 1997 *Compendium of
+  Tools for Watershed Assessment and TMDL Development*). The manual's equations are images that do
+  not extract, so it does not confirm the coefficients above. Two departures, both exploratory
+  assumptions a hydrologist should review: the explorer applies the method to one design storm,
+  not a year; and four of the six watersheds that pool rain exceed one square mile (2.59 km²):
+  Derby 9.16 km², Strawberry 8.00, Schoolhouse 2.79, Codornices 2.72 (R4); Gilman (0.88) and
+  Aquatic Park (0.53) are within it. Gives Gilman 0.76,
   Schoolhouse 0.64, Derby 0.60, Strawberry 0.41, Aquatic Park 0.40, Codornices 0.36. The Alameda
   County Flood Control District's Hydrology and Hydraulics Manual (2016) has its own runoff
   coefficients; its PDF could not be retrieved (the server answered with a script, not the file).

@@ -8,7 +8,9 @@
 //   volume = rain depth (NOAA Atlas 14) x runoff share x share that cannot drain x watershed area
 // The runoff share is the Simple Method, Rv = 0.05 + 0.009 x percent impervious (Schueler 1987),
 // with NLCD 2021 imperviousness averaged over the watershed (SOURCE_NOTES R1-R4). The method was made
-// for annual runoff and pollutant loads; applying it to one design storm is an exploratory assumption.
+// for annual pollutant loads from drainage areas under one square mile (EPA BASINS 4.5 manual,
+// SOURCE_NOTES R3); applying it to one design storm, and to Derby, Strawberry, Schoolhouse and
+// Codornices, which are larger, is an exploratory assumption.
 // The pool stays inside its watershed (spill over a divide is not modeled); if it reaches ground
 // connected to the Bay, the rest flows to the Bay and the pool stops rising.
 // Ground already under Bay water is not counted again. Low ground already filling through the
