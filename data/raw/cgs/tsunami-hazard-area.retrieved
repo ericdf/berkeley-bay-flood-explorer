@@ -1,0 +1,5 @@
+California Tsunami Hazard Areas (California Geological Survey, Cal OES, USC Tsunami Research Center, AECOM), Alameda and Contra Costa county polygons.
+Source: https://services.gis.ca.gov/arcgis/rest/services/Oceans/Tsunami/MapServer/0/query
+  geometry=-122.33,37.84,-122.21,37.91 (envelope, EPSG:4326), spatialRel=esriSpatialRelIntersects, outFields=*, outSR=4326, f=geojson
+Retrieved 2026-11-03. The service returns each county's whole polygon.
+Layer description (quoted): "The Tsunami Hazard areas are developed for all populated areas at risk to tsunamis in California and represent a combination of the maximum considered tsunamis for each area. ... the hazard area as they will be used for evacuation planning at the community level."

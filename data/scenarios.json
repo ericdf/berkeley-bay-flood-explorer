@@ -1,5 +1,5 @@
 {
-  "note": "Bay water levels the explorer offers. All are still water (no waves) in feet NAVD88 unless 'waves' says otherwise. 'category' is the provenance: sourced = stated in the source; derived = arithmetic on sourced values; inference = our reading of an unclear source. Rows cite SOURCE_NOTES.",
+  "note": "Bay water levels the explorer offers. All are still water (no waves) in feet NAVD88 unless 'waves' says otherwise. 'category' is the provenance: sourced = stated in the source; derived = arithmetic on sourced values; inference = our reading of an unclear source; sensitivity = a hypothetical combination with no established likelihood. Rows cite SOURCE_NOTES. 'precision' is the number of decimals shown where a finer figure would claim more than the source supports.",
   "scenarios": [
     {
       "id": "mhhw",
@@ -16,25 +16,25 @@
       "source": "NOAA predicted high tide at Richmond, 7.42 ft NAVD88, 2026-12-24 10:58 a.m.; astronomical tide only, no weather (W14). Equals the 1-year extreme tide off Berkeley, 7.43 (W11)."
     },
     {
-      "id": "kingKelvin",
-      "label": "King tide plus a 1 ft Kelvin wave",
-      "levelFt": 8.4,
-      "category": "derived",
-      "source": "7.4 (W14) plus the upper end of the 6 to 12 inch Kelvin wave reported in the press (H3)"
-    },
-    {
       "id": "y5",
-      "label": "5-year storm tide",
+      "label": "5-year storm tide (20% annual chance)",
       "levelFt": 8.16,
       "category": "sourced",
-      "source": "5-year extreme tide at point 518, 8.16 ft NAVD88 (W11)"
+      "source": "5-year extreme tide at point 518, 8.16 ft NAVD88 (W11); annual chance from W10"
+    },
+    {
+      "id": "kingKelvin",
+      "label": "Sensitivity test: king tide plus 1 ft (El Niño)",
+      "levelFt": 8.4,
+      "category": "sensitivity",
+      "source": "7.4 (W14) plus 1.0 ft, the upper end of the 6 to 12 inches a strong El Niño can add to sea level for several months (California Coastal Commission 2024 guidance, App. A; SOURCE_NOTES W15, H3). A hypothetical combination: how likely a king tide is to coincide with that increase is not established, and predicted tides leave out weather and El Niño (W14)."
     },
     {
       "id": "y10",
-      "label": "10-year storm tide",
+      "label": "10-year storm tide (10% annual chance)",
       "levelFt": 8.47,
       "category": "sourced",
-      "source": "10-year extreme tide at point 518, 8.47 ft NAVD88 (W11)"
+      "source": "10-year extreme tide at point 518, 8.47 ft NAVD88 (W11); annual chance from W10"
     },
     {
       "id": "record",
@@ -44,39 +44,53 @@
       "source": "NOAA Richmond 9414863 highest observed, converted to NAVD88 (W2)"
     },
     {
-      "id": "y10Kelvin",
-      "label": "10-year storm tide plus a 1 ft Kelvin wave",
-      "levelFt": 9.47,
-      "category": "derived",
-      "source": "8.47 (W11) plus 1.0 ft (H3)"
-    },
-    {
       "id": "mhhw2100",
-      "label": "Average daily high tide in 2100 (City study)",
+      "label": "Average daily high tide in 2100 (City study, 2018 guidance)",
       "levelFt": 9.4,
       "category": "sourced",
-      "source": "City 2019 Marina study, Table 1: MHHW 9.4 ft NAVD88 in 2100, 2018 low-risk-aversion guidance (W4)"
+      "source": "City 2019 Marina study, Table 1: MHHW 9.4 ft NAVD88 in 2100, 2018 low-risk-aversion guidance (W4); kept as the City's study used it. The State's 2024 guidance replaces the 2018 guidance (W17)"
+    },
+    {
+      "id": "y10Kelvin",
+      "label": "Sensitivity test: 10-year storm tide plus 1 ft (El Niño)",
+      "levelFt": 9.47,
+      "category": "sensitivity",
+      "source": "8.47 (W11) plus 1.0 ft (W15, H3). A hypothetical combination with no established return period: the extreme-tide statistics are fitted to a 1973–2003 record that includes the 1977–78, 1982–83 and 1997–98 El Niño winters, so part of the 1 ft is counted twice (W16)."
     },
     {
       "id": "y100",
-      "label": "100-year storm tide (today)",
+      "label": "100-year storm tide today (1% annual chance)",
       "levelFt": 9.73,
       "category": "sourced",
-      "source": "100-year extreme tide at point 518, 9.73 ft NAVD88 (W11); the City study rounds it to 9.8 (W5)"
+      "source": "100-year extreme tide at point 518, 9.73 ft NAVD88 (W11); the City study rounds it to 9.8 (W5); annual chance from W10"
     },
     {
       "id": "y100y2050",
-      "label": "100-year storm tide in 2050 (City study)",
+      "label": "100-year storm tide in 2050 (City study, 2018 guidance)",
       "levelFt": 10.7,
       "category": "sourced",
-      "source": "City 2019 Marina study, Table 2 (W5)"
+      "source": "City 2019 Marina study, Table 2 (W5); kept as the City's study used it. The State's 2024 guidance replaces the 2018 guidance (W17)"
+    },
+    {
+      "id": "opc2050IntermediateHigh",
+      "label": "100-year storm tide in 2050, State 2024 Intermediate-High scenario",
+      "levelFt": 10.73,
+      "category": "derived",
+      "source": "9.73, today's 100-year storm tide (W11), plus 1.0 ft, the Intermediate-High scenario's rise by 2050 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18)."
     },
     {
       "id": "y500",
-      "label": "500-year storm tide (today)",
+      "label": "500-year storm tide today (0.2% annual chance)",
       "levelFt": 10.91,
       "category": "sourced",
-      "source": "500-year extreme tide at point 518, 10.91 ft NAVD88 (W11); the study notes considerable uncertainty at 500 years (W12)"
+      "source": "500-year extreme tide at point 518, 10.91 ft NAVD88 (W11); the study notes considerable uncertainty at 500 years (W12); annual chance from W10"
+    },
+    {
+      "id": "opc2050High",
+      "label": "100-year storm tide in 2050, State 2024 High scenario",
+      "levelFt": 11.03,
+      "category": "derived",
+      "source": "9.73, today's 100-year storm tide (W11), plus 1.3 ft, the High scenario's rise by 2050 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17); the project treats the transfer station as critical infrastructure (Eric's decision, E4), so this is the scenario the guidance points to for it (C13)."
     },
     {
       "id": "ferris12",
@@ -87,17 +101,32 @@
     },
     {
       "id": "y100y2100",
-      "label": "100-year storm tide in 2100 (City study)",
+      "label": "100-year storm tide in 2100 (City study, 2018 guidance)",
       "levelFt": 13.0,
       "category": "sourced",
-      "source": "City 2019 Marina study, Table 2 (W5)"
+      "source": "City 2019 Marina study, Table 2 (W5); kept as the City's study used it. The State's 2024 guidance replaces the 2018 guidance (W17)"
     },
     {
       "id": "spill",
-      "label": "Bay reaches the flats behind I-80",
-      "levelFt": 13.36,
+      "label": "Modeled surface connection behind I-80",
+      "levelFt": 13.4,
       "category": "derived",
-      "source": "Lowest level, to the nearest 0.01 ft above, at which the connected fill reaches the transfer station and the West Berkeley flats over the surface: the highest ground on the water's route is 13.35 ft NAVD88, just east of I-80 about 250 m south of Gilman St (tools/overtop.mjs; SOURCE_NOTES C6). The Draft EIR's ART-based maps put the site's first flooding at MHHW plus 84 inches, about 13.2 ft NAVD88 (F9)."
+      "source": "A result of this explorer's terrain model, not a protective threshold. The connected fill first reaches the transfer station and the West Berkeley flats once the level passes 13.35 ft NAVD88, over ground just east of I-80 about 250 m south of Gilman St (tools/overtop.mjs; SOURCE_NOTES C6). The figure is uncertain and the uncertainty is not quantified: lidar error, the 4 m grid, and culverts, ramps and embankments the bare-earth surface misrepresents can each move it, and the crossing needs Caltrans profiles to confirm. The Draft EIR's ART-based maps put the site's first flooding near 13.2 ft NAVD88 (F9).",
+      "precision": 1
+    },
+    {
+      "id": "opc2100IntermediateHigh",
+      "label": "100-year storm tide in 2100, State 2024 Intermediate-High scenario",
+      "levelFt": 14.53,
+      "category": "derived",
+      "source": "9.73, today's 100-year storm tide (W11), plus 4.8 ft, the Intermediate-High scenario's rise by 2100 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18)."
+    },
+    {
+      "id": "opc2100High",
+      "label": "100-year storm tide in 2100, State 2024 High scenario",
+      "levelFt": 16.23,
+      "category": "derived",
+      "source": "9.73, today's 100-year storm tide (W11), plus 6.5 ft, the High scenario's rise by 2100 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17); the project treats the transfer station as critical infrastructure (Eric's decision, E4), so this is the scenario the guidance points to for it (C13)."
     }
   ]
 }

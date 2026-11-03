@@ -1,0 +1,9 @@
+{
+  "note": "California Tsunami Hazard Area (California Geological Survey, Cal OES, USC Tsunami Research Center, AECOM), rasterized to this grid. In the layer's words it represents \"a combination of the maximum considered tsunamis for each area\" and is drawn for \"evacuation planning at the community level\": an area to leave, not a flood depth or a forecast. Source: data/raw/cgs/tsunami-hazard-area.geojson (SOURCE_NOTES H6).",
+  "provenance": {
+    "category": "sourced",
+    "retrieved": "2026-11-03"
+  },
+  "file": "tsunami.bits",
+  "cells": 1179858
+}

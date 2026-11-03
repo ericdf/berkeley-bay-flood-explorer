@@ -83,8 +83,47 @@ CO-OPS Data API, product `predictions`, `datum=NAVD`, `interval=hilo`, local tim
 - **W14.** Highest predicted high tides (astronomical only, no weather): 7.42 ft NAVD88 on
   2026-12-24 at 10:58 a.m.; 7.34 on 2027-01-22 at 10:56 a.m.; 7.34 on 2026-12-23; 7.17 on
   2026-11-25 at 11:08 a.m. The December peak equals the 1-year extreme tide off Berkeley
-  (W11). Used for: the "this winter's king tide" scenario (7.4) and, with H3's 0.5–1.0 ft,
-  the "king tide plus Kelvin wave" scenario (7.9–8.4).
+  (W11). Used for: the "this winter's king tide" scenario (7.4) and, with W15's 0.5–1.0 ft,
+  the "king tide plus 1 ft (El Niño)" sensitivity test (8.4).
+
+## Water levels: El Niño, and the State's 2024 sea level rise guidance (read 2026-11-03)
+
+Prompted by an outside review of the live explorer on 2026-11-03, which said the Kelvin wave
+rows rested on press reports and the future levels on superseded guidance.
+
+- **W15. El Niño adds 0.5 to 1.0 ft for months.** California Coastal Commission, *Sea Level
+  Rise Policy Guidance*, Final Adopted 2024 Update (2024-11-13), Appendix A, p. 278: "strong
+  El Niño events can temporarily elevate local sea levels by six to twelve inches over several
+  months." The 2016 extreme-tide study says the same for the Bay: "Water levels are often 0.5
+  to 1.0 ft above normal for months at a time" (p. 28 of the report, PDF p. 47). These are the
+  primary statements behind H3's press figure. Used for: the two "plus 1 ft (El Niño)"
+  scenarios, now labeled sensitivity tests. A Kelvin wave is one mechanism of that rise; the
+  sources give the size of the El Niño rise, not of a single wave.
+- **W16. The extreme tides already contain El Niño winters.** The 2016 study fitted its
+  Central and North Bay extreme tides, which include point 518 (W11), to a 31-year modeled
+  record, January 1, 1973, to December 31, 2003 (§3.2.1, p. 3-11, PDF p. 48). It names
+  El Niño winters in 1977–78, 1982–83, 1997–98, 2009–10 and 2015–16 (p. 28); the first three
+  fall in that record. Adding 1 ft to a return level therefore counts part of the El Niño
+  effect twice, and the sum has no return period. Used for: the sensitivity-test labels.
+- **W17. The 2024 scenarios at the San Francisco gauge.** Same Coastal Commission guidance,
+  Appendix F, Table F-5 ("Sea Level Scenarios for San Francisco"), median rise in feet from a
+  2000 baseline, including local vertical land motion, from the State Sea Level Rise Guidance
+  (Ocean Protection Council, 2024): 2050 Intermediate 0.8, Intermediate-High 1.0, High 1.3;
+  2100 Intermediate 3.1, Intermediate-High 4.8, High 6.5. The Alameda gauge (Table F-6) is
+  0.2 lower in 2050 Intermediate (0.6) and 0.3 lower in 2100 Intermediate (2.8); Berkeley lies
+  between the two gauges and no Richmond table is given, so the explorer uses San Francisco, the
+  higher. Chapter 3, pp. 64 and 66: the guidance recommends analyzing the Intermediate scenario
+  for low risk aversion (amenities such as public access), Intermediate-High for medium-high
+  (most residential and commercial structures) and High for extreme risk aversion ("most
+  critical infrastructure"). It replaces the 2018 guidance the City study used (W4, W5).
+  Used for: six derived scenarios, today's 100-year storm tide (9.73, W11) plus each rise.
+  Not read: the OPC document itself (opc.ca.gov refused automated access); the Coastal
+  Commission reproduces its tables.
+- **W18. Baselines (assumption).** The 2024 rises are measured from 2000 (W17). The 2016
+  extreme tides are adjusted to "existing conditions" as of the 2011–2013 modeling (§3.2.1;
+  the year is not stated). Adding the two, as the City study did with the 2018 rises (W5),
+  counts the rise between 2000 and the modeling twice. At the Low scenario's pace (0.3 ft from
+  2000 to 2030, W17) that is about 0.1 ft or less, not corrected.
 
 ## Meeting remarks: Scott Ferris, Director of Parks, Recreation and Waterfront
 
@@ -149,6 +188,201 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   the mean of its 16 values (`tools/fetch-dem.mjs`). Where both grids show land, a 4 m
   bilinear export from the same service differs from the wildfire grid by a median of
   −0.16 ft (5th to 95th percentile −1.79 to +1.03 ft).
+- **F14. San Francisco Baykeeper and the transfer station (asked by Eric, 2026-11-03: "Berkeley
+  has been dinged by the SF Baykeeper").** Confirmed.
+  - Waste Dive, 2016-04-26 (Arlene Karidis, citing the Daily Californian, 2016-04-25): Baykeeper
+    "filed a federal lawsuit against [the City of Berkeley] and Community Conservation Centers for
+    allegedly discharging polluted storm water into the bay from the Berkeley Transfer Station and
+    the Community Conservation Centers' recycling center", alleging Clean Water Act violations for
+    five years "by surpassing a state-mandated limit on allowable storm water pollutants"; notice
+    of intent sent November 6 (2015, our inference from the April 2016 filing).
+  - San Francisco Baykeeper, "Berkeley Trash & Recycling Center Agrees to Protect the Bay from
+    Toxic Runoff", 2016-06-09 (https://baykeeper.org/update/berkeley-trash-recycling-center-agrees-protect-bay-toxic-runoff/;
+    the site refused automated access; Eric saved it as a PDF and supplied it, 2026-11-03). "For
+    five years, rainwater running off the property was contaminated with a long list of
+    pollutants, including aluminum, copper, iron, lead, zinc, excess acid, oil and grease." A
+    "legally-binding agreement requires the operators to keep the site cleaner and repair cracked
+    pavement. Compostable materials sorting has been moved indoors. Around the plastic and glass
+    sorting areas, facility operators will install concrete berms and trench drains to capture
+    the most contaminated storm water. The water will then be discharged to the sewer system for
+    processing at an East Bay wastewater treatment plant. A cover will be installed over the area
+    where the public brings in cans and bottles." If these "aren't enough to reduce pollution
+    from the site in future rainy seasons, Baykeeper will require further pollution controls."
+    The City funds the Rose Foundation for Communities and the Environment for Bay projects. The
+    34th settlement in Baykeeper's "Bay-Safe Industry Campaign". The page does not say whether a
+    court entered the agreement, how long it runs, or what monitoring it requires.
+  What the sources establish: the complaint was about ordinary rain runoff from the working
+  site, not flooding, and the remedy captures the most contaminated runoff and sends it to the
+  sanitary sewer. What we infer, not established:
+  - Controls built for rain falling on the site (berms, trench drains, capture) may not hold when
+    Bay water or a rain pool stands on it, as the explorer shows can happen (C6, C12, F7, F8). No
+    source read gives the controls' design capacity or assesses them under flooding; their flood
+    performance is unconfirmed.
+  - The captured runoff goes to the sanitary sewer, the system the 2014 consent decree (F15) is
+    meant to relieve of wet-weather inflow. In a storm on a high tide, both the site's capture and
+    the sewer would be under load at once.
+  Used for: the environmental consequence behind E4, as context. Not used: Baykeeper's 2026
+  ruling on creek pollution (Maven's Notebook, 2026-04-02), which concerns Sunnyvale and Mountain
+  View, not Berkeley. Berkeley's sewers are under a separate consent decree (F15).
+- **F16. Two more Berkeley Baykeeper settlements, beside the transfer station.** San Francisco
+  Baykeeper, "Baykeeper's Legal Action to Clean Up Industrial Pollution"
+  (https://baykeeper.org/baykeepers-legal-action-to-clean-up-industrial-pollution/; refused
+  automated access; Eric saved it as a 31-page PDF and supplied it, 2026-11-03). Its Berkeley
+  entries are the transfer station (p. 10, as in F14) and:
+  - **Pacific Steel Casting Company** (p. 24): "Toxic brownish water will no longer gush toward
+    San Francisco Bay from Pacific Steel Casting Company in Berkeley, as a result of Baykeeper's
+    successful Clean Water Act lawsuit"; "the fourth largest steel foundry in the U.S., agreed in
+    June 2013 to stop its rainy-season runoff pollution of the Bay", and funds restoration.
+  - **Berkeley Forge & Tool, Inc.** (pp. 25–26): agreed in August 2012 "to reduce its
+    rainy-season pollution" after Baykeeper notified it that its runoff, "which flows into storm
+    drains that lead directly to the Bay, contained high levels of aluminum, copper, iron, zinc,
+    and other pollutants"; upgrades include "carbon filters in downspouts".
+  No Albany or Emeryville facility is named on the page. Pacific Steel's foundry has closed (F17).
+  Terrain check (derived, `tools/report.mjs` functions; ground within 30 m of the OpenStreetMap
+  point, Nominatim 2026-11-03; a site counts once at least 25% of that ground is affected):
+  - Pacific Steel, 1333 Second St: ground 10.9–13.9 ft NAVD88 (median 12.0); can fill through
+    the drains from 12 ft, outfalls assumed open; under Bay water from 13.4. OpenStreetMap also
+    places Pacific Steel at 1421 Second St: ground 10.6–12.5 (median 11.7), the same thresholds.
+  - Berkeley Forge & Tool, 1331 Eastshore Hwy: ground 8.7–11.5 (median 10.1); can fill through
+    the drains from 11.03 (the 2050 High scenario); under Bay water from 13.4; 13% under the rain
+    pool in the 10-year 6-hour experiment with gates, 10% held back, at 7.4 ft.
+  All three Baykeeper sites in Berkeley sit within about 300 m of each other on Second St and
+  Eastshore Hwy south of Gilman St, and all three join the Bay at the same modeled connection
+  behind I-80 (C6), so one crossing decides their exposure to Bay water.
+- **F17. Pacific Steel closed; the Gilman Gateway rezoning takes in both Baykeeper sites (Eric,
+  2026-11-03: "One of those might be out of business").** Pacific Steel Casting's foundry shut
+  down in 2018 after 84 years (Berkeleyside, 2018-09-06, headline only; the article refused
+  automated access). The site and the former Berkeley Forge & Tool site are within the Gilman
+  Gateway Rezone Project, about 10 acres along I-80, with a conceptual life sciences campus
+  ("Gilman Forge"; Berkeleyside, 2023-03-27 and 2023-08-02, from search summaries, not read).
+  City Council item, 2025-03-25, Item 8 ("Establishment of M-RD Zoning District"; read for the
+  recommendation only): first reading of the M-RD zoning ordinance and adoption of the CEQA
+  findings. Whether it passed was not checked.
+  Response to Comments Document and Final EIR, Gilman Gateway Rezone Project, SCH# 2022120549,
+  March 2025, 86 pp. (CEQAnet; read 2026-11-03), Response HAZ-2, "Sea Level/Groundwater Rise and
+  Remediation Methods", pp. 3-20 and 3-21, answering EBMUD (letter 2024-12-02) and two Planning
+  Commission speakers (2024-11-06):
+  - A Response Plan, approved by DTSC before any demolition or construction permit, would use
+    "source reduction (e.g., excavation and off-site disposal, in-situ groundwater treatment ...)",
+    "engineering controls (e.g., capping of residual soil contamination and vapor intrusion
+    mitigation systems)" and "institutional controls (e.g., land use covenants ...)".
+  - Groundwater "in areas of known free product" (a separate petroleum layer floating on the
+    groundwater, the document's footnote) may be pumped out and treated.
+  - "Groundwater has been identified to be as shallow as 1.5 feet below the ground surface at
+    the project site, and there is anecdotal evidence of Second Street flooding during periods of
+    intense rainfall. Sea level rise could contribute to a rise in the already shallow groundwater
+    levels at the project site and could also increase the flooding risks at the project site."
+    A sub-slab venting system "would not function properly if it is beneath groundwater or flooded
+    by surface water", which could expose occupants to vapor intrusion, "a potentially significant
+    impact"; Mitigation Measure HAZ-2d requires the design to "account for potential shallow
+    groundwater and flooding conditions".
+  - PCBs may be present in the plant's concrete (Response HAZ-1, p. 3-19).
+  What it bears on: the City's own EIR states that flooding and rising groundwater can defeat
+  this site's contamination controls, and makes the design account for it, without a stated
+  design water level in the pages read. The site's ground is 10.6–13.9 ft NAVD88 (F16); the
+  explorer shows it filling through the drains from 12 ft with outfalls open and under Bay water
+  from 13.4. The Draft EIR's hydrology section is read in F18; its Section 4.9 (hazards) is not.
+- **F18. Gilman Gateway Draft EIR, Section 4.10 Hydrology and Water Quality (read 2026-11-03,
+  asked by Eric).** *Gilman Gateway Rezone Project Draft EIR*, SCH# 2022120549, October 2024
+  (CEQAnet, document 4, "Gilman Gateway Draft EIR_compiled_flat", 500 pp.; the section file is
+  dated 1/2/24). Page numbers are the section's printed numbers.
+  - p. 4.10-1: the site straddles the Schoolhouse and Gilman watersheds; "segments of the Gilman
+    Street storm drain system do not have capacity to convey 10-year design storm flows ... The
+    capacity limitation is related to tidal influence as well as floodwaters from Codornices Creek
+    that overtop the banks and flow south on Second Street" (citing the City's Watershed
+    Management Plan; matches F7, F8).
+  - p. 4.10-3: groundwater 1.5 to 15 ft below ground, "likely to be perched groundwater on the Bay
+    Mud". p. 4.10-4: the 2018 Phase I ESA found "multiple illegal releases or discharges to on-site
+    storm drains" at Pacific Steel, a City Notice of Stormwater Violation, and "groundwater
+    dewatering sumps and oil/water separators ... that discharged directly into the storm drain
+    system"; "it is not known whether any stormwater protection measures have been maintained ...
+    since" the 2018 closure. Berkeley Forge and Tool is "an active industrial facility" under the
+    Industrial General Permit (as of the Draft EIR).
+  - p. 4.10-5: FEMA Zone X (not a Special Flood Hazard Area); Zone AE, BFE 10 ft NAVD88, about
+    700 ft west; Zone VE, BFE 13 ft NAVD88, on the shoreline at the Gilman St outfall. Caltrans's
+    Gilman interchange study: the Gilman St storm drain "is low in elevation in relation to the
+    FEMA Zone VE water surface elevation".
+  - p. 4.10-6: sea level rise from the 2018 OPC guidance (likely range 1.6 to 3.4 ft by 2100 under
+    high emissions; medium-high risk aversion 5.7 to 6.9 ft; extreme 10.2 ft).
+  - p. 4.10-7: the ART maps show no inundation of the site up to MHHW (6.2 ft NAVD88) plus 7 ft
+    and the whole site inundated at plus 8 ft; about 13.2 and 14.2 ft NAVD88 (derived), which
+    brackets this explorer's modeled connection at 13.35 (C6). Caltrans: the Second St and Gilman St
+    intersection is "susceptible to backflow through the storm drain system or overland tidal
+    inundation when accounting for sea level rise".
+  - Impact HYD-4, pp. 4.10-36 to 4.10-38: the BKF *Preliminary Sea Level Rise Vulnerability
+    Assessment* (2022, not read) uses "a projected sea level rise of 3.4 feet by 2100 ... which
+    accounts for Low Risk Aversion projects under a high emission scenario" and "recommends that
+    the minimum finished floor elevations for critical infrastructure at the project site should
+    be 13.4 feet NAVD 88, which is equal to the Base Flood Elevation at the nearest Special Flood
+    Hazard Area of 10 feet NAVD 88 plus 3.4 feet." The Draft EIR adds: "it is not clear how FEMA's
+    mapping of a Special Flood Hazard Zone with a Base Flood Elevation of 13 feet NAVD88 around
+    the Gilman Street storm drain outfall could affect future flooding conditions". Unmitigated
+    flooding of stored hazardous materials "would be a potentially significant impact";
+    Mitigation Measure HYD-4 requires flood-proof hazardous materials storage and a future
+    "Flooding and Sea Level Rise Assessment" before permits, with no design level stated.
+  What it bears on (derived and inference, ours):
+  - The Draft EIR, published October 2024, uses the 2018 guidance; the OPC adopted the 2024 update
+    in June 2024 (Coastal Commission 2024 guidance, Executive Summary, p. 13: "in June 2024, the OPC adopted its most recent update"; W17). The section file is dated January
+    2024, before that adoption.
+  - The 13.4 ft floor is the BFE plus the 2018 low risk aversion rise. Today's 100-year storm tide
+    plus the 2024 rises at the San Francisco gauge for 2100 are 12.83 (Intermediate), 14.53
+    (Intermediate-High) and 16.23 (High) ft NAVD88 (C13): 13.4 is above the first, 1.1 ft below the
+    second and 2.8 ft below the third. On the Draft EIR's own base of 10 ft they would be 13.1,
+    14.8 and 16.5.
+  - The guidance assigns High to "most critical infrastructure" (W17), and the BKF figure is for
+    critical infrastructure. Whether anything on this site is critical infrastructure in the
+    guidance's sense is not established here.
+  - 13.4 is also about where this explorer's fill first reaches these flats over the surface
+    (13.35, C6): a floor at 13.4 sits at the threshold, not above a margin.
+  Not read: the BKF assessment, the Caltrans interchange study, Section 4.9 (hazards).
+- **F19. The City's groundwater-rise screening of contaminated sites (read 2026-11-03; found by a
+  research agent asked by Eric for "other industrial sites of concern").** Rincon Consultants for
+  the City of Berkeley, *Groundwater Rise and Contaminated Site Analysis*, February 2025, 46 pp.
+  (https://berkeleyca.gov/sites/default/files/2026-06/Ground%20Water%20Analysis%20Report%202025-02.pdf).
+  PDF page numbers.
+  - PDF p. 10: "High Priority – projected GWR [groundwater rise] at a contaminated site is at the
+    ground surface (marine inundation, emergent groundwater) or within 6 feet (approximately 2
+    meters) of the ground surface"; it assumes every site adjoins a sewer, storm drain or other
+    utility corridor. PDF p. 11: "this is a screening analysis".
+  - PDF pp. 11 and 13: 427 contaminated sites (open and closed) from GeoTracker and EnviroStor;
+    under current conditions "100 are ranked as high priority, 100 as medium priority, and 227 as
+    low priority".
+  - Table 1, among others: Former Pacific Steel Casting (cleanup program, "OPEN - INACTIVE"; and
+    DTSC "VOLUNTARY AGREEMENT ACTIVE"), groundwater "0 m; emergent", High Priority now and at both
+    rises. City of Berkeley Transfer Station, 1201 Second St, "SINGLE-WALLED UST",
+    "SWT-NO PLAN RETURNED", "0 m; emergent", High Priority (PDF p. 36). "KAISER BIOMEDICAL
+    FACILITY", 1795 Second St, a closed leaking-tank case, "0 m; emergent", Low Priority
+    (PDF p. 40).
+  What it covers and what it does not: the USGS CoSMoS groundwater model's rising groundwater and
+  its marine inundation at mean higher high water, the average daily high tide, for today and two
+  rises (0.8 and 2.5 ft); PDF p. 8 lists "Marine inundation (mean higher high water [MHHW] sea
+  level)" among the model's outputs and PDF p. 10 overlays the sites on "the marine inundation and
+  GWR projections". It does not consider storm tides above MHHW, Bay water through the storm
+  drains, trapped rain, or what operating plants store; those are what this explorer adds (C15).
+- **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
+  al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
+  Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
+  (https://19january2017snapshot.epa.gov/www3/region9/water/npdes/pdf/ca/ebmud/ebmud-final-consent-decree-2014-07-28.pdf).
+  Page numbers are the decree's.
+  - p. 8: EBMUD takes wastewater from seven "Satellites", Berkeley among them; "During wet weather,
+    EBMUD at times discharges wastewater from three wet weather facilities", at 5597 Oakport St,
+    Oakland; 2755 Point Isabel St, Richmond; and 225 5th Ave, Oakland.
+  - pp. 31–32: Berkeley pays civil penalties of $133,500 to the United States and $133,500 to the
+    Water Boards.
+  - p. 33: the work is expected to reduce inflow and infiltration (I&I) enough "to eliminate WWF
+    Discharges ... by no later than December 31, 2035".
+  - pp. 66–70 (Section X, "Work – City of Berkeley"): the goal of "eliminating SSOs [sanitary
+    sewer overflows] and further reduce I&I"; rehabilitate at least 22,120 ft of sewer mains a
+    year for twelve fiscal years; inspect older mains; eliminate inflow and rapid infiltration
+    sources found by EBMUD's program, high-priority ones within 24 months.
+  - Nothing in the decree mentions tides or sea level (searched for "tide", "tidal", "sea
+    level", "bay water"). Its target is rain-driven inflow into sanitary sewers.
+  What it bears on (our inference): the sanitary sewers and the storm drains are separate
+  systems in Berkeley, and the explorer models only storm drains (D1–D6). Bay water or trapped
+  rain standing over sewer maintenance holes in the flats is one more route for I&I, the thing
+  the decree is meant to cut. Not modeled; the City's sewer data are not in the explorer. The
+  Point Isabel wet weather facility is on the Richmond shoreline north of Albany, at the edge of
+  the terrain grid; it was not located precisely or checked against the terrain.
 
 ## Transfer station Draft EIR, Section 3.9 Hydrology and Water Quality, and Appendix H (FirstCarbon Solutions for the City, Draft EIR received by CEQAnet 2026-08-03)
 
@@ -347,7 +581,17 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   39.1%, Marin 36.9%, Codornices 34.6%, Wildcat 15.9%, Temescal 14.6%.
 - **R3.** Runoff share from imperviousness: the Simple Method, Rv = 0.05 + 0.009 × percent
   impervious (Schueler, *Controlling Urban Runoff*, Metropolitan Washington Council of Governments,
-  1987). Formula from general knowledge; the publication was not re-read here. Gives Gilman 0.76,
+  1987). Formula from general knowledge; the publication was not re-read here. EPA, *BASINS 4.5
+  Core Manual* (2019, partial 508 version; read 2026-11-03), PLOAD chapter, PDF p. 427: annual
+  pollutant loads "may be calculated ... using ... EPA's Simple Method", "an empirical approach
+  developed for estimating pollutant export from urban development sites", whose "application is
+  limited to small drainage areas of less than one square mile" (citing EPA's 1997 *Compendium of
+  Tools for Watershed Assessment and TMDL Development*). The manual's equations are images that do
+  not extract, so it does not confirm the coefficients above. Two departures, both exploratory
+  assumptions a hydrologist should review: the explorer applies the method to one design storm,
+  not a year; and four of the six watersheds that pool rain exceed one square mile (2.59 km²):
+  Derby 9.16 km², Strawberry 8.00, Schoolhouse 2.79, Codornices 2.72 (R4); Gilman (0.88) and
+  Aquatic Park (0.53) are within it. Gives Gilman 0.76,
   Schoolhouse 0.64, Derby 0.60, Strawberry 0.41, Aquatic Park 0.40, Codornices 0.36. The Alameda
   County Flood Control District's Hydrology and Hydraulics Manual (2016) has its own runoff
   coefficients; its PDF could not be retrieved (the server answered with a script, not the file).
@@ -360,8 +604,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   ground around it upward (one pool per watershed), stays inside the watershed, and stops rising
   when it reaches Bay water. The share that cannot drain stands for how long the outfalls are
   closed by the tide during the storm; the City's outfall inverts are not published, so the page
-  offers 100%, 50%, 25% and 10%. Upper bound for the pool's location: real ponding spreads over
-  several low spots.
+  offers 100%, 50%, 25% and 10%. An illustrative storage experiment, not an upper bound: one pool
+  per watershed overstates depth at that inlet and misses ponding elsewhere, and the pool stops at
+  the watershed's boundary (revised 2026-11-03 after an outside review).
 - **C12. Rain results (derived; revised after Codex review of PR #3, which found the first
   version created water when a pool spilled into a hollow below its surface).** At this winter's
   highest tide (7.4 ft NAVD88), with tide gates on every outfall, a 10-year 6-hour storm (2.04 in)
@@ -376,6 +621,75 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   Park and Strawberry on Bolivar Dr, Derby by Eastshore Hwy near Ashby Ave. Above about half the
   runoff held back, the Strawberry, Gilman and Derby pools reach the I-80 corridor and spill to
   the Bay. A plan's walls and raised roads count as ground for the pools.
+- **C13. The State's 2024 scenarios (W17, W18).** Today's 100-year storm tide plus each rise at
+  the San Francisco gauge, connected fill, no plan, outfalls assumed open:
+  - 2050: Intermediate 10.53 ft NAVD88, 23 ha of Berkeley land under water, no Berkeley street
+    segment under water, 19 ha that can fill through drains; Intermediate-High 10.73, Marina
+    Blvd (675 m) and University Ave (282 m) under water, DoubleTree grounds 27%; High 11.03,
+    32 ha, 1.0 km of Berkeley streets, DoubleTree grounds 37%.
+  - 2100: Intermediate 12.83, 60 ha, 3.2 km of streets, DoubleTree grounds 86%, transfer
+    station not reached; Intermediate-High 14.53, 162 ha, 24 km, transfer station grounds
+    60%, I-80 under water; High 16.23, 200 ha, 33 km, transfer station grounds 81%.
+  - The modeled connection behind I-80 (13.35, C6) is a rise of 3.62 ft on today's 100-year
+    tide. Interpolating Table F-5's decades linearly, the median rise reaches 3.62 ft about
+    2076 under High, 2088 under Intermediate-High and 2107 under Intermediate. The guidance
+    names High for "most critical infrastructure" (W17), and the project treats the transfer
+    station as critical infrastructure (E4), so the High date, about 2076, is the one the
+    guidance points to. All three dates inherit C6's
+    unquantified uncertainty and W18's baseline offset.
+
+- **C14. Kaiser Permanente sites (asked by Eric, 2026-11-03).** Two Kaiser addresses in
+  OpenStreetMap (Nominatim, read 2026-11-03), checked against the terrain and the fill:
+  - The Berkeley Medical Offices, 2610 10th St off San Pablo Ave, opened May 2021 (Berkeleyside,
+    2021-03-24): ground 49.8 to 55.5 ft NAVD88 over the site's bounding box, median 54.1. No
+    scenario reaches it, the highest (16.23) included, with or without the rain experiment:
+    the ground is 33 ft or more above that level. Bay flooding is not its exposure; earthquake
+    shaking and liquefaction are outside this explorer.
+  - 1780 Second St, between Hearst Ave and I-80, listed by business directories as Kaiser
+    Permanente Construction Services and the Kaiser Permanente Foundation, an office, not a clinic
+    (the listings disagree on name and phone; not confirmed with Kaiser). Ground 9.4 to
+    12.2 ft NAVD88 within 30 m of the point, median 10.7. Outfalls assumed open, 67% of that ground
+    can fill through the drains at 11.03 (2050 High) and 98% at 12; under Bay water at 13.4 and
+    above. With gates and a 10-year 6-hour storm, 10% of the runoff held back, the Schoolhouse
+    watershed's rain pool (surface 10.8 ft NAVD88) covers 54% of it, at any tide from 7.4 to
+    9.73: the illustrative experiment puts that watershed's pool there.
+  Not checked: whether Kaiser has a newer Berkeley project; searches on 2026-11-03 found none
+  after the 2021 building.
+  Across Second St, a closed leaking-tank case at "KAISER BIOMEDICAL FACILITY", 1795 Second St,
+  has groundwater "0 m; emergent" in the City's screening (F19).
+
+- **C15. Industrial and contaminated sites against the fill (derived, 2026-11-03).** Sites from a
+  research agent's search of the state and federal databases. The points, the record each point
+  comes from (GeoTracker global ID, EPA FRS/RCRA ID, SMARTS WDID) and the C14 and F16 sites are in
+  `data/sites-checked.json`; `node tools/site-check.mjs` reproduces every figure here, in C14 and in
+  F16. Method: ground within 30 m of the point, a site counting once 25% of that ground is affected
+  at a scenario level, outfalls assumed open for the drain column; rain pool from the 10-year
+  6-hour experiment with gates, 10% held back, Bay at 7.4. What the records say about each site
+  (contaminants, case status) is the agent's reading and is not re-read here, except as F14–F19
+  record.
+  - On ground the explorer floods: former Pacific Steel (GeoTracker point; ground 9.8–12.3 ft
+    NAVD88; drains from 11.03, Bay from 13.4); 1255 Eastshore Hwy, solvents in groundwater per the
+    database (10.7–12.0; drains from 12, Bay from 13.4, 19% under the rain pool in the 10-year
+    experiment); Berkeley Marine Center boatyard, 1 Spinnaker Way, open lead and copper case
+    (median 13.3; Bay from 12.83); Terminal Manufacturing, 707 Gilman St, open PCE case (12.6–15.7;
+    Bay from 14.53); Eastshore State Park shoreline parcels (14.6–16.2; Bay from 16.23); Ravago /
+    Pacific Coast Chemicals, 2424 Fourth St, an operating distributor (15.2–17.3; Bay from 16.23).
+  - No scenario puts 25% of their ground under water (median ground 18 ft NAVD88 or higher):
+    former Flint Ink, 750 Gilman St (lowest ground 15.4);
+    WRE/Colortech, 1225 Sixth St; Peerless Lighting site, Fourth St; Electro-Coatings, 893 Carleton
+    St; Bayer, 800 Dwight Way. Rising groundwater (F19) is their exposure, not surface flooding.
+  - The former Berkeley Landfill under César Chávez Park: the database point is on the park's top
+    (about 52 ft). A still-water fill does not describe its hazard, which is waves and Bay water on
+    its shoreline edges and groundwater in the waste; not assessed here.
+
+- **C16. The State's Tsunami Hazard Area against Berkeley (derived, 2026-11-03; H6).** 295 ha of
+  Berkeley land (ground above mean sea level, outside the open Bay) lies inside it, on ground up to
+  about 50 ft NAVD88 at the 99th percentile. All four mapped places are inside it in full: the
+  transfer station, the DoubleTree grounds, César Chávez Park (the former landfill) and Aquatic
+  Park. Of the sites in `data/sites-checked.json` (`node tools/site-check.mjs`), inside: the Kaiser office at 1780 Second St, Pacific Steel, Berkeley
+  Forge & Tool, 1255 Eastshore Hwy, the Berkeley Marine Center, Terminal Manufacturing, Eastshore
+  State Park parcels, Ravago / Pacific Coast Chemicals and former Flint Ink. Outside: the Kaiser
+  medical offices on 10th St, WRE/Colortech, the Peerless site, Electro-Coatings and Bayer.
 
 ## Hazard data and press (read 2026-11-02)
 
@@ -391,8 +705,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   NOAA gave a greater than 90% chance of a very strong El Niño for November 2026 through
   January 2027; Governor Newsom proclaimed a state of emergency in late September 2026.
   Secondary sources; the NOAA and NASA statements themselves have not been read.
-- **H4.** Used for: a "Kelvin wave" increment of 0.5–1.0 ft added to tide scenarios,
-  labeled as from press reports of NOAA/NASA statements until the primary statements are read.
+- **H4.** Used for: a "Kelvin wave" increment of 0.5–1.0 ft added to tide scenarios.
+  Superseded 2026-11-03 by W15 and W16: the increment now cites the Coastal Commission's and
+  the 2016 study's statements on El Niño, and the two scenarios are labeled sensitivity tests.
+  The NOAA and NASA statements themselves are still unread.
 - **H5.** BCDC/MTC Adapting to Rising Tides (ART) Bay Area Sea Level Rise and Shoreline
   Analysis Maps (AECOM, 2017): flooding depth for total water levels of MHHW plus 12, 24,
   36, 48, 52, 66, 77, 84, 96 and 108 inches, connected to the Bay, with disconnected
@@ -401,6 +717,25 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   MapServer, depth classes in feet; no 84-inch layer in that service) and downloadable as
   county geodatabases from explorer.adaptingtorisingtides.org. Used as the published
   hazard layer the connected-fill rule is checked against, and shown in the explorer.
+- **H6. Tsunami, 2011 (asked by Eric, 2026-11-03, recalling water "at high speed. 20 knots?").**
+  California Geological Survey, "Table of Tōhoku-oki tsunami forecast and observation times,
+  tsunami amplitudes, and reported damage" (conservation.ca.gov; read 2026-11-03): Oakland,
+  observed 8:36, maximum amplitude 0.51 m (about 1.7 ft), "Minor damage at nearby Berkeley Marina";
+  San Francisco 0.62 m, "Two piles broken"; Sausalito 1.2–1.5 m, "Houseboat damage". A 2011 news
+  report reposted on a blog (secondary, not checked against the original) quotes the Berkeley
+  harbormaster on at least four surges "at about 25 mph" (about 22 knots), with docks, slips and a
+  piling damaged; no measured current speed for Berkeley was found. The Gilman Gateway Draft EIR
+  places that site "within a tsunami hazard area" (CGS 2021 map; F18).
+  The State's Tsunami Hazard Area (California Geological Survey, Cal OES, USC Tsunami Research
+  Center, AECOM; services.gis.ca.gov Oceans/Tsunami MapServer, layer 0, retrieved 2026-11-03,
+  `data/raw/cgs/`): the layer description says the areas "represent a combination of the maximum
+  considered tsunamis for each area" and are "used for evacuation planning at the community
+  level". Press coverage (not read) gives a 975-year average return period; the layer description
+  read here does not state one. Used for: an outline on the map, off by default
+  (`tools/build-tsunami.mjs`, `data/hazard/tsunami.bits`), and C16. It is an area to leave on a
+  warning, not a flood depth, and does not change with the explorer's water level.
+  What it bears on: a tsunami's damage in the Bay in 2011 came from currents and short surges in
+  harbors, with a water-level change of about half a meter; a still-water fill models neither.
 
 ## Eric's decisions, 2026-11-02 (Claude Code session)
 
@@ -417,3 +752,34 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   (`js/scenarios.js`, e.g. "a fall night, when Diablo winds are strongest"). Applied in
   `specification.md` (Joint scenario): a same-day November king tide case and a later
   sea level rise case in which segments are wet at every high tide.
+
+## Eric's decisions, 2026-11-03 (Claude Code session)
+
+- **E4.** The transfer station is critical infrastructure ("It is critical."). Eric's reasons:
+  flooding it would have disastrous environmental consequences, and with it offline, cleanup
+  after a disaster is hindered. Both match the guidance's own test for the High scenario:
+  development that "would have considerable public health, public safety, or environmental
+  impacts should that level of sea level rise occur, such as most critical infrastructure"
+  (Coastal Commission 2024 guidance, Ch. 3, p. 66; W17). The Draft EIR lists hazardous
+  materials among the project's potentially significant effects, which it finds mitigable (F3),
+  and Baykeeper's 2016 Clean Water Act suit concerned metals, acid, oil and grease in the site's
+  ordinary stormwater (F14).
+  Applied in `data/scenarios.json` (both State 2024 High scenarios) and C13: the guidance's High
+  scenario (W17) is the one that applies to it.
+- **E5.** Use the San Francisco gauge for the 2024 scenarios ("SF is ok"; W17), and list only the
+  Intermediate-High and High scenarios ("Yes trim"). Applied in `data/scenarios.json`: the two
+  Intermediate rows (10.53 and 12.83 ft NAVD88) are removed from the list; C13 keeps their results,
+  and the slider still reaches those levels.
+- **E6. What mitigations are measured by.** Eric: "All these scenarios have sufficient warning that
+  people can evacuate. So the KPI for mitigations is not loss of life, but environmental damage."
+  Agreed with three qualifications, which Eric accepted ("yes record it"). Plans and levers are
+  compared by: (1) pollutant release: which contaminated or hazardous-materials sites take water,
+  and at what level (C15, C16, F14–F19); (2) loss of critical services: the transfer station, the
+  sewer system (F15), I-80 and emergency routes, and for how long; (3) life safety as a check, not
+  the main measure. The qualifications: warning works only if people receive it and act on it
+  (Marina liveaboards and workers, shift workers at the industrial sites, people without cars;
+  the City's after-action report on the 2024-12-05 tsunami warning is the evidence to read);
+  warning times for the tsunami sources behind the State's hazard area are not yet confirmed (H6);
+  and losing a service is a loss that evacuation does not prevent (E4's cleanup point). Basis for
+  the long warning: king tides are predicted years ahead (W14), storm tides and rain days ahead, and
+  the 2011 tsunami reached the Bay hours after the earthquake (H6).

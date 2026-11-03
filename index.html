@@ -17,9 +17,14 @@
   @media (max-width: 1100px) { main { grid-template-columns: 1fr; } }
   aside, section.results { padding: 12px 16px; background: var(--panel); border-right: 1px solid var(--line); overflow: auto; }
   section.results { border-right: 0; border-left: 1px solid var(--line); }
-  #mapwrap { position: relative; overflow: hidden; background: #0f2747; display: flex; justify-content: center; align-items: flex-start; }
-  #map { height: calc(100vh - 72px); max-width: 100%; width: auto; display: block; }
-  @media (max-width: 1100px) { #map { height: auto; width: 100%; } }
+  #mapwrap { position: relative; overflow: hidden; background: #0f2747; height: calc(100vh - 72px); touch-action: none; }
+  @media (max-width: 1100px) { #mapwrap { height: 75vh; } }
+  #mapwrap:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  #map { width: 100%; height: 100%; display: block; cursor: grab; }
+  #map.dragging { cursor: grabbing; }
+  .zoom { position: absolute; top: 8px; right: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .zoom button { width: 34px; height: 34px; font-size: 18px; line-height: 1; border: 1px solid #0006; border-radius: 6px; background: #fff; color: #1d1d1b; cursor: pointer; }
+  .zoom button:hover { background: #eef3fa; }
   h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 16px 0 6px; }
   label.sc { display: flex; gap: 6px; align-items: baseline; padding: 4px 6px; border-radius: 6px; cursor: pointer; font-size: 14px; }
   label.sc:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
@@ -54,7 +59,7 @@
     <h2>Water level</h2>
     <div id="scenarios"></div>
     <h2>Any level</h2>
-    <input id="level" type="range" min="6" max="15.5" step="0.05" value="9.73" aria-label="Water level, feet NAVD88">
+    <input id="level" type="range" min="6" max="16.5" step="0.05" value="9.73" aria-label="Water level, feet NAVD88">
     <div class="row"><span id="levelOut" class="big"></span><span class="src">ft NAVD88, still water</span></div>
     <h2>Map</h2>
     <div class="legend">
@@ -70,10 +75,12 @@
     </div>
     <label class="row"><input id="showArt" type="checkbox"> Outline the published ART map at the nearest level</label>
     <p class="src" id="artNote"></p>
+    <label class="row"><input id="showTsunami" type="checkbox"> Outline the State's tsunami hazard area <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ff2dc8;vertical-align:-1px"></span></label>
+    <p class="src">Drawn by the State for tsunami evacuation planning; it combines the largest tsunamis considered for the area. It is an area to leave when a warning is issued, not a flood depth or a forecast, and it does not change with the water level above (SOURCE_NOTES H6).</p>
     <h2>Rain on this tide</h2>
-    <p class="src">A rainstorm while the Bay is at the level above, with the storm drain outfalls unable to discharge. Each watershed's runoff comes up at its lowest inlet and fills the ground around it (model rule, an upper bound).</p>
+    <p class="src">A rainstorm while the Bay is at the level above, with the storm drain outfalls unable to discharge. An illustrative storage experiment: each watershed's runoff comes up at its lowest inlet and fills the ground around it (model rule). It can overstate water at that inlet and miss ponding elsewhere.</p>
     <label class="row"><input id="rainOn" type="checkbox"> Add a rainstorm</label>
-    <div class="row"><label>Storm <select id="rainAri"><option value="2">2-year</option><option value="10" selected>10-year</option><option value="100">100-year</option></select></label>
+    <div class="row"><label>Storm <select id="rainAri"><option value="2">2-year (50% annual chance)</option><option value="10" selected>10-year (10%)</option><option value="100">100-year (1%)</option></select></label>
       <select id="rainDur"><option value="6-hr" selected>6 hours</option><option value="24-hr">24 hours</option></select></div>
     <div class="row"><label>Share that cannot drain <select id="rainBlocked"><option value="1" selected>100% (outfalls closed the whole storm)</option><option value="0.5">50%</option><option value="0.25">25%</option><option value="0.1">10%</option></select></label></div>
     <p class="src" id="rainNote"></p>
@@ -81,7 +88,10 @@
     <p class="src">What Berkeley controls. A plan changes the ground, never the water; results compare it with no plan at the same level.</p>
     <div id="plan"></div>
   </aside>
-  <div id="mapwrap"><canvas id="map"></canvas></div>
+  <div id="mapwrap" tabindex="0" aria-label="Map of west Berkeley. Scroll, pinch or use the plus and minus keys to zoom; drag or use the arrow keys to pan; 0 shows the whole map.">
+    <canvas id="map" aria-hidden="true"></canvas>
+    <div class="zoom"><button type="button" id="zoomIn" aria-label="Zoom in" title="Zoom in">+</button><button type="button" id="zoomOut" aria-label="Zoom out" title="Zoom out">&minus;</button><button type="button" id="zoomFit" aria-label="Show the whole map" title="Show the whole map">&#x2922;</button></div>
+  </div>
   <section class="results" id="results" aria-live="polite"></section>
 </main>
 <script type="module" src="js/main.js"></script>
