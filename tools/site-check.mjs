@@ -9,24 +9,13 @@
 import fs from 'fs';
 import { load, planFrom } from './report.mjs';
 import { analyze } from '../js/analyze.js';
-import { toUTM } from './utm.mjs';
+import { siteCells } from './site-cells.mjs';
 
 // ft NAVD88: scenario levels from data/scenarios.json, plus 12 and the 2100 Intermediate level 12.83
 // (C13), which the page's list leaves out (E5).
 const LEVELS = [7.4, 9.73, 11.03, 12, 12.83, 13.4, 14.53, 16.23];
 const D = load(), dem = D.dem, W = dem.width;
-const cellOf = (lat, lon) => { const [x, y] = toUTM(lon, lat); return [Math.floor((x - dem.xmin) / dem.resolution), Math.floor((dem.ymax - y) / dem.resolution)]; };
-function cells(s) {
-  const out = [];
-  if (s.bbox) {
-    const [c0, r1] = cellOf(s.bbox[0], s.bbox[1]), [c1, r0] = cellOf(s.bbox[2], s.bbox[3]);
-    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) out.push(r * W + c);
-  } else {
-    const [c, r] = cellOf(s.lat, s.lon);
-    for (let dr = -7; dr <= 7; dr++) for (let dc = -7; dc <= 7; dc++) if (dr * dr + dc * dc <= 56) out.push((r + dr) * W + c + dc); // within about 30 m
-  }
-  return out;
-}
+const cells = (s) => siteCells(dem, s);
 const runs = LEVELS.map(l => [l, analyze(D, l)]);
 const rain = analyze(D, 7.4, planFrom(D, 'gates'), { ari: '10', duration: '6-hr', blocked: 0.1 });
 const tsu = new Uint8Array(fs.readFileSync('data/hazard/tsunami.bits')), inTsu = (i) => (tsu[i >> 3] >> (i & 7)) & 1;

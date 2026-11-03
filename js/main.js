@@ -2,6 +2,7 @@
 // chosen level and plan (js/analyze.js), and draws the map and results.
 import { analyze, FLANKED, DRAIN, RAIN } from './analyze.js';
 import { WET, LOW } from './fill.js';
+import { exposure } from './exposure.js';
 
 const $ = (id) => document.getElementById(id);
 const fmt = (x, d = 0) => x.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -22,16 +23,18 @@ const REFS = [
 async function load() {
   const j = (p) => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
   const b = (p) => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.arrayBuffer(); });
-  const [dem, zbuf, streets, fac, facCells, scen, bits, art, drains, wsIds, plans, atlas, imp, tsunami, tsunamiBits] = await Promise.all([
+  const [dem, zbuf, streets, fac, facCells, scen, bits, art, drains, wsIds, plans, atlas, imp, tsunami, tsunamiBits, exp, siteCells] = await Promise.all([
     j('data/terrain/dem.json'), b('data/terrain/dem.i16'), j('data/streets.json'), j('data/facilities.json'),
     j('data/facility-cells.json'), j('data/scenarios.json'), b('data/terrain/berkeley.bits'),
     j('data/hazard/art.json').catch(() => null), j('data/drains.json'), b('data/hazard/watersheds.u8'), j('data/plans.json'),
     j('data/raw/noaa/atlas14-berkeley.json'), j('data/raw/nlcd/impervious-by-watershed.json'),
     j('data/hazard/tsunami.json').catch(() => null), b('data/hazard/tsunami.bits').catch(() => null),
+    j('data/exposure.json'), j('data/site-cells.json'),
   ]);
   return { dem, z: new Int16Array(zbuf), streets, facilities: fac.facilities, facilityCells: facCells, scenarios: scen.scenarios,
     berkeley: new Uint8Array(bits), art, drains, watershedIds: new Uint8Array(wsIds), plans: plans.presets, atlas, impervious: imp.watersheds,
-    tsunami: tsunami && tsunamiBits ? { ...tsunami, mask: new Uint8Array(tsunamiBits) } : null };
+    tsunami: tsunami && tsunamiBits ? { ...tsunami, mask: new Uint8Array(tsunamiBits) } : null,
+    exposure: exp, siteCells };
 }
 
 function shade(D) {
@@ -54,7 +57,8 @@ let D, base, canvas, ctx, grid, gctx, artMasks = {};
 const view = { k: 1, tx: 0, ty: 0, fit: 1 };
 let last = null;
 // The plan the reader has built: preset ids, tide gates, and walls they drew.
-const ui = { presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null };
+const ui = { presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null,
+  siteChoices: {}, floodproofFt: 13 }; // site choices: js/exposure.js
 
 function currentPlan() {
   const plan = { walls: [], roads: [], gates: {} };
@@ -247,6 +251,7 @@ function render(levelFt, sc) {
   const row = (label, a, b, unit, d = 1) => `<tr><td>${label}</td><td class="n">${fmt(a, d)} ${unit}</td>${plan ? `<td class="n">${fmt(b, d)} ${unit}</td>` : ''}</tr>`;
   const B = baseRes || res;
   const drainWs = Object.entries(res.drainHa).filter(([, v]) => v >= 0.05).map(([k, v]) => `${esc(k)} ${fmt(v, 1)} ha`).join(', ');
+  $('exposed').innerHTML = exposedPanel(levelFt, res, B, plan);
   $('results').innerHTML = `
     <h2>${sc ? esc(sc.label) : 'Chosen level'}</h2>
     <div class="big">${sc && sc.precision === 1 ? 'about ' : ''}${fmt(levelFt, sc && sc.precision != null ? sc.precision : 2)} ft NAVD88 <span class="cat">level: ${sc ? esc(sc.category) : 'chosen'}</span></div>
@@ -257,6 +262,7 @@ function render(levelFt, sc) {
     ${sc && sc.id === 'ferris12' ? '<p class="warn">Scott Ferris\'s figure is shown by the project owner\'s decision. Its source, datum and whether it includes waves are unconfirmed; it is read here as a still-water level of 12 ft NAVD88. FEMA\'s flood elevations on the wave-exposed Marina shoreline, which include waves, are 12 to 14 ft NAVD88; this map shows still water only.</p>' : ''}
     <p class="src"><span class="cat">derived</span> Everything below is calculated by this explorer, not published: a connected fill on USGS 3DEP lidar (a model rule, explained under Method), at the level above. The level's own category is shown next to it.</p>
     ${plan ? `<p class="warn">Comparing <b>no plan</b> with <b>your plan</b> at the same level. Green on the map is ground the plan keeps dry. ${res.overtopped.length ? `Overtopped at this level: ${res.overtopped.map(esc).join('; ')}.` : 'Nothing in the plan is overtopped at this level; water can still go around the ends of a wall.'}</p>` : ''}
+    <p class="src">What's exposed, and what current plans leave out: below the map.</p>
     <h2>In Berkeley <span class="cat">derived</span></h2>
     <table>
       ${plan ? '<tr><th></th><th class="n">No plan</th><th class="n">Your plan</th></tr>' : ''}
@@ -298,6 +304,50 @@ function render(levelFt, sc) {
     </ul></details>
     <p class="src">Method: a connected fill on USGS 3DEP lidar (4 m). A cell is under water when its ground, or the crest of a wall or raised road the plan puts there, is below the level and it connects to the Bay through other such cells (model rule). Street segments count when at least a quarter of their length is wet. Sources and checks: SOURCE_NOTES.md and docs/design/levers-and-drains.md in the repository.</p>
   `;
+}
+
+// "What's exposed" (docs/design/mitigations.md, E6-E8): do nothing beside the reader's choices, by
+// pollution sources, critical services and ways off the waterfront; then what current plans leave out.
+const CHOICE_LABEL = { none: 'No change', floodproof: 'Flood-proof its storage', move: 'Move the operation away', exit: 'Exit: use a regional station', contain: 'Contain the contamination', remove: 'Remove the contamination' };
+function exposedPanel(levelFt, res, B, plan) {
+  if (!D.exposure) return '';
+  const anyChoice = Object.values(ui.siteChoices).some(c => c && c !== 'none');
+  const mine = !!plan || anyChoice;
+  const ex0 = exposure(D, B, {}, null, null), ex1 = mine ? exposure(D, res, ui.siteChoices, ui.floodproofFt, plan) : ex0;
+  const cell = (r) => {
+    const parts = [];
+    if (r.site.stillWaterNotApplicable) parts.push('not described by a still-water level');
+    else parts.push(r.reach ? `<b>reached</b>: ${esc(r.reach.how)}, ${fmt(100 * r.reach.share)}% of its ground` : 'not reached at this level');
+    if (r.tsunami >= 0.25) parts.push('inside the State tsunami hazard area');
+    for (const n of r.notes) parts.push(`<i>${esc(n)}</i>`);
+    if (r.reach && !r.counts) parts.push('no longer counted as a pollution source here');
+    return parts.join('<br>');
+  };
+  const srow = (r0, r1) => `<tr><td><b>${esc(r0.site.name)}</b>${r0.site.verified ? '' : ' <span class="cat">not re-read</span>'}<details><summary>What it holds</summary>${esc(r0.site.holds)} (SOURCE_NOTES ${esc(r0.site.refs)})</details></td><td>${cell(r0)}</td>${mine ? `<td>${cell(r1)}</td>` : ''}</tr>`;
+  const vrow = (s0, s1) => `<tr><td><b>${esc(s0.name)}</b></td><td>${esc(s0.status)}</td>${mine ? `<td>${esc(s1.status)}</td>` : ''}</tr>`;
+  const head = `<tr><th></th><th>Do nothing</th>${mine ? '<th>Your choices</th>' : ''}</tr>`;
+  const ways0 = ex0.services.find(s => s.wayOut), ways1 = ex1.services.find(s => s.wayOut);
+  return `
+    <h2>What current plans leave out <span class="cat">sourced</span></h2>
+    <p class="src">From the plans, reviews and rules read for this explorer. Each names its source row in SOURCE_NOTES.md.</p>
+    <ul>${D.exposure.gaps.map(g => `<li><b>${esc(g.title)}.</b> ${esc(g.text)} <span class="src">(SOURCE_NOTES ${esc(g.refs)})</span></li>`).join('')}</ul>
+    <h2>What's exposed <span class="cat">derived</span></h2>
+    <p class="src">At this level: <b>${ex0.reachedCount}</b> of ${ex0.sites.length} listed pollution sources reached if we do nothing${mine ? `; <b>${ex1.reachedCount}</b> with your choices` : ''}. ${ex0.tsunamiCount} lie inside the State tsunami hazard area, which does not depend on the level. Measures as in SOURCE_NOTES E6: pollution sources, then critical services, with ways off the waterfront as a check. Choices are your assumptions; they change what is exposed, never the water. Not a forecast.</p>
+    <table>${head}<tr><th colspan="${mine ? 3 : 2}">Pollution sources</th></tr>${ex0.sites.map((r, k) => srow(r, ex1.sites[k])).join('')}
+      <tr><th colspan="${mine ? 3 : 2}">Critical services</th></tr>${ex0.services.filter(s => !s.wayOut).map((s, k) => vrow(s, ex1.services.filter(t => !t.wayOut)[k])).join('')}
+      <tr><th colspan="${mine ? 3 : 2}">Ways off the waterfront (a check)</th></tr>${vrow(ways0, ways1)}</table>`;
+}
+
+function sitesPanel(rerender) {
+  const box = $('sitesPanel'); if (!box || !D.exposure) return;
+  box.innerHTML = `
+    <p class="src">For each site, a choice of yours. Each is an assumption, shown beside the real status, and none changes the water (docs/design/mitigations.md).</p>
+    <label class="row">Flood-proofed to <input id="floodproofFt" type="number" step="0.5" min="8" max="20" value="${ui.floodproofFt}" style="width:5em"> ft NAVD88</label>
+    ${D.exposure.sites.map(s => `<label class="row lever"><span><b>${esc(s.name)}</b><br><select data-site="${s.id}">${['none', ...s.choices].map(c => `<option value="${c}"${(ui.siteChoices[s.id] || 'none') === c ? ' selected' : ''}>${CHOICE_LABEL[c]}</option>`).join('')}</select></span></label>`).join('')}`;
+  box.addEventListener('change', (e) => {
+    if (e.target.dataset.site) { ui.siteChoices[e.target.dataset.site] = e.target.value; rerender(); }
+    if (e.target.id === 'floodproofFt') { ui.floodproofFt = Number(e.target.value); rerender(); }
+  });
 }
 
 function planPanel(rerender) {
@@ -352,6 +402,7 @@ function planPanel(rerender) {
   if (!D.tsunami) $('showTsunami').disabled = true;
   $('showTsunami').addEventListener('change', () => render(levelNow, scNow));
   planPanel(() => render(levelNow, scNow));
+  sitesPanel(() => render(levelNow, scNow));
   mapControls();
   const rainUpdate = () => {
     ui.rain = $('rainOn').checked ? { ari: $('rainAri').value, duration: $('rainDur').value, blocked: Number($('rainBlocked').value) } : null;

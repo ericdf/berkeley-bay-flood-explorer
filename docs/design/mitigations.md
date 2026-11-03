@@ -1,6 +1,6 @@
 # Mitigations the public can explore: design note
 
-Status: proposal, 2026-11-03, for Eric's review. Nothing here is built. Sources are in
+Status: 2026-11-03. Built: the "What's exposed" panel (`js/exposure.js`, `data/exposure.json`) with "What current plans leave out", and the site choices (flood-proof, move, exit, contain, remove). Not built: a berm around one site (a drawn wall does this), sourced costs beyond the City study's. Sources are in
 `SOURCE_NOTES.md`; the measures come from Eric's decision E6. The explorer stays an educational
 comparison tool, not a flood forecast or a recommendation; that holds for every option here.
 

@@ -1,0 +1,115 @@
+{
+  "note": "Inputs for the \"What's exposed\" panel (docs/design/mitigations.md; Eric's decisions E6-E8). Sites point at data/sites-checked.json by id, or at a mapped place in data/facilities.json by label. 'kind' is what a flood could carry off: 'in use' (materials stored or handled now) or 'in ground' (contamination in soil or groundwater). 'verified' is false where the description is a research agent's reading of the state databases, not re-read here (C15). Business and public facility names only.",
+  "sites": [
+    {
+      "id": "transfer-station", "facility": "Transfer station", "name": "City transfer station and recycling center, Second St at Gilman St",
+      "kinds": ["in use"], "verified": true,
+      "holds": "Garbage, recycling and compost in transfer; a hazardous materials locker for illegally disposed hazardous materials pulled from the tipping floor; cathode ray tubes, fluorescent bulbs and batteries; a 1,000-gallon double-walled used oil tank (transfer station Draft EIR, PDF pp. 81-83). Its runoff carried metals, acid, oil and grease above state limits before a 2016 settlement (F14).",
+      "refs": "F14, T4, E4, E7",
+      "choices": ["floodproof", "exit"]
+    },
+    {
+      "id": "pacific-steel-geotracker", "name": "Former Pacific Steel Casting, Second St (closed 2018)",
+      "kinds": ["in ground"], "verified": true,
+      "holds": "Contaminated soil and groundwater; groundwater as shallow as 1.5 ft below ground, with petroleum free product in places; possible PCBs in the plant's concrete (Gilman Gateway Final EIR, F17). Cleanup open; DTSC voluntary agreement active (F19).",
+      "refs": "F17, F18, F19",
+      "choices": ["contain", "remove"]
+    },
+    {
+      "id": "berkeley-forge", "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
+      "kinds": ["in use"], "verified": true,
+      "holds": "An active industrial site under the state's industrial stormwater permit as of October 2024 (Gilman Gateway Draft EIR, F18); runoff with aluminum, copper, iron and zinc before a 2012 settlement (F16). Listed among the City's high-risk hazardous materials facilities (T2).",
+      "refs": "F16, F18, T2",
+      "choices": ["floodproof", "move"]
+    },
+    {
+      "id": "eastshore-1255", "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
+      "kinds": ["in ground"], "verified": false,
+      "holds": "Solvents in groundwater (research agent's reading of GeoTracker T10000011080).",
+      "refs": "C15",
+      "choices": ["contain", "remove"]
+    },
+    {
+      "id": "marine-center", "name": "Berkeley Marine Center boatyard, 1 Spinnaker Way",
+      "kinds": ["in use", "in ground"], "verified": false,
+      "holds": "An operating boatyard; lead and copper in surface soil, case open (research agent's reading of GeoTracker T10000001877).",
+      "refs": "C15",
+      "choices": ["floodproof", "move", "contain", "remove"]
+    },
+    {
+      "id": "terminal-mfg", "name": "Terminal Manufacturing, 707 Gilman St",
+      "kinds": ["in use", "in ground"], "verified": false,
+      "holds": "An operating plant; an open case for PCE and fuels (research agent's reading of GeoTracker T10000009006).",
+      "refs": "C15",
+      "choices": ["floodproof", "move", "contain", "remove"]
+    },
+    {
+      "id": "eastshore-park", "name": "Eastshore State Park shoreline parcels",
+      "kinds": ["in ground"], "verified": false,
+      "holds": "PCBs, lead and other metals under long-term management (research agent's reading of GeoTracker SL0600164054).",
+      "refs": "C15",
+      "choices": ["contain", "remove"]
+    },
+    {
+      "id": "flint-ink", "name": "Former Flint Ink, 750 Gilman St",
+      "kinds": ["in ground"], "verified": false,
+      "holds": "Solvents in groundwater; two tanks closed in place under slabs (research agent's reading of GeoTracker SL0600172262).",
+      "refs": "C15",
+      "choices": ["contain", "remove"]
+    },
+    {
+      "id": "landfill", "name": "Former Berkeley Landfill under César Chávez Park",
+      "kinds": ["in ground"], "verified": false,
+      "holds": "About 1.5 million tons of waste with no engineered base liner, behind levees built 1957-1968 (Water Board order R2-2010-0064, per the research agent; T5). A still-water level does not describe its hazard: waves and Bay water on its edges, groundwater in the waste.",
+      "refs": "T5, C15",
+      "stillWaterNotApplicable": true,
+      "choices": ["contain", "remove"]
+    }
+  ],
+  "marinaRoutes": ["UNIVERSITY AV", "SPINNAKER WY", "MARINA BL"],
+  "marinaRoutesNote": "University Ave counts only west of grid x = 2300 m (I-80), as the City study's raised-road preset does (data/plans.json).",
+  "marinaMaxX": 2300,
+  "frontageRoads": ["EASTSHORE HW", "EASTSHORE HWY", "EASTSHORE BL", "FRONTAGE RD"],
+  "gaps": [
+    {
+      "title": "Transfer station: tsunami release judged only against today",
+      "text": "Its Draft EIR places the site in the tsunami hazard area but finds no risk of releasing pollutants, because rebuilding would not make the site more exposed than it is now. It requires nothing. Its search for another site tested size, zoning and availability, not flood, sea level rise or tsunami exposure.",
+      "refs": "T4, F20"
+    },
+    {
+      "title": "Gilman Gateway: design floor from superseded guidance",
+      "text": "The project's minimum floor for critical infrastructure is 13.4 ft NAVD88: the nearby flood elevation plus 3.4 ft of rise from the 2018 State guidance. The 2024 guidance's 2100 levels here are 14.53 (Intermediate-High) and 16.23 (High). Its tsunami-proof storage rule (HYD-4) covers only future development on that site.",
+      "refs": "F18, T4"
+    },
+    {
+      "title": "City hazard mitigation plan: pollutants named, sites not",
+      "text": "One sentence says tsunamis can release hazardous materials; no facility is named. Its two tsunami actions are low priority and concern Marina docks.",
+      "refs": "T2"
+    },
+    {
+      "title": "The 2024 tsunami warning review: people, not sites",
+      "text": "The City cleared the Marina in 45 minutes. Its after-action report and twelve recommendations never mention hazardous materials, industry or the transfer station.",
+      "refs": "T1"
+    },
+    {
+      "title": "State hazardous materials rules: earthquake, not flood or tsunami",
+      "text": "Business plans must cover a release and consider earthquakes; no requirement to plan for flood or tsunami was found. The State's tsunami map has no regulatory force for the sites inside it.",
+      "refs": "T3"
+    },
+    {
+      "title": "The landfill's Water Board order: no tsunami",
+      "text": "It covers the 100-year flood and erosion of waste; it does not mention tsunami. A draft 2026 order adds 2050 sea level rise and wave run-up, still without tsunami.",
+      "refs": "T5"
+    },
+    {
+      "title": "The City's contaminated-site screening: daily high tide only",
+      "text": "It checks 427 sites against rising groundwater and the average daily high tide. It does not consider storm tides, Bay water up the storm drains, or trapped rain, which this explorer shows.",
+      "refs": "F19"
+    },
+    {
+      "title": "Storm drain outfalls: tide gates not published",
+      "text": "Which outfalls have working tide gates is not public, and it decides whether the Bay comes up through the drains at the sites above.",
+      "refs": "D6"
+    }
+  ]
+}
