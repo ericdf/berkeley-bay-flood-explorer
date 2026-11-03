@@ -1,11 +1,14 @@
-// Rain on a high tide (docs/design/levers-and-drains.md, part 3). Model rule, an upper bound.
+// Rain on a high tide (docs/design/levers-and-drains.md, part 3). Model rule: an illustrative storage
+// experiment, not a flood estimate. Putting all of a watershed's runoff in one pool overstates depth
+// at that inlet and misses ponding elsewhere, so it bounds neither extent nor depth across Berkeley.
 //
 // While the Bay is high, storm drain outfalls cannot discharge. The storm's runoff from each City
 // watershed then backs up in the pipes and comes out first at the watershed's lowest inlet, and
 // fills the low ground around it upward (fill-and-spill from one point).
 //   volume = rain depth (NOAA Atlas 14) x runoff share x share that cannot drain x watershed area
 // The runoff share is the Simple Method, Rv = 0.05 + 0.009 x percent impervious (Schueler 1987),
-// with NLCD 2021 imperviousness averaged over the watershed (SOURCE_NOTES R1-R4).
+// with NLCD 2021 imperviousness averaged over the watershed (SOURCE_NOTES R1-R4). The method was made
+// for annual runoff and pollutant loads; applying it to one design storm is an exploratory assumption.
 // The pool stays inside its watershed (spill over a divide is not modeled); if it reaches ground
 // connected to the Bay, the rest flows to the Bay and the pool stops rising.
 // Ground already under Bay water is not counted again. Low ground already filling through the

@@ -38,6 +38,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log('  drain streets:', r.streets.filter(x => x.cls === 'drain').slice(0, 8).map(x => `${x.name}${x.berkeley ? '' : '*'} ${Math.round(x.m)} m`).join('; ') || 'none');
     if (r.overtopped.length) console.log('  overtopped:', r.overtopped.join('; '));
     console.log('  low streets:', r.streets.filter(x => x.cls === 'low').slice(0, 8).map(x => `${x.name}${x.berkeley ? '' : '*'} ${Math.round(x.m)} m`).join('; ') || 'none');
-    console.log('  facilities:', r.facilities.map(f => `${f.label.split(' (')[0]} wet ${(100 * f.wetShare).toFixed(0)}% low ${(100 * f.lowShare).toFixed(0)}% (median ground ${f.medianGroundFt.toFixed(1)} ft)`).join('; '));
+    console.log('  facilities:', r.facilities.map(f => `${f.label.split(' (')[0]} wet ${(100 * f.wetShare).toFixed(0)}% low ${(100 * f.lowShare).toFixed(0)}% (median ground ${f.medianGroundFt.toFixed(1)} ft NAVD88)`).join('; '));
   }
 }

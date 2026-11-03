@@ -16,7 +16,7 @@ const REFS = [
   { ft: 8.65, text: 'the highest level observed at Richmond (8.65, 1998)' },
   { ft: 9.73, text: 'the 100-year storm tide (9.73)' },
   { ft: 10.91, text: 'the 500-year storm tide (10.91)' },
-  { ft: 13.36, text: 'the level at which the Bay reaches the flats behind I-80 (13.36, this explorer)' },
+  { ft: 13.35, text: 'the modeled surface connection behind I-80 (about 13.4, this explorer; uncertain, SOURCE_NOTES C6)' },
 ];
 
 async function load() {
@@ -108,7 +108,9 @@ function nearestArt(levelFt) {
 }
 
 function context(lv) {
-  const below = REFS.filter(r => r.ft <= lv + 1e-6).pop(), above = REFS.find(r => r.ft > lv + 1e-6);
+  // A reference within 0.06 ft of the level is the level itself (the I-80 connection, shown as about 13.4).
+  const near = (r) => Math.abs(r.ft - lv) < 0.06;
+  const below = REFS.filter(r => r.ft <= lv + 1e-6 && !near(r)).pop(), above = REFS.find(r => r.ft > lv + 1e-6 && !near(r));
   const parts = [];
   if (below) parts.push(`${fmt(lv - below.ft, 2)} ft above ${below.text}`);
   if (above) parts.push(`${fmt(above.ft - lv, 2)} ft below ${above.text}`);
@@ -123,7 +125,7 @@ function render(levelFt, sc) {
   const baseRes = plan ? analyze(D, levelFt, null, ui.rain) : null;
   draw(res, baseRes, plan);
   const bStreets = res.streets.filter(s => s.berkeley), oStreets = res.streets.filter(s => !s.berkeley);
-  const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft`}</li>`;
+  const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft NAVD88`}</li>`;
   const art = nearestArt(levelFt);
   $('artNote').textContent = D.art ? (art ? `Nearest ART level: MHHW + ${art.inches} in, about ${fmt(art.levelFt, 1)} ft NAVD88 (SOURCE_NOTES H5).` : '') : 'ART map not loaded.';
   const row = (label, a, b, unit, d = 1) => `<tr><td>${label}</td><td class="n">${fmt(a, d)} ${unit}</td>${plan ? `<td class="n">${fmt(b, d)} ${unit}</td>` : ''}</tr>`;
@@ -131,9 +133,11 @@ function render(levelFt, sc) {
   const drainWs = Object.entries(res.drainHa).filter(([, v]) => v >= 0.05).map(([k, v]) => `${esc(k)} ${fmt(v, 1)} ha`).join(', ');
   $('results').innerHTML = `
     <h2>${sc ? esc(sc.label) : 'Chosen level'}</h2>
-    <div class="big">${fmt(levelFt, 2)} ft NAVD88 <span class="cat">level: ${sc ? esc(sc.category) : 'chosen'}</span></div>
+    <div class="big">${sc && sc.precision === 1 ? 'about ' : ''}${fmt(levelFt, sc && sc.precision != null ? sc.precision : 2)} ft NAVD88 <span class="cat">level: ${sc ? esc(sc.category) : 'chosen'}</span></div>
     <p class="src">${sc ? esc(sc.source) : 'A level chosen with the slider.'}</p>
     <p class="src">${esc(context(levelFt))}.</p>
+    ${sc && sc.category === 'sensitivity' ? '<p class="warn">A sensitivity test: a hypothetical combination of two sourced figures, with no established likelihood. Part of the El Niño rise is already in the storm-tide statistics (SOURCE_NOTES W16).</p>' : ''}
+    ${sc && sc.id === 'spill' ? '<p class="warn">A result of this explorer\'s terrain model, not a protective threshold: the connection could open lower or higher, and the published ART maps put it near 13.2 ft NAVD88.</p>' : ''}
     ${sc && sc.id === 'ferris12' ? '<p class="warn">Scott Ferris\'s figure is shown by the project owner\'s decision. Its source, datum and whether it includes waves are unconfirmed; it is read here as a still-water level of 12 ft NAVD88. FEMA\'s flood elevations on the wave-exposed Marina shoreline, which include waves, are 12 to 14 ft NAVD88; this map shows still water only.</p>' : ''}
     <p class="src"><span class="cat">derived</span> Everything below is calculated by this explorer, not published: a connected fill on USGS 3DEP lidar (a model rule, explained under Method), at the level above. The level's own category is shown next to it.</p>
     ${plan ? `<p class="warn">Comparing <b>no plan</b> with <b>your plan</b> at the same level. Green on the map is ground the plan keeps dry. ${res.overtopped.length ? `Overtopped at this level: ${res.overtopped.map(esc).join('; ')}.` : 'Nothing in the plan is overtopped at this level; water can still go around the ends of a wall.'}</p>` : ''}
@@ -151,12 +155,14 @@ function render(levelFt, sc) {
       ${row('Streets on low ground, not connected', B.lowStreetM / 1000, res.lowStreetM / 1000, 'km', 2)}
     </table>
     ${res.rain ? `<h2>Rain on this tide <span class="cat">derived</span></h2>
-    <p class="src">${fmt(res.rain.depthIn, 2)} in of rain (NOAA Atlas 14, ${esc(ui.rain.ari)}-year, ${esc(ui.rain.duration.replace('-hr', ' hours'))}), ${fmt(100 * ui.rain.blocked)}% of the runoff unable to drain. Each watershed's runoff pools at its lowest inlet: one pool per watershed, so depth there is overstated and smaller ponds elsewhere are missed.</p>
+    <p class="src">${fmt(res.rain.depthIn, 2)} in of rain (NOAA Atlas 14, ${esc(ui.rain.ari)}-year, ${esc(ui.rain.duration.replace('-hr', ' hours'))}), ${fmt(100 * ui.rain.blocked)}% of the runoff unable to drain. An illustrative storage experiment, not a flood estimate: each watershed's runoff is put in one pool at its lowest inlet, which overstates depth there and misses ponding elsewhere. The runoff share is an exploratory assumption (SOURCE_NOTES R3). How often a storm of this size coincides with this tide is not established.</p>
     <table><tr><th>Watershed</th><th class="n">Runoff share</th><th class="n">Water</th><th class="n">Pool surface, ft NAVD88</th><th class="n">Area</th></tr>
     ${res.rain.pools.map(p => `<tr><td>${esc(p.watershed)}</td><td class="n">${fmt(p.runoffShare, 2)}</td><td class="n">${fmt(p.volumeM3 / 1000)}k m³</td><td class="n">${fmt(p.levelFt, 1)} ft NAVD88${p.spilledToBay ? '<br>spills to the Bay' : ''}</td><td class="n">${fmt(p.berkeleyLandHa, 1)} ha</td></tr>`).join('')}</table><p class="src">Area: Berkeley land under the pool, not counting the Aquatic Park lagoon.</p>` : ''}
-    ${drainWs ? `<p class="src">Through the drains, by City watershed: ${drainWs}. ${ui.gates ? '' : 'Tide gates: status unknown, shown open (an upper bound).'}</p>` : ''}
+    ${ui.gates ? `<p class="warn">Assumed: a working tide gate on every outfall, so no Bay water comes up the drains. Which outfalls have gates is not published. A shut gate also holds in the rain that falls while it is shut${ui.rain ? ': the pools above show it.' : '; add a rainstorm above to see where it collects.'}</p>` : ''}
+    ${drainWs ? `<p class="src">Through the drains, by City watershed: ${drainWs}. ${ui.gates ? '' : 'This assumes every outfall is open, with no working tide gate. Which outfalls have gates, and whether they work, is not published.'}</p>` : ''}
     <h2>Places <span class="cat">derived</span></h2>
-    <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${ui.rain ? `${fmt(100 * f.rainShare)}% under pooled rain<br>` : ''}${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft</td></tr>`).join('')}</table>
+    <p class="src">Shares are of each mapped site's ground, not of its buildings: whether water reaches floors, entrances or equipment needs separate evidence (the City study's floor elevations for the DoubleTree are one, SOURCE_NOTES W7).</p>
+    <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${ui.rain ? `${fmt(100 * f.rainShare)}% under pooled rain<br>` : ''}${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft NAVD88</td></tr>`).join('')}</table>
     <h2>Berkeley streets <span class="cat">derived</span></h2>
     ${bStreets.filter(s => s.cls === 'wet').length ? `<p class="src">Under water:</p><ul>${bStreets.filter(s => s.cls === 'wet').map(li).join('')}</ul>` : '<p class="src">No Berkeley street segment is under water at this level.</p>'}
     ${bStreets.filter(s => s.cls === 'rain').length ? `<p class="src">Under pooled rain:</p><ul>${bStreets.filter(s => s.cls === 'rain').map(li).join('')}</ul>` : ''}
@@ -168,8 +174,9 @@ function render(levelFt, sc) {
     <details open><summary>Limits of the map</summary><ul>
       <li>Still water only. Waves add height on the exposed Marina shoreline (FEMA VE zones, 12 to 14 ft NAVD88).</li>
       <li>No timing or duration: a storm tide lasts hours around high tide.</li>
-      <li>"Through the drains" is an upper bound: it assumes every inlet in the watershed connects to an outfall without a tide gate, and that the pipes fill. The City does not publish its pipes, outfalls or tide gates.</li>
-      <li>Rain is modeled only as pools at each watershed's lowest inlet when "Add a rainstorm" is on, with no pipe capacity, timing or overland flow. Second St beside the transfer station floods today in a 10-year rainstorm because the Gilman St storm drain and the Codornices Creek culvert under I-80 are undersized (transfer station Draft EIR, SOURCE_NOTES F7, F8).</li>
+      <li>"Through the drains" assumes every mapped inlet in the watershed connects to an outfall without a tide gate, and that the pipes fill. The City does not publish its pipes, outfalls or tide gates.</li>
+      <li>Rain, when "Add a rainstorm" is on, is an illustrative experiment: each watershed's runoff goes into one pool at its lowest inlet, with no pipe capacity, timing or overland flow, so it can overstate water in some places and miss it in others. Second St beside the transfer station floods today in a 10-year rainstorm because the Gilman St storm drain and the Codornices Creek culvert under I-80 are undersized (transfer station Draft EIR, SOURCE_NOTES F7, F8).</li>
+      <li>Return periods are for the tide alone. A level that adds a rise or a rainstorm to a storm tide has no established return period.</li>
       <li>Rising groundwater is not modeled (5 to 10 ft below ground at the transfer station, F6).</li>
       <li>Walls and berms narrower than the 4 m grid may be missed; bare-earth lidar removes bridges and overpasses, so freeway results need Caltrans profiles to confirm.</li>
     </ul></details>
@@ -181,7 +188,7 @@ function planPanel(rerender) {
   const box = $('plan');
   box.innerHTML = `
     ${D.plans.map(p => `<label class="row lever"><input type="checkbox" data-preset="${p.id}"> <span><b>${esc(p.label)}</b><br><span class="src">Crest ${fmt(p.crestFt, 1)} ft NAVD88 (${esc(p.category)}). ${esc(p.cost)}. ${esc(p.source)}.</span></span></label>`).join('')}
-    <label class="row lever"><input type="checkbox" id="gates"> <span><b>Tide gates on every storm drain outfall</b><br><span class="src">Closes the drain links, so the Bay cannot come up through the pipes (model rule). Which outfalls already have gates is not published.</span></span></label>
+    <label class="row lever"><input type="checkbox" id="gates"> <span><b>Assume a working tide gate on every storm drain outfall</b><br><span class="src">Compares assumed open outfalls with assumed working gates: the Bay cannot come up through the pipes (model rule). Which outfalls have gates, and whether they work, is not published. A shut gate also holds the rain in: try it with "Add a rainstorm".</span></span></label>
     <div class="lever"><b>Draw your own wall</b> <span class="src">(assumption: you choose where and how high)</span>
       <div class="row"><button id="drawBtn" type="button">Start drawing</button> <label>Crest <input id="drawCrest" type="number" step="0.1" min="6" max="20" value="${ui.drawCrest}" style="width:5em"> ft NAVD88</label></div>
       <div class="row"><button id="drawDone" type="button" disabled>Finish wall</button> <button id="drawClear" type="button">Remove my walls</button></div>
@@ -217,7 +224,7 @@ function planPanel(rerender) {
   else $('showArt').disabled = true;
   analyze(D, 6); // computes D.water0 once
   const list = $('scenarios');
-  list.innerHTML = D.scenarios.map((s, k) => `<label class="sc"><input type="radio" name="sc" value="${k}"><span class="t">${esc(s.label)}</span><span class="lv">${fmt(s.levelFt, 2)}</span></label>`).join('');
+  list.innerHTML = D.scenarios.map((s, k) => `<label class="sc"><input type="radio" name="sc" value="${k}"><span class="t">${esc(s.label)}</span><span class="lv">${s.precision === 1 ? 'about ' : ''}${fmt(s.levelFt, s.precision ?? 2)}</span></label>`).join('');
   // The level shown is kept here, exactly: a scenario's level may not be a multiple of the
   // slider's step, and the slider would round it.
   let current = D.scenarios.findIndex(s => s.id === 'y100'), levelNow = null, scNow = null;

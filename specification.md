@@ -40,7 +40,8 @@ First list, all still water in ft NAVD88 unless stated:
 | King tide plus Kelvin wave | king tide + 0.5 to 1.0 | press reports of NOAA/NASA (H3) |
 | Highest observed nearby | 8.65 (Richmond) to 9.42 (Alameda) | NOAA (W2, W3) |
 | 100-year still water, 2016 | 9.8 | City 2019 study, Table 2 (W5) |
-| 100-year still water, 2030 / 2050 / 2100 | 10.1 / 10.7 / 13.0 | same (W5), 2018 guidance; update to 2024 guidance |
+| 100-year still water, 2030 / 2050 / 2100 | 10.1 / 10.7 / 13.0 | same (W5), 2018 guidance; kept as the City used it |
+| 100-year still water, 2050 and 2100, State 2024 Intermediate / Intermediate-High / High | 10.53 / 10.73 / 11.03 and 12.83 / 14.53 / 16.23 | derived: 9.73 (W11) plus the San Francisco gauge's rise (W17); baseline offset W18 |
 | FEMA wave-inclusive BFEs on the exposed shoreline | 12 to 14 | City 2019 study §2.1 (W6) |
 | Ferris's 12 ft | 12, read as ft NAVD88 | Scott Ferris, Budget and Finance, 2026-10-22 (M1–M2) |
 

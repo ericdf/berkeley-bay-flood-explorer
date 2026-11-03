@@ -33,7 +33,7 @@
     {
       "osm": "way/62362767",
       "label": "Aquatic Park",
-      "note": "A lagoon behind the I-80 embankment. In the connected fill it is low ground that is not connected until just above 13.35 ft NAVD88, when the Bay reaches the flats behind I-80 (C6).",
+      "note": "A lagoon behind the I-80 embankment. Most of the mapped site is the lagoon, which is water already, so its share under water mostly records the lagoon joining the Bay, not land flooding; the land counts above leave the lagoon out. In the connected fill it joins the Bay once the level passes about 13.4 ft NAVD88, a modeled and uncertain figure (C6).",
       "sources": [
         "C6"
       ]

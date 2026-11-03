@@ -49,11 +49,13 @@ Port 8767, because the wildfire simulator uses 8766.
   the level that do not connect are shown separately as "low, not connected": that is where
   storm drains, tide gates, rain and groundwater decide what floods, and a fill cannot.
 - **Open water**: ground below mean sea level (3.31 ft NAVD88) connected to the Bay.
-- **Through the drains** (model rule, upper bound): in a City watershed whose outfall has no
-  tide gate, low ground that holds a storm drain inlet can fill through the pipes.
-- **Rain on a high tide** (`js/rain.js`, model rule, upper bound): NOAA Atlas 14 rain × a runoff
+- **Through the drains** (model rule, an upper bound given the mapped inlets): in a City watershed
+  whose outfall is assumed to have no working tide gate, low ground that holds a storm drain inlet can fill through the pipes.
+- **Rain on a high tide** (`js/rain.js`, model rule, an illustrative storage experiment that can
+  overstate water at one inlet and miss it elsewhere): NOAA Atlas 14 rain × a runoff
   share from NLCD imperviousness × the share that cannot drain × the watershed's area, pooled
-  upward from the watershed's lowest inlet.
+  upward from the watershed's lowest inlet. The runoff share uses a method made for annual
+  loads, applied to one storm as an exploratory assumption.
 - **Plans** (`js/plan.js`, `data/plans.json`): walls and raised roads become crest elevations
   the fill must exceed; tide gates close drain links. Presets come from the City's 2019 Marina
   study; alignments are traced from its figures (about ±30 m) and crests are an assumption.

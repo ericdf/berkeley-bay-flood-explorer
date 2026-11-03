@@ -83,8 +83,47 @@ CO-OPS Data API, product `predictions`, `datum=NAVD`, `interval=hilo`, local tim
 - **W14.** Highest predicted high tides (astronomical only, no weather): 7.42 ft NAVD88 on
   2026-12-24 at 10:58 a.m.; 7.34 on 2027-01-22 at 10:56 a.m.; 7.34 on 2026-12-23; 7.17 on
   2026-11-25 at 11:08 a.m. The December peak equals the 1-year extreme tide off Berkeley
-  (W11). Used for: the "this winter's king tide" scenario (7.4) and, with H3's 0.5–1.0 ft,
-  the "king tide plus Kelvin wave" scenario (7.9–8.4).
+  (W11). Used for: the "this winter's king tide" scenario (7.4) and, with W15's 0.5–1.0 ft,
+  the "king tide plus 1 ft (El Niño)" sensitivity test (8.4).
+
+## Water levels: El Niño, and the State's 2024 sea level rise guidance (read 2026-11-03)
+
+Prompted by an outside review of the live explorer on 2026-11-03, which said the Kelvin wave
+rows rested on press reports and the future levels on superseded guidance.
+
+- **W15. El Niño adds 0.5 to 1.0 ft for months.** California Coastal Commission, *Sea Level
+  Rise Policy Guidance*, Final Adopted 2024 Update (2024-11-13), Appendix A, p. 278: "strong
+  El Niño events can temporarily elevate local sea levels by six to twelve inches over several
+  months." The 2016 extreme-tide study says the same for the Bay: "Water levels are often 0.5
+  to 1.0 ft above normal for months at a time" (p. 28 of the report, PDF p. 47). These are the
+  primary statements behind H3's press figure. Used for: the two "plus 1 ft (El Niño)"
+  scenarios, now labeled sensitivity tests. A Kelvin wave is one mechanism of that rise; the
+  sources give the size of the El Niño rise, not of a single wave.
+- **W16. The extreme tides already contain El Niño winters.** The 2016 study fitted its
+  Central and North Bay extreme tides, which include point 518 (W11), to a 31-year modeled
+  record, January 1, 1973, to December 31, 2003 (§3.2.1, p. 3-11, PDF p. 48). It names
+  El Niño winters in 1977–78, 1982–83, 1997–98, 2009–10 and 2015–16 (p. 28); the first three
+  fall in that record. Adding 1 ft to a return level therefore counts part of the El Niño
+  effect twice, and the sum has no return period. Used for: the sensitivity-test labels.
+- **W17. The 2024 scenarios at the San Francisco gauge.** Same Coastal Commission guidance,
+  Appendix F, Table F-5 ("Sea Level Scenarios for San Francisco"), median rise in feet from a
+  2000 baseline, including local vertical land motion, from the State Sea Level Rise Guidance
+  (Ocean Protection Council, 2024): 2050 Intermediate 0.8, Intermediate-High 1.0, High 1.3;
+  2100 Intermediate 3.1, Intermediate-High 4.8, High 6.5. The Alameda gauge (Table F-6) is
+  0.2 lower in 2050 Intermediate (0.6) and 0.3 lower in 2100 Intermediate (2.8); Berkeley lies
+  between the two gauges and no Richmond table is given, so the explorer uses San Francisco, the
+  higher. Chapter 3, pp. 64 and 66: the guidance recommends analyzing the Intermediate scenario
+  for low risk aversion (amenities such as public access), Intermediate-High for medium-high
+  (most residential and commercial structures) and High for extreme risk aversion ("most
+  critical infrastructure"). It replaces the 2018 guidance the City study used (W4, W5).
+  Used for: six derived scenarios, today's 100-year storm tide (9.73, W11) plus each rise.
+  Not read: the OPC document itself (opc.ca.gov refused automated access); the Coastal
+  Commission reproduces its tables.
+- **W18. Baselines (assumption).** The 2024 rises are measured from 2000 (W17). The 2016
+  extreme tides are adjusted to "existing conditions" as of the 2011–2013 modeling (§3.2.1;
+  the year is not stated). Adding the two, as the City study did with the 2018 rises (W5),
+  counts the rise between 2000 and the modeling twice. At the Low scenario's pace (0.3 ft from
+  2000 to 2030, W17) that is about 0.1 ft or less, not corrected.
 
 ## Meeting remarks: Scott Ferris, Director of Parks, Recreation and Waterfront
 
@@ -347,7 +386,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   39.1%, Marin 36.9%, Codornices 34.6%, Wildcat 15.9%, Temescal 14.6%.
 - **R3.** Runoff share from imperviousness: the Simple Method, Rv = 0.05 + 0.009 × percent
   impervious (Schueler, *Controlling Urban Runoff*, Metropolitan Washington Council of Governments,
-  1987). Formula from general knowledge; the publication was not re-read here. Gives Gilman 0.76,
+  1987). Formula from general knowledge; the publication was not re-read here. The method was made
+  for annual runoff and pollutant loads (so says the 2026-11-03 outside review, citing EPA's BASINS
+  manual, which was not read here); applying it to one design storm is an exploratory assumption
+  that a hydrologist should review. Gives Gilman 0.76,
   Schoolhouse 0.64, Derby 0.60, Strawberry 0.41, Aquatic Park 0.40, Codornices 0.36. The Alameda
   County Flood Control District's Hydrology and Hydraulics Manual (2016) has its own runoff
   coefficients; its PDF could not be retrieved (the server answered with a script, not the file).
@@ -360,8 +402,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   ground around it upward (one pool per watershed), stays inside the watershed, and stops rising
   when it reaches Bay water. The share that cannot drain stands for how long the outfalls are
   closed by the tide during the storm; the City's outfall inverts are not published, so the page
-  offers 100%, 50%, 25% and 10%. Upper bound for the pool's location: real ponding spreads over
-  several low spots.
+  offers 100%, 50%, 25% and 10%. An illustrative storage experiment, not an upper bound: one pool
+  per watershed overstates depth at that inlet and misses ponding elsewhere, and the pool stops at
+  the watershed's boundary (revised 2026-11-03 after an outside review).
 - **C12. Rain results (derived; revised after Codex review of PR #3, which found the first
   version created water when a pool spilled into a hollow below its surface).** At this winter's
   highest tide (7.4 ft NAVD88), with tide gates on every outfall, a 10-year 6-hour storm (2.04 in)
@@ -376,6 +419,22 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   Park and Strawberry on Bolivar Dr, Derby by Eastshore Hwy near Ashby Ave. Above about half the
   runoff held back, the Strawberry, Gilman and Derby pools reach the I-80 corridor and spill to
   the Bay. A plan's walls and raised roads count as ground for the pools.
+- **C13. The State's 2024 scenarios (W17, W18).** Today's 100-year storm tide plus each rise at
+  the San Francisco gauge, connected fill, no plan, outfalls assumed open:
+  - 2050: Intermediate 10.53 ft NAVD88, 23 ha of Berkeley land under water, no Berkeley street
+    segment under water, 19 ha that can fill through drains; Intermediate-High 10.73, Marina
+    Blvd (675 m) and University Ave (282 m) under water, DoubleTree grounds 27%; High 11.03,
+    32 ha, 1.0 km of Berkeley streets, DoubleTree grounds 37%.
+  - 2100: Intermediate 12.83, 60 ha, 3.2 km of streets, DoubleTree grounds 86%, transfer
+    station not reached; Intermediate-High 14.53, 162 ha, 24 km, transfer station grounds
+    60%, I-80 under water; High 16.23, 200 ha, 33 km, transfer station grounds 81%.
+  - The modeled connection behind I-80 (13.35, C6) is a rise of 3.62 ft on today's 100-year
+    tide. Interpolating Table F-5's decades linearly, the median rise reaches 3.62 ft about
+    2076 under High, 2088 under Intermediate-High and 2107 under Intermediate. The guidance
+    names High for "most critical infrastructure" (W17); reading the transfer station as
+    critical infrastructure is our inference, and on that reading the High date is the one the
+    guidance points to. All three dates inherit C6's
+    unquantified uncertainty and W18's baseline offset.
 
 ## Hazard data and press (read 2026-11-02)
 
@@ -391,8 +450,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   NOAA gave a greater than 90% chance of a very strong El Niño for November 2026 through
   January 2027; Governor Newsom proclaimed a state of emergency in late September 2026.
   Secondary sources; the NOAA and NASA statements themselves have not been read.
-- **H4.** Used for: a "Kelvin wave" increment of 0.5–1.0 ft added to tide scenarios,
-  labeled as from press reports of NOAA/NASA statements until the primary statements are read.
+- **H4.** Used for: a "Kelvin wave" increment of 0.5–1.0 ft added to tide scenarios.
+  Superseded 2026-11-03 by W15 and W16: the increment now cites the Coastal Commission's and
+  the 2016 study's statements on El Niño, and the two scenarios are labeled sensitivity tests.
+  The NOAA and NASA statements themselves are still unread.
 - **H5.** BCDC/MTC Adapting to Rising Tides (ART) Bay Area Sea Level Rise and Shoreline
   Analysis Maps (AECOM, 2017): flooding depth for total water levels of MHHW plus 12, 24,
   36, 48, 52, 66, 77, 84, 96 and 108 inches, connected to the Bay, with disconnected

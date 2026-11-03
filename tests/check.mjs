@@ -3,7 +3,8 @@
 // 2. The fill is monotonic: a higher level never leaves a cell dry that a lower level wet.
 // 3. City 2019 Marina study (SOURCE_NOTES W7, W8): at 10.7 ft NAVD88 Marina Blvd is mostly under
 //    water and part of the DoubleTree grounds are wet.
-// 4. Comparison with the published ART map at each ART level, on Berkeley land (reported, not asserted).
+// 4. Comparison with the published ART map at each ART level, on Berkeley land: reported, and each
+//    level's agreement (cells wet in both / wet in either) must stay at or above 60%.
 import fs from 'fs';
 import { load } from '../tools/report.mjs';
 import { analyze, FLANKED } from '../js/analyze.js';
@@ -17,7 +18,7 @@ const notes = fs.readFileSync('SOURCE_NOTES.md', 'utf8');
 const rows = new Set([...notes.matchAll(/\*\*([A-Z]\d+)[.*\s]|\| ([A-Z]\d+) \|/g)].map(m => m[1] || m[2]));
 const sc = JSON.parse(fs.readFileSync('data/scenarios.json')).scenarios;
 for (const s of sc) {
-  ok(typeof s.levelFt === 'number' && ['sourced', 'derived', 'inference'].includes(s.category), `${s.id}: level ${s.levelFt} ft NAVD88, ${s.category}`);
+  ok(typeof s.levelFt === 'number' && ['sourced', 'derived', 'inference', 'sensitivity'].includes(s.category), `${s.id}: level ${s.levelFt} ft NAVD88, ${s.category}`);
   for (const r of (s.source.match(/\b[WMFHEC]\d+\b/g) || [])) ok(rows.has(r), `${s.id}: cites ${r}, which SOURCE_NOTES.md has`);
 }
 
@@ -112,6 +113,8 @@ if (fs.existsSync('data/hazard/art.json')) {
       if (A) a++; if (O) o++; if (A && O) b++;
     }
     const ha = (n) => (n * 16 / 1e4).toFixed(1).padStart(7);
+    const agree = a + o - b ? b / (a + o - b) : 1;
+    ok(agree >= 0.6, `ART + ${l.inches} in: agreement ${(100 * agree).toFixed(0)}%, at least 60%, a floor under the 68-91% recorded in SOURCE_NOTES C1`);
     console.log(`${String(l.inches).padStart(6)}  ${l.levelFt.toFixed(2).padStart(5)} ${ha(a)}  ${ha(o)}  ${ha(b)}  ${ha(a - b)}  ${ha(o - b)}    ${(a + o - b ? 100 * b / (a + o - b) : 100).toFixed(0)}%`);
   }
 }

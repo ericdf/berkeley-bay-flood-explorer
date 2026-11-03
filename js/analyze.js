@@ -17,7 +17,8 @@ const isWet = (v) => v === WET || v === FLANKED;
 
 // "Bay water up the drains" (model rule): in a watershed whose drain link is open (no tide gate),
 // every connected patch of low, not-connected ground that holds a storm drain inlet can fill
-// through the drains. Upper bound: pipe capacity, inverts and storm duration are ignored.
+// through the drains. An upper bound given the mapped inlets and assumed open outfalls: pipe
+// connections, capacity, inverts and storm duration are ignored.
 function markDrains(D, state, gates) {
   if (!D.drains || !D.watershedIds) return {};
   const W = D.dem.width, H = D.dem.height, ids = D.watershedIds;

@@ -25,7 +25,7 @@ What is in hand, what is still needed, and each dataset's license.
 
 | Data | Source | Why |
 |---|---|---|
-| State sea level rise guidance, 2024 | Ocean Protection Council | Replaces the 2018 guidance the City study and the Draft EIR used. |
+| State sea level rise guidance, 2024 | Ocean Protection Council | Replaces the 2018 guidance the City study and the Draft EIR used. In use: the San Francisco gauge table, as the Coastal Commission's 2024 guidance reproduces it (SOURCE_NOTES W17). The OPC document itself refused automated access. |
 | ART disconnected low-lying areas | ART Bay Shoreline Flood Explorer county geodatabase | A published counterpart to the explorer's "low, not connected" class. |
 | CoSMoS v3.1 flood depth rasters, Alameda County | USGS ScienceBase (public domain) | A second published depth map, with storms of given return periods. |
 | FEMA flood insurance rate map, Berkeley shoreline | FEMA NFHL (public domain) | Zone boundaries; VE vs AE. |
