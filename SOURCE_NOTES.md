@@ -840,3 +840,14 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   the lever does not require a sketched destination. "Do nothing is the base case and definitely
   worth keeping": every comparison starts from today's arrangements at the chosen level, and doing
   nothing stays an option the reader can choose. Applied in `docs/design/mitigations.md`.
+  Eric, same day: retreat "can mean that we exit the business of running a transfer station as we
+  are no longer a viable site". So the lever is "the City stops running a transfer station; its
+  waste goes to a regional one", a decision about the City's role, not a site search. Two
+  qualifications, recorded with it: when the site stops working depends on the scenario, and the
+  explorer shows that instead of asserting it. The transfer station's mapped ground, outfalls
+  assumed open (`analyze`, derived): 3% can fill through the drains at 11.03 ft NAVD88, 18% at 12,
+  35% at 12.83; 45% under Bay water at 13.4 (C6), about 2076 under the State's High scenario (C13).
+  It lies inside the State's tsunami hazard area today (C16). Second, exiting leaves pieces that
+  still need a home or a decision: the City's 110+ collection vehicles parked on the site, the
+  recycling center run by Community Conservation Centers, and the public drop-off and buyback
+  (F21).
