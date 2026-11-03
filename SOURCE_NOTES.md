@@ -682,6 +682,15 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     (about 52 ft). A still-water fill does not describe its hazard, which is waves and Bay water on
     its shoreline edges and groundwater in the waste; not assessed here.
 
+- **C16. The State's Tsunami Hazard Area against Berkeley (derived, 2026-11-03; H6).** 295 ha of
+  Berkeley land (ground above mean sea level, outside the open Bay) lies inside it, on ground up to
+  about 50 ft NAVD88 at the 99th percentile. All four mapped places are inside it in full: the
+  transfer station, the DoubleTree grounds, César Chávez Park (the former landfill) and Aquatic
+  Park. Of the sites in `data/sites-checked.json` (`node tools/site-check.mjs`), inside: the Kaiser office at 1780 Second St, Pacific Steel, Berkeley
+  Forge & Tool, 1255 Eastshore Hwy, the Berkeley Marine Center, Terminal Manufacturing, Eastshore
+  State Park parcels, Ravago / Pacific Coast Chemicals and former Flint Ink. Outside: the Kaiser
+  medical offices on 10th St, WRE/Colortech, the Peerless site, Electro-Coatings and Bayer.
+
 ## Hazard data and press (read 2026-11-02)
 
 - **H1.** USGS Coastal Storm Modeling System (CoSMoS) v3.1, Central California including
@@ -716,13 +725,17 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   report reposted on a blog (secondary, not checked against the original) quotes the Berkeley
   harbormaster on at least four surges "at about 25 mph" (about 22 knots), with docks, slips and a
   piling damaged; no measured current speed for Berkeley was found. The Gilman Gateway Draft EIR
-  places that site "within a tsunami hazard area" (CGS 2021 map; F18). Press coverage of the CGS
-  2021 Alameda County maps (not read) describes the West Berkeley hazard area reaching about Sixth
-  St, for a tsunami with a 975-year average return period.
-  What it bears on: a tsunami's damage in the Bay came from currents and short surges in harbors,
-  with a water-level change of about half a meter in 2011; a still-water fill models neither.
-  Not used in the explorer. Candidate layer: the CGS tsunami hazard area as an outline, like the
-  ART map (H5).
+  places that site "within a tsunami hazard area" (CGS 2021 map; F18).
+  The State's Tsunami Hazard Area (California Geological Survey, Cal OES, USC Tsunami Research
+  Center, AECOM; services.gis.ca.gov Oceans/Tsunami MapServer, layer 0, retrieved 2026-11-03,
+  `data/raw/cgs/`): the layer description says the areas "represent a combination of the maximum
+  considered tsunamis for each area" and are "used for evacuation planning at the community
+  level". Press coverage (not read) gives a 975-year average return period; the layer description
+  read here does not state one. Used for: an outline on the map, off by default
+  (`tools/build-tsunami.mjs`, `data/hazard/tsunami.bits`), and C16. It is an area to leave on a
+  warning, not a flood depth, and does not change with the explorer's water level.
+  What it bears on: a tsunami's damage in the Bay in 2011 came from currents and short surges in
+  harbors, with a water-level change of about half a meter; a still-water fill models neither.
 
 ## Eric's decisions, 2026-11-02 (Claude Code session)
 

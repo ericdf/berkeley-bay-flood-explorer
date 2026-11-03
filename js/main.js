@@ -22,14 +22,16 @@ const REFS = [
 async function load() {
   const j = (p) => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
   const b = (p) => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.arrayBuffer(); });
-  const [dem, zbuf, streets, fac, facCells, scen, bits, art, drains, wsIds, plans, atlas, imp] = await Promise.all([
+  const [dem, zbuf, streets, fac, facCells, scen, bits, art, drains, wsIds, plans, atlas, imp, tsunami, tsunamiBits] = await Promise.all([
     j('data/terrain/dem.json'), b('data/terrain/dem.i16'), j('data/streets.json'), j('data/facilities.json'),
     j('data/facility-cells.json'), j('data/scenarios.json'), b('data/terrain/berkeley.bits'),
     j('data/hazard/art.json').catch(() => null), j('data/drains.json'), b('data/hazard/watersheds.u8'), j('data/plans.json'),
     j('data/raw/noaa/atlas14-berkeley.json'), j('data/raw/nlcd/impervious-by-watershed.json'),
+    j('data/hazard/tsunami.json').catch(() => null), b('data/hazard/tsunami.bits').catch(() => null),
   ]);
   return { dem, z: new Int16Array(zbuf), streets, facilities: fac.facilities, facilityCells: facCells, scenarios: scen.scenarios,
-    berkeley: new Uint8Array(bits), art, drains, watershedIds: new Uint8Array(wsIds), plans: plans.presets, atlas, impervious: imp.watersheds };
+    berkeley: new Uint8Array(bits), art, drains, watershedIds: new Uint8Array(wsIds), plans: plans.presets, atlas, impervious: imp.watersheds,
+    tsunami: tsunami && tsunamiBits ? { ...tsunami, mask: new Uint8Array(tsunamiBits) } : null };
 }
 
 function shade(D) {
@@ -84,6 +86,18 @@ function draw(res, baseRes, plan) {
     if (m) for (let r = 1; r < H - 1; r++) for (let c = 1; c < W - 1; c++) {
       const i = r * W + c, on = (k) => (m[k >> 3] >> (k & 7)) & 1;
       if (on(i) && (!on(i - 1) || !on(i + 1) || !on(i - W) || !on(i + W))) { p[i * 4] = 255; p[i * 4 + 1] = 255; p[i * 4 + 2] = 255; }
+    }
+  }
+  // The State's Tsunami Hazard Area (sourced layer, H6): the inside edge, four cells (16 m) wide,
+  // in magenta, so it reads at the whole-map view.
+  if ($('showTsunami').checked && D.tsunami) {
+    const m = D.tsunami.mask, on = (k) => (m[k >> 3] >> (k & 7)) & 1, B = 4;
+    for (let r = B; r < H - B; r++) for (let c = B; c < W - B; c++) {
+      const i = r * W + c;
+      if (!on(i)) continue;
+      let edge = false;
+      for (let d = 1; d <= B && !edge; d++) edge = !on(i - d) || !on(i + d) || !on(i - d * W) || !on(i + d * W);
+      if (edge) { p[i * 4] = 255; p[i * 4 + 1] = 45; p[i * 4 + 2] = 200; }
     }
   }
   gctx.putImageData(img, 0, 0);
@@ -195,6 +209,13 @@ function mapControls() {
   new ResizeObserver(() => { sizeCanvas(); paint(); }).observe(canvas);
 }
 
+// Share of a place's cells inside the State's Tsunami Hazard Area (H6); the area does not depend on the level.
+const tsunamiShares = [];
+function tsunamiShare(k) {
+  if (tsunamiShares[k] == null) { const m = D.tsunami.mask, c = D.facilityCells[k].cells; tsunamiShares[k] = c.length ? c.filter(i => (m[i >> 3] >> (i & 7)) & 1).length / c.length : 0; }
+  return tsunamiShares[k];
+}
+
 function nearestArt(levelFt) {
   if (!D.art) return null;
   let best = null;
@@ -257,7 +278,7 @@ function render(levelFt, sc) {
     ${drainWs ? `<p class="src">Through the drains, by City watershed: ${drainWs}. ${ui.gates ? '' : 'This assumes every outfall is open, with no working tide gate. Which outfalls have gates, and whether they work, is not published.'}</p>` : ''}
     <h2>Places <span class="cat">derived</span></h2>
     <p class="src">Shares are of each mapped site's ground, not of its buildings: whether water reaches floors, entrances or equipment needs separate evidence (the City study's floor elevations for the DoubleTree are one, SOURCE_NOTES W7).</p>
-    <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${ui.rain ? `${fmt(100 * f.rainShare)}% under pooled rain<br>` : ''}${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft NAVD88</td></tr>`).join('')}</table>
+    <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${ui.rain ? `${fmt(100 * f.rainShare)}% under pooled rain<br>` : ''}${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft NAVD88${D.tsunami ? `<br>${fmt(100 * tsunamiShare(k))}% in the State tsunami hazard area` : ''}</td></tr>`).join('')}</table>
     <h2>Berkeley streets <span class="cat">derived</span></h2>
     ${bStreets.filter(s => s.cls === 'wet').length ? `<p class="src">Under water:</p><ul>${bStreets.filter(s => s.cls === 'wet').map(li).join('')}</ul>` : '<p class="src">No Berkeley street segment is under water at this level.</p>'}
     ${bStreets.filter(s => s.cls === 'rain').length ? `<p class="src">Under pooled rain:</p><ul>${bStreets.filter(s => s.cls === 'rain').map(li).join('')}</ul>` : ''}
@@ -328,6 +349,8 @@ function planPanel(rerender) {
     if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; show(Number($('level').value), null); }); }
   });
   $('showArt').addEventListener('change', () => render(levelNow, scNow));
+  if (!D.tsunami) $('showTsunami').disabled = true;
+  $('showTsunami').addEventListener('change', () => render(levelNow, scNow));
   planPanel(() => render(levelNow, scNow));
   mapControls();
   const rainUpdate = () => {

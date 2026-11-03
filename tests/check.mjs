@@ -98,6 +98,15 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   ok(r10.streets.some(s => s.name === '2ND ST' && s.cls === 'rain'), '10-year 6-hour storm, 10% held back: Second St under pooled rain (Draft EIR F8)');
 }
 
+// 7. The State's Tsunami Hazard Area (SOURCE_NOTES H6) is rasterized onto the grid and covers the
+//    transfer station (C16).
+{
+  const m = new Uint8Array(fs.readFileSync('data/hazard/tsunami.bits')), on = (i) => (m[i >> 3] >> (i & 7)) & 1;
+  ok(m.length === Math.ceil(D.dem.width * D.dem.height / 8), 'tsunami.bits matches the terrain grid');
+  const k = D.facilities.findIndex(f => /Transfer station/.test(f.label)), c = D.facilityCells[k].cells;
+  ok(c.every(on), 'the transfer station lies inside the State tsunami hazard area');
+}
+
 if (fs.existsSync('data/hazard/art.json')) {
   const art = JSON.parse(fs.readFileSync('data/hazard/art.json'));
   const inB = (i) => (D.berkeley[i >> 3] >> (i & 7)) & 1;
