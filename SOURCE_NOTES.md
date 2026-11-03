@@ -375,8 +375,8 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   (searched for "sea level", "sea-level" and "tsunami").
   What it bears on (inference, ours): the site search tested size, zoning, infrastructure and
   availability, and whether another site would lessen the project's impacts; it did not test a
-  site's exposure to flooding, sea level rise or tsunami. The site is about 11.5 to 14.6 ft NAVD88
-  (site-check point), inside the State's Tsunami Hazard Area (C16), reached by Bay water in this
+  site's exposure to flooding, sea level rise or tsunami. The site's median ground is 13.8 ft NAVD88
+  over its mapped outline (`node tools/report.mjs`), inside the State's Tsunami Hazard Area (C16), reached by Bay water in this
   explorer at about 13.4 ft (C6), which the State's 2100 High scenario for critical infrastructure
   exceeds (16.23; C13, E4). Retreat for this facility (E6) was not on the table in the EIR.
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
