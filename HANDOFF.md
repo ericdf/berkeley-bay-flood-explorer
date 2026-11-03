@@ -5,20 +5,13 @@ each item here once it is done.
 
 ## Waiting on Eric
 
-1. **Merge and publish PR #7**
-   (https://github.com/ericdf/berkeley-bay-flood-explorer/pull/7): the six panel sites re-read
-   (C18, T5), the outside review's page fixes (E9) and the king tide field guide (E10). Codex's
-   last review, of be9e4c9, found nothing. Merging needs Eric's approval in a session naming the
-   PR. Publishing is a separate approval: `git push origin <merge sha>:refs/heads/pages`. The
-   guide's link on the live page works only after the publish.
-2. **The field guide's contact line.** `field-guide.html`, "Where the photos go", item 2, tells the
+1. **The field guide's contact line.** `field-guide.html`, "Where the photos go", item 2, tells the
    volunteer to send photos to Eric "in whatever way he arranged with you". Eric chooses what it
-   should say. Never put a personal email address on the page.
-3. **The Public Works email draft.** It is an unsent Gmail draft to prw@berkeleyca.gov, cc
-   PWworks@berkeleyca.gov, waiting for Eric's review. Never send it without his word.
-4. **Records request on outfalls, inverts and tide gates.** This is the model's largest unknown
-   (D6). It was proposed as a formal request alongside the draft or in its place. Eric has not
-   decided.
+   should say. Never put a personal email address on the page. A reminder is scheduled for
+   2026-11-04 at 8 a.m. Pacific (`trig_017E4UDzFQkDw1qDqmzEk2a1`).
+2. **Outfalls, inverts and tide gates (D6).** The model's largest unknown. Eric sent the Public
+   Works email himself and deleted the Gmail draft. He also sent a records request (2026-11-03).
+   A formal CPRA request is drafted as a backup, for Eric to send if those go unanswered.
 
 ## Ready to do, once Eric approves each
 
@@ -64,7 +57,5 @@ These come from an outside review on 2026-11-03. Items 1–4 of that list are do
 
 ## Housekeeping
 
-- A scheduled check-in on PR #7 (trigger `trig_01C1hPMPaK1zgYUEpeJqY7JB`, 17:30 UTC on
-  2026-11-03) re-checks the PR. Cancel it once the PR is merged or closed.
 - Private correspondence that gave leads on the transfer station economics stays out of the
   repository. Its claims were checked against public records only (Z1–Z6).
