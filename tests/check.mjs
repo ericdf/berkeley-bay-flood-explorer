@@ -82,6 +82,11 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   const walled = analyze(D, 7.4, { ...gates, walls: [{ label: 'test ring', crestFt: 20, lines: [ring] }] }, { ari: '10', duration: '6-hr', blocked: 0.1 });
   const wp = walled.rain.pools.find(p => p.watershed === 'Schoolhouse');
   ok(wp.areaHa < sp.areaHa && wp.levelFt > sp.levelFt, `a ringed wall confines the Schoolhouse pool (${sp.areaHa.toFixed(1)} -> ${wp.areaHa.toFixed(1)} ha, surface ${sp.levelFt.toFixed(1)} -> ${wp.levelFt.toFixed(1)} ft NAVD88)`);
+  // A street counts when its flooded samples together reach the threshold, even when split between
+  // rain and drain water (Codex example: Bancroft Way edge 158 at 12 ft, open drains, 10% held back).
+  const mix = analyze(D, 12, null, { ari: '10', duration: '6-hr', blocked: 0.1 });
+  const e158 = mix.segs.find(x => x.e.id === 158);
+  ok(e158 && e158.cls !== 'low', `a street flooded by rain and drains together is counted (Bancroft Way edge 158: ${e158 ? e158.cls : 'missing'})`);
   const r10 = analyze(D, 7.4, gates, { ari: '10', duration: '6-hr', blocked: 0.1 });
   ok(r10.streets.some(s => s.name === '2ND ST' && s.cls === 'rain'), '10-year 6-hour storm, 10% held back: Second St under pooled rain (Draft EIR F8)');
 }

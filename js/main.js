@@ -67,7 +67,9 @@ function draw(res, baseRes, plan) {
   const wet = [47, 127, 214], low = [224, 138, 30], fl = [139, 63, 184], sea = [15, 39, 71], drain = [38, 178, 160], kept = [70, 200, 90], rainc = [123, 92, 255];
   for (let i = 0; i < s.length; i++) {
     let col = D.water0[i] ? sea : s[i] === WET ? wet : s[i] === FLANKED ? fl : s[i] === LOW ? low : s[i] === DRAIN ? drain : s[i] === RAIN ? rainc : null;
-    if (!col && baseRes && isWet(baseRes.state[i])) col = kept; // wet with no plan, dry with this plan
+    // Kept out of the Bay by the plan: under Bay water with no plan, not with this one. Ground the
+    // plan keeps from the Bay but that still fills through drains or with rain keeps that color.
+    if (baseRes && !D.water0[i] && isWet(baseRes.state[i]) && !isWet(s[i]) && s[i] !== DRAIN && s[i] !== RAIN) col = kept;
     if (col) { p[i * 4] = col[0]; p[i * 4 + 1] = col[1]; p[i * 4 + 2] = col[2]; }
   }
   // Published ART map: outline of its flooded area at the nearest level (sourced layer, H5).

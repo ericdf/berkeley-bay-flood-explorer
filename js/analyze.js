@@ -73,10 +73,15 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     // A segment whose line crosses water in the terrain (the open Bay, or a lagoon below mean sea
     // level such as Aquatic Park) is a bridge, a causeway the grid misses, or a street drawn across
     // water; its samples say nothing about the road (model rule).
-    const any = s.wetShare >= STREET_WET_SHARE || s.lowShare >= STREET_WET_SHARE || s.drainShare >= STREET_WET_SHARE || s.rainShare >= STREET_WET_SHARE;
+    // The threshold applies to all the water on the street together (Bay, rain and drains); the
+    // street is then reported under whichever of those covers most of it.
+    const flooded = s.wetShare + s.rainShare + s.drainShare;
+    const any = flooded >= STREET_WET_SHARE || s.lowShare >= STREET_WET_SHARE;
     if (s.waterSamples > 0) { if (any) overWater.push({ e, ...s }); continue; }
     if (!any) continue;
-    const cls = s.wetShare >= STREET_WET_SHARE ? 'wet' : s.rainShare >= STREET_WET_SHARE ? 'rain' : s.drainShare >= STREET_WET_SHARE ? 'drain' : 'low';
+    const cls = flooded >= STREET_WET_SHARE
+      ? (s.wetShare >= s.rainShare && s.wetShare >= s.drainShare ? 'wet' : s.rainShare >= s.drainShare ? 'rain' : 'drain')
+      : 'low';
     const depthFt = cls === 'rain' ? s.rainDepthFt : undefined; // deepest pooled rain, from the same 4 m samples
     segs.push({ e, ...s, cls, wet: cls === 'wet', raisedFt: raised[e.id], depthFt });
   }
