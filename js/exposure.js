@@ -17,18 +17,20 @@ function shares(D, res, cells) {
     const v = res.state[i];
     if (WET(v)) { wet++; top = Math.max(top, res.levelFt); }
     else if (v === 4) { drain++; top = Math.max(top, res.levelFt); }
-    else if (v === 5) { rain++; if (res.rain && D.rainSurface) top = Math.max(top, D.rainSurface[i] / 30.48); }
+    else if (v === 5) { rain++; if (res.rainSurface) top = Math.max(top, res.rainSurface[i] / 30.48); }
   }
   return { wet: wet / n, drain: drain / n, rain: rain / n, waterFt: top };
 }
 
-// How a site is reached at this level, or null: Bay water over the surface first, then through the
-// storm drains, then pooled rain (the same order as the map's legend).
+// How a site is reached at this level, or null. The threshold applies to all the water on it
+// together (Bay, drains and rain), as it does for streets (js/analyze.js); the sources are then
+// named, largest first.
 function reachOf(sh) {
-  if (sh.wet >= REACH) return { how: 'Bay water over the ground', share: sh.wet };
-  if (sh.drain >= REACH) return { how: 'Bay water up the storm drains', share: sh.drain };
-  if (sh.rain >= REACH) return { how: 'pooled rain', share: sh.rain };
-  return null;
+  const total = sh.wet + sh.drain + sh.rain;
+  if (total < REACH) return null;
+  const parts = [['Bay water over the ground', sh.wet], ['Bay water up the storm drains', sh.drain], ['pooled rain', sh.rain]]
+    .filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
+  return { how: parts.map(([h, v]) => parts.length > 1 ? `${h} (${Math.round(100 * v)}%)` : h).join(', '), share: total, main: parts[0][0] };
 }
 
 export function siteCellsFor(D, site) {
