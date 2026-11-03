@@ -189,27 +189,41 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   bilinear export from the same service differs from the wildfire grid by a median of
   −0.16 ft (5th to 95th percentile −1.79 to +1.03 ft).
 - **F14. San Francisco Baykeeper and the transfer station (asked by Eric, 2026-11-03: "Berkeley
-  has been dinged by the SF Baykeeper").** Confirmed. Waste Dive, 2016-04-26
-  (Arlene Karidis, citing the Daily Californian, 2016-04-25): Baykeeper "filed a federal lawsuit
-  against [the City of Berkeley] and Community Conservation Centers for allegedly discharging
-  polluted storm water into the bay from the Berkeley Transfer Station and the Community
-  Conservation Centers' recycling center", alleging Clean Water Act violations for five years
-  "by surpassing a state-mandated limit on allowable storm water pollutants"; notice of intent
-  sent November 6 (2015, our inference from the April 2016 filing). Pollutants named: iron, aluminum and zinc. Baykeeper's update
-  "Berkeley Trash & Recycling Center Agrees to Protect the Bay from Toxic Runoff" (June 2016)
-  reports a legally binding agreement in May 2016: a cleaner site, repaired pavement, concrete
-  berms and trench drains around the plastic and glass sorting areas. That page refused
-  automated access (a browser check); its terms are from a search summary, not read here, and
-  whether the agreement was entered as a court consent decree is not established.
+  has been dinged by the SF Baykeeper").** Confirmed.
+  - Waste Dive, 2016-04-26 (Arlene Karidis, citing the Daily Californian, 2016-04-25): Baykeeper
+    "filed a federal lawsuit against [the City of Berkeley] and Community Conservation Centers for
+    allegedly discharging polluted storm water into the bay from the Berkeley Transfer Station and
+    the Community Conservation Centers' recycling center", alleging Clean Water Act violations for
+    five years "by surpassing a state-mandated limit on allowable storm water pollutants"; notice
+    of intent sent November 6 (2015, our inference from the April 2016 filing).
+  - San Francisco Baykeeper, "Berkeley Trash & Recycling Center Agrees to Protect the Bay from
+    Toxic Runoff", 2016-06-09 (https://baykeeper.org/update/berkeley-trash-recycling-center-agrees-protect-bay-toxic-runoff/;
+    the site refused automated access; Eric saved it as a PDF and supplied it, 2026-11-03). "For
+    five years, rainwater running off the property was contaminated with a long list of
+    pollutants, including aluminum, copper, iron, lead, zinc, excess acid, oil and grease." A
+    "legally-binding agreement requires the operators to keep the site cleaner and repair cracked
+    pavement. Compostable materials sorting has been moved indoors. Around the plastic and glass
+    sorting areas, facility operators will install concrete berms and trench drains to capture
+    the most contaminated storm water. The water will then be discharged to the sewer system for
+    processing at an East Bay wastewater treatment plant. A cover will be installed over the area
+    where the public brings in cans and bottles." If these "aren't enough to reduce pollution
+    from the site in future rainy seasons, Baykeeper will require further pollution controls."
+    The City funds the Rose Foundation for Communities and the Environment for Bay projects. The
+    34th settlement in Baykeeper's "Bay-Safe Industry Campaign". The page does not say whether a
+    court entered the agreement, how long it runs, or what monitoring it requires.
   What the sources establish: the complaint was about ordinary rain runoff from the working
-  site, not flooding, and alleged that the site's stormwater carried pollutants above state
-  limits for five years. What we infer, not established: controls built for rain falling on the
-  site (berms, trench drains, capture) may not hold when Bay water or a rain pool stands on it,
-  as the explorer shows can happen (C6, C12, F7, F8). No source read gives the controls' design
-  capacity or assesses them under flooding; their flood performance is unconfirmed. Used for:
-  the environmental consequence behind E4, as context. Not used: Baykeeper's 2026 ruling on creek pollution
-  (Maven's Notebook, 2026-04-02), which concerns Sunnyvale and Mountain View, not Berkeley.
-  Berkeley's sewers are under a separate consent decree (F15).
+  site, not flooding, and the remedy captures the most contaminated runoff and sends it to the
+  sanitary sewer. What we infer, not established:
+  - Controls built for rain falling on the site (berms, trench drains, capture) may not hold when
+    Bay water or a rain pool stands on it, as the explorer shows can happen (C6, C12, F7, F8). No
+    source read gives the controls' design capacity or assesses them under flooding; their flood
+    performance is unconfirmed.
+  - The captured runoff goes to the sanitary sewer, the system the 2014 consent decree (F15) is
+    meant to relieve of wet-weather inflow. In a storm on a high tide, both the site's capture and
+    the sewer would be under load at once.
+  Used for: the environmental consequence behind E4, as context. Not used: Baykeeper's 2026
+  ruling on creek pollution (Maven's Notebook, 2026-04-02), which concerns Sunnyvale and Mountain
+  View, not Berkeley. Berkeley's sewers are under a separate consent decree (F15).
 - **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
   al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
   Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
@@ -559,6 +573,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   impacts should that level of sea level rise occur, such as most critical infrastructure"
   (Coastal Commission 2024 guidance, Ch. 3, p. 66; W17). The Draft EIR lists hazardous
   materials among the project's potentially significant effects, which it finds mitigable (F3),
-  and Baykeeper's 2016 Clean Water Act suit concerned metals in the site's ordinary stormwater (F14).
+  and Baykeeper's 2016 Clean Water Act suit concerned metals, acid, oil and grease in the site's
+  ordinary stormwater (F14).
   Applied in `data/scenarios.json` (both State 2024 High scenarios) and C13: the guidance's High
   scenario (W17) is the one that applies to it.
