@@ -590,7 +590,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   route runs east from the North Basin across the I-80 corridor about 250 m south of Gilman
   St; its highest point (13.35 ft) is just east of the freeway, near Eastshore Hwy, at about
   37.8812 N, 122.3073 W. The Draft EIR's ART-based maps put the site's first flooding at MHHW
-  + 84 in, about 13.2 ft NAVD88 (F9); ART is dry there at + 66 in (11.7) and floods all of it at
+  + 84 in, about 13.2 ft NAVD88 (F9); ART's + 84 in layers show that as a disconnected low-lying
+  area (42% of the site), with no connected flooding there (C20). ART has no connected flooding
+  there at + 66 in (11.7; its disconnected layer covers 16%) and floods all of it from the Bay at
   + 96 in (14.2). The level sits just above the City study's 2100 100-year level (13.0, W5).
   Bare-earth lidar removes bridges and may misrepresent ramps and embankments; the
   crossing needs the Caltrans profile to confirm (DATA_INVENTORY).
@@ -801,6 +803,31 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   - Not sampled and possibly affected: F6 gives p. 3.9-8 as PDF [449], which does not fit the
     offset found for p. 3.9-12; unchecked.
 
+- **C20. "Low, not connected" against ART's disconnected low-lying areas (H5).** ART maps
+  ground below its water surface that is not hydraulically connected to the flooded area, in
+  patches over one acre (ART GIS data catalog, p. 2), in the Alameda County geodatabase
+  (`tools/fetch-art-dc.py`, `tools/build-art-dc.mjs`). On Berkeley land, with the Aquatic Park
+  lagoon left out, the explorer's low, not connected cells and ART's agree (both over either) at
+  77% at MHHW + 12 in (7.20 ft NAVD88), 70% at + 24 in, 78% at + 36 in, 83% at + 48 in, 80% at
+  + 52 in, 87% at + 66 in, 89% at + 77 in and 90% at + 84 in (13.20 ft NAVD88). With the
+  explorer's patches under one acre dropped (a model rule matching ART's threshold), agreement is
+  81–93%. ART puts no disconnected ground where the fill has water at any level, and ART's
+  connected flooding covers at most 0.8 ha of the explorer's low ground (at + 96 in, 14.20 ft
+  NAVD88). Bolivar Dr, Second St, Eastshore Hwy and the transfer station are disconnected in both
+  through + 84 in and flooded from the Bay in both at + 96 in, consistent with C6's 13.35 ft
+  NAVD88. ART's + 84 in layers, read from the same geodatabase (the connected layer
+  `Alameda_inundation_poly_84` into a scratch file only; not stored, and `tools/fetch-art-dc.py`
+  does not fetch it), have the transfer station 0%
+  connected and 42% disconnected (the explorer: 42% low, not connected), so the Draft EIR's
+  "begin to experience inundation at the MHHW plus 84-inch SLR scenario" (F9) matches ART's
+  disconnected area, not Bay water reaching the site (our reading). The same + 84 in connected
+  layer agrees with the fill at 92% on Berkeley land, filling C1's missing level. Both maps use
+  lidar terrain and a still-water connectivity rule, so this tests the explorer's classification,
+  not the hazard; ART's report says these areas may connect through culverts and storm drains
+  and may flood from groundwater (§3.5, pp. 20–21). The lagoon (26.3 ha below mean sea level)
+  is disconnected in both through + 84 in and is counted apart (C9). Reproduce with
+  `node tools/compare-art-dc.mjs`.
+
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
@@ -962,6 +989,18 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   MapServer, depth classes in feet; no 84-inch layer in that service) and downloadable as
   county geodatabases from explorer.adaptingtorisingtides.org. Used as the published
   hazard layer the connected-fill rule is checked against, and shown in the explorer.
+  The Caltrans services carry only the connected flooding; neither `DEA_BCDC_polygon_SLR` nor
+  `DEA_BCDC_SLR` (road and rail lines) has the disconnected layer, and neither do BCDC's
+  ArcGIS Online services. The disconnected low-lying areas come from the Alameda County
+  geodatabase (`Alameda_SLR_ART_2017.gdb.zip`, 5.3 GB, explorer.adaptingtorisingtides.org
+  Download page), layers `Alameda_lowlying_poly_<N>` for all ten levels, read by HTTP range
+  requests (`tools/fetch-art-dc.py`, retrieved 2026-11-03; `data/raw/art-dc/`,
+  `data/hazard/art-dc-*.bits`). The catalog defines them as "low-lying areas greater than one
+  acre … below the inundated water surface elevation, but … not hydraulically-connected to the
+  inundated areas" (GIS data catalog, p. 2). ART joins cells by an "eight-side rule" on 1 m
+  DEMs (report §3.5, p. 20). The geodatabase also holds the + 48, + 77 and + 84 in connected
+  layers that the Caltrans service did not return (`Alameda_inundation_poly_84`, 143 MB
+  uncompressed). Used for: C20.
 - **H6. Tsunami, 2011 (asked by Eric, 2026-11-03, recalling water "at high speed. 20 knots?").**
   California Geological Survey, "Table of Tōhoku-oki tsunami forecast and observation times,
   tsunami amplitudes, and reported damage" (conservation.ca.gov; read 2026-11-03): Oakland,
