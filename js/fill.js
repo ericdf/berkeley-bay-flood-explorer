@@ -8,14 +8,18 @@
 // The open Bay is seeded from the west edge of the grid: every west-edge cell below the level.
 // Works in the browser and in Node.
 
-export const WET = 1, LOW = 2; // cell states; 0 = dry
+export const WET = 1, LOW = 2; // cell states; 0 = dry. js/analyze.js adds FLANKED = 3, DRAIN = 4.
 
 // zcm: Int16Array of ground elevation in centimeters NAVD88 (-32768 = no data, treated as dry).
-// levelFt: water level in feet NAVD88. Returns Uint8Array of states.
-export function connectedFill(zcm, W, H, levelFt, barrier = null) {
+// levelFt: water level in feet NAVD88. barrier: optional Uint8Array, 1 = closed to water.
+// crest: optional Int16Array (cm NAVD88) from js/plan.js; a cell's ground is the higher of the
+// lidar and the crest. Returns Uint8Array of states.
+export function connectedFill(zcm, W, H, levelFt, barrier = null, crest = null) {
   const lev = levelFt * 30.48; // feet to centimeters
   const state = new Uint8Array(W * H);
-  const below = (i) => zcm[i] !== -32768 && zcm[i] < lev && !(barrier && barrier[i]);
+  const below = crest
+    ? (i) => zcm[i] !== -32768 && zcm[i] < lev && crest[i] < lev && !(barrier && barrier[i])
+    : (i) => zcm[i] !== -32768 && zcm[i] < lev && !(barrier && barrier[i]);
   const q = new Int32Array(W * H);
   let head = 0, tail = 0;
   for (let r = 0; r < H; r++) { const i = r * W; if (below(i)) { state[i] = WET; q[tail++] = i; } }
@@ -43,9 +47,11 @@ export function openWater(zcm, W, H) {
 }
 
 // Sample a street's geometry (grid meters) every `step` meters; returns the share of samples in
-// each state and the lowest ground elevation (ft) along it.
-export function sampleLine(geom, state, zcm, meta, water0, step = 4) {
-  let n = 0, wet = 0, low = 0, water = 0, minFt = Infinity;
+// each state, the lowest ground elevation (ft) along it, and, given the rain-pool surface raster
+// (cm NAVD88, js/rain.js), the deepest pooled rain on it (ft), measured above the plan's crest where
+// the plan raises the ground (crest: js/plan.js raster or null), as the rain pools are.
+export function sampleLine(geom, state, zcm, meta, water0, step = 4, rainSurface = null, crest = null) {
+  let n = 0, wet = 0, low = 0, drain = 0, rain = 0, water = 0, minFt = Infinity, rainDepthCm = 0;
   for (let k = 1; k < geom.length; k++) {
     const [x0, y0] = geom[k - 1], [x1, y1] = geom[k];
     const L = Math.hypot(x1 - x0, y1 - y0), m = Math.max(1, Math.ceil(L / step));
@@ -54,10 +60,10 @@ export function sampleLine(geom, state, zcm, meta, water0, step = 4) {
       const c = Math.floor(x / meta.resolution), r = Math.floor((meta.ymax - meta.ymin - y) / meta.resolution);
       if (c < 0 || r < 0 || c >= meta.width || r >= meta.height) continue;
       const i = r * meta.width + c; n++;
-      if (state[i] === WET || state[i] === 3) wet++; else if (state[i] === LOW) low++;
+      if (state[i] === WET || state[i] === 3) wet++; else if (state[i] === LOW) low++; else if (state[i] === 4) drain++; else if (state[i] === 5) { rain++; if (rainSurface) rainDepthCm = Math.max(rainDepthCm, rainSurface[i] - (crest && crest[i] > zcm[i] ? crest[i] : zcm[i])); }
       if (zcm[i] !== -32768) minFt = Math.min(minFt, zcm[i] / 30.48);
       if (water0[i] || (zcm[i] !== -32768 && zcm[i] < MSL_FT * 30.48)) water++; // open Bay, or a lagoon below mean sea level
     }
   }
-  return { n, wetShare: n ? wet / n : 0, lowShare: n ? low / n : 0, waterSamples: water, minFt };
+  return { n, wetShare: n ? wet / n : 0, lowShare: n ? low / n : 0, drainShare: n ? drain / n : 0, rainShare: n ? rain / n : 0, rainDepthFt: rainDepthCm / 30.48, waterSamples: water, minFt };
 }

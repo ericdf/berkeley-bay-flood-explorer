@@ -198,6 +198,69 @@ Used for: the transfer station's entry in `data/facilities.json` and the explore
 on it; F9's equivalence table is how the explorer pairs an ART level with storm and sea
 level rise combinations (H5).
 
+## Plans: City of Berkeley 2019 Draft Marina Sea Level Rise Assessment, §5 (read 2026-11-03)
+
+Same study as W4–W9; printed page numbers; figure pages rendered from the PDF.
+
+- **P1.** Two mitigation options: revetment and breakwater repair and upgrade by Shoreline
+  Zone, and floodwalls "around the perimeter of the Project Area" (§5.3, pp. 20–22).
+- **P2.** Figure 5.7, "2050 SLR Proposed Floodwalls, 100-year Extreme Tide + Low Risk Aversion
+  (10.7 ft. WSEL NAVD 88)": three walls (along the south edge of the North Basin from Spinnaker
+  Way toward the frontage road; along the harbor's north edge past the DoubleTree to Marina
+  Blvd; along the north side of University Ave). Traced in `tools/build-plans.mjs`.
+- **P3.** Figure 5.8, the same for 2100 (13.0 ft WSEL): the North Basin and University Ave walls,
+  a ring around the harbor and a wall along Seawall Dr.
+- **P4.** Figures 5.9 and 5.10 (floodwall schematics) give the wall top as "EL VARIES"; no crest
+  elevation is stated. The explorer uses the design level plus the 2 ft freeboard of P6:
+  12.7 ft NAVD88 (2050), 15.0 (2100). Assumption.
+- **P5.** Costs (executive summary and §5.4, 2019 dollars, cumulative): revetment and breakwater
+  $3.2 million by 2030, $5.4 million by 2050, $60.5 million by 2100; floodwalls $14.3 million
+  for 2050 protection and $31.5 million for 2100.
+- **P6.** Shoreline Zone 7 (east side of César E. Chávez Park): Spinnaker Way "would need to be
+  raised in stages to provide a 2-foot freeboard above the projected extreme water surface at
+  the forecast end of life of the pavement" (p. 21).
+- **P7.** Shoreline Zone 8: "to avoid inundation of the University Avenue by extreme runup with
+  projected 2050 sea level rise, the revetment would need to be upgraded and potentially the
+  raising of the road" (p. 21). No height stated; the explorer uses P6's rule at the 2050
+  level, 12.7 ft (assumption).
+- **P8.** Entrance breakwater: "the top of the crest was set at +16 feet NAVD88" in the 2100
+  upgrade (p. 22). Not built as a lever (it protects the harbor from waves, which a still-water
+  fill does not model).
+- **P9.** Tracing (derived): Figures 5.7 and 5.8 rendered at 150 dpi; placed by the figures'
+  scale (1 in = 1,000 ft) and one landmark, the DoubleTree buildings drawn in the figure at the
+  hotel's OpenStreetMap centroid. With that fit the street network's Marina Blvd, Spinnaker Way
+  and University Ave fall on the roads in the figure's photo. Positions about ±30 m.
+
+## Storm drains: City of Berkeley open data (read 2026-11-03)
+
+City ArcGIS organization services1.arcgis.com/IYiCpZoSIq9lAxi8.
+
+- **D1.** `Watersheds` (10 polygons: Wildcat, Strawberry, Temescal, Aquatic Park, Schoolhouse,
+  Derby, Gilman, Codornices, Cerrito, Marin). Saved as `data/raw/city/watersheds.geojson`.
+- **D2.** `StormDrains_public`, layer `swInlet`: 4,482 storm drain inlet points; 1,749 grid cells
+  in the map hold one. Fields are adoption records (adopter names); only coordinates are stored
+  (`data/raw/city/inlets.json`). No pipes, outfalls, inverts or tide gates are published.
+- **D3.** Drain links (derived, `tools/build-drains.mjs`): each watershed's outfall point is its
+  cell nearest open water; Strawberry 36 m, Aquatic Park 4 m, Schoolhouse 4 m, Derby 4 m,
+  Gilman 8 m, Codornices 36 m from open water, so all six get a link; Cerrito and Marin are about
+  2 km away and drain outside the map. The points are not surveyed outfalls.
+- **D4.** Other City layers found and not used yet: `CoSMoS_SLR_100_Year_Storm_Event`
+  (100-year storm with 0.25, 0.75 and 1.25 m of sea level rise), `BerkeleyFloodplain_WFL1`
+  (streets in the 100- and 500-year floodplains; a parcel layer, not to be stored), creek and
+  culvert setback layers (`BMC_17_08_Creeks*`).
+- **D5.** `StormDrainOverflow_WFL1`, layer "Areas of Observed Storm Drain Overflow": 300 Public
+  Works storm work orders, January–June 2023. The records name staff and give street addresses,
+  so only counts by watershed are stored (`data/raw/city/overflow-counts.json`). Work orders whose
+  description mentions flooding, overflow, ponding, backup, not draining, clogged or plugged (our
+  keyword rule): Derby 92, Strawberry 40, Schoolhouse 27, Codornices 25, Marin 16, Temescal 6,
+  Gilman 5, Wildcat 4, Cerrito 2. These follow the winter 2023 rains; they say where drains back
+  up in rain, not under a high tide.
+- **D6.** Rule built (model rule, `js/analyze.js` `markDrains`): with a watershed's link open,
+  each patch of low, not-connected ground that holds an inlet can fill through the drains; a
+  tide gate closes the link. Upper bound: pipe connectivity, capacity, inverts and duration are
+  ignored. Which outfalls already have gates is unknown; the page shows them open unless the
+  reader adds gates.
+
 ## Explorer checks and findings (derived, 2026-11-02)
 
 Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/overtop.mjs`.
@@ -251,6 +314,68 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   (W13). The explorer cannot say how a storm tide and rain together act on that ground.
 - **C8. Facilities, median ground elevation (ft NAVD88).** Transfer station 13.8; DoubleTree
   11.5; Aquatic Park 3.1 (mostly lagoon); César Chávez Park 30.6.
+
+- **C9. Drains change the "low, not connected" picture (D6).** With every outfall open, at
+  this winter's highest tide (7.4 ft NAVD88) 5.1 ha of Berkeley land can fill through the drains
+  (Aquatic Park watershed 3.0 ha, Derby 2.1 ha), including Bolivar Dr; at the 100-year level (9.73)
+  13.2 ha, with Second St (680 m), Bolivar Dr, Eastshore Hwy and Potter St; at 12 ft 40.4 ha,
+  including 18% of the transfer station. With tide gates on every outfall, none. Land counts leave
+  out the Aquatic Park lagoon (ground below mean sea level, not connected to the Bay); a first
+  version counted it and reported 31, 39 and 67 ha. An upper bound until the City's outfalls and
+  gates are known.
+- **C10. Raised roads (P6, P7).** Spinnaker Way and University Ave west of I-80 raised to 12.7 ft
+  NAVD88 keep every Berkeley street segment dry at the City study's 2050 100-year level (10.7),
+  Marina Blvd included, because water reached it from University Ave. They are overtopped above
+  12.7.
+- **C11. Floodwalls as traced (P2, P3, P9).** At 10.7 ft the 2050 walls cut the DoubleTree
+  grounds under water from 25% to 16% and leave Marina Blvd and University Ave under water; at
+  13.0 the 2100 walls leave the hotel grounds 84% under water (88% with no walls) and University
+  Ave under water for 1.4 km (1.8 km with none). The water goes around the walls' ends and
+  reaches the hotel parking along the harbor, which the 2050 alignment leaves outside. The
+  figures do not show how the walls tie into high ground, and the tracing is ±30 m, so this is
+  a question to put to the alignment, not a verdict on the study's plan.
+
+## Rain on a high tide: sources (read 2026-11-03)
+
+- **R1.** NOAA Atlas 14, Volume 6 (California), Precipitation Frequency Data Server, point
+  37.870 N, 122.295 W, partial-duration series, depth in inches (`data/raw/noaa/atlas14-berkeley.json`).
+  6-hour storm: 1-year 1.14, 2-year 1.40, 10-year 2.04, 100-year 3.10. 24-hour: 2-year 2.46,
+  10-year 3.76, 100-year 5.93. 60-minute: 10-year 0.783.
+- **R2.** NLCD 2021 percent developed imperviousness (MRLC GeoServer WCS, 30 m), averaged over each
+  City watershed (`tools/fetch-impervious.py`, `data/raw/nlcd/impervious-by-watershed.json`):
+  Gilman 79.2%, Schoolhouse 65.8%, Derby 61.5%, Cerrito 42.9%, Strawberry 40.0%, Aquatic Park
+  39.1%, Marin 36.9%, Codornices 34.6%, Wildcat 15.9%, Temescal 14.6%.
+- **R3.** Runoff share from imperviousness: the Simple Method, Rv = 0.05 + 0.009 × percent
+  impervious (Schueler, *Controlling Urban Runoff*, Metropolitan Washington Council of Governments,
+  1987). Formula from general knowledge; the publication was not re-read here. Gives Gilman 0.76,
+  Schoolhouse 0.64, Derby 0.60, Strawberry 0.41, Aquatic Park 0.40, Codornices 0.36. The Alameda
+  County Flood Control District's Hydrology and Hydraulics Manual (2016) has its own runoff
+  coefficients; its PDF could not be retrieved (the server answered with a script, not the file).
+- **R4.** Watershed areas (`tools/build-drains.mjs`, from D1 in UTM): Derby 9.16 km², Strawberry
+  8.00, Schoolhouse 2.79, Codornices 2.72, Gilman 0.88, Aquatic Park 0.53; most of Derby,
+  Strawberry and Codornices lie east of the map, and their runoff reaches the flats through the
+  same drains.
+- **R5.** Rule (model rule, `js/rain.js`): runoff = rain × runoff share × share that cannot drain
+  × watershed area; it comes up at the watershed's lowest inlet not under Bay water and fills the
+  ground around it upward (one pool per watershed), stays inside the watershed, and stops rising
+  when it reaches Bay water. The share that cannot drain stands for how long the outfalls are
+  closed by the tide during the storm; the City's outfall inverts are not published, so the page
+  offers 100%, 50%, 25% and 10%. Upper bound for the pool's location: real ponding spreads over
+  several low spots.
+- **C12. Rain results (derived; revised after Codex review of PR #3, which found the first
+  version created water when a pool spilled into a hollow below its surface).** At this winter's
+  highest tide (7.4 ft NAVD88), with tide gates on every outfall, a 10-year 6-hour storm (2.04 in)
+  pools on Berkeley land as follows, by share of the runoff that cannot drain: 100%, 49.4 ha;
+  50%, 32.9 ha; 25%, 22.9 ha; 10%, 11.1 ha. For the 2-year 6-hour storm: 39.9, 27.8, 17.5 and
+  8.9 ha; for the 100-year 6-hour storm: 57.1, 42.3, 29.1 and 16.0 ha. Each pool holds its
+  watershed's runoff to within 1 cm of rounding (`tests/check.mjs`). Second St is under pooled
+  rain in every case tested, 1.3–1.8 km of it, which matches the Draft EIR's 10-year flooding there
+  (F8); its deepest point, which may be where Codornices Creek crosses, ranges from 2.5 to 7.0 ft
+  of water. The transfer station is 10–54% under pooled rain across these cases. The pools start
+  at the lowest inlets: Gilman and Codornices on Second St beside the transfer station, Aquatic
+  Park and Strawberry on Bolivar Dr, Derby by Eastshore Hwy near Ashby Ave. Above about half the
+  runoff held back, the Strawberry, Gilman and Derby pools reach the I-80 corridor and spill to
+  the Bay. A plan's walls and raised roads count as ground for the pools.
 
 ## Hazard data and press (read 2026-11-02)
 
