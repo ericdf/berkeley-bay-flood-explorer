@@ -207,9 +207,31 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   the site, not for Bay water or a rain pool standing on it (C6, C12, F7, F8). Used for: the
   environmental consequence behind E4. Not used: Baykeeper's 2026 ruling on creek pollution
   (Maven's Notebook, 2026-04-02), which concerns Sunnyvale and Mountain View, not Berkeley.
-  Also found, not read: Berkeley is one of seven East Bay cities under the 2014 EPA and
-  Baykeeper sewage consent decree with EBMUD (C09-00186 and 09-05684, N.D. Cal.), which requires
-  sewer repairs over 21 years. Our inference: storm tides and rain that get into sewers bear on it.
+  Berkeley's sewers are under a separate consent decree (F15).
+- **F15. The 2014 sewage consent decree (read 2026-11-03, asked by Eric).** *United States et
+  al. and San Francisco Baykeeper et al. v. EBMUD et al.*, Final Consent Decree, Consolidated Case
+  Nos. C 09-00186-RS and C 09-05684-RS (N.D. Cal.), 187 pp.
+  (https://19january2017snapshot.epa.gov/www3/region9/water/npdes/pdf/ca/ebmud/ebmud-final-consent-decree-2014-07-28.pdf).
+  Page numbers are the decree's.
+  - p. 8: EBMUD takes wastewater from seven "Satellites", Berkeley among them; "During wet weather,
+    EBMUD at times discharges wastewater from three wet weather facilities", at 5597 Oakport St,
+    Oakland; 2755 Point Isabel St, Richmond; and 225 5th Ave, Oakland.
+  - pp. 31–32: Berkeley pays civil penalties of $133,500 to the United States and $133,500 to the
+    Water Boards.
+  - p. 33: the work is expected to reduce inflow and infiltration (I&I) enough "to eliminate WWF
+    Discharges ... by no later than December 31, 2035".
+  - pp. 66–70 (Section X, "Work – City of Berkeley"): the goal of "eliminating SSOs [sanitary
+    sewer overflows] and further reduce I&I"; rehabilitate at least 22,120 ft of sewer mains a
+    year for twelve fiscal years; inspect older mains; eliminate inflow and rapid infiltration
+    sources found by EBMUD's program, high-priority ones within 24 months.
+  - Nothing in the decree mentions tides or sea level (searched for "tide", "tidal", "sea
+    level", "bay water"). Its target is rain-driven inflow into sanitary sewers.
+  What it bears on (our inference): the sanitary sewers and the storm drains are separate
+  systems in Berkeley, and the explorer models only storm drains (D1–D6). Bay water or trapped
+  rain standing over sewer maintenance holes in the flats is one more route for I&I, the thing
+  the decree is meant to cut. Not modeled; the City's sewer data are not in the explorer. The
+  Point Isabel wet weather facility is on the Richmond shoreline north of Albany, at the edge of
+  the terrain grid; it was not located precisely or checked against the terrain.
 
 ## Transfer station Draft EIR, Section 3.9 Hydrology and Water Quality, and Appendix H (FirstCarbon Solutions for the City, Draft EIR received by CEQAnet 2026-08-03)
 
