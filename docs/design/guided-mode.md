@@ -98,6 +98,20 @@ Guided mode is promising; layout and phone use need a real build to judge. Chang
 
   "Today" in a level's name always means today's sea level, never today's weather.
 
+## Built (2026-11-04, E15)
+
+- `index.html`: the mode switch; guided mode by default (a link carrying expert settings and no
+  mode opens in expert mode); in expert mode the control column, the map at the width its terrain
+  needs for the window's height, and results in two tabs beside it; collapsible sections with the
+  new labels; "Explain this" notes on the opening text, the water level and each published map;
+  the map key on the map, listing only what is drawn. On a phone the map stays at the top.
+- `js/guided.js`: six questions (address, contaminated sites, roads and rail, king tides,
+  tsunami, defenses). Each answer line sets the map to that level; a place's name shows it on the
+  map. The address lookup uses the Census geocoder by JSONP and looks up the two rasters within
+  12 m of the point.
+- The rail line (C24) is drawn and counted in expert mode's critical services.
+- `js/share.js`: the mode and the guided question are kept in the link; an address never is.
+
 ## Order of work
 
 1. This mockup, for Eric's reactions.

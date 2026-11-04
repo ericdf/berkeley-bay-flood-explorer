@@ -7,7 +7,7 @@
       "levelFt": 6.2,
       "category": "sourced",
       "source": "MHHW 6.20 ft NAVD88 at FEMA/BCDC point 518, off the Marina (SOURCE_NOTES W11)",
-      "group": "Tides and storm tides today"
+      "group": "At today's sea level"
     },
     {
       "id": "king2026",
@@ -15,7 +15,7 @@
       "levelFt": 7.4,
       "category": "sourced",
       "source": "NOAA predicted high tide at Richmond, 7.42 ft NAVD88, 2026-12-24 10:58 a.m.; astronomical tide only, no weather (W14). Equals the 1-year extreme tide off Berkeley, 7.43 (W11).",
-      "group": "Tides and storm tides today"
+      "group": "At today's sea level"
     },
     {
       "id": "y5",
@@ -23,7 +23,7 @@
       "levelFt": 8.16,
       "category": "sourced",
       "source": "5-year extreme tide at point 518, 8.16 ft NAVD88 (W11); annual chance from W10",
-      "group": "Tides and storm tides today"
+      "group": "At today's sea level"
     },
     {
       "id": "y10",
@@ -31,7 +31,7 @@
       "levelFt": 8.47,
       "category": "sourced",
       "source": "10-year extreme tide at point 518, 8.47 ft NAVD88 (W11); annual chance from W10",
-      "group": "Tides and storm tides today"
+      "group": "At today's sea level"
     },
     {
       "id": "record",
@@ -39,23 +39,23 @@
       "levelFt": 8.65,
       "category": "sourced",
       "source": "NOAA Richmond 9414863 highest observed, converted to NAVD88 (W2)",
-      "group": "Tides and storm tides today"
+      "group": "At today's sea level"
     },
     {
       "id": "y100",
-      "label": "100-year storm tide today (1% annual chance)",
+      "label": "100-year storm tide (1% annual chance)",
       "levelFt": 9.73,
       "category": "sourced",
       "source": "100-year extreme tide at point 518, 9.73 ft NAVD88 (W11); the City study rounds it to 9.8 (W5); annual chance from W10",
-      "group": "Tides and storm tides today"
+      "group": "At today's sea level"
     },
     {
       "id": "y500",
-      "label": "500-year storm tide today (0.2% annual chance)",
+      "label": "500-year storm tide (0.2% annual chance)",
       "levelFt": 10.91,
       "category": "sourced",
       "source": "500-year extreme tide at point 518, 10.91 ft NAVD88 (W11); the study notes considerable uncertainty at 500 years (W12); annual chance from W10",
-      "group": "Tides and storm tides today"
+      "group": "At today's sea level"
     },
     {
       "id": "mhhw2100",
@@ -63,7 +63,7 @@
       "levelFt": 9.4,
       "category": "sourced",
       "source": "City 2019 Marina study, Table 1: MHHW 9.4 ft NAVD88 in 2100, 2018 low-risk-aversion guidance (W4); kept as the City's study used it. The State's 2024 guidance replaces the 2018 guidance (W17)",
-      "group": "Future levels, with sea level rise"
+      "group": "With future sea level rise"
     },
     {
       "id": "y100y2050",
@@ -71,7 +71,7 @@
       "levelFt": 10.7,
       "category": "sourced",
       "source": "City 2019 Marina study, Table 2 (W5); kept as the City's study used it. The State's 2024 guidance replaces the 2018 guidance (W17)",
-      "group": "Future levels, with sea level rise"
+      "group": "With future sea level rise"
     },
     {
       "id": "opc2050IntermediateHigh",
@@ -79,7 +79,7 @@
       "levelFt": 10.73,
       "category": "derived",
       "source": "9.73, today's 100-year storm tide (W11), plus 1.0 ft, the Intermediate-High scenario's rise by 2050 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18).",
-      "group": "Future levels, with sea level rise"
+      "group": "With future sea level rise"
     },
     {
       "id": "opc2050High",
@@ -87,7 +87,7 @@
       "levelFt": 11.03,
       "category": "derived",
       "source": "9.73, today's 100-year storm tide (W11), plus 1.3 ft, the High scenario's rise by 2050 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17); the project treats the transfer station as critical infrastructure (Eric's decision, E4), so this is the scenario the guidance points to for it (C13).",
-      "group": "Future levels, with sea level rise"
+      "group": "With future sea level rise"
     },
     {
       "id": "y100y2100",
@@ -95,7 +95,7 @@
       "levelFt": 13.0,
       "category": "sourced",
       "source": "City 2019 Marina study, Table 2 (W5); kept as the City's study used it. The State's 2024 guidance replaces the 2018 guidance (W17)",
-      "group": "Future levels, with sea level rise"
+      "group": "With future sea level rise"
     },
     {
       "id": "opc2100IntermediateHigh",
@@ -103,7 +103,7 @@
       "levelFt": 14.53,
       "category": "derived",
       "source": "9.73, today's 100-year storm tide (W11), plus 4.8 ft, the Intermediate-High scenario's rise by 2100 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18).",
-      "group": "Future levels, with sea level rise"
+      "group": "With future sea level rise"
     },
     {
       "id": "opc2100High",
@@ -111,7 +111,7 @@
       "levelFt": 16.23,
       "category": "derived",
       "source": "9.73, today's 100-year storm tide (W11), plus 6.5 ft, the High scenario's rise by 2100 at the San Francisco tide gauge (State 2024 guidance as tabulated by the Coastal Commission, Table F-5; W17). Added the way the City study added the 2018 rise (W5); the two baselines differ by a few years, which is not corrected (W18). The guidance names the High scenario for \"most critical infrastructure\" (W17); the project treats the transfer station as critical infrastructure (Eric's decision, E4), so this is the scenario the guidance points to for it (C13).",
-      "group": "Future levels, with sea level rise"
+      "group": "With future sea level rise"
     },
     {
       "id": "kingKelvin",

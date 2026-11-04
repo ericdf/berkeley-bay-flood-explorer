@@ -9,7 +9,8 @@
 const num = (v) => (v != null && v !== '' && Number.isFinite(Number(v)) ? Number(v) : null);
 
 // state: { sc, lv, presets, gates, rain: {ari, duration, blocked} | null, walls: [{crestFt, line: [[x, y]]}],
-//          sites: {id: choice}, floodproofFt, show: [names], cosmos: {slr, storm} | null }
+//          sites: {id: choice}, floodproofFt, show: [names], cosmos: {slr, storm} | null,
+//          mode: 'guided' | 'expert', q: guided question id | null }. An address is never put in the link.
 export function encodeView(s) {
   const p = new URLSearchParams();
   if (s.sc) p.set('sc', s.sc); else if (s.lv != null) p.set('lv', s.lv.toFixed(2));
@@ -21,6 +22,8 @@ export function encodeView(s) {
   if (s.floodproofFt != null && Object.values(s.sites || {}).includes('floodproof')) p.set('fp', String(s.floodproofFt));
   if (s.show && s.show.length) p.set('show', s.show.join('_'));
   if (s.cosmos) p.set('cosmos', `${s.cosmos.slr}_${s.cosmos.storm}`);
+  if (s.mode) p.set('mode', s.mode);
+  if (s.q) p.set('q', s.q);
   return p.toString();
 }
 
@@ -28,7 +31,8 @@ export function decodeView(hash) {
   const p = new URLSearchParams(String(hash || '').replace(/^#/, ''));
   const out = { sc: p.get('sc') || null, lv: num(p.get('lv')), presets: (p.get('plan') || '').split('_').filter(Boolean),
     gates: p.get('gates') === '1', rain: null, walls: [], sites: {}, floodproofFt: num(p.get('fp')),
-    show: (p.get('show') || '').split('_').filter(Boolean), cosmos: null };
+    show: (p.get('show') || '').split('_').filter(Boolean), cosmos: null,
+    mode: ['guided', 'expert'].includes(p.get('mode')) ? p.get('mode') : null, q: p.get('q') || null };
   const rain = (p.get('rain') || '').split('_');
   if (rain.length === 3 && num(rain[2]) != null) out.rain = { ari: rain[0], duration: rain[1], blocked: num(rain[2]) };
   for (const w of p.getAll('wall')) {

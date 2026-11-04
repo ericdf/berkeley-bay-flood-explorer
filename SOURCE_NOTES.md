@@ -908,6 +908,22 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   (bare-earth lidar, F2); University Ave ramps 12.05 up the drains; Ashby ramps 13.65; Gilman
   ramps 14.05. DoubleTree grounds first wet at 9.85. Bolivar Dr at 7.25 is below this winter's
   highest tide, 7.4 (W14), which the field check (E10) can test.
+  Rail main line (C24) 11.40 over the ground. Every site in the panel lies wholly inside the
+  State tsunami hazard area (H6), as do the Marina, Aquatic Park and the flats east of I-80 to about
+  Fourth St (2nd St 24 of 24 street samples, 4th St 29 of 40, 6th St and San Pablo Ave none).
+  With each defense (the same sweep with a plan): tide gates on every outlet move every inland
+  site's first level to 13.40 (the crossing behind I-80, C6) and Bolivar Dr from 7.25 to 13.40,
+  and cut Berkeley land under water or filling up the drains at 13.00 ft NAVD88 from 111.8 to 62.4
+  ha; at 14.53 they change nothing (161.9 ha), because the flats are open from the Bay. The City
+  study's 2050 and 2100 walls move no site or road group's first level (land at 13.00: 111.8 and
+  109.5 ha), as C11 found. The raised roads move the Marina access roads from 10.70 to 10.85.
+- **C24. The rail main line (derived, 2026-11-04).** OpenStreetMap ways tagged railway=rail,
+  usage=main in the grid: 26 ways, 15.8 km counting both tracks, 7.7 km in Berkeley, 4 bridges
+  (`tools/fetch-rail.py`, `tools/build-rail.mjs`). Sampled as streets are (a segment counts at 25%
+  flooded), bridges skipped. First reached at 11.40 ft NAVD88 by Bay water. Bare-earth lidar keeps
+  the track's embankment but not its bridges; the railroad's profile would confirm. The Overpass
+  API dropped every connection from the build environment on 2026-11-04, so the data come from the
+  main API's /map call in 20 small tiles.
 
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
@@ -1358,3 +1374,17 @@ Three claims in the outside review behind E9, checked against primary sources be
   Census Bureau geocoder, optionally prefilled from the phone's location; (3) add the rail line
   (Amtrak and Union Pacific) to the map. Mockup: `docs/design/mockup/index.html`; design:
   `docs/design/guided-mode.md`; thresholds: C23.
+- **E15. Guided mode's first build (2026-11-04).** On the mockup Eric found guided mode promising
+  and asked for: "explain this" notes in expert mode, starting with the maps to compare; tsunamis in
+  the opening text, with a note on water coming in and going out (storm drains and the rest) and how
+  they can happen together; clearer section labels in expert mode, where "1% storm tide today" read
+  like a weather forecast. He asked whether the data name the most effective mitigations; the
+  answer was C23's defense sweep, with the limits (D6, C11, C6) and the explorer's rule against
+  ranking (docs/design/mitigations.md). He accepted the proposals ("those are good answers.
+  Proceed"): guided mode answers "What would flood walls, raised roads or tide gates change?" with
+  each defense's effect and cost where published, calling none best; the opening text is E13's
+  with tsunamis added: "Explore how storm tides, tsunamis, sea level rise and heavy rain could
+  affect west Berkeley's streets, critical infrastructure, I-80, pollution sources and the Bay
+  shoreline. Not a flood forecast." Scenario groups are renamed "At today's sea level" and "With
+  future sea level rise", and "today" is dropped from the 100- and 500-year labels; the map stamp
+  adds "at today's sea level" to a level in that group.

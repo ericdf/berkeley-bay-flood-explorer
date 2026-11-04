@@ -1,5 +1,5 @@
 {
- "note": "Derived (tools/thresholds.mjs): the lowest level, ft NAVD88 still water, at which the explorer's connected fill (model rule) first reaches each place, with no plan and no rain, swept from 6.00 to 16.50 in 0.05 ft steps. \"bay\" = Bay water over the ground; \"drain\" = Bay water over the ground or up the storm drains with every outfall open (docs/design/levers-and-drains.md). Sites: \"touch\" = any of its ground, \"counted\" = 25% or more (js/exposure.js). Roads and streets: any segment with 25% or more of its length flooded (js/analyze.js). A place missing a field is not reached by 16.50.",
+ "note": "Derived (tools/thresholds.mjs): the lowest level, ft NAVD88 still water, at which the explorer's connected fill (model rule) first reaches each place, with no rain, swept from 6.00 to 16.50 in 0.05 ft steps. \"bay\" = Bay water over the ground; \"drain\" = Bay water over the ground or up the storm drains with every outfall open (docs/design/levers-and-drains.md). Sites: \"touch\" = any of its ground, \"counted\" = 25% or more (js/exposure.js); tsunamiShare = share of its ground inside the State tsunami hazard area (H6). Roads and streets: any segment with 25% or more of its length flooded (js/analyze.js). A place missing a field is not reached by 16.50. \"land\": Berkeley land, ha, under Bay water or able to fill up the drains at four named levels. \"defenses\": the same with each plan the explorer offers; walls and raised roads use the crests in data/plans.json (assumed: design level plus 2 ft).",
  "step": 0.05,
  "levels": [
   6,
@@ -8,6 +8,7 @@
  "sites": {
   "transfer-station": {
    "name": "City transfer station and recycling center, Second St at Gilman St",
+   "tsunamiShare": 1,
    "drainTouchFt": 10,
    "drainCountedFt": 12.4,
    "bayTouchFt": 13.4,
@@ -15,6 +16,7 @@
   },
   "pacific-steel-geotracker": {
    "name": "Former Pacific Steel Casting, Second St (closed 2018)",
+   "tsunamiShare": 1,
    "drainTouchFt": 9.85,
    "drainCountedFt": 10.8,
    "bayTouchFt": 13.4,
@@ -22,6 +24,7 @@
   },
   "berkeley-forge": {
    "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
+   "tsunamiShare": 1,
    "drainTouchFt": 9.75,
    "drainCountedFt": 9.85,
    "bayTouchFt": 13.4,
@@ -29,6 +32,7 @@
   },
   "eastshore-1255": {
    "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
+   "tsunamiShare": 1,
    "drainTouchFt": 10.7,
    "drainCountedFt": 11.65,
    "bayTouchFt": 13.4,
@@ -36,6 +40,7 @@
   },
   "marine-center": {
    "name": "Berkeley Marine Center boatyard, 1 Spinnaker Way",
+   "tsunamiShare": 1,
    "bayTouchFt": 6,
    "drainTouchFt": 6,
    "bayCountedFt": 12.8,
@@ -43,6 +48,7 @@
   },
   "terminal-mfg": {
    "name": "Terminal Manufacturing, 707 Gilman St",
+   "tsunamiShare": 1,
    "drainTouchFt": 12.95,
    "bayTouchFt": 13.4,
    "bayCountedFt": 13.55,
@@ -50,6 +56,7 @@
   },
   "eastshore-park": {
    "name": "Eastshore State Park shoreline parcels",
+   "tsunamiShare": 1,
    "bayTouchFt": 14.65,
    "drainTouchFt": 14.65,
    "bayCountedFt": 15,
@@ -57,49 +64,48 @@
   },
   "flint-ink": {
    "name": "Former Flint Ink, 750 Gilman St",
+   "tsunamiShare": 1,
    "bayTouchFt": 15.4,
    "drainTouchFt": 15.4
   },
   "landfill": {
    "name": "Former Berkeley Landfill under César Chávez Park",
+   "tsunamiShare": 1,
    "stillWaterNotApplicable": true
   }
  },
  "roads": {
   "Frontage roads (Eastshore Hwy)": {
    "drainFt": 7.85,
-   "first": "EASTSHORE HW",
    "bayFt": 13.3
   },
   "Marina access roads": {
    "bayFt": 10.7,
-   "drainFt": 10.7,
-   "first": "MARINA BL"
+   "drainFt": 10.7
   },
   "I-80 mainline": {
    "bayFt": 11.2,
-   "drainFt": 11.2,
-   "first": "I80 WB"
+   "drainFt": 11.2
+  },
+  "Rail main line": {
+   "bayFt": 11.4,
+   "drainFt": 11.4
   },
   "University Ave ramps": {
    "drainFt": 12.05,
-   "first": "UNIVERSITY OFF I80 EB",
    "bayFt": 13.4
   },
   "Frontage road ramps": {
    "drainFt": 12.3,
-   "first": "EASTSHORE OFF I80 EB",
    "bayFt": 13.4
   },
   "Ashby Ave ramps": {
    "bayFt": 13.65,
-   "drainFt": 13.65,
-   "first": "ASHBY ON I80 EB"
+   "drainFt": 13.65
   },
   "Gilman St ramps": {
    "bayFt": 14.05,
-   "drainFt": 14.05,
-   "first": "GILMAN OFF I80 EB"
+   "drainFt": 14.05
   }
  },
  "streets": {
@@ -220,6 +226,480 @@
    "drainFt": 16.15
   }
  },
+ "land": {
+  "9.73": 24.9,
+  "10.73": 49,
+  "13.00": 111.8,
+  "14.53": 161.9
+ },
+ "defenses": [
+  {
+   "id": "gates",
+   "spec": "gates",
+   "label": "Tide gates on every storm drain outlet",
+   "cost": "Cost not published; which outlets already have gates is not published (D6)",
+   "sites": {
+    "transfer-station": {
+     "name": "City transfer station and recycling center, Second St at Gilman St",
+     "tsunamiShare": 1,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4,
+     "drainTouchFt": 13.4,
+     "drainCountedFt": 13.4
+    },
+    "pacific-steel-geotracker": {
+     "name": "Former Pacific Steel Casting, Second St (closed 2018)",
+     "tsunamiShare": 1,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4,
+     "drainTouchFt": 13.4,
+     "drainCountedFt": 13.4
+    },
+    "berkeley-forge": {
+     "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
+     "tsunamiShare": 1,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4,
+     "drainTouchFt": 13.4,
+     "drainCountedFt": 13.4
+    },
+    "eastshore-1255": {
+     "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
+     "tsunamiShare": 1,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4,
+     "drainTouchFt": 13.4,
+     "drainCountedFt": 13.4
+    },
+    "marine-center": {
+     "name": "Berkeley Marine Center boatyard, 1 Spinnaker Way",
+     "tsunamiShare": 1,
+     "bayTouchFt": 6,
+     "drainTouchFt": 6,
+     "bayCountedFt": 12.8,
+     "drainCountedFt": 12.8
+    },
+    "terminal-mfg": {
+     "name": "Terminal Manufacturing, 707 Gilman St",
+     "tsunamiShare": 1,
+     "bayTouchFt": 13.4,
+     "drainTouchFt": 13.4,
+     "bayCountedFt": 13.55,
+     "drainCountedFt": 13.55
+    },
+    "eastshore-park": {
+     "name": "Eastshore State Park shoreline parcels",
+     "tsunamiShare": 1,
+     "bayTouchFt": 14.65,
+     "drainTouchFt": 14.65,
+     "bayCountedFt": 15,
+     "drainCountedFt": 15
+    },
+    "flint-ink": {
+     "name": "Former Flint Ink, 750 Gilman St",
+     "tsunamiShare": 1,
+     "bayTouchFt": 15.4,
+     "drainTouchFt": 15.4
+    },
+    "landfill": {
+     "name": "Former Berkeley Landfill under César Chávez Park",
+     "tsunamiShare": 1,
+     "stillWaterNotApplicable": true
+    }
+   },
+   "roads": {
+    "Marina access roads": {
+     "bayFt": 10.7,
+     "drainFt": 10.7
+    },
+    "I-80 mainline": {
+     "bayFt": 11.2,
+     "drainFt": 11.2
+    },
+    "Rail main line": {
+     "bayFt": 11.4,
+     "drainFt": 11.4
+    },
+    "Frontage roads (Eastshore Hwy)": {
+     "bayFt": 13.3,
+     "drainFt": 13.3
+    },
+    "University Ave ramps": {
+     "bayFt": 13.4,
+     "drainFt": 13.4
+    },
+    "Frontage road ramps": {
+     "bayFt": 13.4,
+     "drainFt": 13.4
+    },
+    "Ashby Ave ramps": {
+     "bayFt": 13.65,
+     "drainFt": 13.65
+    },
+    "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    }
+   },
+   "land": {
+    "9.73": 11.7,
+    "10.73": 27.2,
+    "13.00": 62.4,
+    "14.53": 161.9
+   }
+  },
+  {
+   "id": "walls2050",
+   "spec": "walls2050",
+   "label": "City study floodwalls for 2050 (Figure 5.7)",
+   "cost": "$14.3 million cumulative for 2050 protection (2019 dollars)",
+   "source": "City 2019 Marina study §5.3.1, Figure 5.7; cost §5.4 (P2, P4, P5)",
+   "crestFt": 12.7,
+   "sites": {
+    "transfer-station": {
+     "name": "City transfer station and recycling center, Second St at Gilman St",
+     "tsunamiShare": 1,
+     "drainTouchFt": 10,
+     "drainCountedFt": 12.4,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "pacific-steel-geotracker": {
+     "name": "Former Pacific Steel Casting, Second St (closed 2018)",
+     "tsunamiShare": 1,
+     "drainTouchFt": 9.85,
+     "drainCountedFt": 10.8,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "berkeley-forge": {
+     "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
+     "tsunamiShare": 1,
+     "drainTouchFt": 9.75,
+     "drainCountedFt": 9.85,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "eastshore-1255": {
+     "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
+     "tsunamiShare": 1,
+     "drainTouchFt": 10.7,
+     "drainCountedFt": 11.65,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "marine-center": {
+     "name": "Berkeley Marine Center boatyard, 1 Spinnaker Way",
+     "tsunamiShare": 1,
+     "bayTouchFt": 6,
+     "drainTouchFt": 6,
+     "bayCountedFt": 12.8,
+     "drainCountedFt": 12.8
+    },
+    "terminal-mfg": {
+     "name": "Terminal Manufacturing, 707 Gilman St",
+     "tsunamiShare": 1,
+     "drainTouchFt": 12.95,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.55,
+     "drainCountedFt": 13.55
+    },
+    "eastshore-park": {
+     "name": "Eastshore State Park shoreline parcels",
+     "tsunamiShare": 1,
+     "bayTouchFt": 14.65,
+     "drainTouchFt": 14.65,
+     "bayCountedFt": 15,
+     "drainCountedFt": 15
+    },
+    "flint-ink": {
+     "name": "Former Flint Ink, 750 Gilman St",
+     "tsunamiShare": 1,
+     "bayTouchFt": 15.4,
+     "drainTouchFt": 15.4
+    },
+    "landfill": {
+     "name": "Former Berkeley Landfill under César Chávez Park",
+     "tsunamiShare": 1,
+     "stillWaterNotApplicable": true
+    }
+   },
+   "roads": {
+    "Frontage roads (Eastshore Hwy)": {
+     "drainFt": 7.85,
+     "bayFt": 13.3
+    },
+    "Marina access roads": {
+     "bayFt": 10.7,
+     "drainFt": 10.7
+    },
+    "I-80 mainline": {
+     "bayFt": 11.2,
+     "drainFt": 11.2
+    },
+    "Rail main line": {
+     "bayFt": 11.4,
+     "drainFt": 11.4
+    },
+    "University Ave ramps": {
+     "drainFt": 12.05,
+     "bayFt": 13.4
+    },
+    "Frontage road ramps": {
+     "drainFt": 12.3,
+     "bayFt": 13.4
+    },
+    "Ashby Ave ramps": {
+     "bayFt": 13.65,
+     "drainFt": 13.65
+    },
+    "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    }
+   },
+   "land": {
+    "9.73": 24.9,
+    "10.73": 47.8,
+    "13.00": 111.8,
+    "14.53": 161.9
+   }
+  },
+  {
+   "id": "walls2100",
+   "spec": "walls2100",
+   "label": "City study floodwalls for 2100 (Figure 5.8)",
+   "cost": "$31.5 million cumulative for 2100 protection (2019 dollars)",
+   "source": "City 2019 Marina study §5.3.1, Figure 5.8; cost §5.4 (P3, P4, P5)",
+   "crestFt": 15,
+   "sites": {
+    "transfer-station": {
+     "name": "City transfer station and recycling center, Second St at Gilman St",
+     "tsunamiShare": 1,
+     "drainTouchFt": 10,
+     "drainCountedFt": 12.4,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "pacific-steel-geotracker": {
+     "name": "Former Pacific Steel Casting, Second St (closed 2018)",
+     "tsunamiShare": 1,
+     "drainTouchFt": 9.85,
+     "drainCountedFt": 10.8,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "berkeley-forge": {
+     "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
+     "tsunamiShare": 1,
+     "drainTouchFt": 9.75,
+     "drainCountedFt": 9.85,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "eastshore-1255": {
+     "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
+     "tsunamiShare": 1,
+     "drainTouchFt": 10.7,
+     "drainCountedFt": 11.65,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "marine-center": {
+     "name": "Berkeley Marine Center boatyard, 1 Spinnaker Way",
+     "tsunamiShare": 1,
+     "bayTouchFt": 6,
+     "drainTouchFt": 6,
+     "bayCountedFt": 12.8,
+     "drainCountedFt": 12.8
+    },
+    "terminal-mfg": {
+     "name": "Terminal Manufacturing, 707 Gilman St",
+     "tsunamiShare": 1,
+     "drainTouchFt": 12.95,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.55,
+     "drainCountedFt": 13.55
+    },
+    "eastshore-park": {
+     "name": "Eastshore State Park shoreline parcels",
+     "tsunamiShare": 1,
+     "bayTouchFt": 14.65,
+     "drainTouchFt": 14.65,
+     "bayCountedFt": 15,
+     "drainCountedFt": 15
+    },
+    "flint-ink": {
+     "name": "Former Flint Ink, 750 Gilman St",
+     "tsunamiShare": 1,
+     "bayTouchFt": 15.4,
+     "drainTouchFt": 15.4
+    },
+    "landfill": {
+     "name": "Former Berkeley Landfill under César Chávez Park",
+     "tsunamiShare": 1,
+     "stillWaterNotApplicable": true
+    }
+   },
+   "roads": {
+    "Frontage roads (Eastshore Hwy)": {
+     "drainFt": 7.85,
+     "bayFt": 13.3
+    },
+    "Marina access roads": {
+     "bayFt": 10.7,
+     "drainFt": 10.7
+    },
+    "I-80 mainline": {
+     "bayFt": 11.2,
+     "drainFt": 11.2
+    },
+    "Rail main line": {
+     "bayFt": 11.4,
+     "drainFt": 11.4
+    },
+    "University Ave ramps": {
+     "drainFt": 12.05,
+     "bayFt": 13.4
+    },
+    "Frontage road ramps": {
+     "drainFt": 12.3,
+     "bayFt": 13.4
+    },
+    "Ashby Ave ramps": {
+     "bayFt": 13.65,
+     "drainFt": 13.65
+    },
+    "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    }
+   },
+   "land": {
+    "9.73": 24.6,
+    "10.73": 47.5,
+    "13.00": 109.5,
+    "14.53": 158.6
+   }
+  },
+  {
+   "id": "roads",
+   "spec": "roads",
+   "label": "Raise Spinnaker Way and University Ave west of I-80 (Zones 7, 8)",
+   "cost": "Cost not stated separately; the study's figure for revetment and breakwater work, $5.4 million cumulative by 2050 (2019 dollars), is for different work",
+   "source": "City 2019 Marina study §5.3.1, Shoreline Zones 7 and 8; cost §5.4 (P5, P6, P7)",
+   "crestFt": 12.7,
+   "sites": {
+    "transfer-station": {
+     "name": "City transfer station and recycling center, Second St at Gilman St",
+     "tsunamiShare": 1,
+     "drainTouchFt": 10,
+     "drainCountedFt": 12.4,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "pacific-steel-geotracker": {
+     "name": "Former Pacific Steel Casting, Second St (closed 2018)",
+     "tsunamiShare": 1,
+     "drainTouchFt": 9.85,
+     "drainCountedFt": 10.8,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "berkeley-forge": {
+     "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
+     "tsunamiShare": 1,
+     "drainTouchFt": 9.75,
+     "drainCountedFt": 9.85,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "eastshore-1255": {
+     "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
+     "tsunamiShare": 1,
+     "drainTouchFt": 10.7,
+     "drainCountedFt": 11.65,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.4
+    },
+    "marine-center": {
+     "name": "Berkeley Marine Center boatyard, 1 Spinnaker Way",
+     "tsunamiShare": 1,
+     "bayTouchFt": 6,
+     "drainTouchFt": 6,
+     "bayCountedFt": 12.8,
+     "drainCountedFt": 12.8
+    },
+    "terminal-mfg": {
+     "name": "Terminal Manufacturing, 707 Gilman St",
+     "tsunamiShare": 1,
+     "drainTouchFt": 12.95,
+     "bayTouchFt": 13.4,
+     "bayCountedFt": 13.55,
+     "drainCountedFt": 13.55
+    },
+    "eastshore-park": {
+     "name": "Eastshore State Park shoreline parcels",
+     "tsunamiShare": 1,
+     "bayTouchFt": 14.65,
+     "drainTouchFt": 14.65,
+     "bayCountedFt": 15,
+     "drainCountedFt": 15
+    },
+    "flint-ink": {
+     "name": "Former Flint Ink, 750 Gilman St",
+     "tsunamiShare": 1,
+     "bayTouchFt": 15.4,
+     "drainTouchFt": 15.4
+    },
+    "landfill": {
+     "name": "Former Berkeley Landfill under César Chávez Park",
+     "tsunamiShare": 1,
+     "stillWaterNotApplicable": true
+    }
+   },
+   "roads": {
+    "Frontage roads (Eastshore Hwy)": {
+     "drainFt": 7.85,
+     "bayFt": 13.3
+    },
+    "Marina access roads": {
+     "bayFt": 10.85,
+     "drainFt": 10.85
+    },
+    "I-80 mainline": {
+     "bayFt": 11.2,
+     "drainFt": 11.2
+    },
+    "Rail main line": {
+     "bayFt": 11.4,
+     "drainFt": 11.4
+    },
+    "University Ave ramps": {
+     "drainFt": 12.05,
+     "bayFt": 13.4
+    },
+    "Frontage road ramps": {
+     "drainFt": 12.3,
+     "bayFt": 13.4
+    },
+    "Ashby Ave ramps": {
+     "bayFt": 13.65,
+     "drainFt": 13.65
+    },
+    "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    }
+   },
+   "land": {
+    "9.73": 24.9,
+    "10.73": 48.8,
+    "13.00": 111.8,
+    "14.53": 161.9
+   }
+  }
+ ],
  "rasters": {
   "first-bay": "data/hazard/first-bay.u8",
   "first-drain": "data/hazard/first-drain.u8",

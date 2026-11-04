@@ -71,7 +71,9 @@ Rules:
 
 ## Neutrality
 
-The explorer shows tradeoffs and does not rank options. Each lever shows:
+The explorer shows tradeoffs and does not rank options. Guided mode's defenses question (Eric, E15)
+shows each defense's effect, the level at which places are first reached with and without it, beside
+its cost where a source gives one, and calls none of them best. Each lever shows:
 - what it changes on the panel;
 - what it leaves unchanged;
 - who would have to decide.
