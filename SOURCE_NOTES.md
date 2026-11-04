@@ -1282,3 +1282,14 @@ Three claims in the outside review behind E9, checked against primary sources be
   Richmond predictions (W14), re-read 2026-11-03; the California Coastal Commission's King Tides
   Project names Nov 24–26, Dec 23–25 and Jan 21–22. Results, when they come, are recorded here
   against NOAA's measured water level at Richmond for that morning.
+
+## Eric's decisions, 2026-11-04 (Claude Code session)
+
+- **E12. The third outside review's recommendations (E11).** Eric agreed with the order proposed
+  in the session: publish the two blocking fixes (PR #9); then a "Why these maps disagree" note at
+  the CoSMoS comparison; shareable scenario URLs; clickable source references; a compact scenario
+  summary with jump links; a records request to Caltrans for I-80 profiles and culverts near
+  Gilman; and a working rule that a corrected SOURCE_NOTES row is followed by a search of the page
+  text for its reference and figure. Applied here: the note, under the CoSMoS outline in
+  `index.html`, drawn from C21, C6, C1 and F2 only, and a line in the CoSMoS result saying a best
+  match is neither validation nor an equivalent scenario.
