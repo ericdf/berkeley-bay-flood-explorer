@@ -34,8 +34,8 @@ each item here once it is done.
 7. **Duration and waves.** The remaining piece of that phase; CoSMoS (C21) and CoSMoS-GW (C22) are in.
 
 8. **The third outside review's remaining items (E11, E12).** Done: the blocking fixes (PR #9), "Why
-   these maps disagree" (PR #10), the CLAUDE.md rule (PR #12), all published 2026-11-04; shareable
-   views are PR #11. Still to build: clickable SOURCE_NOTES references linking on to primary
+   these maps disagree" (PR #10), the CLAUDE.md rule (PR #12), and shareable views (PR #11), all
+   published 2026-11-04. Still to build: clickable SOURCE_NOTES references linking on to primary
    records; a compact scenario summary with jumps to Map, Plans and What's exposed. Waiting on Eric:
    the Caltrans records request for I-80 profiles and culverts near Gilman, drafted in the
    2026-11-04 session and not sent.

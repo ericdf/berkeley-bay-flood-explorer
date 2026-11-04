@@ -1327,3 +1327,11 @@ Three claims in the outside review behind E9, checked against primary sources be
   terrain grid.
   Eric approved merging PRs #9, #10 and #12 and publishing the result to `pages` (a6214f4) in the
   same session, 2026-11-04.
+- **E13. The page's opening text (2026-11-04).** Eric: the text at the top "should be greatly
+  simplified ... explore how Berkeley and the Bay environment will be impacted by X, Y, Z". Offered
+  "could affect" for "will be impacted" (the explorer is never a forecast); he chose: "Explore how
+  storm tides, sea level rise and heavy rain could affect west Berkeley's streets, critical
+  infrastructure, I-80, pollution sources and the Bay shoreline. Not a flood forecast." The "Start
+  here" line is shortened to "pick a water level, then see what it reaches" and the king tide guide
+  link. Dropped from the header: "not an official hazard map" and the datum sentence; every level
+  on the page still names its datum, and the map stamp still says "Not a flood forecast".
