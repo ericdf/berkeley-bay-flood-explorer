@@ -165,13 +165,13 @@ if (fs.existsSync('data/hazard/art.json')) {
     }
     const ha = (n) => (n * 16 / 1e4).toFixed(1).padStart(7);
     const agree = a + o - b ? b / (a + o - b) : 1;
-    ok(agree >= 0.6, `ART + ${l.inches} in: agreement ${(100 * agree).toFixed(0)}%, at least 60%, a floor under the 68-92% recorded in SOURCE_NOTES C1`);
+    ok(agree >= 0.6, `ART + ${l.inches} in: agreement ${(100 * agree).toFixed(0)}%, at least 60%, a floor under the 70-96% recorded in SOURCE_NOTES C1`);
     console.log(`${String(l.inches).padStart(6)}  ${l.levelFt.toFixed(2).padStart(5)} ${ha(a)}  ${ha(o)}  ${ha(b)}  ${ha(a - b)}  ${ha(o - b)}    ${(a + o - b ? 100 * b / (a + o - b) : 100).toFixed(0)}%`);
   }
 }
 // 4b. ART's ten levels and its disconnected low-lying areas (SOURCE_NOTES H5, C1, C6, C20). art.json
-//     lists all ten levels, the three the Caltrans service lacks read from the Alameda County
-//     geodatabase; art-dc.json lists the same ten, so the page's disconnected outline can follow the
+//     lists all ten levels, all read from the Alameda County geodatabase and moved from NAD83 to the
+//     grid's WGS 84 (tools/nad83.mjs); art-dc.json lists the same ten, so the page's disconnected outline can follow the
 //     ART outline's nearest level; at + 84 in (13.20 ft NAVD88) ART has none of the transfer station
 //     under connected flooding and about two fifths of it disconnected; the page has the toggle, off by
 //     default, with its provenance line.
@@ -180,8 +180,15 @@ if (fs.existsSync('data/hazard/art.json') && fs.existsSync('data/hazard/art-dc.j
   const TEN = [12, 24, 36, 48, 52, 66, 77, 84, 96, 108], NB = Math.ceil(D.dem.width * D.dem.height / 8);
   ok(JSON.stringify(art.levels.map(l => l.inches)) === JSON.stringify(TEN), `art.json lists all ten ART levels (${art.levels.map(l => l.inches).join(', ')} in)`);
   ok(art.levels.every(l => fs.readFileSync(`data/hazard/${l.file}`).length === NB), 'every ART connected mask matches the terrain grid');
-  ok(art.levels.filter(l => l.source === 'geodatabase').map(l => l.inches).join() === '48,77,84' && art.levels.filter(l => l.source === 'geodatabase').every(l => /^Alameda_inundation_poly_\d+$/.test(l.layer) && l.retrieved),
-    'ART + 48, + 77 and + 84 in are the geodatabase layers Alameda_inundation_poly_<N>, with retrieval dates');
+  ok(art.levels.every(l => l.source === 'geodatabase' && l.layer === `Alameda_inundation_poly_${l.inches}` && l.retrieved),
+    'all ten ART levels are the geodatabase layers Alameda_inundation_poly_<N>, with retrieval dates');
+  ok(/EPSG:7807/.test(art.provenance.datum?.transformation || '') && /EPSG:7807/.test(dc.provenance.datum?.transformation || '') && /transformed/.test(art.note),
+    'art.json and art-dc.json record the NAD83 to WGS 84 transformation (EPSG:7807) applied to the geodatabase coordinates');
+  {
+    // the transformation reproduces PROJ's EPSG:7807 pipeline at epoch 2017.0 (-1.4362 m east, +0.2831 m north at the grid center, PROJ 9 via pyproj, 2026-11-04)
+    const { nad83ToWgs84 } = await import('../tools/nad83.mjs'), x = (D.dem.xmin + D.dem.xmax) / 2, y = (D.dem.ymin + D.dem.ymax) / 2, [u, v] = nad83ToWgs84(2017.0)(x, y);
+    ok(Math.abs(u - x + 1.4362) < 0.001 && Math.abs(v - y - 0.2831) < 0.001, `NAD83(2011) to WGS 84 at the grid center: ${(u - x).toFixed(3)} m east, ${(v - y).toFixed(3)} m north (PROJ: -1.436, 0.283)`);
+  }
   ok(art.levels.every(l => Math.abs(l.levelFt - (6.2 + l.inches / 12)) < 0.006), 'ART levels in ft NAVD88 are MHHW 6.20 + N/12 (W11)');
   ok(JSON.stringify(dc.levels.map(l => l.inches)) === JSON.stringify(TEN) && dc.levels.every(l => fs.readFileSync(`data/hazard/${l.file}`).length === NB),
     'art-dc.json lists the same ten levels, each mask matching the terrain grid');
@@ -189,7 +196,8 @@ if (fs.existsSync('data/hazard/art.json') && fs.existsSync('data/hazard/art-dc.j
   const share = (file) => { const m = new Uint8Array(fs.readFileSync(`data/hazard/${file}`)); return tc.filter(i => (m[i >> 3] >> (i & 7)) & 1).length / tc.length; };
   const c84 = share(art.levels.find(l => l.inches === 84).file), d84 = share(dc.levels.find(l => l.inches === 84).file);
   ok(c84 === 0 && d84 > 0.35 && d84 < 0.5, `ART + 84 in (13.20 ft NAVD88): transfer station ${(100 * c84).toFixed(0)}% connected flooding, ${(100 * d84).toFixed(0)}% disconnected low-lying (C6, C20: 0% and 42%)`);
-  ok(share(art.levels.find(l => l.inches === 96).file) > 0.9, 'ART + 96 in (14.20 ft NAVD88) floods the transfer station from the Bay');
+  const c96 = share(art.levels.find(l => l.inches === 96).file);
+  ok(c96 > 0.45 && c96 < 0.7, `ART + 96 in (14.20 ft NAVD88) floods ${(100 * c96).toFixed(0)}% of the transfer station from the Bay, about its share of ground below 14.20 ft NAVD88 (C1, C6)`);
   const html = fs.readFileSync('index.html', 'utf8'), js = fs.readFileSync('js/main.js', 'utf8');
   const box = /<input id="showArtDc" type="checkbox"[^>]*>/.exec(html);
   ok(box && !/checked/.test(box[0]), 'index.html has the ART disconnected low-lying outline, off by default');
@@ -200,7 +208,9 @@ if (fs.existsSync('data/hazard/art.json') && fs.existsSync('data/hazard/art-dc.j
     'js/main.js draws it at the ART outline\'s nearest level and loads each mask when first shown');
 }
 
-// 9. USGS CoSMoS v2.1 (SOURCE_NOTES H1; tools/build-cosmos.mjs). Every scenario's mask fits the
+// 9. USGS CoSMoS v2.1 (SOURCE_NOTES H1; tools/build-cosmos.mjs). The 20 scenarios the page offers
+//    (background tide and 100-year storm, ten rises), and no stray mask; every best match inside the
+//    search range; the storm select and the provenance line; every scenario's mask fits the
 //    grid; the flooded area never shrinks as sea level rise grows, for a given storm; the stored
 //    best-matching still water level reproduces with the page's analysis, and nearby levels match no
 //    better; CoSMoS does not reach the transfer station with up to 2 m of rise and a 100-year storm,
@@ -210,9 +220,21 @@ if (fs.existsSync('data/hazard/cosmos.json')) {
   const inB = (i) => (D.berkeley[i >> 3] >> (i & 7)) & 1;
   const masks = {};
   for (const s of cos.scenarios) masks[s.id] = new Uint8Array(fs.readFileSync(`data/hazard/${s.file}`));
-  ok(cos.scenarios.length >= 45 && cos.scenarios.every(s => masks[s.id].length === Math.ceil(D.dem.width * D.dem.height / 8)), `${cos.scenarios.length} CoSMoS masks match the terrain grid`);
+  const SLRS = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 5], STORMS = ['w000', 'w100'];
+  ok(cos.scenarios.length === 20 && STORMS.every(st => JSON.stringify(cos.scenarios.filter(s => s.storm === st).map(s => s.slrM)) === JSON.stringify(SLRS)),
+    `cosmos.json holds the 20 scenarios the page offers: background tide and 100-year storm at ${SLRS.join(', ')} m of rise (${cos.scenarios.length})`);
+  ok(cos.scenarios.every(s => masks[s.id].length === Math.ceil(D.dem.width * D.dem.height / 8)), `${cos.scenarios.length} CoSMoS masks match the terrain grid`);
+  const stray = fs.readdirSync('data/hazard').filter(f => /^cosmos-slr\d+-w.+\.bits$/.test(f) && !cos.scenarios.some(s => s.file === f));
+  ok(!stray.length, `no CoSMoS mask in data/hazard outside cosmos.json (${stray.join(', ') || 'none'})`);
+  const se = cos.search;
+  ok(se && cos.scenarios.every(s => s.bestMatch.levelFt > se.fromFt + 1e-9 && s.bestMatch.levelFt < se.toFt - 1e-9),
+    `every best match lies inside the search range, never at its edge (${se ? `${se.fromFt}-${se.toFt} ft NAVD88` : 'range not stored'}; highest ${Math.max(...cos.scenarios.map(s => s.bestMatch.levelFt))} ft NAVD88)`);
+  const sel = fs.readFileSync('js/main.js', 'utf8').match(/const STORMS = \{([^}]*)\}/);
+  ok(sel && JSON.stringify([...sel[1].matchAll(/(w\w+):/g)].map(m => m[1])) === JSON.stringify(STORMS), 'the storm select offers only the background tide and the 100-year storm');
+  const cline = fs.readFileSync('index.html', 'utf8').match(/USGS CoSMoS v2\.1 \(San Francisco Bay[^<]*/);
+  ok(cline && /depth rasters/.test(cline[0]) && /extent polygons/.test(cline[0]) && /Not a flood forecast/.test(cline[0]), 'the CoSMoS provenance line says the outline comes from the depth rasters, the extent polygons cover more land, and it is not a flood forecast');
   ok(/not still water/.test(cos.note) && cos.provenance.category === 'sourced', 'cosmos.json says CoSMoS is not still water and carries its provenance');
-  for (const st of ['w000', 'w001', 'w020', 'w100', 'wkt']) {
+  for (const st of STORMS) {
     const ha = cos.scenarios.filter(s => s.storm === st).sort((a, b) => a.slrM - b.slrM).map(s => s.cosmosHa);
     ok(ha.every((v, k) => !k || v >= ha[k - 1]), `CoSMoS ${st}: Berkeley land flooded grows with sea level rise (${ha.join(', ')} ha)`);
   }

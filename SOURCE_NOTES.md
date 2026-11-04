@@ -553,27 +553,31 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 "Under water" is the connected fill (model rule, `js/fill.js`); areas count Berkeley land only
 (Census place boundary, excluding open water).
 
-- **C1. Terrain against the published ART maps (H5).** Agreement (cells under water in both,
-  over cells under water in either) on Berkeley land, by ART level: MHHW + 12 in (7.20 ft NAVD88) 68%,
-  + 24 in 74%, + 36 in 76%, + 48 in 82%, + 52 in 84%, + 66 in 88%, + 77 in 92%, + 84 in (13.20 ft
-  NAVD88) 92%, + 96 in 86%, + 108 in (15.20 ft NAVD88) 91%. The + 48, + 77 and + 84 in layers are
-  `Alameda_inundation_poly_<N>` from the ART Alameda County geodatabase, because the Caltrans service
-  returned no polygons for + 48 and + 77 in (two tries each) and has no + 84 in layer. The other
-  seven come from the Caltrans service. With a 4 m bilinear export of the same lidar it was 54–62% at
-  the four lowest levels, with the fill wetting ground behind narrow structures such as the revetment
-  along University Ave east of the Marina; averaging 1 m cells fixed most of that, so the explorer uses
-  it (F13). Below + 66 in the fill wets slightly more than ART (by 1.4–2.0 ha); at + 96 and + 108 in
-  ART wets more (by 10–17 ha). The two sources differ for the seven levels both carry: on Berkeley land
-  they agree at 74% (+ 12 in) to 93% (+ 108 in). The geodatabase polygons sit about 1.5 m east of the
-  Caltrans ones (shifting them 1.5 m west raises agreement at + 12 in from 74% to 80%), consistent
-  with the geodatabase's NAD83 coordinates being used without a datum shift (assumption,
-  `tools/build-art-dc.mjs`). The Caltrans + 96 and + 108 in layers include 11.6 and 7.8 ha of ground
-  more than 1 ft above the water level, against 1.9 and 2.9 ha in the geodatabase. The Caltrans + 96 in
-  layer covers all of the transfer station, while the geodatabase's covers 57%: the share of the site's
-  ground below 14.20 ft NAVD88, and the fill's share. So the gap noted earlier (Caltrans + 108 in
-  covering 70% of the site, less than + 96 in) lies in the Caltrans + 96 in layer, which is missing
-  dry islands. Against the geodatabase layers at all ten levels, the fill agrees at 71–96% (+ 96 in
-  95%). Which source the explorer should use is for Eric to decide.
+- **C1. Terrain against the published ART maps (H5).** Agreement between the fill and ART's connected flooding on Berkeley land (cells under water in both, over cells under water in either), by level:
+
+  | ART level | ft NAVD88 | Agreement |
+  |---|---|---|
+  | MHHW + 12 in | 7.20 | 70% |
+  | + 24 in | 8.20 | 77% |
+  | + 36 in | 9.20 | 81% |
+  | + 48 in | 10.20 | 81% |
+  | + 52 in | 10.53 | 87% |
+  | + 66 in | 11.70 | 91% |
+  | + 77 in | 12.62 | 92% |
+  | + 84 in | 13.20 | 93% |
+  | + 96 in | 14.20 | 95% |
+  | + 108 in | 15.20 | 96% |
+
+  The ten layers are `Alameda_inundation_poly_<N>` from the ART Alameda County geodatabase (retrieved 2026-11-04, `tools/fetch-art-dc.py --connected`).
+
+  - **Datum.** The geodatabase stores NAD83 / UTM zone 10N; its spatial reference names no realization, so NAD83(2011) is assumed. `tools/build-art-dc.mjs` moves every vertex to the explorer grid's WGS 84 / UTM zone 10N with EPSG:7807 (ITRF2008 to NAD83(2011), Pearson and Snay 2013, inverted; WGS 84 (G1762) taken as ITRF2008) at epoch 2017.0. That is a shift of 1.44 m west and 0.28 m north at Berkeley (`tools/nad83.mjs`; PROJ gives the same to 0.01 mm). Before 2026-11-04 the coordinates were used unshifted. That left the geodatabase about 1.5 m east of the Caltrans polygons.
+  - **Effect of the shift.** It raised agreement with the Caltrans service at all seven levels both carry: from 74% to 82% at + 12 in (7.20 ft NAVD88); at + 108 in (15.20 ft NAVD88) it stays at 93%. Against the fill, agreement fell by 0.4 to 1.3 points at + 12 to + 48 in (7.20 to 10.20 ft NAVD88) and rose by 0.2 to 0.6 points at + 52 to + 108 in (10.53 to 15.20 ft NAVD88). Pooled over the ten levels it rose from 92.9% to 93.2%. ART's flooding on ground above the water level fell at every level, from 22.5 ha to 19.0 ha pooled. Offsetting the unshifted polygons in 0.5 m steps, the best match to the fill lies about 1 m west and 1 to 1.5 m north of them. The west part is the datum shift. The remaining 1 m northward offset is not explained (derived; not applied).
+  - **Earlier source and why it was replaced.** Until 2026-11-04 the explorer used the Caltrans service (CHhqenvi/DEA_BCDC_polygon_SLR) for + 12, 24, 36, 52, 66, 96 and 108 in. Its agreement with the fill was 68% to 91%. That service returned no polygons for + 48 and + 77 in (two tries each) and has no + 84 in layer. Its + 96 and + 108 in layers (14.20 and 15.20 ft NAVD88) include 11.4 and 7.8 ha of ground more than 1 ft above the water level, against 1.7 and 2.7 ha in the geodatabase. Its + 96 in layer covers all of the transfer station; the geodatabase's covers 56%, close to the 57% of the site's ground below 14.20 ft NAVD88 and to the fill's 57%. So the Caltrans + 96 in layer is missing dry islands. Eric chose the geodatabase for all ten levels on 2026-11-04 (PR 8). `tools/fetch-art.py` and `tools/build-art.mjs` remain to reproduce the Caltrans comparison.
+  - **Simplification.** For size, the clips were simplified (`tools/simplify-art-dc.mjs 0.5`, 24.0 MB to 14.1 MB). Rings that cannot change a 4 m cell were dropped, which changes no cell. Then Douglas-Peucker at 0.5 m changed 0.25% to 1.3% of each mask's cells and agreement with the fill by at most 0.2 points.
+  - **Terrain.** With a 4 m bilinear export of the same lidar, agreement was 54–62% at the four lowest levels, because the fill wet ground behind narrow structures such as the revetment along University Ave east of the Marina. Averaging 1 m cells fixed most of that, so the explorer uses it (F13).
+  - **Where the two differ.** Through + 77 in (12.62 ft NAVD88) the fill wets more than ART, by 0.3 to 1.1 ha. From + 84 in (13.20 ft NAVD88) up, ART wets slightly more, by 0.4 to 2.0 ha.
+
+  Reproduce with `node tests/check.mjs`.
 - **C2. City 2019 Marina study (W7, W8).** At 10.7 ft NAVD88 (its 2050 100-year level) the
   fill has all 675 m of Marina Blvd under water (W8: "most likely" impassable) and 25% of the
   DoubleTree grounds (W7: two buildings' floors below the water). At 10.1 (its 2030 level),
@@ -600,13 +604,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   175 ha at 14.2 ft, and low ground that is not connected falls from 80 ha to 2 ha. The water's
   route runs east from the North Basin across the I-80 corridor about 250 m south of Gilman
   St; its highest point (13.35 ft) is just east of the freeway, near Eastshore Hwy, at about
-  37.8812 N, 122.3073 W. The Draft EIR's ART-based maps put the site's first flooding at MHHW
-  + 84 in, about 13.2 ft NAVD88 (F9); ART's + 84 in layers, both stored (`art-84.bits`,
-  `art-dc-84.bits`), show that as a disconnected low-lying area (42% of the site), with no connected
-  flooding there (C20). ART has no connected flooding
-  there at + 66 in (11.7; its disconnected layer covers 16%) and floods it from the Bay at + 96 in
-  (14.2): all of it in the Caltrans layer, 57% in the geodatabase layer, the share of its ground
-  below 14.20 ft NAVD88 (C1). The level sits just above the City study's 2100 100-year level (13.0, W5).
+  37.8812 N, 122.3073 W. The Draft EIR's ART-based maps put the site's first flooding at MHHW + 84 in, about 13.2 ft NAVD88 (F9). ART's + 84 in layers (13.20 ft NAVD88; `art-84.bits`, `art-dc-84.bits`) show that as a disconnected low-lying area covering 41% of the site, with no connected flooding there (C20). ART has no connected flooding there at + 66 in (11.70 ft NAVD88), where its disconnected layer covers 14%. At + 96 in (14.20 ft NAVD88) it floods 56% of the site from the Bay, close to the share of the site's ground below 14.20 ft NAVD88 (57%) (C1). The Caltrans service's + 96 in layer, which the explorer no longer uses, covered all of it. The level sits just above the City study's 2100 100-year level (13.0, W5).
   Bare-earth lidar removes bridges and may misrepresent ramps and embankments; the
   crossing needs the Caltrans profile to confirm (DATA_INVENTORY).
 - **C7. Below that level, the flats flood from the land side.** Up to 13.35 ft, the transfer
@@ -816,54 +814,69 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   - Not sampled and possibly affected: F6 gives p. 3.9-8 as PDF [449], which does not fit the
     offset found for p. 3.9-12; unchecked.
 
-- **C20. "Low, not connected" against ART's disconnected low-lying areas (H5).** ART maps
-  ground below its water surface that is not hydraulically connected to the flooded area, in
-  patches over one acre (ART GIS data catalog, p. 2), in the Alameda County geodatabase
-  (`tools/fetch-art-dc.py`, `tools/build-art-dc.mjs`). On Berkeley land, with the Aquatic Park
-  lagoon left out, the explorer's low, not connected cells and ART's agree (both over either) at
-  77% at MHHW + 12 in (7.20 ft NAVD88), 70% at + 24 in, 78% at + 36 in, 83% at + 48 in, 80% at
-  + 52 in, 87% at + 66 in, 89% at + 77 in and 90% at + 84 in (13.20 ft NAVD88). With the
-  explorer's patches under one acre dropped (a model rule matching ART's threshold), agreement is
-  81–93%. ART puts no disconnected ground where the fill has water at any level, and ART's
-  connected flooding covers at most 0.8 ha of the explorer's low ground (at + 96 in, 14.20 ft
-  NAVD88). Bolivar Dr, Second St, Eastshore Hwy and the transfer station are disconnected in both
-  through + 84 in and flooded from the Bay in both at + 96 in, consistent with C6's 13.35 ft
-  NAVD88. ART's + 84 in layers, read from the same geodatabase (`Alameda_inundation_poly_84`,
-  stored as `data/hazard/art-84.bits` by `tools/fetch-art-dc.py --connected` and
-  `tools/build-art-dc.mjs --connected`, with + 48 and + 77 in), have the transfer station 0% connected
-  and 42% disconnected (the explorer: 42% low, not connected), so the Draft EIR's "begin to experience
-  inundation at the MHHW plus 84-inch SLR scenario" (F9) matches ART's disconnected area, not Bay
-  water reaching the site (our reading). The + 84 in connected layer agrees with the fill at 92% on
-  Berkeley land (C1). The explorer can show the disconnected areas as an optional lime outline at the
-  ART outline's level. Both maps use
-  lidar terrain and a still-water connectivity rule, so this tests the explorer's classification,
-  not the hazard; ART's report says these areas may connect through culverts and storm drains
-  and may flood from groundwater (§3.5, pp. 20–21). The lagoon (26.3 ha below mean sea level)
-  is disconnected in both through + 84 in and is counted apart (C9). Reproduce with
-  `node tools/compare-art-dc.mjs`.
+- **C20. "Low, not connected" against ART's disconnected low-lying areas (H5).** ART maps ground below its water surface that is not hydraulically connected to the flooded area, in patches over one acre (ART GIS data catalog, p. 2). The source is the Alameda County geodatabase (`tools/fetch-art-dc.py`, `tools/build-art-dc.mjs`), moved from NAD83 to the grid's WGS 84 as in C1.
 
-- **C21. Terrain against USGS CoSMoS v2.1 (H1).** For each CoSMoS scenario, the still-water level at
-  which the connected fill best matches CoSMoS's flooded extent on Berkeley land (both / either, as C1;
-  levels 6.0–30.0 ft NAVD88 in 0.05 ft steps; derived). With the 100-year storm: 1.25 m of rise 63% at
-  12.40 ft, 1.5 m 70% at 13.15, 1.75 m 71% at 13.35, 2.0 m 68% at 13.35; 1.0 m 47% at 11.20; 0–0.75 m
-  13–45%, where CoSMoS floods 1.4–14 ha and keeps dry the North Basin shoreline strip (37.8749 N,
-  122.3089 W) and the west edge of Aquatic Park that the fill wets. The Marina agrees: at 1.5 m + 100-year,
-  DoubleTree grounds 83% in CoSMoS and 89% in the fill, Marina Blvd 93% and 98%. CoSMoS floods none of the
-  transfer station, Second St, Bolivar Dr, Eastshore Hwy or the I-80 corridor at 37.8812 N, 122.3073 W in
-  any scenario up to 2.0 m, though its water surface over the Bay off Berkeley reaches 13.82 ft NAVD88
-  (2.0 m, 100-year storm) and 14.21 (2.0 m, background tide); at 5 m it covers all of the transfer station. At 5 m the fill matches at 22.3–23.55 ft NAVD88 (94%, every storm); a first run searched only to 16.5 ft and reported that edge as the best match (Codex review, PR 8).
-  The fill crosses at 13.35 (C6) and ART at + 96 in (C1). CoSMoS's surface is a total water level, so it does
-  not test the still-water threshold directly, and its handling of the freeway embankment is not documented;
-  C6 stays a question for the Caltrans profile. Closest ART maps, among all ten levels (`node tools/cosmos-report.mjs`):
-  1.0 and 1.25 m + 100-year match ART + 66 in (46% and 59%); 1.5, 1.75 and 2.0 m + 100-year match
-  + 84 in (70%, 72%, 68%); 5 m matches + 108 in at 73–75%. A first run, before the + 48, + 77 and
-  + 84 in layers were stored, put 1.0–2.0 m at + 66 in (Codex review, PR 8). Recorded as found in the published files: the 20-year storm
-  floods more Berkeley land than the 100-year at 0.75–2.0 m of rise (2.0 m: 85.0 vs 78.8 ha); the modeled
-  water surface does not rise steadily with the storm (2.0 m: background 14.21, 100-year 13.82 ft NAVD88);
-  and the extent polygons cover more land than the depth rasters (0 m + 100-year, ground 2.0–2.5 m NAVD88:
-  4,525 vs 2,330 2 m cells), which the explorer uses. Reproduce with
-  `node tests/check.mjs` and `node tools/cosmos-report.mjs`.
+  On Berkeley land, with the Aquatic Park lagoon left out, the explorer's low, not connected cells and ART's agree (both over either) as follows:
 
+  | ART level | ft NAVD88 | All patches | Explorer patches over one acre only |
+  |---|---|---|---|
+  | MHHW + 12 in | 7.20 | 78% | 84% |
+  | + 24 in | 8.20 | 70% | 82% |
+  | + 36 in | 9.20 | 78% | 81% |
+  | + 48 in | 10.20 | 84% | 87% |
+  | + 52 in | 10.53 | 80% | 87% |
+  | + 66 in | 11.70 | 88% | 90% |
+  | + 77 in | 12.62 | 90% | 94% |
+  | + 84 in | 13.20 | 90% | 93% |
+
+  The one-acre column drops the explorer's patches under one acre, a model rule matching ART's threshold. Before the datum shift (2026-11-04) the figures were 70–90% with all patches and 81–93% with patches over one acre only.
+
+  - ART puts no disconnected ground where the fill has water at any level. ART's connected flooding covers at most 0.7 ha of the explorer's low ground, at + 96 in (14.20 ft NAVD88).
+  - Bolivar Dr, Second St, Eastshore Hwy and the transfer station are disconnected in both at + 84 in (13.20 ft NAVD88). They are flooded from the Bay in both at + 96 in (14.20 ft NAVD88), consistent with C6's 13.35 ft NAVD88.
+  - At + 84 in (13.20 ft NAVD88) ART has the transfer station 0% connected and 41% disconnected; the explorer has 42% low, not connected. So the Draft EIR's "begin to experience inundation at the MHHW plus 84-inch SLR scenario" (F9) matches ART's disconnected area, not Bay water reaching the site (our reading). The + 84 in connected layer agrees with the fill at 93% on Berkeley land (C1).
+  - The explorer can show the disconnected areas as an optional lime outline at the ART outline's level.
+  - Both maps use lidar terrain and a still-water connectivity rule, so this tests the explorer's classification, not the hazard. ART's report says these areas may connect through culverts and storm drains and may flood from groundwater (§3.5, pp. 20–21).
+  - The lagoon (26.3 ha below mean sea level) is disconnected in both through + 84 in (13.20 ft NAVD88) and is counted apart (C9).
+
+  Reproduce with `node tools/compare-art-dc.mjs`.
+- **C21. Terrain against USGS CoSMoS v2.1 (H1).** For each CoSMoS scenario, we searched for the still-water level at which the connected fill best matches CoSMoS's flooded extent on Berkeley land (both / either, as C1; levels 6.0–30.0 ft NAVD88 in 0.05 ft steps; derived).
+
+  - **100-year storm:**
+
+    | Sea level rise | Best agreement | At (ft NAVD88) |
+    |---|---|---|
+    | 1.0 m | 47% | 11.20 |
+    | 1.25 m | 63% | 12.40 |
+    | 1.5 m | 70% | 13.15 |
+    | 1.75 m | 71% | 13.35 |
+    | 2.0 m | 68% | 13.35 |
+
+    At 0–0.75 m the agreement is 13–45%. There CoSMoS floods 1.4–14 ha and keeps dry the North Basin shoreline strip (37.8749 N, 122.3089 W) and the west edge of Aquatic Park, which the fill wets.
+  - **The Marina agrees.** At 1.5 m + 100-year, the DoubleTree grounds are 83% flooded in CoSMoS and 89% in the fill; Marina Blvd is 93% and 98%.
+  - **The flats behind I-80.** CoSMoS floods none of the transfer station, Second St, Bolivar Dr, Eastshore Hwy or the I-80 corridor at 37.8812 N, 122.3073 W in any scenario up to 2.0 m. That holds although its water surface over the Bay off Berkeley reaches 13.82 ft NAVD88 (2.0 m, 100-year storm) and 14.21 ft NAVD88 (2.0 m, background tide). At 5 m it covers all of the transfer station.
+  - **At 5 m** the fill matches at 22.3 ft NAVD88 (background tide) and 23.55 ft NAVD88 (100-year storm), both 94%. A first run searched only to 16.5 ft NAVD88 and reported that edge as the best match (Codex review, PR 8); the search range is now stored in `cosmos.json`, and a test fails if a best match sits at its edge.
+  - **What this does not test.** The fill crosses at 13.35 ft NAVD88 (C6) and ART at + 96 in (14.20 ft NAVD88, C1). CoSMoS's surface is a total water level, so it does not test the still-water threshold directly, and its handling of the freeway embankment is not documented. C6 stays a question for the Caltrans profile.
+  - **Closest ART maps,** among all ten levels (`node tools/cosmos-report.mjs`; ART from the shifted geodatabase, C1):
+
+    | CoSMoS scenario | Closest ART map | Agreement |
+    |---|---|---|
+    | 1.0 m + 100-year | + 66 in (11.70 ft NAVD88) | 46% |
+    | 1.25 m + 100-year | + 66 in (11.70 ft NAVD88) | 59% |
+    | 1.5 m + 100-year | + 84 in (13.20 ft NAVD88) | 71% |
+    | 1.75 m + 100-year | + 84 in (13.20 ft NAVD88) | 72% |
+    | 2.0 m + 100-year | + 84 in (13.20 ft NAVD88) | 68% |
+    | 5 m, background tide | + 108 in (15.20 ft NAVD88) | 73% |
+    | 5 m + 100-year | + 108 in (15.20 ft NAVD88) | 70% |
+
+    An earlier run, before the + 48, + 77 and + 84 in layers were stored, put 1.0–2.0 m at + 66 in (Codex review, PR 8). Against the earlier mix of Caltrans and unshifted layers, the 5 m figures were 75% and 73%.
+  - **Recorded as found in the published files** (all five storms; reproduce with `node tools/build-cosmos.mjs --all --out DIR` and `node tools/cosmos-report.mjs --dir DIR`):
+    - The 20-year storm floods more Berkeley land than the 100-year at 0.75–2.0 m of rise (2.0 m: 85.0 vs 78.8 ha).
+    - The modeled water surface does not rise steadily with the storm (2.0 m: background 14.21, 100-year 13.82 ft NAVD88).
+    - The extent polygons cover more land than the depth rasters (0 m + 100-year, ground 2.0–2.5 m NAVD88: 4,525 vs 2,330 2 m cells). The explorer uses the depth rasters, and the page says the extent polygons on the City's and Our Coast, Our Future's maps cover more land.
+  - **What the explorer offers.** Since 2026-11-04 it offers only the background tide and the 100-year storm, at all ten rises (Eric, PR 8).
+  - **Datum.** CoSMoS's coordinates are NAD83 / UTM zone 10N and are used without the 1.46 m shift applied to ART (C1); this is not yet corrected.
+
+  Reproduce with `node tests/check.mjs` and `node tools/cosmos-report.mjs`.
 - **C22. CoSMoS-GW groundwater against the explorer (H7; derived, 2026-11-03).** Kh 1.0 m/day, MHHW
   boundary, full model. On Berkeley land in the grid (1,008.6 ha at or above 3.31 ft NAVD88), ground
   marine, emergent or within 1 m of the water table: 325 ha at 0 m of rise, 376 at 1.0 m, 418 at
@@ -1037,13 +1050,13 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   still water; whether the mapped surface includes wave setup or runup, and the year of the 0 m baseline,
   are not stated in what was read. Its water surface over the open Bay inside the City limits at 0 m is
   7.43 ft NAVD88 with the background tide and 9.33 with the 100-year storm (median; point 518 still water:
-  1-year 7.43, 100-year 9.73, W11). No licence stated; USGS work, cited as OCOF asks.
-  The City republishes three of the extent layers (`CoSMoS_SLR_100_Year_Storm_Event`, ArcGIS item
-  0f210be8efe149c9ad99387dbe04447b, created 2026-01-12, D4); not used.
-  Used for: the second published check on the connected fill (C21) and an outline on the map, off by
-  default, chosen by sea level rise and storm, never tied to the explorer's level
-  (`tools/fetch-cosmos.py`, `tools/build-cosmos.mjs`, `data/hazard/cosmos*.bits`, `cosmos.json`). The
-  explorer uses the depth rasters' extent; the extent polygons reach further (C21).
+  1-year 7.43, 100-year 9.73, W11). No license stated; USGS work, cited as OCOF asks.
+  The City republishes three of the extent layers (`CoSMoS_SLR_100_Year_Storm_Event`, ArcGIS item 0f210be8efe149c9ad99387dbe04447b, created 2026-01-12, D4); not used.
+
+Used for: the second published check on the connected fill (C21), and an outline on the map, off by default, chosen by sea level rise and storm and never tied to the explorer's level (`tools/fetch-cosmos.py`, `tools/build-cosmos.mjs`, `data/hazard/cosmos*.bits`, `cosmos.json`).
+
+- The page offers two storms, the background tide and the 100-year storm, at all ten rises (decided 2026-11-04). `node tools/build-cosmos.mjs --all --out DIR` rebuilds the annual, 20-year and king tide storms from `data/raw/cosmos/`, which keeps all five.
+- The explorer uses the depth rasters' extent. The extent polygons reach further (C21), and the page says so.
 - **H2.** A BCDC comment letter found while searching (CEQAnet 301888) refers to the
   Belmont Creek watershed and OneShoreline, which are in San Mateo County; it belongs to a
   different project and is not used.
@@ -1073,13 +1086,13 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   `data/hazard/art-dc-*.bits`). The catalog defines them as "low-lying areas greater than one
   acre … below the inundated water surface elevation, but … not hydraulically-connected to the
   inundated areas" (GIS data catalog, p. 2). ART joins cells by an "eight-side rule" on 1 m
-  DEMs (report §3.5, p. 20). The geodatabase also holds the connected layers, `Alameda_inundation_poly_<N>`, one
-  feature per depth class (`DEPTH_FT`, 10–77 MB compressed each). The + 48, + 77 and + 84 in layers,
-  which the Caltrans service did not return, are stored (`tools/fetch-art-dc.py --connected --levels
-  48,77,84`, retrieved 2026-11-03; `data/raw/art-dc/inundation_*.json`, `data/hazard/art-48.bits`,
-  `art-77.bits`, `art-84.bits`). For the seven levels both carry, the geodatabase and Caltrans
-  polygons differ in registration and in dry islands (C1). Used for: C1, C6, C20, and the explorer's
-  optional disconnected outline.
+  DEMs (report §3.5, p. 20). The geodatabase also holds the connected layers, `Alameda_inundation_poly_<N>`, one feature per depth class (`DEPTH_FT`, 10–77 MB compressed each).
+
+- **What the explorer uses.** Since 2026-11-04 it uses them for all ten levels (`tools/fetch-art-dc.py --connected`, retrieved 2026-11-04; `data/raw/art-dc/inundation_*.json`, simplified as in C1; `data/hazard/art-*.bits`).
+- **Datum.** Its spatial reference is `NAD_1983_UTM_Zone_10N`, datum `D_North_American_1983`, with no realization named. `tools/build-art-dc.mjs` transforms it to the grid's WGS 84 with EPSG:7807 at epoch 2017.0 (`tools/nad83.mjs`; 1.44 m west, 0.28 m north). This applies to the connected and the disconnected layers alike (C1).
+- **The Caltrans-served layers.** They (seven levels) differ from the geodatabase in registration and in dry islands (C1). They are no longer shown; `tools/fetch-art.py` and `tools/build-art.mjs <dir> <out dir>` reproduce them.
+
+Used for: C1, C6, C20, C21, the explorer's ART outline and its optional disconnected outline.
 - **H6. Tsunami, 2011 (asked by Eric, 2026-11-03, recalling water "at high speed. 20 knots?").**
   California Geological Survey, "Table of Tōhoku-oki tsunami forecast and observation times,
   tsunami amplitudes, and reported damage" (conservation.ca.gov; read 2026-11-03): Oakland,

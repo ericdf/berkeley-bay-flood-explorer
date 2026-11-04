@@ -13,16 +13,12 @@ each item here once it is done.
    Works email himself and deleted the Gmail draft. He also sent a records request (2026-11-03).
    A formal CPRA request was drafted as a backup and given to Eric in the session; it also asks
    whether the Gilman outfall's tidal flap gate (V3) was built.
-3. **Layer choices on PR #8.**
-   - CoSMoS (C21, H1): accept v2.1 as the Bay's CoSMoS (v3.1 stops at the Golden Gate); keep the
-     outline from the depth rasters (now) or switch to the extent polygons the City and Our Coast,
-     Our Future maps show; keep all 50 scenarios or only background tide and 100-year storm.
-   - CoSMoS-GW (H7, C22): Kh 1.0 m/day was used, the middle of three cases the release does not rank;
-     today's land within 1 m of the water table is 66, 320 or 682 ha by case. Show one case, all
-     three, or a range; and whether to put it on the map at all.
-   - ART (C1): the seven Caltrans-served levels and the geodatabase's differ (74–93% agreement; a
-     ~1.5 m offset, and dry islands missing from Caltrans + 96 and + 108 in). Keep Caltrans for those
-     seven, or switch all ten to the geodatabase.
+3. **Layer choices on PR #8.** Settled 2026-11-04: CoSMoS v2.1, outline from the depth rasters
+   (the page notes the extent polygons cover more land), background tide and 100-year storm only;
+   ART all ten levels from the geodatabase, moved from NAD83 to WGS 84 (C1); CoSMoS-GW stays data
+   and checks at Kh 1.0 m/day with the range stated (C22), not on the map. Open: whether to apply
+   the same datum shift to CoSMoS and CoSMoS-GW (it would change C21 and C22), and the unexplained
+   1 m northward residual between ART and the terrain (C1).
 4. **Documents for four rows the spot-check could not reach (C19).** T2 and F21 were archived by
    Eric on 2026-11-03 (with the Draft EIR and Appendices G and H). Still needed: Z4's 2015-02-10 work
    session Item 1 (City URL, or the Berkeleyside copy), a Wayback capture of the Baykeeper page for

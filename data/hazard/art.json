@@ -1,27 +1,41 @@
 {
-  "note": "ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), flooded area connected to the Bay at total water levels of MHHW plus N inches, rasterized to this grid. Source: caltrans-gis.dot.ca.gov CHhqenvi/DEA_BCDC_polygon_SLR MapServer for + 12, 24, 36, 52, 66, 96 and 108 in; levels with source \"geodatabase\" (+ 48, 77, 84 in, which the service lacks) are layers Alameda_inundation_poly_<N> of the Alameda County geodatabase Alameda_SLR_ART_2017.gdb from explorer.adaptingtorisingtides.org/download (SOURCE_NOTES H5). levelFt = MHHW 6.20 ft NAVD88 at point 518 (W11) + N/12, derived.",
+  "note": "ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), flooded area connected to the Bay at total water levels of MHHW plus N inches, rasterized to this grid (a cell is flooded when its center is inside a polygon of any depth class). Source: layers Alameda_inundation_poly_<N> of the Alameda County geodatabase Alameda_SLR_ART_2017.gdb from explorer.adaptingtorisingtides.org/download, all ten levels (SOURCE_NOTES H5). Coordinates: NAD83 / UTM zone 10N in the geodatabase, transformed to the grid's WGS 84 / UTM zone 10N with EPSG:7807 (ITRF2008 to NAD83(2011), inverted) at epoch 2017.0, a shift of about 1.5 m (tools/nad83.mjs; SOURCE_NOTES C1). levelFt = MHHW 6.20 ft NAVD88 at point 518 (W11) + N/12, derived.",
   "provenance": {
     "category": "sourced",
-    "retrieved": "2026-11-02"
+    "retrieved": "2026-11-04",
+    "datum": {
+      "from": "NAD83 / UTM zone 10N (EPSG:26910; realization taken as NAD83(2011), EPSG:6339)",
+      "to": "WGS 84 / UTM zone 10N (EPSG:32610)",
+      "transformation": "EPSG:7807 ITRF2008 to NAD83(2011) (1), inverted; WGS 84 (G1762) taken as ITRF2008",
+      "epoch": 2017,
+      "parameters": "Pearson and Snay (2013), GPS Solutions 17:1-15: ITRF2008 to NAD83(2011), epoch 1997.0",
+      "tool": "tools/nad83.mjs"
+    }
   },
   "levels": [
     {
       "inches": 12,
       "levelFt": 7.2,
       "file": "art-12.bits",
-      "layer": "BCDC SLR 1.0 ft (12 in)"
+      "layer": "Alameda_inundation_poly_12",
+      "source": "geodatabase",
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 24,
       "levelFt": 8.2,
       "file": "art-24.bits",
-      "layer": "BCDC SLR 2.0 ft (24 in)"
+      "layer": "Alameda_inundation_poly_24",
+      "source": "geodatabase",
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 36,
       "levelFt": 9.2,
       "file": "art-36.bits",
-      "layer": "BCDC SLR 3.0 ft (36 in)"
+      "layer": "Alameda_inundation_poly_36",
+      "source": "geodatabase",
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 48,
@@ -29,19 +43,23 @@
       "file": "art-48.bits",
       "layer": "Alameda_inundation_poly_48",
       "source": "geodatabase",
-      "retrieved": "2026-11-03"
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 52,
       "levelFt": 10.53,
       "file": "art-52.bits",
-      "layer": "BCDC SLR 4.3 ft (52 in)"
+      "layer": "Alameda_inundation_poly_52",
+      "source": "geodatabase",
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 66,
       "levelFt": 11.7,
       "file": "art-66.bits",
-      "layer": "BCDC SLR 5.5 ft (66 in)"
+      "layer": "Alameda_inundation_poly_66",
+      "source": "geodatabase",
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 77,
@@ -49,7 +67,7 @@
       "file": "art-77.bits",
       "layer": "Alameda_inundation_poly_77",
       "source": "geodatabase",
-      "retrieved": "2026-11-03"
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 84,
@@ -57,19 +75,23 @@
       "file": "art-84.bits",
       "layer": "Alameda_inundation_poly_84",
       "source": "geodatabase",
-      "retrieved": "2026-11-03"
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 96,
       "levelFt": 14.2,
       "file": "art-96.bits",
-      "layer": "BCDC SLR 8.0 ft (96 in)"
+      "layer": "Alameda_inundation_poly_96",
+      "source": "geodatabase",
+      "retrieved": "2026-11-04"
     },
     {
       "inches": 108,
       "levelFt": 15.2,
       "file": "art-108.bits",
-      "layer": "BCDC SLR 9.0 ft (108 in)"
+      "layer": "Alameda_inundation_poly_108",
+      "source": "geodatabase",
+      "retrieved": "2026-11-04"
     }
   ]
 }

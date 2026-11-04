@@ -10,8 +10,8 @@
 // and data/hazard/cosmos-gw.json (the scenarios, files and Berkeley land area in each class).
 // A cell takes the class of the polygon its center is in (even-odd rule over each polygon's rings, as
 // tools/build-art-dc.mjs does). Polygon coordinates are NAD83(NSRS2007) UTM zone 10N; they are used
-// as the grid's WGS 84 UTM zone 10N without a datum shift (about 1 to 1.5 m, under half a cell;
-// assumption, as tools/build-art-dc.mjs). The classes are depths to groundwater below the ground in
+// as the grid's WGS 84 UTM zone 10N without a datum shift (about 1.5 m, under half a cell;
+// assumption; tools/build-art-dc.mjs applies the shift to ART since 2026-11-04, tools/nad83.mjs). The classes are depths to groundwater below the ground in
 // CoSMoS-GW's own terrain (a 2 m lidar DEM, smoothed by USGS), not flood depths and not water levels.
 import fs from 'fs';
 import zlib from 'zlib';

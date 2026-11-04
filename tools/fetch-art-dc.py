@@ -1,8 +1,10 @@
 # Download ART's disconnected low-lying areas (SOURCE_NOTES H5) for the explorer's area, and, with
 # --connected, ART's connected flooding for the levels the Caltrans service lacks.
 #   python3 -I tools/fetch-art-dc.py                                  (run from the repository root)
-#   python3 -I tools/fetch-art-dc.py --connected --levels 48,77,84    (Alameda_inundation_poly_<N>)
-#   python3 -I tools/fetch-art-dc.py --connected --out DIR            (all ten connected levels, to DIR)
+#   python3 -I tools/fetch-art-dc.py --connected                      (all ten Alameda_inundation_poly_<N>)
+#   python3 -I tools/fetch-art-dc.py --connected --levels 48,77,84 --out DIR    (some levels, to DIR)
+# The connected clips are then simplified for size: node tools/simplify-art-dc.mjs 0.5
+# data/raw/art-dc/inundation_*.json (14.1 MB for all ten, 24 MB before; 2026-11-04).
 # Source: the ART Bay Shoreline Flood Explorer's Alameda County geodatabase,
 # Alameda_SLR_ART_2017.gdb.zip (5.3 GB), served by https://explorer.adaptingtorisingtides.org/download.php
 # (POST r=prep&f=Alameda_gdb, then POST r=fetch in the same session). The server honors HTTP Range
@@ -11,7 +13,9 @@
 # Alameda_inundation_poly_<N> are larger (10 to 77 MB compressed each; 48, 77 and 84 in: 150 MB).
 # Writes data/raw/art-dc/lowlying_<N>.json (or, with --connected, inundation_<N>.json): every polygon ring of the layer whose bounding box meets
 # the terrain grid (data/terrain/dem.json, with a 50 m margin), in the layer's coordinates, NAD83 /
-# UTM zone 10N (EPSG:26910), meters, rounded to 0.1 m. tools/build-art-dc.mjs rasterizes them.
+# UTM zone 10N (EPSG:26910), meters, rounded to 0.1 m, with the layer's spatial reference as stored
+# ("wkt": NAD_1983_UTM_Zone_10N, datum D_North_American_1983, no realization named). tools/build-art-dc.mjs
+# transforms them to the grid's WGS 84 (tools/nad83.mjs) and rasterizes them.
 # The FileGDB reader below handles only what these tables hold (polygons, and int16, int32, float,
 # double, string and date fields).
 import argparse, json, os, struct, subprocess, sys, time, zlib, datetime
@@ -186,7 +190,7 @@ def main():
             if keep: feats.append({'depth_ft': rec['DEPTH_FT'], 'rings': keep} if args.connected else {'gridcode': rec['gridcode'], 'rings': keep})
         del d, x
         if 'NAD_1983_UTM_Zone_10N' not in wkt: raise SystemExit(f'unexpected CRS {wkt[:80]}')
-        json.dump({'layer': name, 'inches': inches, 'crs': 'EPSG:26910 (NAD83 / UTM zone 10N), meters', 'retrieved': retrieved,
+        json.dump({'layer': name, 'inches': inches, 'crs': 'EPSG:26910 (NAD83 / UTM zone 10N), meters', 'wkt': wkt, 'retrieved': retrieved,
                    'source': f'{zipname} from {URL} (dl-key {KEY}), table {tid}', 'features': feats},
                   open(f'{args.out}/{stem}_{inches}.json', 'w'), separators=(',', ':'))
         kept = sum(len(f['rings']) for f in feats)

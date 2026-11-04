@@ -1,6 +1,7 @@
 // Where the USGS CoSMoS flood extent (data/hazard/cosmos.json, SOURCE_NOTES H1) and the explorer's
 // connected fill disagree, at each scenario's best-matching still water level.
 //   node tools/cosmos-report.mjs [scenario id ...]     e.g. slr100_w100 slr150_w100
+//   node tools/cosmos-report.mjs --dir DIR [id ...]    scenarios built with tools/build-cosmos.mjs --all --out DIR
 // Prints, on Berkeley land (not open Bay): named places (share of each under water in CoSMoS and in
 // the fill), the largest patches where only one of the two floods, and the ART level (H5) whose
 // extent agrees best with the CoSMoS extent.
@@ -16,7 +17,8 @@ const inB = (i) => (berkeley[i >> 3] >> (i & 7)) & 1;
 const water0 = openWater(z, W, H);
 const land = (i) => inB(i) && !water0[i];
 const bit = (m, i) => (m[i >> 3] >> (i & 7)) & 1;
-const cosmos = JSON.parse(fs.readFileSync('data/hazard/cosmos.json'));
+const argv = process.argv.slice(2), DIR = argv.includes('--dir') ? argv.splice(argv.indexOf('--dir'), 2)[1] : 'data/hazard';
+const cosmos = JSON.parse(fs.readFileSync(`${DIR}/cosmos.json`));
 const art = fs.existsSync('data/hazard/art.json') ? JSON.parse(fs.readFileSync('data/hazard/art.json')) : null;
 const streets = JSON.parse(fs.readFileSync('data/streets.json')).edges;
 const fac = JSON.parse(fs.readFileSync('data/facilities.json')).facilities, facCells = JSON.parse(fs.readFileSync('data/facility-cells.json'));
@@ -34,9 +36,9 @@ const places = [
   ['I-80 corridor at 37.8812 N, 122.3073 W (60 m radius; C6)', crossing],
 ];
 
-const ids = process.argv.slice(2);
+const ids = argv;
 for (const sc of cosmos.scenarios.filter(s => !ids.length || ids.includes(s.id))) {
-  const m = new Uint8Array(fs.readFileSync(`data/hazard/${sc.file}`));
+  const m = new Uint8Array(fs.readFileSync(`${DIR}/${sc.file}`));
   const lv = sc.bestMatch.levelFt, f = connectedFill(z, W, H, lv);
   console.log(`\n${sc.id} (${sc.label}): CoSMoS ${sc.cosmosHa} ha of Berkeley land; fill at ${lv.toFixed(2)} ft NAVD88 still water ${sc.bestMatch.oursHa} ha; agreement ${(100 * sc.bestMatch.agreement).toFixed(0)}%; CoSMoS water surface off Berkeley ${sc.waterSurface ? sc.waterSurface.medianFt.toFixed(2) + ' ft NAVD88 (median)' : 'not published for this storm'}`);
   for (const [label, cells] of places) {

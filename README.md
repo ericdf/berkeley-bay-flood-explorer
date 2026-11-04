@@ -74,8 +74,7 @@ Port 8767, because the wildfire simulator uses 8766.
 Rebuilding the data: `node tools/fetch-dem.mjs`, `node tools/build-streets.mjs
 ../berkeley-wildfire-simulator`, `node tools/build-mask.mjs`, `node tools/build-facilities.mjs`, `node tools/build-drains.mjs`,
 `node tools/build-plans.mjs`, `python3 -I tools/fetch-impervious.py`,
-and for the ART layer `python3 -I tools/fetch-art.py` (in a scratch folder) then
-`node tools/build-art.mjs <that folder>`; for the three ART levels the service lacks and for ART's disconnected low-lying areas, `python3 -I tools/fetch-art-dc.py --connected --levels 48,77,84` and `python3 -I tools/fetch-art-dc.py`, then `node tools/build-art-dc.mjs --connected` and `node tools/build-art-dc.mjs`; for the tsunami outline `node tools/build-tsunami.mjs`
+and for the ART layers `python3 -I tools/fetch-art-dc.py --connected` and `python3 -I tools/fetch-art-dc.py`, then `node tools/simplify-art-dc.mjs 0.5 data/raw/art-dc/inundation_*.json`, `node tools/build-art-dc.mjs --connected` and `node tools/build-art-dc.mjs`. To reproduce the Caltrans comparison (C1): `python3 -I tools/fetch-art.py` in a scratch folder, then `node tools/build-art.mjs <that folder> <out folder>`. For CoSMoS: `python3 -I tools/fetch-cosmos.py <cache dir>`, then `node tools/build-cosmos.mjs` (add `--all --out DIR` for every storm); for the tsunami outline `node tools/build-tsunami.mjs`
 (source in `data/raw/cgs/`). `node tools/site-check.mjs` reproduces the site checks in SOURCE_NOTES.
 
 ## King tide field guide

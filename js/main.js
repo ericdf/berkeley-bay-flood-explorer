@@ -537,7 +537,7 @@ function planPanel(rerender) {
   // USGS CoSMoS (H1): the scenario list now, each scenario's mask when first shown.
   D.cosmos = await fetch('data/hazard/cosmos.json').then(r => r.ok ? r.json() : null).catch(() => null);
   if (D.cosmos) {
-    const STORMS = { w000: 'Background tide, no storm', w001: 'Annual storm', w020: '20-year storm', w100: '100-year storm', wkt: 'King tide' };
+    const STORMS = { w000: 'Background tide, no storm', w100: '100-year storm' };
     $('cosmosSlr').innerHTML = [...new Set(D.cosmos.scenarios.map(s => s.slrM))].map(m => `<option value="${m}">${fmt(m, 2)} m (${fmt(m / 0.3048, 1)} ft)</option>`).join('');
     $('cosmosStorm').innerHTML = Object.entries(STORMS).filter(([k]) => D.cosmos.scenarios.some(s => s.storm === k)).map(([k, t]) => `<option value="${k}"${k === 'w100' ? ' selected' : ''}>${t}</option>`).join('');
   } else for (const id of ['showCosmos', 'cosmosSlr', 'cosmosStorm']) $(id).disabled = true;
