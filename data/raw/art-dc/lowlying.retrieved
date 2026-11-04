@@ -1,0 +1,14 @@
+ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), Alameda County geodatabase Alameda_SLR_ART_2017.gdb.zip (5315663176 bytes).
+Source: https://explorer.adaptingtorisingtides.org/download.php, POST r=prep&f=Alameda_gdb then r=fetch, HTTP Range requests for the zip directory and the low-lying tables only.
+Retrieved 2026-11-03T18:36:19Z. Rings whose bounding box meets the terrain grid plus 50 m are kept, coordinates EPSG:26910 rounded to 0.1 m.
+Layer meaning (ART GIS data catalog, http://www.adaptingtorisingtides.org/wp-content/uploads/2017/04/GIS_data_catalog.pdf, p. 2): "These polygons identify low-lying areas greater than one acre. They depict areas that are below the inundated water surface elevation, but are not hydraulically-connected to the inundated areas."
+Alameda_lowlying_poly_108 (a00000012): 56 features, 3210 rings in the county; 0 rings kept
+Alameda_lowlying_poly_12 (a00000011): 237 features, 27952 rings in the county; 55 rings kept
+Alameda_lowlying_poly_24 (a00000010): 224 features, 58882 rings in the county; 108 rings kept
+Alameda_lowlying_poly_36 (a0000000f): 203 features, 21933 rings in the county; 259 rings kept
+Alameda_lowlying_poly_48 (a0000000e): 160 features, 22306 rings in the county; 254 rings kept
+Alameda_lowlying_poly_52 (a0000000d): 146 features, 11157 rings in the county; 327 rings kept
+Alameda_lowlying_poly_66 (a0000000c): 123 features, 7713 rings in the county; 538 rings kept
+Alameda_lowlying_poly_77 (a0000000b): 88 features, 5500 rings in the county; 311 rings kept
+Alameda_lowlying_poly_84 (a0000000a): 65 features, 3892 rings in the county; 455 rings kept
+Alameda_lowlying_poly_96 (a00000009): 57 features, 3906 rings in the county; 27 rings kept

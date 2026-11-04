@@ -1,0 +1,15 @@
+ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), Alameda County geodatabase Alameda_SLR_ART_2017.gdb.zip (5315663176 bytes).
+Source: https://explorer.adaptingtorisingtides.org/download.php, POST r=prep&f=Alameda_gdb then r=fetch, HTTP Range requests for the zip directory and the Alameda_inundation_poly_<N> tables only.
+Retrieved 2026-11-04T02:58:20Z. Rings whose bounding box meets the terrain grid plus 50 m are kept, coordinates EPSG:26910 rounded to 0.1 m.
+Layer meaning: ART's connected flooding (inundated area hydraulically connected to the Bay), one feature per depth class (DEPTH_FT, feet), from the same ART study as the Caltrans service CHhqenvi/DEA_BCDC_polygon_SLR, which serves seven of the ten levels and differs from these polygons in detail (SOURCE_NOTES H5, C1).
+Alameda_inundation_poly_108 (a0000004e): 9 features, 2179145 rings in the county; 22109 rings kept
+Alameda_inundation_poly_12 (a0000004d): 7 features, 292651 rings in the county; 3470 rings kept
+Alameda_inundation_poly_24 (a0000004c): 7 features, 450876 rings in the county; 3886 rings kept
+Alameda_inundation_poly_36 (a0000004b): 11 features, 1183890 rings in the county; 5029 rings kept
+Alameda_inundation_poly_48 (a0000004a): 11 features, 879555 rings in the county; 6022 rings kept
+Alameda_inundation_poly_52 (a00000049): 7 features, 937862 rings in the county; 6500 rings kept
+Alameda_inundation_poly_66 (a00000048): 8 features, 1551649 rings in the county; 8510 rings kept
+Alameda_inundation_poly_77 (a00000047): 7 features, 1321204 rings in the county; 11626 rings kept
+Alameda_inundation_poly_84 (a00000046): 9 features, 1917104 rings in the county; 12778 rings kept
+Alameda_inundation_poly_96 (a00000045): 7 features, 1517262 rings in the county; 18361 rings kept
+Then simplified for size by tools/simplify-art-dc.mjs 0.5 (2026-11-04): rings that cannot change a cell of the 4 m grid dropped, then Douglas-Peucker at 0.5 m; counts in each file's "simplification" field.

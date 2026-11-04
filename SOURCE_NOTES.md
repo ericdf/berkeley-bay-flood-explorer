@@ -66,9 +66,9 @@ https://www.adaptingtorisingtides.org/wp-content/uploads/2016/05/20160429.SFBay_
   10-year 8.47, 100-year 9.73, 500-year 10.91. The appendix labels its coordinates "UTM
   Zone 10N – Meters", but the values are California State Plane Zone III (NAD83, US survey
   feet); converted that way they fall on the Berkeley shoreline (derived, ours).
-- **W12** (Table 3-5, p. 54). Sample levels at Richmond: 1-year 7.33, 10-year 8.34,
-  100-year 9.53, 500-year 10.59. "There is considerable uncertainty in estimates of the
-  500-year extreme tide elevation."
+- **W12** (Table 3-5, p. 3-18, PDF p. 54). Sample levels at Richmond: 1-year 7.33, 10-year 8.34,
+  100-year 9.53, 500-year 10.59. The table's footnote: "There is considerable uncertainty in estimates of
+  the 500-year extreme tide elevation, especially in the far South Bay."
 - **W13** (p. 28). "High coastal waters, by themselves or in combination with rain, may
   overtop seawalls, back up into storm drains, and delay drainage of stormwater into the
   Bay", illustrated with a photo of surface flooding in Berkeley (Figure 2-7A).
@@ -95,14 +95,14 @@ rows rested on press reports and the future levels on superseded guidance.
   Rise Policy Guidance*, Final Adopted 2024 Update (2024-11-13), Appendix A, p. 278: "strong
   El Niño events can temporarily elevate local sea levels by six to twelve inches over several
   months." The 2016 extreme-tide study says the same for the Bay: "Water levels are often 0.5
-  to 1.0 ft above normal for months at a time" (p. 28 of the report, PDF p. 47). These are the
+  to 1.0 ft above normal for months at a time" (p. 2-8, PDF p. 28). These are the
   primary statements behind H3's press figure. Used for: the two "plus 1 ft (El Niño)"
   scenarios, now labeled sensitivity tests. A Kelvin wave is one mechanism of that rise; the
   sources give the size of the El Niño rise, not of a single wave.
 - **W16. The extreme tides already contain El Niño winters.** The 2016 study fitted its
   Central and North Bay extreme tides, which include point 518 (W11), to a 31-year modeled
-  record, January 1, 1973, to December 31, 2003 (§3.2.1, p. 3-11, PDF p. 48). It names
-  El Niño winters in 1977–78, 1982–83, 1997–98, 2009–10 and 2015–16 (p. 28); the first three
+  record, January 1, 1973, to December 31, 2003 (§3.2.1, p. 3-12, PDF p. 48). It names
+  El Niño winters in 1977–78, 1982–83, 1997–98, 2009–10 and 2015–16 (p. 2-8, PDF p. 28); the first three
   fall in that record. Adding 1 ft to a return level therefore counts part of the El Niño
   effect twice, and the sum has no return period. Used for: the sensitivity-test labels.
 - **W17. The 2024 scenarios at the San Francisco gauge.** Same Coastal Commission guidance,
@@ -257,7 +257,9 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
   ("Gilman Forge"; Berkeleyside, 2023-03-27 and 2023-08-02, from search summaries, not read).
   City Council item, 2025-03-25, Item 8 ("Establishment of M-RD Zoning District"; read for the
   recommendation only): first reading of the M-RD zoning ordinance and adoption of the CEQA
-  findings. Whether it passed was not checked.
+  findings. It passed: the first reading of Ordinance 7,957-N.S. and Resolution 71,708-N.S.,
+  certifying the EIR, were adopted, all ayes, with the second reading set for 2025-04-15 (annotated
+  agenda, 2025-03-25, Item 8; C19).
   Response to Comments Document and Final EIR, Gilman Gateway Rezone Project, SCH# 2022120549,
   March 2025, 86 pp. (CEQAnet; read 2026-11-03), Response HAZ-2, "Sea Level/Groundwater Rise and
   Remediation Methods", pp. 3-20 and 3-21, answering EBMUD (letter 2024-12-02) and two Planning
@@ -276,7 +278,7 @@ berkeley-wildfire-simulator `data/terrain/`. Street elevations: that repository'
     by surface water", which could expose occupants to vapor intrusion, "a potentially significant
     impact"; Mitigation Measure HAZ-2d requires the design to "account for potential shallow
     groundwater and flooding conditions".
-  - PCBs may be present in the plant's concrete (Response HAZ-1, p. 3-19).
+  - "Potential PCB contaminated concrete" at the project site (Response HAZ-1, p. 3-20).
   What it bears on: the City's own EIR states that flooding and rising groundwater can defeat
   this site's contamination controls, and makes the design account for it, without a stated
   design water level in the pages read. The site's ground is 10.6–13.9 ft NAVD88 (F16); the
@@ -443,17 +445,18 @@ documents' printed numbers, with PDF pages in brackets.
   active contamination cleanup programs", "the most notable being an actively managed
   hexavalent chromium plume associated with the WRE/Colortech Facility located on 6th
   Street", with petroleum byproducts, tetrachloroethylene, lead and other heavy metals.
-- **F7** (p. 3.9-12 [455]). The site is in FEMA's 0.2 percent annual chance (500-year)
-  flood hazard area, "generally between I-580/I-80 and Fourth Street". The Gilman Street
-  storm drain outfall "is currently undersized for the 10-year peak flow event"; flows
+- **F7** (p. 3.9-12 [454]). The site is in FEMA's 0.2 percent annual chance (500-year)
+  flood hazard area, "generally between I-580/I-80 and Fourth Street". The storm drain
+  infrastructure downstream of the site, down to the Gilman Street outfall, "is currently
+  undersized for the 10-year peak flow event"; flows
   above it "backup within the storm drain system and cause ponding on surface streets".
-- **F8** (p. 3.9-12 [455], footnote 18). The Codornices Creek culvert under I-80
+- **F8** (p. 3.9-12 [454], footnote 18). The Codornices Creek culvert under I-80
   constricts flow and induces flooding on Second St beside the site; per Klein (2009, for
   Caltrans) the creek overtops upstream of I-80 above 190 cfs, and Balance Hydrologics'
   2011 City model shows flooding at Second St in the 10-year 6-hour design storm. Appendix
   H (p. 18 [22]): the I-80 culvert "lacks the necessary conveyance for events equal to or
   greater than the 10-year recurrence interval."
-- **F9** (pp. 3.9-11 to 3.9-21 [454–463], Exhibits 3.9-2a–d, maps by AECOM, June 2017).
+- **F9** (pp. 3.9-11 to 3.9-21 [453–463], Exhibits 3.9-2a–d, maps by AECOM, June 2017).
   Sea level rise is mapped as MHHW plus 24, 52, 84 and 108 inches; "the project site would
   begin to experience inundation at the MHHW plus 84-inch SLR scenario" (p. 3.9-13). The
   exhibits list equivalent combinations: MHHW + 24 in ≈ 0 in of sea level rise plus a
@@ -494,7 +497,7 @@ Same study as W4–W9; printed page numbers; figure pages rendered from the PDF.
 - **P4.** Figures 5.9 and 5.10 (floodwall schematics) give the wall top as "EL VARIES"; no crest
   elevation is stated. The explorer uses the design level plus the 2 ft freeboard of P6:
   12.7 ft NAVD88 (2050), 15.0 (2100). Assumption.
-- **P5.** Costs (executive summary and §5.4, 2019 dollars, cumulative): revetment and breakwater
+- **P5.** Costs (executive summary and §5.4, cumulative; the study states no price year): revetment and breakwater
   $3.2 million by 2030, $5.4 million by 2050, $60.5 million by 2100; floodwalls $14.3 million
   for 2050 protection and $31.5 million for 2100.
 - **P6.** Shoreline Zone 7 (east side of César E. Chávez Park): Spinnaker Way "would need to be
@@ -541,6 +544,8 @@ City ArcGIS organization services1.arcgis.com/IYiCpZoSIq9lAxi8.
   tide gate closes the link. Upper bound: pipe connectivity, capacity, inverts and duration are
   ignored. Which outfalls already have gates is unknown; the page shows them open unless the
   reader adds gates.
+  One gate is documented at design stage: the I-80/Gilman interchange project's tidal flap gate at
+  the Gilman outfall (V3); whether it was built is unchecked.
 
 ## Explorer checks and findings (derived, 2026-11-02)
 
@@ -548,16 +553,31 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 "Under water" is the connected fill (model rule, `js/fill.js`); areas count Berkeley land only
 (Census place boundary, excluding open water).
 
-- **C1. Terrain against the published ART maps (H5).** Agreement (cells under water in both,
-  over cells under water in either) on Berkeley land, by ART level: MHHW + 12 in 68%, + 24 in
-  74%, + 36 in 76%, + 52 in 84%, + 66 in 88%, + 96 in 86%, + 108 in 91%. With a 4 m bilinear
-  export of the same lidar it was 54–62% at the four lowest levels, with the fill wetting
-  ground behind narrow structures such as the revetment along University Ave east of the
-  Marina; averaging 1 m cells fixed most of that, so the explorer uses it (F13). Below
-  + 66 in the fill wets slightly more than ART (by 1.4–2.0 ha); at + 96 and + 108 in ART
-  wets more (by 10–17 ha). The service returned no polygons for the + 48 and + 77 in layers
-  (two tries each), and its + 108 in layer covers less of the transfer station (70%) than its
-  + 96 in layer (100%), which points to a gap in the served polygons.
+- **C1. Terrain against the published ART maps (H5).** Agreement between the fill and ART's connected flooding on Berkeley land (cells under water in both, over cells under water in either), by level:
+
+  | ART level | ft NAVD88 | Agreement |
+  |---|---|---|
+  | MHHW + 12 in | 7.20 | 70% |
+  | + 24 in | 8.20 | 77% |
+  | + 36 in | 9.20 | 81% |
+  | + 48 in | 10.20 | 81% |
+  | + 52 in | 10.53 | 87% |
+  | + 66 in | 11.70 | 91% |
+  | + 77 in | 12.62 | 92% |
+  | + 84 in | 13.20 | 93% |
+  | + 96 in | 14.20 | 95% |
+  | + 108 in | 15.20 | 96% |
+
+  The ten layers are `Alameda_inundation_poly_<N>` from the ART Alameda County geodatabase (retrieved 2026-11-04, `tools/fetch-art-dc.py --connected`).
+
+  - **Datum.** The geodatabase stores NAD83 / UTM zone 10N; its spatial reference names no realization, so NAD83(2011) is assumed. `tools/build-art-dc.mjs` moves every vertex to the explorer grid's WGS 84 / UTM zone 10N with EPSG:7807 (ITRF2008 to NAD83(2011), Pearson and Snay 2013, inverted; WGS 84 (G1762) taken as ITRF2008) at epoch 2017.0. That is a shift of 1.44 m west and 0.28 m north at Berkeley (`tools/nad83.mjs`; PROJ gives the same to 0.01 mm). Before 2026-11-04 the coordinates were used unshifted. That left the geodatabase about 1.5 m east of the Caltrans polygons.
+  - **Effect of the shift.** It raised agreement with the Caltrans service at all seven levels both carry: from 74% to 82% at + 12 in (7.20 ft NAVD88); at + 108 in (15.20 ft NAVD88) it stays at 93%. Against the fill, agreement fell by 0.4 to 1.3 points at + 12 to + 48 in (7.20 to 10.20 ft NAVD88) and rose by 0.2 to 0.6 points at + 52 to + 108 in (10.53 to 15.20 ft NAVD88). Pooled over the ten levels it rose from 92.9% to 93.2%. ART's flooding on ground above the water level fell at every level, from 22.5 ha to 19.0 ha pooled. Offsetting the unshifted polygons in 0.5 m steps, the best match to the fill lies about 1 m west and 1 to 1.5 m north of them. The west part is the datum shift. The remaining 1 m northward offset is not explained (derived; not applied).
+  - **Earlier source and why it was replaced.** Until 2026-11-04 the explorer used the Caltrans service (CHhqenvi/DEA_BCDC_polygon_SLR) for + 12, 24, 36, 52, 66, 96 and 108 in. Its agreement with the fill was 68% to 91%. That service returned no polygons for + 48 and + 77 in (two tries each) and has no + 84 in layer. Its + 96 and + 108 in layers (14.20 and 15.20 ft NAVD88) include 11.4 and 7.8 ha of ground more than 1 ft above the water level, against 1.7 and 2.7 ha in the geodatabase. Its + 96 in layer covers all of the transfer station; the geodatabase's covers 56%, close to the 57% of the site's ground below 14.20 ft NAVD88 and to the fill's 57%. So the Caltrans + 96 in layer is missing dry islands. Eric chose the geodatabase for all ten levels on 2026-11-04 (PR 8). `tools/fetch-art.py` and `tools/build-art.mjs` remain to reproduce the Caltrans comparison.
+  - **Simplification.** For size, the clips were simplified (`tools/simplify-art-dc.mjs 0.5`, 24.0 MB to 14.1 MB). Rings that cannot change a 4 m cell were dropped, which changes no cell. Then Douglas-Peucker at 0.5 m changed 0.25% to 1.3% of each mask's cells and agreement with the fill by at most 0.2 points.
+  - **Terrain.** With a 4 m bilinear export of the same lidar, agreement was 54–62% at the four lowest levels, because the fill wet ground behind narrow structures such as the revetment along University Ave east of the Marina. Averaging 1 m cells fixed most of that, so the explorer uses it (F13).
+  - **Where the two differ.** Through + 77 in (12.62 ft NAVD88) the fill wets more than ART, by 0.3 to 1.1 ha. From + 84 in (13.20 ft NAVD88) up, ART wets slightly more, by 0.4 to 2.0 ha.
+
+  Reproduce with `node tests/check.mjs`.
 - **C2. City 2019 Marina study (W7, W8).** At 10.7 ft NAVD88 (its 2050 100-year level) the
   fill has all 675 m of Marina Blvd under water (W8: "most likely" impassable) and 25% of the
   DoubleTree grounds (W7: two buildings' floors below the water). At 10.1 (its 2030 level),
@@ -584,9 +604,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   175 ha at 14.2 ft, and low ground that is not connected falls from 80 ha to 2 ha. The water's
   route runs east from the North Basin across the I-80 corridor about 250 m south of Gilman
   St; its highest point (13.35 ft) is just east of the freeway, near Eastshore Hwy, at about
-  37.8812 N, 122.3073 W. The Draft EIR's ART-based maps put the site's first flooding at MHHW
-  + 84 in, about 13.2 ft NAVD88 (F9); ART is dry there at + 66 in (11.7) and floods all of it at
-  + 96 in (14.2). The level sits just above the City study's 2100 100-year level (13.0, W5).
+  37.8812 N, 122.3073 W. The Draft EIR's ART-based maps put the site's first flooding at MHHW + 84 in, about 13.2 ft NAVD88 (F9). ART's + 84 in layers (13.20 ft NAVD88; `art-84.bits`, `art-dc-84.bits`) show that as a disconnected low-lying area covering 41% of the site, with no connected flooding there (C20). ART has no connected flooding there at + 66 in (11.70 ft NAVD88), where its disconnected layer covers 14%. At + 96 in (14.20 ft NAVD88) it floods 56% of the site from the Bay, close to the share of the site's ground below 14.20 ft NAVD88 (57%) (C1). The Caltrans service's + 96 in layer, which the explorer no longer uses, covered all of it. The level sits just above the City study's 2100 100-year level (13.0, W5).
   Bare-earth lidar removes bridges and may misrepresent ramps and embankments; the
   crossing needs the Caltrans profile to confirm (DATA_INVENTORY).
 - **C7. Below that level, the flats flood from the land side.** Up to 13.35 ft, the transfer
@@ -775,6 +793,109 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     None were identified" (sic). The order's own facts are in T5.
   The flood and tsunami figures for these sites (C15, C16) do not change.
 
+- **C19. Citation spot-check (2026-11-03).** 20 of the 74 rows that cite a document were checked
+  against the documents: 10 matched, 6 had a page or wording slip, none had a wrong figure or
+  quote, and 4 could not be checked. The draw was seeded (Python `random.seed(20261103)`) and gave
+  F11, F16, F17, F19, F21, F3, F5, F7, F9, H4, M2, P9, T2, W12, W16, W7, W8, Z3, Z4 and Z6. Five
+  draws cite no document to read (F5, M2, P9, H4, Z6) and were replaced by the next draws in the
+  same order: P5, F20, T4 and T5, then W13, taken by hand in place of R2 (a data fetch) and W15.
+  Documents came from `berkeley-public-records` where it holds them, otherwise from the cited URLs.
+  - Matched: F3, F11, F19, F20, T4, T5, W7, W8, W13, Z3.
+  - Corrected: P5 (the study states no price year; "2019 dollars" was ours), F7 (PDF page, and
+    the undersized part is the downstream system to the outfall, not the outfall alone), F9 (PDF
+    pages), F17 (the PCB sentence's page and wording; the Council vote, found in the annotated
+    agenda), W12 (printed page, and the footnote quoted in full), W16 (printed pages). F8 shares
+    F7's page and was corrected with it; W15, outside the sample, cited the wrong PDF page and was
+    corrected.
+  - Not checked: F16 (baykeeper.org refused automated access; needs the PDF), F21 and Z4 (the
+    2019-11-05 feasibility study and the 2015-02-10 franchising study are not in the archive and
+    the rows give no URL), T2 (the 2024 Local Hazard Mitigation Plan is not archived; its page
+    numbers were taken from an agent's reading).
+  - Not sampled and possibly affected: F6 gives p. 3.9-8 as PDF [449], which does not fit the
+    offset found for p. 3.9-12; unchecked.
+
+- **C20. "Low, not connected" against ART's disconnected low-lying areas (H5).** ART maps ground below its water surface that is not hydraulically connected to the flooded area, in patches over one acre (ART GIS data catalog, p. 2). The source is the Alameda County geodatabase (`tools/fetch-art-dc.py`, `tools/build-art-dc.mjs`), moved from NAD83 to the grid's WGS 84 as in C1.
+
+  On Berkeley land, with the Aquatic Park lagoon left out, the explorer's low, not connected cells and ART's agree (both over either) as follows:
+
+  | ART level | ft NAVD88 | All patches | Explorer patches over one acre only |
+  |---|---|---|---|
+  | MHHW + 12 in | 7.20 | 78% | 84% |
+  | + 24 in | 8.20 | 70% | 82% |
+  | + 36 in | 9.20 | 78% | 81% |
+  | + 48 in | 10.20 | 84% | 87% |
+  | + 52 in | 10.53 | 80% | 87% |
+  | + 66 in | 11.70 | 88% | 90% |
+  | + 77 in | 12.62 | 90% | 94% |
+  | + 84 in | 13.20 | 90% | 93% |
+
+  The one-acre column drops the explorer's patches under one acre, a model rule matching ART's threshold. Before the datum shift (2026-11-04) the figures were 70–90% with all patches and 81–93% with patches over one acre only.
+
+  - ART puts no disconnected ground where the fill has water at any level. ART's connected flooding covers at most 0.7 ha of the explorer's low ground, at + 96 in (14.20 ft NAVD88).
+  - Bolivar Dr, Second St, Eastshore Hwy and the transfer station are disconnected in both at + 84 in (13.20 ft NAVD88). They are flooded from the Bay in both at + 96 in (14.20 ft NAVD88), consistent with C6's 13.35 ft NAVD88.
+  - At + 84 in (13.20 ft NAVD88) ART has the transfer station 0% connected and 41% disconnected; the explorer has 42% low, not connected. So the Draft EIR's "begin to experience inundation at the MHHW plus 84-inch SLR scenario" (F9) matches ART's disconnected area, not Bay water reaching the site (our reading). The + 84 in connected layer agrees with the fill at 93% on Berkeley land (C1).
+  - The explorer can show the disconnected areas as an optional lime outline at the ART outline's level.
+  - Both maps use lidar terrain and a still-water connectivity rule, so this tests the explorer's classification, not the hazard. ART's report says these areas may connect through culverts and storm drains and may flood from groundwater (§3.5, pp. 20–21).
+  - The lagoon (26.3 ha below mean sea level) is disconnected in both through + 84 in (13.20 ft NAVD88) and is counted apart (C9).
+
+  Reproduce with `node tools/compare-art-dc.mjs`.
+- **C21. Terrain against USGS CoSMoS v2.1 (H1).** For each CoSMoS scenario, we searched for the still-water level at which the connected fill best matches CoSMoS's flooded extent on Berkeley land (both / either, as C1; levels 6.0–30.0 ft NAVD88 in 0.05 ft steps; derived).
+
+  - **100-year storm:**
+
+    | Sea level rise | Best agreement | At (ft NAVD88) |
+    |---|---|---|
+    | 1.0 m | 47% | 11.20 |
+    | 1.25 m | 63% | 12.40 |
+    | 1.5 m | 70% | 13.15 |
+    | 1.75 m | 71% | 13.35 |
+    | 2.0 m | 68% | 13.35 |
+
+    At 0–0.75 m the agreement is 13–45%. There CoSMoS floods 1.4–14 ha and keeps dry the North Basin shoreline strip (37.8749 N, 122.3089 W) and the west edge of Aquatic Park, which the fill wets.
+  - **The Marina agrees.** At 1.5 m + 100-year, the DoubleTree grounds are 83% flooded in CoSMoS and 89% in the fill; Marina Blvd is 93% and 98%.
+  - **The flats behind I-80.** CoSMoS floods none of the transfer station, Second St, Bolivar Dr, Eastshore Hwy or the I-80 corridor at 37.8812 N, 122.3073 W in any scenario up to 2.0 m. That holds although its water surface over the Bay off Berkeley reaches 13.82 ft NAVD88 (2.0 m, 100-year storm) and 14.21 ft NAVD88 (2.0 m, background tide). At 5 m it covers all of the transfer station.
+  - **At 5 m** the fill matches at 22.3 ft NAVD88 (background tide) and 23.55 ft NAVD88 (100-year storm), both 94%. A first run searched only to 16.5 ft NAVD88 and reported that edge as the best match (Codex review, PR 8); the search range is now stored in `cosmos.json`, and a test fails if a best match sits at its edge.
+  - **What this does not test.** The fill crosses at 13.35 ft NAVD88 (C6) and ART at + 96 in (14.20 ft NAVD88, C1). CoSMoS's surface is a total water level, so it does not test the still-water threshold directly, and its handling of the freeway embankment is not documented. C6 stays a question for the Caltrans profile.
+  - **Closest ART maps,** among all ten levels (`node tools/cosmos-report.mjs`; ART from the shifted geodatabase, C1):
+
+    | CoSMoS scenario | Closest ART map | Agreement |
+    |---|---|---|
+    | 1.0 m + 100-year | + 66 in (11.70 ft NAVD88) | 46% |
+    | 1.25 m + 100-year | + 66 in (11.70 ft NAVD88) | 59% |
+    | 1.5 m + 100-year | + 84 in (13.20 ft NAVD88) | 71% |
+    | 1.75 m + 100-year | + 84 in (13.20 ft NAVD88) | 72% |
+    | 2.0 m + 100-year | + 84 in (13.20 ft NAVD88) | 68% |
+    | 5 m, background tide | + 108 in (15.20 ft NAVD88) | 73% |
+    | 5 m + 100-year | + 108 in (15.20 ft NAVD88) | 70% |
+
+    An earlier run, before the + 48, + 77 and + 84 in layers were stored, put 1.0–2.0 m at + 66 in (Codex review, PR 8). Against the earlier mix of Caltrans and unshifted layers, the 5 m figures were 75% and 73%.
+  - **Recorded as found in the published files** (all five storms; reproduce with `node tools/build-cosmos.mjs --all --out DIR` and `node tools/cosmos-report.mjs --dir DIR`):
+    - The 20-year storm floods more Berkeley land than the 100-year at 0.75–2.0 m of rise (2.0 m: 85.0 vs 78.8 ha).
+    - The modeled water surface does not rise steadily with the storm (2.0 m: background 14.21, 100-year 13.82 ft NAVD88).
+    - The extent polygons cover more land than the depth rasters (0 m + 100-year, ground 2.0–2.5 m NAVD88: 4,525 vs 2,330 2 m cells). The explorer uses the depth rasters, and the page says the extent polygons on the City's and Our Coast, Our Future's maps cover more land.
+  - **What the explorer offers.** Since 2026-11-04 it offers only the background tide and the 100-year storm, at all ten rises (Eric, PR 8).
+  - **Datum.** CoSMoS's coordinates are NAD83 / UTM zone 10N and are used without the 1.46 m shift applied to ART (C1); this is not yet corrected.
+
+  Reproduce with `node tests/check.mjs` and `node tools/cosmos-report.mjs`.
+- **C22. CoSMoS-GW groundwater against the explorer (H7; derived, 2026-11-03).** Kh 1.0 m/day, MHHW
+  boundary, full model. On Berkeley land in the grid (1,008.6 ha at or above 3.31 ft NAVD88), ground
+  marine, emergent or within 1 m of the water table: 325 ha at 0 m of rise, 376 at 1.0 m, 418 at
+  2.0 m, 529 at 5 m. Emergent alone: 43.3, 62.7, 59.8 and 1.1 ha; it falls from 2.5 m because that
+  ground turns marine. Today's land within 1 m is 66, 320 and 682 ha at Kh 10, 1.0 and 0.1: a
+  ten-fold spread. At 0 m: the transfer station 27% emergent, 61% 0–1 m, 13% 1–2 m and none deeper
+  than 2 m. The Draft EIR measured 5 to 10 ft (1.5–3.0 m) below ground (F6), so the model is
+  shallower at all three Kh (Kh 10: 11% deeper than 2 m). Second St 95%, Bolivar Dr 98%, Pacific
+  Steel (1333 Second St) 100% and Berkeley Forge & Tool (1331 Eastshore Hwy) 97% emergent, at or
+  above the Gilman Gateway EIR's shallowest 1.5 ft (F17, F18). Eastshore Hwy 21% emergent and 68%
+  0–1 m. DoubleTree grounds 83% at 1–2 m. Matching each rise to the explorer's MHHW 6.20 ft NAVD88
+  (point 518) plus the rise (a derived choice): 90–98% of the explorer's low, not connected ground is
+  CoSMoS-GW emergent at 0–2.0 m. The match is partly shared terrain, because both mark the lidar's
+  closed depressions. Most emergent ground is ground the fill calls dry (40.5 of 43.3 ha at 0 m).
+  CoSMoS-GW's marine class agrees with the fill's Bay water at 79–97% (both / either) from 1.5 m up
+  (46–65% below). Both keep the flats behind I-80 dry of Bay water at 2.0 m (12.76 ft NAVD88) and take
+  them at 2.5 m (14.40; transfer station 58% marine, 59% in the fill), bracketing C6's 13.35.
+  Reproduce with `node tools/compare-cosmos-gw.mjs` and `node tests/check.mjs`.
+
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
@@ -912,10 +1033,30 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
 
 ## Hazard data and press (read 2026-11-02)
 
-- **H1.** USGS Coastal Storm Modeling System (CoSMoS) v3.1, Central California including
-  San Francisco Bay: flood depth and duration for sea level rise of 0, 0.25, 0.5, 0.75,
-  1.0, 1.5, 2.0, 2.5, 3.0 and 5.0 m with background tide, 1-, 20- and 100-year storms;
-  downloadable from ScienceBase. Candidate hazard layer. Not yet downloaded.
+- **H1. USGS Coastal Storm Modeling System (CoSMoS) v2.1, San Francisco Bay (read 2026-11-03).**
+  The Bay is CoSMoS v2.1 (completed June 2014), not v3.1: v3.1 (https://doi.org/10.5066/P9NUO62B) covers
+  the outer coast from Point Conception to the Golden Gate. v2.1 is published only through Our Coast, Our
+  Future (Point Blue and USGS), with no USGS metadata ("we do not have any official metadata", OCOF
+  download instructions, Sept 2025). Alameda County zips,
+  `https://d36bibj3hf4jrv.cloudfront.net/ocof-counties/alameda_flooding_slr<cm>.zip` (download page
+  https://data.pointblue.org/apps/ocof2_flood_map/download_data; Last-Modified 2022-03-12; retrieved
+  2026-11-03): sea level rise of 0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0 and 5.0 m, each with
+  background tide, annual, 20-year and 100-year storms and a king tide; 2 m flood depth and water surface
+  rasters ("water surface elevation relative to NAVD88"), NAD83 UTM 10N, "vertical datum NAVD88 (in m)".
+  What it models (USGS project page "CoSMoS 2.1: San Francisco Bay", read only through a summarizing
+  fetch, so paraphrased and not quoted; the page refused direct download): Delta and tributary storm
+  discharge, in-Bay wind waves from downscaled global climate model winds, and ocean swell in the
+  Central Bay, with sea level rise. A total water level, not
+  still water; whether the mapped surface includes wave setup or runup, and the year of the 0 m baseline,
+  are not stated in what was read. Its water surface over the open Bay inside the City limits at 0 m is
+  7.43 ft NAVD88 with the background tide and 9.33 with the 100-year storm (median; point 518 still water:
+  1-year 7.43, 100-year 9.73, W11). No license stated; USGS work, cited as OCOF asks.
+  The City republishes three of the extent layers (`CoSMoS_SLR_100_Year_Storm_Event`, ArcGIS item 0f210be8efe149c9ad99387dbe04447b, created 2026-01-12, D4); not used.
+
+Used for: the second published check on the connected fill (C21), and an outline on the map, off by default, chosen by sea level rise and storm and never tied to the explorer's level (`tools/fetch-cosmos.py`, `tools/build-cosmos.mjs`, `data/hazard/cosmos*.bits`, `cosmos.json`).
+
+- The page offers two storms, the background tide and the 100-year storm, at all ten rises (decided 2026-11-04). `node tools/build-cosmos.mjs --all --out DIR` rebuilds the annual, 20-year and king tide storms from `data/raw/cosmos/`, which keeps all five.
+- The explorer uses the depth rasters' extent. The extent polygons reach further (C21), and the page says so.
 - **H2.** A BCDC comment letter found while searching (CEQAnet 301888) refers to the
   Belmont Creek watershed and OneShoreline, which are in San Mateo County; it belongs to a
   different project and is not used.
@@ -936,6 +1077,22 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   MapServer, depth classes in feet; no 84-inch layer in that service) and downloadable as
   county geodatabases from explorer.adaptingtorisingtides.org. Used as the published
   hazard layer the connected-fill rule is checked against, and shown in the explorer.
+  The Caltrans services carry only the connected flooding; neither `DEA_BCDC_polygon_SLR` nor
+  `DEA_BCDC_SLR` (road and rail lines) has the disconnected layer, and neither do BCDC's
+  ArcGIS Online services. The disconnected low-lying areas come from the Alameda County
+  geodatabase (`Alameda_SLR_ART_2017.gdb.zip`, 5.3 GB, explorer.adaptingtorisingtides.org
+  Download page), layers `Alameda_lowlying_poly_<N>` for all ten levels, read by HTTP range
+  requests (`tools/fetch-art-dc.py`, retrieved 2026-11-03; `data/raw/art-dc/`,
+  `data/hazard/art-dc-*.bits`). The catalog defines them as "low-lying areas greater than one
+  acre … below the inundated water surface elevation, but … not hydraulically-connected to the
+  inundated areas" (GIS data catalog, p. 2). ART joins cells by an "eight-side rule" on 1 m
+  DEMs (report §3.5, p. 20). The geodatabase also holds the connected layers, `Alameda_inundation_poly_<N>`, one feature per depth class (`DEPTH_FT`, 10–77 MB compressed each).
+
+- **What the explorer uses.** Since 2026-11-04 it uses them for all ten levels (`tools/fetch-art-dc.py --connected`, retrieved 2026-11-04; `data/raw/art-dc/inundation_*.json`, simplified as in C1; `data/hazard/art-*.bits`).
+- **Datum.** Its spatial reference is `NAD_1983_UTM_Zone_10N`, datum `D_North_American_1983`, with no realization named. `tools/build-art-dc.mjs` transforms it to the grid's WGS 84 with EPSG:7807 at epoch 2017.0 (`tools/nad83.mjs`; 1.44 m west, 0.28 m north). This applies to the connected and the disconnected layers alike (C1).
+- **The Caltrans-served layers.** They (seven levels) differ from the geodatabase in registration and in dry islands (C1). They are no longer shown; `tools/fetch-art.py` and `tools/build-art.mjs <dir> <out dir>` reproduce them.
+
+Used for: C1, C6, C20, C21, the explorer's ART outline and its optional disconnected outline.
 - **H6. Tsunami, 2011 (asked by Eric, 2026-11-03, recalling water "at high speed. 20 knots?").**
   California Geological Survey, "Table of Tōhoku-oki tsunami forecast and observation times,
   tsunami amplitudes, and reported damage" (conservation.ca.gov; read 2026-11-03): Oakland,
@@ -955,6 +1112,75 @@ documents in this session. Bears on the cost column of the exit lever (E7) in
   warning, not a flood depth, and does not change with the explorer's water level.
   What it bears on: a tsunami's damage in the Bay in 2011 came from currents and short surges in
   harbors, with a water-level change of about half a meter; a still-water fill models neither.
+
+- **H7. USGS CoSMoS-GW, groundwater emergence and shoaling (read 2026-11-03).** Befus, K.M., Hoover,
+  D.J., Barnard, P.L., and Erikson, L.H., 2020, *Projected responses of the coastal water table for
+  California using present-day and future sea-level rise scenarios*: USGS data release,
+  https://doi.org/10.5066/P9H5PBXP (ScienceBase item 5bd9f318e4b0b3fc5cec20ed). `Alameda_MHHW.zip`
+  (110,031,701 bytes, SHA-256 2bbaa22b…a1fa461, retrieved 2026-11-03), metadata XML and the three
+  methods PDFs read. Polygons of depth from the ground surface to the modeled water table: "-1 =
+  marine inundation (below marine boundary condition (LMSL or MHHW) sea level)", "0 = water table at
+  or above ground surface (emergent groundwater)", then 0–1, 1–2, 2–5 and > 5 m (item summary). Sea
+  level rise 0–2 m in 0.25 m steps, 2.5, 3 and 5 m. Marine boundary a constant head at MHHW (NOAA
+  VDatum) plus the rise. Steady-state MODFLOW, one homogeneous layer to -50 m NAVD88, 10 m cells,
+  mean 2000–2013 recharge. Horizontal NAD83 (NSRS2007) UTM 10N, vertical NAVD88. Two versions:
+  groundwater reaching the surface "removed from the model, simulating loss via natural drainage",
+  or retained ("worst-case 'linear'"). Three conductivities "to bracket reasonable model parameter
+  values" (Kh 0.1, 1 and 10 m/day). The release names no best estimate. "Projected water tables for
+  future sea-level rise conditions cannot be validated against observations." The model has "only
+  natural conditions (i.e., no man-made activities or terrain alteration)" (water table depth
+  methods), which we read as no pumping, drains or sewers. It has no storms and no tide above MHHW.
+  Closed depressions in the DEM were filled so emergent groundwater can stand in them (model methods).
+  Licence: public domain; acknowledge the USGS and the University of Wyoming (metadata). Used: the
+  full model (drainage), MHHW, Kh 1.0 m/day, the middle case and our choice, for all 12 rises
+  (`tools/fetch-cosmos-gw.py`, `tools/build-cosmos-gw.mjs`, `data/raw/cosmos-gw/`,
+  `data/hazard/cosmos-gw-*.bits`, `cosmos-gw.json`), and C22. A groundwater depth is not a flood
+  depth and not a water level. The City's Rincon screening (F19) uses the same model.
+
+## Claims from the 2026-11-03 outside review (checked 2026-11-03)
+
+Three claims in the outside review behind E9, checked against primary sources before use.
+
+- **V1. A November 17 ferry terminal vote: unconfirmed.** A Council meeting on 2026-11-17 is
+  confirmed: the 2026-10-27 annotated agenda sets second readings of Ordinances 8,036, 8,037 and
+  8,038 for that date. A WETA letter to residents, quoted elsewhere and not read here, says the
+  Council is to "certify the environmental review and approve the project" that night. No posted
+  agenda lists the item as of 2026-11-03, and the City's Berkeley Pier-Ferry Access Project page
+  (berkeleyca.gov) gives no Final EIR or approval date. Whether the item touches shoreline flooding
+  is unchecked: the Draft EIR and BCDC's 2026 comment letter were not read. Used for: nothing yet.
+  The agenda should post about 11 days ahead.
+- **V2. BCDC and a Berkeley subregional plan: partly confirmed.** The duty comes from the statute,
+  SB 272 (Laird, 2023), which BCDC administers: local governments on the Bay shoreline must address
+  sea level rise "through Local Coastal Programs or San Francisco Bay Shoreline Resiliency Plans by
+  January 1, 2034" (BCDC staff report on the Regional Shoreline Adaptation Plan, 2024-10-07). BCDC's
+  "Local Sea Level Rise Plans" page: a plan "can be for a single city or county or can cover multiple
+  jurisdictions", and plans "must be submitted for approval by January 1, 2034". The City of
+  Emeryville's sea level rise page says Emeryville, Berkeley and Albany, under the San Francisco
+  Estuary Partnership, applied for and were awarded State funding to prepare one plan; the
+  Partnership's 2025-10-28 slides name a "Shoreline Adaptation Plan for the Cities of Emeryville,
+  Berkeley and Albany in close partnership with Oakland". Conflict: BCDC's 2026-01-15 status report
+  on subregional plans (Agenda Item 10) does not list it among the five publicly initiated plans.
+  The statute text itself was not read. Used for: nothing yet; it bears on E2 (neighbors' plans).
+- **V3. The I-80/Gilman interchange: built, and its documents state flood levels.** Caltrans
+  announced it complete on 2025-05-30: two roundabouts and a bicycle and pedestrian bridge over
+  I-80 (CEQAnet SCH 2018122057). Location Hydraulic Study Report Addendum, November 2018 (Alameda
+  CTC), printed p. 10: site ground 9.0–20.0 ft NAVD88; a 100-year still water level of 10.2 ft
+  NAVD88, and about 11.2 ft NAVD88 with 1.0 ft of sea level rise by 2040; low points of about
+  10.4 ft NAVD88 (the drain inlet at the westbound roundabout) and 9.0 ft NAVD88 (the Gilman St
+  extension). Its one sea level rise measure is a tidal flap gate at the Gilman outfall; the May
+  2018 study calls preventing sea level rise impacts "beyond the scope of this Project". Design
+  figures; whether the gate was built, and the as-built elevations, are unchecked. The gate goes "at
+  the existing headwall of the 60-inch RCP at the west end terminus of Gilman Street" and addresses
+  tidal backwater only (p. 10); no invert elevation is given. Conflict: the addendum's 100-year still
+  water level (10.2 ft NAVD88) is 0.47 ft above the 2016 study's 9.73 ft NAVD88 at point 518 (W11).
+  The addendum cites FEMA's Flood Insurance Study for Alameda County (FIS 06001CV001B–003B, "expected
+  to be adopted on December 21, 2018"; not read) and calls 10.2 the still water elevation at the
+  Zone AE boundary "in the City of Berkeley" (p. 7). The May 2018 study used FEMA's earlier Zone VE
+  levels, 10 and 9 ft NAVD88, which "account for storm surge and wave run-up". The two still water
+  figures come from different studies, and no document read explains the gap, so the explorer keeps
+  9.73 and treats 10.2 as a FEMA figure to check against the FIS table (the FEMA map service failed
+  to connect, 2026-11-03). Used for: D6 (the first documented tide gate on a
+  Berkeley outfall) and the CPRA request.
 
 ## Eric's decisions, 2026-11-02 (Claude Code session)
 

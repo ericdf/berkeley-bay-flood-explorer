@@ -1,0 +1,87 @@
+{
+  "note": "ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), disconnected low-lying areas: ground below the mapped water surface that is not hydraulically connected to the flooded area, areas greater than one acre only (ART GIS data catalog, p. 2), at total water levels of MHHW plus N inches, rasterized to this grid. Source: Alameda County geodatabase Alameda_SLR_ART_2017.gdb, layers Alameda_lowlying_poly_<N>, from explorer.adaptingtorisingtides.org/download (SOURCE_NOTES H5). Coordinates transformed from NAD83 / UTM zone 10N to the grid's WGS 84 / UTM zone 10N as in art.json (tools/nad83.mjs). levelFt = MHHW 6.20 ft NAVD88 at point 518 (W11) + N/12, derived.",
+  "provenance": {
+    "category": "sourced",
+    "retrieved": "2026-11-03",
+    "datum": {
+      "from": "NAD83 / UTM zone 10N (EPSG:26910; realization taken as NAD83(2011), EPSG:6339)",
+      "to": "WGS 84 / UTM zone 10N (EPSG:32610)",
+      "transformation": "EPSG:7807 ITRF2008 to NAD83(2011) (1), inverted; WGS 84 (G1762) taken as ITRF2008",
+      "epoch": 2017,
+      "parameters": "Pearson and Snay (2013), GPS Solutions 17:1-15: ITRF2008 to NAD83(2011), epoch 1997.0",
+      "tool": "tools/nad83.mjs"
+    }
+  },
+  "levels": [
+    {
+      "inches": 12,
+      "levelFt": 7.2,
+      "file": "art-dc-12.bits",
+      "layer": "Alameda_lowlying_poly_12",
+      "cells": 20015
+    },
+    {
+      "inches": 24,
+      "levelFt": 8.2,
+      "file": "art-dc-24.bits",
+      "layer": "Alameda_lowlying_poly_24",
+      "cells": 22105
+    },
+    {
+      "inches": 36,
+      "levelFt": 9.2,
+      "file": "art-dc-36.bits",
+      "layer": "Alameda_lowlying_poly_36",
+      "cells": 26770
+    },
+    {
+      "inches": 48,
+      "levelFt": 10.2,
+      "file": "art-dc-48.bits",
+      "layer": "Alameda_lowlying_poly_48",
+      "cells": 35852
+    },
+    {
+      "inches": 52,
+      "levelFt": 10.53,
+      "file": "art-dc-52.bits",
+      "layer": "Alameda_lowlying_poly_52",
+      "cells": 34430
+    },
+    {
+      "inches": 66,
+      "levelFt": 11.7,
+      "file": "art-dc-66.bits",
+      "layer": "Alameda_lowlying_poly_66",
+      "cells": 51638
+    },
+    {
+      "inches": 77,
+      "levelFt": 12.62,
+      "file": "art-dc-77.bits",
+      "layer": "Alameda_lowlying_poly_77",
+      "cells": 54171
+    },
+    {
+      "inches": 84,
+      "levelFt": 13.2,
+      "file": "art-dc-84.bits",
+      "layer": "Alameda_lowlying_poly_84",
+      "cells": 61125
+    },
+    {
+      "inches": 96,
+      "levelFt": 14.2,
+      "file": "art-dc-96.bits",
+      "layer": "Alameda_lowlying_poly_96",
+      "cells": 977
+    },
+    {
+      "inches": 108,
+      "levelFt": 15.2,
+      "file": "art-dc-108.bits",
+      "layer": "Alameda_lowlying_poly_108",
+      "cells": 0
+    }
+  ]
+}

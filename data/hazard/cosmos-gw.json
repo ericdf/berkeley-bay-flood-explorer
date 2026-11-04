@@ -1,0 +1,395 @@
+{
+ "note": "USGS CoSMoS-GW (Befus and others 2020, https://doi.org/10.5066/P9H5PBXP): modeled depth from the ground surface down to the water table, in classes, for 0 to 5 m of sea level rise, Alameda County package, MHHW marine boundary condition, full model (groundwater reaching the surface removed, \"simulating loss via natural drainage\"), horizontal hydraulic conductivity 1.0 m/day, the middle of the three cases (0.1, 1.0, 10 m/day; the release names no best estimate). Rasterized to this grid by polygon center. A depth to groundwater, not a flood depth and not a water level; steady state; the model has no pumping, storm drains or sewers (\"only natural conditions (i.e., no man-made activities or terrain alteration)\", water table depth methods). Areas the model calls marine are below MHHW plus the rise in its terrain. SOURCE_NOTES H7, C22.",
+ "provenance": {
+  "category": "sourced",
+  "retrieved": "2026-11-03",
+  "item": "https://www.sciencebase.gov/catalog/item/5bd9f318e4b0b3fc5cec20ed",
+  "conductivity": "Kh 1.0 m/day (middle of 0.1, 1.0, 10; no best estimate named)",
+  "model": "full model (noghb, not linresponse)",
+  "marineBoundary": "MHHW"
+ },
+ "classes": [
+  {
+   "key": "marine",
+   "fbin": -1,
+   "label": "marine inundation (below MHHW plus the rise)"
+  },
+  {
+   "key": "emergent",
+   "fbin": 0,
+   "label": "emergent: water table at or above the ground surface"
+  },
+  {
+   "key": "0to1m",
+   "fbin": 1,
+   "label": "water table 0-1 m below the ground surface"
+  },
+  {
+   "key": "1to2m",
+   "fbin": 2,
+   "label": "water table 1-2 m below the ground surface"
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "slr000",
+   "slrM": 0,
+   "label": "0 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr0p00m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr000-marine.bits",
+    "emergent": "cosmos-gw-slr000-emergent.bits",
+    "0to1m": "cosmos-gw-slr000-0to1m.bits",
+    "1to2m": "cosmos-gw-slr000-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 43.3,
+    "0to1m": 276.5,
+    "1to2m": 223.5,
+    "2to5m": 260.6,
+    "over5m": 199.5,
+    "marine": 5.1,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr025",
+   "slrM": 0.25,
+   "label": "0.25 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr0p25m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr025-marine.bits",
+    "emergent": "cosmos-gw-slr025-emergent.bits",
+    "0to1m": "cosmos-gw-slr025-0to1m.bits",
+    "1to2m": "cosmos-gw-slr025-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 46.4,
+    "0to1m": 283.3,
+    "1to2m": 223.6,
+    "2to5m": 250.5,
+    "over5m": 198.4,
+    "marine": 6.3,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr050",
+   "slrM": 0.5,
+   "label": "0.5 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr0p50m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr050-marine.bits",
+    "emergent": "cosmos-gw-slr050-emergent.bits",
+    "0to1m": "cosmos-gw-slr050-0to1m.bits",
+    "1to2m": "cosmos-gw-slr050-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 51,
+    "0to1m": 288.3,
+    "1to2m": 220.1,
+    "2to5m": 244.1,
+    "over5m": 197.1,
+    "marine": 7.9,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr075",
+   "slrM": 0.75,
+   "label": "0.75 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr0p75m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr075-marine.bits",
+    "emergent": "cosmos-gw-slr075-emergent.bits",
+    "0to1m": "cosmos-gw-slr075-0to1m.bits",
+    "1to2m": "cosmos-gw-slr075-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 56.9,
+    "0to1m": 293.6,
+    "1to2m": 212.6,
+    "2to5m": 239.2,
+    "over5m": 196.1,
+    "marine": 10.3,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr100",
+   "slrM": 1,
+   "label": "1 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr1p00m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr100-marine.bits",
+    "emergent": "cosmos-gw-slr100-emergent.bits",
+    "0to1m": "cosmos-gw-slr100-0to1m.bits",
+    "1to2m": "cosmos-gw-slr100-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 62.7,
+    "0to1m": 300.7,
+    "1to2m": 203.1,
+    "2to5m": 234.6,
+    "over5m": 194.9,
+    "marine": 12.5,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr125",
+   "slrM": 1.25,
+   "label": "1.25 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr1p25m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr125-marine.bits",
+    "emergent": "cosmos-gw-slr125-emergent.bits",
+    "0to1m": "cosmos-gw-slr125-0to1m.bits",
+    "1to2m": "cosmos-gw-slr125-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 68.3,
+    "0to1m": 306.1,
+    "1to2m": 192.8,
+    "2to5m": 231.7,
+    "over5m": 194,
+    "marine": 15.5,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr150",
+   "slrM": 1.5,
+   "label": "1.5 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr1p50m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr150-marine.bits",
+    "emergent": "cosmos-gw-slr150-emergent.bits",
+    "0to1m": "cosmos-gw-slr150-0to1m.bits",
+    "1to2m": "cosmos-gw-slr150-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 59.1,
+    "0to1m": 310.2,
+    "1to2m": 182.4,
+    "2to5m": 229.5,
+    "over5m": 193.2,
+    "marine": 34.2,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr175",
+   "slrM": 1.75,
+   "label": "1.75 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr1p75m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr175-marine.bits",
+    "emergent": "cosmos-gw-slr175-emergent.bits",
+    "0to1m": "cosmos-gw-slr175-0to1m.bits",
+    "1to2m": "cosmos-gw-slr175-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 61.2,
+    "0to1m": 304.8,
+    "1to2m": 177.6,
+    "2to5m": 227.4,
+    "over5m": 192.3,
+    "marine": 45.1,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr200",
+   "slrM": 2,
+   "label": "2 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr2p00m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr200-marine.bits",
+    "emergent": "cosmos-gw-slr200-emergent.bits",
+    "0to1m": "cosmos-gw-slr200-0to1m.bits",
+    "1to2m": "cosmos-gw-slr200-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 59.8,
+    "0to1m": 297.4,
+    "1to2m": 173.1,
+    "2to5m": 225.9,
+    "over5m": 191.5,
+    "marine": 60.7,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 26.2,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 0,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr250",
+   "slrM": 2.5,
+   "label": "2.5 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr2p50m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr250-marine.bits",
+    "emergent": "cosmos-gw-slr250-emergent.bits",
+    "0to1m": "cosmos-gw-slr250-0to1m.bits",
+    "1to2m": "cosmos-gw-slr250-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 2.8,
+    "0to1m": 272.1,
+    "1to2m": 168.4,
+    "2to5m": 218.9,
+    "over5m": 189.8,
+    "marine": 156.6,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 0.1,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 26.2,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr300",
+   "slrM": 3,
+   "label": "3 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr3p00m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr300-marine.bits",
+    "emergent": "cosmos-gw-slr300-emergent.bits",
+    "0to1m": "cosmos-gw-slr300-0to1m.bits",
+    "1to2m": "cosmos-gw-slr300-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 2.6,
+    "0to1m": 248.1,
+    "1to2m": 165.2,
+    "2to5m": 204.3,
+    "over5m": 187.8,
+    "marine": 200.5,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 0,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 26.2,
+    "none": 0
+   }
+  },
+  {
+   "id": "slr500",
+   "slrM": 5,
+   "label": "5 m of sea level rise, MHHW, Kh 1.0 m/day",
+   "source": "Alameda_mhhw_noghb_slr5p00m_Kh1p0mday_wtbins.shp",
+   "files": {
+    "marine": "cosmos-gw-slr500-marine.bits",
+    "emergent": "cosmos-gw-slr500-emergent.bits",
+    "0to1m": "cosmos-gw-slr500-0to1m.bits",
+    "1to2m": "cosmos-gw-slr500-1to2m.bits"
+   },
+   "berkeleyLandHa": {
+    "emergent": 1.1,
+    "0to1m": 259.7,
+    "1to2m": 136.4,
+    "2to5m": 162.5,
+    "over5m": 180.6,
+    "marine": 268.3,
+    "none": 0.1
+   },
+   "belowMslHa": {
+    "emergent": 0,
+    "0to1m": 0,
+    "1to2m": 0,
+    "2to5m": 0,
+    "over5m": 0,
+    "marine": 26.3,
+    "none": 0
+   }
+  }
+ ]
+}

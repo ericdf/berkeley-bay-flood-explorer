@@ -1,12 +1,26 @@
-// Rasterize the ART Bay Area flooding maps (SOURCE_NOTES H5) onto the terrain grid.
-//   node tools/build-art.mjs <dir with art_<layer>.geojson from tools/fetch-art.py>
-// Writes data/hazard/art-<inches>.bits (one bit per cell, row-major, 1 = flooded in ART at that
-// level, any depth class) and data/hazard/art.json listing the levels.
+// Rasterize the ART Bay Area flooding maps as the Caltrans service serves them (SOURCE_NOTES H5) onto
+// the terrain grid. Kept to reproduce the comparison in SOURCE_NOTES C1: since 2026-11-04 the explorer
+// uses the Alameda County geodatabase for all ten levels (tools/build-art-dc.mjs --connected), and this
+// tool never writes to data/hazard.
+//   node tools/build-art.mjs <dir with art_<layer>.geojson from tools/fetch-art.py> <out dir>
+// Writes <out dir>/art-<inches>.bits (one bit per cell, row-major, 1 = flooded in ART at that level,
+// any depth class) and <out dir>/art.json listing the levels (+ 12, 24, 36, 52, 66, 96 and 108 in; the
+// service has no + 84 in layer and returned no polygons for + 48 and + 77 in).
+// The service stores Web Mercator (WGS 84) and is read in WGS 84 longitude and latitude (outSR 4326);
+// how its data were brought from NAD83 is not stated (the service lists the transformation
+// WGS_1984_(ITRF00)_To_NAD_1983, Esri 108190).
 // ART levels are total water levels of MHHW plus N inches; in feet NAVD88 they are taken as
 // MHHW 6.20 at point 518 (SOURCE_NOTES W11) plus N/12 (derived).
 import fs from 'fs';
+import { fileURLToPath } from 'url';
 import { toUTM } from './utm.mjs';
-const dir = process.argv[2];
+
+const NOTE = 'ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), flooded area connected to the Bay at total water levels of MHHW plus N inches, as served by caltrans-gis.dot.ca.gov CHhqenvi/DEA_BCDC_polygon_SLR MapServer (+ 12, 24, 36, 52, 66, 96 and 108 in), rasterized to this grid. Not used by the explorer since 2026-11-04 (SOURCE_NOTES C1, H5). levelFt = MHHW 6.20 ft NAVD88 at point 518 (W11) + N/12, derived.';
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const [dir, OUT] = process.argv.slice(2);
+if (!dir || !OUT || OUT.replace(/\/$/, '') === 'data/hazard') { console.error('usage: node tools/build-art.mjs <geojson dir> <out dir, not data/hazard>'); process.exit(1); }
+fs.mkdirSync(OUT, { recursive: true });
 const dem = JSON.parse(fs.readFileSync('data/terrain/dem.json'));
 const R = dem.resolution, W = dem.width, H = dem.height, Hm = dem.ymax - dem.ymin;
 const MHHW = 6.20;
@@ -30,12 +44,13 @@ for (const f of fs.readdirSync(dir).filter(f => /^art_\d+\.geojson$/.test(f)).so
     }
   }
   const file = `art-${inches}.bits`;
-  fs.writeFileSync(`data/hazard/${file}`, bits);
+  fs.writeFileSync(`${OUT}/${file}`, bits);
   levels.push({ inches, levelFt: Math.round((MHHW + inches / 12) * 100) / 100, file, layer: name });
   console.log(name, '->', file);
 }
-fs.writeFileSync('data/hazard/art.json', JSON.stringify({
-  note: 'ART Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM 2017 for BCDC/MTC), flooded area connected to the Bay at total water levels of MHHW plus N inches, rasterized to this grid. Source service: caltrans-gis.dot.ca.gov CHhqenvi/DEA_BCDC_polygon_SLR MapServer (SOURCE_NOTES H5). levelFt = MHHW 6.20 ft NAVD88 at point 518 (W11) + N/12, derived.',
+fs.writeFileSync(`${OUT}/art.json`, JSON.stringify({
+  note: NOTE,
   provenance: { category: 'sourced', retrieved: new Date().toISOString().slice(0, 10) },
   levels,
 }, null, 2) + '\n');
+}

@@ -1,0 +1,456 @@
+{
+ "note": "USGS Coastal Storm Modeling System (CoSMoS) v2.1, San Francisco Bay, Alameda County flood depth rasters (Our Coast, Our Future download, 2 m, NAVD88), rasterized to this grid: a cell is flooded where CoSMoS gives a depth (any depth). CoSMoS models total water levels with tides, storms (in-Bay wind waves and ocean swell), river discharge and sea level rise: not still water (SOURCE_NOTES H1). waterSurface: CoSMoS water surface elevation, ft NAVD88, over the open Bay inside the City limits (sourced values, our summary). bestMatch: the still water level, ft NAVD88, at which the explorer's connected fill best matches the CoSMoS extent on Berkeley land (agreement = both / either, 0.05 ft steps from 6.0 to 30.0 ft NAVD88; derived).",
+ "provenance": {
+  "category": "sourced",
+  "retrieved": "2026-11-03",
+  "page": "https://data.pointblue.org/apps/ocof2_flood_map/download_data"
+ },
+ "storms": "background tide (w000) and 100-year storm (w100); node tools/build-cosmos.mjs --all --out DIR builds the annual, 20-year and king tide storms too",
+ "search": {
+  "fromFt": 6,
+  "toFt": 30,
+  "stepFt": 0.05
+ },
+ "scenarios": [
+  {
+   "id": "slr000_w000",
+   "slrM": 0,
+   "storm": "w000",
+   "label": "0 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr000-w000.bits",
+   "source": "county_alameda_flddepth_slr000_w000.tif",
+   "cosmosHa": 0.5,
+   "waterSurface": {
+    "medianFt": 7.43,
+    "p5Ft": 7.4,
+    "p95Ft": 7.48,
+    "samples": 19642
+   },
+   "bestMatch": {
+    "levelFt": 6.3,
+    "agreement": 0.064,
+    "oursHa": 4.8,
+    "cosmosOnlyHa": 0.1,
+    "oursOnlyHa": 4.5
+   }
+  },
+  {
+   "id": "slr000_w100",
+   "slrM": 0,
+   "storm": "w100",
+   "label": "0 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr000-w100.bits",
+   "source": "county_alameda_flddepth_slr000_w100.tif",
+   "cosmosHa": 1.4,
+   "waterSurface": {
+    "medianFt": 9.33,
+    "p5Ft": 9.21,
+    "p95Ft": 9.53,
+    "samples": 19457
+   },
+   "bestMatch": {
+    "levelFt": 8.9,
+    "agreement": 0.125,
+    "oursHa": 9.5,
+    "cosmosOnlyHa": 0.2,
+    "oursOnlyHa": 8.3
+   }
+  },
+  {
+   "id": "slr025_w000",
+   "slrM": 0.25,
+   "storm": "w000",
+   "label": "0.25 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr025-w000.bits",
+   "source": "county_alameda_flddepth_slr025_w000.tif",
+   "cosmosHa": 0.9,
+   "waterSurface": {
+    "medianFt": 7.97,
+    "p5Ft": 7.96,
+    "p95Ft": 7.99,
+    "samples": 19632
+   },
+   "bestMatch": {
+    "levelFt": 7.6,
+    "agreement": 0.108,
+    "oursHa": 6.3,
+    "cosmosOnlyHa": 0.2,
+    "oursOnlyHa": 5.6
+   }
+  },
+  {
+   "id": "slr025_w100",
+   "slrM": 0.25,
+   "storm": "w100",
+   "label": "0.25 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr025-w100.bits",
+   "source": "county_alameda_flddepth_slr025_w100.tif",
+   "cosmosHa": 2.8,
+   "waterSurface": {
+    "medianFt": 10.17,
+    "p5Ft": 10.02,
+    "p95Ft": 10.34,
+    "samples": 19520
+   },
+   "bestMatch": {
+    "levelFt": 9.2,
+    "agreement": 0.198,
+    "oursHa": 10.3,
+    "cosmosOnlyHa": 0.6,
+    "oursOnlyHa": 8.1
+   }
+  },
+  {
+   "id": "slr050_w000",
+   "slrM": 0.5,
+   "storm": "w000",
+   "label": "0.5 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr050-w000.bits",
+   "source": "county_alameda_flddepth_slr050_w000.tif",
+   "cosmosHa": 1.4,
+   "waterSurface": {
+    "medianFt": 8.7,
+    "p5Ft": 8.67,
+    "p95Ft": 8.76,
+    "samples": 19639
+   },
+   "bestMatch": {
+    "levelFt": 7.85,
+    "agreement": 0.139,
+    "oursHa": 7,
+    "cosmosOnlyHa": 0.4,
+    "oursOnlyHa": 5.9
+   }
+  },
+  {
+   "id": "slr050_w100",
+   "slrM": 0.5,
+   "storm": "w100",
+   "label": "0.5 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr050-w100.bits",
+   "source": "county_alameda_flddepth_slr050_w100.tif",
+   "cosmosHa": 4.2,
+   "waterSurface": {
+    "medianFt": 10.96,
+    "p5Ft": 10.85,
+    "p95Ft": 11.08,
+    "samples": 19538
+   },
+   "bestMatch": {
+    "levelFt": 10.2,
+    "agreement": 0.237,
+    "oursHa": 13.1,
+    "cosmosOnlyHa": 0.9,
+    "oursOnlyHa": 9.8
+   }
+  },
+  {
+   "id": "slr075_w000",
+   "slrM": 0.75,
+   "storm": "w000",
+   "label": "0.75 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr075-w000.bits",
+   "source": "county_alameda_flddepth_slr075_w000.tif",
+   "cosmosHa": 2.2,
+   "waterSurface": {
+    "medianFt": 9.7,
+    "p5Ft": 9.67,
+    "p95Ft": 9.77,
+    "samples": 19651
+   },
+   "bestMatch": {
+    "levelFt": 8.95,
+    "agreement": 0.18,
+    "oursHa": 9.6,
+    "cosmosOnlyHa": 0.4,
+    "oursOnlyHa": 7.8
+   }
+  },
+  {
+   "id": "slr075_w100",
+   "slrM": 0.75,
+   "storm": "w100",
+   "label": "0.75 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr075-w100.bits",
+   "source": "county_alameda_flddepth_slr075_w100.tif",
+   "cosmosHa": 14.1,
+   "waterSurface": {
+    "medianFt": 11.72,
+    "p5Ft": 11.59,
+    "p95Ft": 11.92,
+    "samples": 19579
+   },
+   "bestMatch": {
+    "levelFt": 10.65,
+    "agreement": 0.453,
+    "oursHa": 24.3,
+    "cosmosOnlyHa": 2.2,
+    "oursOnlyHa": 12.3
+   }
+  },
+  {
+   "id": "slr100_w000",
+   "slrM": 1,
+   "storm": "w000",
+   "label": "1 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr100-w000.bits",
+   "source": "county_alameda_flddepth_slr100_w000.tif",
+   "cosmosHa": 4,
+   "waterSurface": {
+    "medianFt": 9.9,
+    "p5Ft": 6.94,
+    "p95Ft": 9.99,
+    "samples": 19661
+   },
+   "bestMatch": {
+    "levelFt": 9.5,
+    "agreement": 0.251,
+    "oursHa": 11.1,
+    "cosmosOnlyHa": 1,
+    "oursOnlyHa": 8
+   }
+  },
+  {
+   "id": "slr100_w100",
+   "slrM": 1,
+   "storm": "w100",
+   "label": "1 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr100-w100.bits",
+   "source": "county_alameda_flddepth_slr100_w100.tif",
+   "cosmosHa": 23.3,
+   "waterSurface": {
+    "medianFt": 10.88,
+    "p5Ft": 10.82,
+    "p95Ft": 10.94,
+    "samples": 19719
+   },
+   "bestMatch": {
+    "levelFt": 11.2,
+    "agreement": 0.47,
+    "oursHa": 34,
+    "cosmosOnlyHa": 5,
+    "oursOnlyHa": 15.7
+   }
+  },
+  {
+   "id": "slr125_w000",
+   "slrM": 1.25,
+   "storm": "w000",
+   "label": "1.25 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr125-w000.bits",
+   "source": "county_alameda_flddepth_slr125_w000.tif",
+   "cosmosHa": 5.7,
+   "waterSurface": {
+    "medianFt": 10.78,
+    "p5Ft": 10.77,
+    "p95Ft": 10.81,
+    "samples": 19669
+   },
+   "bestMatch": {
+    "levelFt": 10.2,
+    "agreement": 0.301,
+    "oursHa": 13.1,
+    "cosmosOnlyHa": 1.3,
+    "oursOnlyHa": 8.8
+   }
+  },
+  {
+   "id": "slr125_w100",
+   "slrM": 1.25,
+   "storm": "w100",
+   "label": "1.25 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr125-w100.bits",
+   "source": "county_alameda_flddepth_slr125_w100.tif",
+   "cosmosHa": 37.7,
+   "waterSurface": {
+    "medianFt": 11.65,
+    "p5Ft": 11.57,
+    "p95Ft": 11.73,
+    "samples": 19725
+   },
+   "bestMatch": {
+    "levelFt": 12.4,
+    "agreement": 0.625,
+    "oursHa": 49.9,
+    "cosmosOnlyHa": 4,
+    "oursOnlyHa": 16.2
+   }
+  },
+  {
+   "id": "slr150_w000",
+   "slrM": 1.5,
+   "storm": "w000",
+   "label": "1.5 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr150-w000.bits",
+   "source": "county_alameda_flddepth_slr150_w000.tif",
+   "cosmosHa": 17.2,
+   "waterSurface": {
+    "medianFt": 11.88,
+    "p5Ft": 11.84,
+    "p95Ft": 11.92,
+    "samples": 19678
+   },
+   "bestMatch": {
+    "levelFt": 10.65,
+    "agreement": 0.488,
+    "oursHa": 24.3,
+    "cosmosOnlyHa": 3.6,
+    "oursOnlyHa": 10.7
+   }
+  },
+  {
+   "id": "slr150_w100",
+   "slrM": 1.5,
+   "storm": "w100",
+   "label": "1.5 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr150-w100.bits",
+   "source": "county_alameda_flddepth_slr150_w100.tif",
+   "cosmosHa": 53.4,
+   "waterSurface": {
+    "medianFt": 14,
+    "p5Ft": 13.92,
+    "p95Ft": 14.13,
+    "samples": 19662
+   },
+   "bestMatch": {
+    "levelFt": 13.15,
+    "agreement": 0.695,
+    "oursHa": 64.1,
+    "cosmosOnlyHa": 5.2,
+    "oursOnlyHa": 15.9
+   }
+  },
+  {
+   "id": "slr175_w000",
+   "slrM": 1.75,
+   "storm": "w000",
+   "label": "1.75 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr175-w000.bits",
+   "source": "county_alameda_flddepth_slr175_w000.tif",
+   "cosmosHa": 25.1,
+   "waterSurface": {
+    "medianFt": 13.23,
+    "p5Ft": 13.12,
+    "p95Ft": 13.4,
+    "samples": 19720
+   },
+   "bestMatch": {
+    "levelFt": 10.65,
+    "agreement": 0.504,
+    "oursHa": 24.3,
+    "cosmosOnlyHa": 8.6,
+    "oursOnlyHa": 7.7
+   }
+  },
+  {
+   "id": "slr175_w100",
+   "slrM": 1.75,
+   "storm": "w100",
+   "label": "1.75 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr175-w100.bits",
+   "source": "county_alameda_flddepth_slr175_w100.tif",
+   "cosmosHa": 66.3,
+   "waterSurface": {
+    "medianFt": 13.09,
+    "p5Ft": 13.05,
+    "p95Ft": 13.14,
+    "samples": 19731
+   },
+   "bestMatch": {
+    "levelFt": 13.35,
+    "agreement": 0.708,
+    "oursHa": 67.5,
+    "cosmosOnlyHa": 10.9,
+    "oursOnlyHa": 12
+   }
+  },
+  {
+   "id": "slr200_w000",
+   "slrM": 2,
+   "storm": "w000",
+   "label": "2 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr200-w000.bits",
+   "source": "county_alameda_flddepth_slr200_w000.tif",
+   "cosmosHa": 40.1,
+   "waterSurface": {
+    "medianFt": 14.21,
+    "p5Ft": 14,
+    "p95Ft": 14.35,
+    "samples": 19722
+   },
+   "bestMatch": {
+    "levelFt": 12.4,
+    "agreement": 0.663,
+    "oursHa": 49.9,
+    "cosmosOnlyHa": 4.2,
+    "oursOnlyHa": 14.1
+   }
+  },
+  {
+   "id": "slr200_w100",
+   "slrM": 2,
+   "storm": "w100",
+   "label": "2 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr200-w100.bits",
+   "source": "county_alameda_flddepth_slr200_w100.tif",
+   "cosmosHa": 78.8,
+   "waterSurface": {
+    "medianFt": 13.82,
+    "p5Ft": 13.78,
+    "p95Ft": 13.87,
+    "samples": 19734
+   },
+   "bestMatch": {
+    "levelFt": 13.35,
+    "agreement": 0.68,
+    "oursHa": 67.5,
+    "cosmosOnlyHa": 19.6,
+    "oursOnlyHa": 8.3
+   }
+  },
+  {
+   "id": "slr500_w000",
+   "slrM": 5,
+   "storm": "w000",
+   "label": "5 m of sea level rise, background tide, no storm",
+   "file": "cosmos-slr500-w000.bits",
+   "source": "county_alameda_flddepth_slr500_w000.tif",
+   "cosmosHa": 281.9,
+   "waterSurface": {
+    "medianFt": 24.08,
+    "p5Ft": 23.79,
+    "p95Ft": 24.51,
+    "samples": 19743
+   },
+   "bestMatch": {
+    "levelFt": 22.3,
+    "agreement": 0.942,
+    "oursHa": 290.2,
+    "cosmosOnlyHa": 4.4,
+    "oursOnlyHa": 12.7
+   }
+  },
+  {
+   "id": "slr500_w100",
+   "slrM": 5,
+   "storm": "w100",
+   "label": "5 m of sea level rise, 100-year storm",
+   "file": "cosmos-slr500-w100.bits",
+   "source": "county_alameda_flddepth_slr500_w100.tif",
+   "cosmosHa": 294.9,
+   "waterSurface": {
+    "medianFt": 23.82,
+    "p5Ft": 23.76,
+    "p95Ft": 23.87,
+    "samples": 19743
+   },
+   "bestMatch": {
+    "levelFt": 23.55,
+    "agreement": 0.943,
+    "oursHa": 302,
+    "cosmosOnlyHa": 5.2,
+    "oursOnlyHa": 12.3
+   }
+  }
+ ]
+}
