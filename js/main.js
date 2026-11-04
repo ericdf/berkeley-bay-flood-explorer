@@ -3,6 +3,7 @@
 import { analyze, FLANKED, DRAIN, RAIN } from './analyze.js';
 import { WET, LOW } from './fill.js';
 import { exposure } from './exposure.js';
+import { encodeView, decodeView } from './share.js';
 
 const $ = (id) => document.getElementById(id);
 const fmt = (x, d = 0) => x.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -369,7 +370,37 @@ function context(lv) {
 const MIN_POOL_HA = 1;
 const title = (n) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase());
 
+// The view in the URL (js/share.js): written on every render, read once at load.
+const OVERLAYS = { art: 'showArt', artdc: 'showArtDc', tsunami: 'showTsunami' };
+let lastHash = null;
+function writeView(levelFt, sc) {
+  const h = encodeView({ sc: sc ? sc.id : null, lv: levelFt, presets: [...ui.presets], gates: ui.gates, rain: ui.rain,
+    walls: ui.drawn, sites: ui.siteChoices, floodproofFt: ui.floodproofFt,
+    show: Object.entries(OVERLAYS).filter(([, id]) => $(id).checked).map(([k]) => k),
+    cosmos: $('showCosmos').checked ? { slr: $('cosmosSlr').value, storm: $('cosmosStorm').value } : null });
+  lastHash = h ? `#${h}` : '';
+  if (location.hash !== lastHash) history.replaceState(null, '', `${location.pathname}${location.search}${lastHash}`);
+}
+// Sets a control from a link only to a value the page offers; returns whether it did.
+const setSelect = (el, v) => { if (!el || ![...el.options].some(o => o.value === String(v))) return false; el.value = String(v); return true; };
+function applyView(v) {
+  for (const id of v.presets) { const el = document.querySelector(`input[data-preset="${CSS.escape(id)}"]`); if (el) { el.checked = true; ui.presets.add(id); } }
+  if (v.gates) { $('gates').checked = true; ui.gates = true; }
+  if (v.rain && setSelect($('rainAri'), v.rain.ari) && setSelect($('rainDur'), v.rain.duration) && setSelect($('rainBlocked'), v.rain.blocked)) {
+    $('rainOn').checked = true;
+    ui.rain = { ari: $('rainAri').value, duration: $('rainDur').value, blocked: Number($('rainBlocked').value) };
+    $('rainNote').textContent = `${D.atlas.depthIn[ui.rain.duration][ui.rain.ari]} in of rain (NOAA Atlas 14, SOURCE_NOTES R1).`;
+  }
+  for (const w of v.walls) if (w.crestFt >= 6 && w.crestFt <= 20) ui.drawn.push(w);
+  if (ui.drawn.length) $('drawNote').textContent = `${ui.drawn.length} wall(s) drawn.`;
+  for (const [id, c] of Object.entries(v.sites)) if (setSelect(document.querySelector(`select[data-site="${CSS.escape(id)}"]`), c)) ui.siteChoices[id] = c;
+  if (v.floodproofFt != null && v.floodproofFt >= 8 && v.floodproofFt <= 20 && $('floodproofFt')) { ui.floodproofFt = v.floodproofFt; $('floodproofFt').value = v.floodproofFt; }
+  for (const k of v.show) if (OVERLAYS[k] && !$(OVERLAYS[k]).disabled) $(OVERLAYS[k]).checked = true;
+  if (v.cosmos && !$('showCosmos').disabled && setSelect($('cosmosSlr'), v.cosmos.slr) && setSelect($('cosmosStorm'), v.cosmos.storm)) $('showCosmos').checked = true;
+}
+
 function render(levelFt, sc) {
+  writeView(levelFt, sc);
   const plan = currentPlan();
   const res = analyze(D, levelFt, plan, ui.rain);
   const baseRes = plan ? analyze(D, levelFt, null, ui.rain) : null;
@@ -582,5 +613,20 @@ function planPanel(rerender) {
     render(levelNow, scNow);
   };
   for (const id of ['rainOn', 'rainAri', 'rainDur', 'rainBlocked']) $(id).addEventListener('change', rainUpdate);
-  pick(current);
+  // A shared link (js/share.js): its scenario, or its level, and its choices.
+  const view = decodeView(location.hash);
+  applyView(view);
+  if ($('showCosmos').checked) { try { await loadCosmosMask(); } catch (e) { $('showCosmos').checked = false; } }
+  const shared = view.sc ? D.scenarios.findIndex(s => s.id === view.sc) : -1;
+  if (shared >= 0) pick(shared);
+  else if (view.lv != null && view.lv >= +$('level').min && view.lv <= +$('level').max) {
+    $('level').value = view.lv; $('levelOut').textContent = fmt(view.lv, 2); show(view.lv, null);
+  } else pick(current);
+  // A different link opened in the same tab changes only the part after "#": load it afresh.
+  window.addEventListener('hashchange', () => { if (location.hash !== lastHash) location.reload(); });
+  $('shareBtn').addEventListener('click', async () => {
+    let ok = false;
+    try { await navigator.clipboard.writeText(location.href); ok = true; } catch (e) { /* shown below instead */ }
+    $('shareNote').textContent = ok ? 'Link copied. It opens this level, plan, rain and site choices, and the outlines shown; not the map\'s pan and zoom.' : `Copy this link: ${location.href}`;
+  });
 })();

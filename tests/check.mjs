@@ -301,5 +301,30 @@ if (fs.existsSync('data/hazard/cosmos-gw.json')) {
   console.log('rise m  marine  emergent  0-1 m  1-2 m');
   for (const s of gw.scenarios) console.log(`${s.slrM.toFixed(2).padStart(6)}  ${String(s.berkeleyLandHa.marine).padStart(6)}  ${String(s.berkeleyLandHa.emergent).padStart(8)}  ${String(s.berkeleyLandHa['0to1m']).padStart(5)}  ${String(s.berkeleyLandHa['1to2m']).padStart(5)}`);
 }
+// 11. Shareable views (js/share.js; SOURCE_NOTES E12): a view survives the trip through the URL,
+//     and a damaged link yields nothing rather than a wrong value.
+{
+  const { encodeView, decodeView } = await import('../js/share.js');
+  const v = { sc: null, lv: 12, presets: ['walls2050'], gates: true, rain: { ari: '10', duration: '6-hr', blocked: 0.25 },
+    walls: [{ crestFt: 12.7, line: [[1000, 2000], [1500.4, 2499.6]] }], sites: { 'transfer-station': 'exit', 'berkeley-forge': 'floodproof' },
+    floodproofFt: 14, show: ['art', 'tsunami'], cosmos: { slr: '1.5', storm: 'w100' } };
+  const back = decodeView('#' + encodeView(v));
+  ok(back.lv === 12 && back.sc === null && back.presets.join() === 'walls2050' && back.gates && back.rain.blocked === 0.25 && back.rain.duration === '6-hr'
+    && back.walls.length === 1 && back.walls[0].line[1].join() === '1500,2500' && back.sites['transfer-station'] === 'exit' && back.floodproofFt === 14
+    && back.show.join() === 'art,tsunami' && back.cosmos.storm === 'w100', 'a view round-trips through the URL (walls to the nearest meter)');
+  const sc = decodeView('#' + encodeView({ sc: 'spill', lv: 13.4 }));
+  ok(sc.sc === 'spill' && sc.lv === null, 'a scenario link names the scenario, not its level');
+  const bad = decodeView('#lv=abc&rain=10_6-hr&wall=x_1*2&site=foo&cosmos=1.5');
+  ok(bad.lv === null && bad.rain === null && bad.walls.length === 0 && Object.keys(bad.sites).length === 0 && bad.cosmos === null, 'a damaged link sets nothing');
+}
+// 12. Every browser script parses. js/main.js runs only in the browser, so a syntax error there
+//     (an apostrophe inside a single-quoted string, twice on 2026-11-04) passes every check above.
+{
+  const { spawnSync } = await import('child_process');
+  for (const f of fs.readdirSync('js').filter(f => f.endsWith('.js'))) {
+    const r = spawnSync(process.execPath, ['--input-type=module', '--check'], { input: fs.readFileSync(`js/${f}`) });
+    ok(r.status === 0, `js/${f} parses${r.status === 0 ? '' : ': ' + String(r.stderr).split('\n').find(l => /Error/.test(l))}`);
+  }
+}
 console.log(fail ? `\n${fail} check(s) failed` : '\nall checks passed');
 process.exit(fail ? 1 : 0);
