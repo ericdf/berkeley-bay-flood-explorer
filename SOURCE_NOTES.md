@@ -1321,3 +1321,7 @@ Three claims in the outside review behind E9, checked against primary sources be
   text for its reference and figure. Applied here: the note, under the CoSMoS outline in
   `index.html`, drawn from C21, C6, C1 and F2 only, and a line in the CoSMoS result saying a best
   match is neither validation nor an equivalent scenario.
+  Then shareable views (PR #11): the scenario or level, plan, rain, site choices and outlines are
+  kept in the URL after "#" (`js/share.js`), with a "Copy a link to this view" button; map pan and
+  zoom are not kept. A link sets only values the page offers, and a wall only if it lies on the
+  terrain grid.
