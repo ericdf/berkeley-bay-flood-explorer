@@ -1454,3 +1454,21 @@ Three claims in the outside review behind E9, checked against primary sources be
   (archive PRs #31 to #33), and asked for the walls' tracing test (C25), the I-80 and rail heights
   (C27), FEMA's 2018 study (C28), source references as links (`js/refs.js`) and the duration work
   (C26).
+- **E17. The fourth outside review, of guided mode (published 354364e, 2026-11-04).** The
+  reviewer found both earlier blocking findings fixed (E11, PR #9) and three new ones in
+  `js/guided.js`, each guided-mode text claiming more than expert mode's evidence allows:
+  (1) "first reached" meant a quarter of a site's grounds, so the defenses table put the transfer
+  station's first exposure in 2100 although modeled water first touches its ground through the
+  drains at 10.00 ft NAVD88 against 12.40 for a quarter (`data/thresholds.json`, C23); (2) "no
+  inland site floods until the water crosses behind I-80" with tide gates left out rain trapped
+  behind shut gates, which expert mode states; (3) "When does flooding close the roads and the rail
+  line?" promised closures, which flooded terrain samples cannot establish. Done: each site shows
+  its first modeled water beside the quarter-of-grounds level, in plain view and in the defenses
+  table, with the counting convention stated; the tide gate finding now reads "this model keeps Bay
+  water out of the listed inland sites until it crosses the I-80 corridor", with rain held behind
+  shut gates stated beside it; the roads question became "Which roads and rail corridors could be
+  exposed?", with a note that exposure is not closure and needs road and railway profiles. Also
+  taken from the review's optional list: "every sea level estimate" became "all three sea level
+  estimates shown"; the I-80 crossing is stated as this terrain model's first surface connection,
+  near 13.4 ft NAVD88 (C6), with the real crossings to be confirmed; and a loading message with a
+  retry button replaces the empty page left by a failed data download.

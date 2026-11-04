@@ -370,6 +370,12 @@ if (fs.existsSync('data/hazard/cosmos-gw.json')) {
     ok(ladder(7.25)[0].lv === 7.4 && ladder(9.85)[0].lv === 10.91 && ladder(9.85)[2].lv === 13.0, 'the ladder names the first named water at or above a threshold');
     ok(ladder(13.4)[2].text.includes('two higher') && ladder(9.4)[2].lv === 9.4, 'the ladder counts the 2100 estimates that reach a threshold');
     ok(whenShort(17) === 'none of these levels', 'a place above every level reads "none of these levels"');
+    // E17: first modeled water and a quarter of the grounds are different levels and guided mode
+    // shows both; at the transfer station they fall in different named waters.
+    const ts = T.sites['transfer-station'];
+    ok(ts.drainTouchFt < ts.drainCountedFt && whenShort(ts.drainTouchFt) !== whenShort(ts.drainCountedFt), `transfer station: first water at ${ts.drainTouchFt}, a quarter at ${ts.drainCountedFt}, in different named waters (E17)`);
+    const gsrc = fs.readFileSync('js/guided.js', 'utf8');
+    ok(!/close (I-80|the roads)|every sea level estimate/.test(gsrc), 'guided mode promises no closures and claims no "every sea level estimate" (E17)');
   }
 }
 console.log(fail ? `\n${fail} check(s) failed` : '\nall checks passed');
