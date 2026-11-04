@@ -111,6 +111,8 @@ Guided mode is promising; layout and phone use need a real build to judge. Chang
   12 m of the point.
 - The rail line (C24) is drawn and counted in expert mode's critical services.
 - `js/share.js`: the mode and the guided question are kept in the link; an address never is.
+- Guided mode's map uses no defenses, no rain and no site choices, the settings its answers were
+  computed with; expert settings are kept and return in expert mode (Codex review, PR #14).
 
 ## Order of work
 
