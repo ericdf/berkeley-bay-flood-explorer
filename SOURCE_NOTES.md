@@ -1284,6 +1284,33 @@ Three claims in the outside review behind E9, checked against primary sources be
   Project names Nov 24–26, Dec 23–25 and Jan 21–22. Results, when they come, are recorded here
   against NOAA's measured water level at Richmond for that morning.
 
+## A third outside review, of published commit b64b41c (shared by Eric in a Claude Code session, 2026-11-04)
+
+- **E11. "Not reached" under the 25% threshold, and ART at 13.2 ft NAVD88.** The review found
+  two blocking errors on the page and four optional improvements.
+  1. At 12 ft NAVD88 with open outfalls, "Places" showed the transfer station 18% flooded through
+     drains while "What's exposed" and "Critical services" said "not reached at this level". The
+     cause was the 25% cutoff in `js/exposure.js`. Reproduced: 18.1% of the transfer station and
+     13.6% of the Marine Center at 12 ft. Applied: 25% stays the summary's counting rule, and a site
+     under it reads "partially reached ... below the summary's 25% counting threshold" with its
+     share; the summary line gives how many sites are partially reached. Waste transfer now states
+     the site's ground share and that whether the service continues is not assessed here: a share
+     of flooded ground does not establish it. Roads and I-80 with no flooded segment now say that no
+     segment has a quarter or more of its length flooded, the street rule, in place of "not
+     reached". Check: `tests/check.mjs`.
+  2. The I-80 connection's warning and the scenario's source line still said ART puts the
+     connection near 13.2 ft NAVD88, which C6 and C20 correct: at MHHW + 84 in (13.20 ft NAVD88)
+     ART shows the transfer station as 41% disconnected low-lying ground with no connected flooding;
+     at + 96 in (14.20 ft NAVD88) it floods 56% of it from the Bay. Applied: both now say so, and
+     that the discrete maps bracket the connection without establishing its level. F9's reading of
+     the Draft EIR's maps stays in the source line as what that document states.
+  3. Optional, applied as text only: the exposure count is a screening result. It does not measure
+     release, toxicity, transport or cleanup cost, and a choice of the reader's counts only if the
+     measure works. The page says so beside the count.
+  4. Optional, not yet applied, for Eric: a "Why these maps disagree" note at the CoSMoS comparison
+     (13% best overlap; a best-fitting level is neither validation nor an equivalent scenario);
+     clickable SOURCE_NOTES references linking on to primary records; a compact scenario summary
+     with jumps to Map, Plans and What's exposed; shareable scenario URLs.
 ## Eric's decisions, 2026-11-04 (Claude Code session)
 
 - **E12. The third outside review's recommendations (E11).** Eric agreed with the order proposed
