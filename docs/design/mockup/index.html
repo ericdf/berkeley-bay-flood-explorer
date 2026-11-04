@@ -1,0 +1,314 @@
+<title>Flood Explorer Guided Mode</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one top bar with the mode switch; below it, a reading panel on the left and the map filling the rest. Expert mode keeps the same two columns, with collapsible controls and results in tabs. Palette and type follow the live explorer (index.html). */
+:root {
+  --bg: #fbfaf7; --panel: #ffffff; --fg: #1d1d1b; --muted: #5d5d58; --line: #d9d6cf;
+  --accent: #1f5fa8; --accent-soft: #e8eff8; --wet: #2f7fd6; --drain: #26b2a0; --low: #e08a1e; --mapbg: #0f2747;
+  --mark: #c0392b; --note: #fff7e6; --note-line: #e08a1e;
+  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #161615; --panel: #1f1f1d; --fg: #ecebe6; --muted: #a9a8a1; --line: #3a3936; --accent: #7fb0ea; --accent-soft: #24303d;
+  --mark: #ff7a6b; --note: #2a2418; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #161615; --panel: #1f1f1d; --fg: #ecebe6; --muted: #a9a8a1; --line: #3a3936; --accent: #7fb0ea; --accent-soft: #24303d;
+  --mark: #ff7a6b; --note: #2a2418; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font); }
+a { color: var(--accent); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.mock { background: var(--note); border-bottom: 1px solid var(--note-line); font-size: 13px; padding-block: 6px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); background: var(--panel);
+  padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header h1 { font-size: 19px; margin: 0; text-wrap: balance; }
+header p { margin: 0; font-size: 13px; color: var(--muted); }
+.modes { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.modes button { border: 0; background: transparent; padding: 6px 14px; cursor: pointer; font-size: 14px; }
+.modes button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+:root[data-theme="dark"] .modes button[aria-pressed="true"] { color: #10161d; }
+
+main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(340px, 460px) minmax(0, 1fr); }
+@media (max-width: 860px) { body { display: block; } main { grid-template-columns: 1fr; } .mapcol { order: -1; height: 62vh; } .panel { overflow: visible; } }
+.panel { background: var(--panel); border-right: 1px solid var(--line); overflow: auto; min-width: 0;
+  padding-block: 16px 32px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 20px; }
+.mapcol { position: relative; background: var(--mapbg); overflow: hidden; min-width: 0; }
+.mapcol img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.mapcap { position: absolute; left: 0; bottom: 0; right: 0; background: #ffffff; color: #1d1d1b; border-radius: 6px; padding: 8px 10px; font-size: 13px; }
+.mapcap b { display: block; font-size: 14px; }
+.mapnote { position: absolute; top: 12px; left: 12px; background: #000a; color: #fff; font-size: 12px; padding: 4px 8px; border-radius: 4px; }
+
+h2 { font-size: 18px; margin: 0 0 6px; text-wrap: balance; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 18px 0 6px; }
+.lede { margin: 0 0 14px; color: var(--muted); }
+.qs { display: grid; gap: 8px; }
+.q { display: grid; gap: 2px; text-align: left; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.q:hover { border-color: var(--accent); background: var(--accent-soft); }
+.q b { font-size: 15px; }
+.q span { font-size: 13px; color: var(--muted); }
+.q.soon { opacity: .7; }
+.back { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 0; margin-bottom: 10px; font-size: 14px; }
+
+.finding { font-size: 16px; margin: 4px 0 12px; }
+.place { border-top: 1px solid var(--line); padding: 12px 0; }
+.place h4 { margin: 0 0 2px; font-size: 15px; }
+.place .what { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
+.rungs { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.rung { display: grid; grid-template-columns: 54px 1fr; gap: 8px; align-items: baseline; font-size: 14px; }
+.rung .when { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.rung button { border: 0; background: none; padding: 0; text-align: left; cursor: pointer; color: var(--fg); text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
+.rung button:hover { color: var(--accent); }
+.rung .no { color: var(--muted); }
+.how { display: inline-block; font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; margin-right: 6px; color: var(--muted); vertical-align: 1px; }
+.how.drain { border-color: var(--drain); color: var(--fg); }
+.how.bay { border-color: var(--wet); color: var(--fg); }
+.nums { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.nums[hidden] { display: none; }
+.caveat { font-size: 13px; border-left: 3px solid var(--low); padding: 4px 10px; background: color-mix(in srgb, var(--low) 8%, transparent); margin: 10px 0; }
+.toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+.addr { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.addr input { flex: 1 1 200px; min-width: 0; font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
+.addr button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); cursor: pointer; }
+.fine { font-size: 12px; color: var(--muted); }
+.expert-link { display: inline-block; margin-top: 16px; font-size: 14px; }
+
+/* The water scale: where this place's threshold sits among the named levels. */
+.scale { position: relative; height: 62px; margin: 8px 12px 2px; }
+.scale .bar { position: absolute; left: 0; right: 0; top: 24px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--accent-soft), var(--wet)); }
+.scale .tick { position: absolute; top: 18px; width: 2px; height: 18px; background: var(--muted); }
+.scale .tick span { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--muted); white-space: nowrap; }
+.scale .tick.up span { top: -16px; }
+.scale .thr { position: absolute; top: 19px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--mark); border: 2px solid var(--panel); }
+.scale .thr span { position: absolute; top: 26px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; color: var(--mark); white-space: nowrap; }
+
+/* Expert mode */
+.rail details { border-bottom: 1px solid var(--line); padding: 8px 0; }
+.rail summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+.rail summary small { font-weight: 400; color: var(--muted); margin-left: 6px; }
+.rail .opt { font-size: 13px; padding: 2px 0; display: flex; justify-content: space-between; gap: 8px; }
+.rail .opt span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend { position: absolute; left: 12px; top: 44px; background: #ffffffee; color: #1d1d1b; border-radius: 6px; padding: 6px 10px; font-size: 12px; max-width: 240px; }
+.legend summary { cursor: pointer; font-weight: 600; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.drawer { position: absolute; right: 12px; top: 12px; width: min(360px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow: auto; background: var(--panel); color: var(--fg); border-radius: 8px; border: 1px solid var(--line); box-shadow: 0 6px 24px #0004; }
+.tabs { display: flex; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabs button { border: 0; background: none; padding: 8px 10px; font-size: 13px; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; }
+.tabs button[aria-selected="true"] { border-bottom-color: var(--accent); font-weight: 600; }
+.drawer .body { padding: 10px 12px; font-size: 13px; }
+.drawer table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.drawer td { padding: 3px 0; border-bottom: 1px solid var(--line); }
+.drawer td:last-child { text-align: right; white-space: nowrap; }
+.tip { border-bottom: 1px dotted var(--muted); cursor: help; }
+@media (max-width: 860px) { .drawer { position: static; width: auto; max-height: none; box-shadow: none; margin-top: 12px; } }
+</style>
+
+<div class="mock"><b>Design mockup.</b> Guided-mode answers are computed from the explorer's model results (tools/thresholds.mjs). The map pictures are screenshots of today's explorer at five levels. Address lookup, the rail line and the plans question are not built yet.</div>
+<header>
+  <div>
+    <h1>Berkeley Bay Flood Explorer</h1>
+    <p>Explore how storm tides, sea level rise and heavy rain could affect west Berkeley's streets, critical infrastructure, I-80, pollution sources and the Bay shoreline. Not a flood forecast.</p>
+  </div>
+  <div class="modes" role="group" aria-label="Mode">
+    <button id="mGuided" aria-pressed="true">Guided</button>
+    <button id="mExpert" aria-pressed="false">Expert</button>
+  </div>
+</header>
+<main>
+  <section class="panel" id="panel" aria-live="polite"></section>
+  <div class="mapcol" id="mapcol">
+    <img id="mapimg" alt="Map of west Berkeley showing Bay water at the selected level" src="map-y100.png">
+    <div class="mapnote">Screenshot from today's explorer</div>
+    <div class="mapcap" id="mapcap"></div>
+    <div id="expertMap" hidden></div>
+  </div>
+</main>
+
+<script>
+// Levels in ft NAVD88 still water, from data/scenarios.json.
+const TODAY = [
+  { ft: 6.2, text: 'An ordinary high tide', often: 'almost every day' },
+  { ft: 7.4, text: "This winter's highest tide (Dec 24)", often: 'about once a year' },
+  { ft: 8.16, text: 'A storm tide', often: 'about a 20% chance each year' },
+  { ft: 8.47, text: 'A storm tide', often: 'about a 10% chance each year' },
+  { ft: 9.73, text: 'A severe storm tide', often: 'about a 1% chance each year' },
+  { ft: 10.91, text: 'An extreme storm tide', often: 'about a 0.2% chance each year' },
+];
+const STORM2050 = [10.70, 10.73, 11.03];           // 1% storm tide in 2050: City 2018 guidance, State 2024 Intermediate-High, High
+const TIDE2100 = 9.4;                               // ordinary high tide in 2100, City study (2018 guidance)
+const STORM2100 = [13.0, 14.53, 16.23];             // 1% storm tide in 2100: City, State Intermediate-High, State High
+const MAPS = [ [7.4, 'king2026', "This winter's highest tide"], [9.73, 'y100', 'Severe storm tide today (1% chance each year)'],
+  [10.73, 'opc2050IntermediateHigh', 'Severe storm tide in 2050 (State middle-high estimate)'], [13.0, 'y100y2100', "Severe storm tide in 2100 (City's estimate)"],
+  [14.53, 'opc2100IntermediateHigh', 'Severe storm tide in 2100 (State middle-high estimate)'] ];
+
+// Thresholds from data/thresholds.json: the lowest level at which the place is first reached.
+const SITES = [
+  { name: 'Berkeley Forge & Tool, 1331 Eastshore Hwy', what: 'Active metal works; runoff carried aluminum, copper, iron and zinc before a 2012 settlement.', drain: 9.85, bay: 13.4 },
+  { name: 'Former Pacific Steel Casting, Second St', what: 'Contaminated soil and groundwater, as shallow as 1.5 ft below the ground; cleanup open.', drain: 10.8, bay: 13.4 },
+  { name: '1255 Eastshore Hwy (former traffic-sign plant)', what: 'Solvents (TCE, vinyl chloride) and gasoline-range fuel in soil, groundwater and soil vapor.', drain: 11.65, bay: 13.4 },
+  { name: 'City transfer station, Second St at Gilman St', what: 'Garbage, recycling, a hazardous materials locker, batteries, bulbs and a 1,000-gallon used oil tank.', drain: 12.4, bay: 13.4 },
+  { name: 'Berkeley Marine Center boatyard, 1 Spinnaker Way', what: 'Lead and copper in surface soil. Its shoreline edge is wet at ordinary high tides.', bay: 12.8 },
+  { name: 'Terminal Manufacturing, 707 Gilman St', what: 'PCE, diesel and gasoline in groundwater and soil vapor; treatment under way.', bay: 13.55 },
+  { name: 'Eastshore State Park shoreline parcels', what: 'PCBs, lead and other metals in soil and groundwater.', bay: 15.0 },
+  { name: 'Former Flint Ink, 750 Gilman St', what: 'Lead, kerosene and other petroleum; solvents remain in groundwater.', bay: null, touch: 15.4 },
+];
+const ROADS = [
+  { name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', drain: 7.25, bay: 13.4 },
+  { name: 'Eastshore Hwy (the frontage road)', what: 'The local road along I-80.', drain: 7.85, bay: 13.3 },
+  { name: 'Roads to the Marina', what: 'Marina Blvd, Spinnaker Way and University Ave west of I-80. They are also the only ways off the waterfront.', bay: 10.7 },
+  { name: 'I-80', what: 'The freeway lines in both directions.', bay: 11.2, lidar: true },
+  { name: 'I-80 ramps at University Ave', drain: 12.05, bay: 13.4, lidar: true },
+  { name: 'I-80 ramps at Ashby Ave', bay: 13.65, lidar: true },
+  { name: 'I-80 ramps at Gilman St', bay: 14.05, lidar: true },
+];
+
+const $ = (id) => document.getElementById(id);
+let showNums = false;
+const ft = (v) => `${v.toFixed(2)} ft NAVD88`;
+const count = (arr, T) => arr.filter(v => v >= T).length;
+
+// The plain-language ladder for a threshold T: the most frequent water today that reaches it, then 2050 and 2100.
+function ladder(T) {
+  const out = [];
+  const t = TODAY.find(r => r.ft >= T);
+  out.push({ when: 'Today', lv: t && t.ft, text: t ? `${t.text}, ${t.often}` : 'None of today\'s storm tides, up to one with a 0.2% chance each year' });
+  const n50 = count(STORM2050, T);
+  out.push({ when: '2050', lv: n50 ? STORM2050.find(v => v >= T) : null,
+    text: n50 === 3 ? 'A severe storm tide (1% chance each year), under every sea level estimate'
+      : n50 ? `A severe storm tide, but only under the ${n50 === 1 ? 'highest' : 'two higher'} sea level estimates`
+      : 'Not by a severe storm tide under any estimate' });
+  if (T <= TIDE2100) out.push({ when: '2100', lv: TIDE2100, text: "An ordinary high tide, under the City's estimate" });
+  else {
+    const n = count(STORM2100, T);
+    out.push({ when: '2100', lv: n ? STORM2100.find(v => v >= T) : null,
+      text: n === 3 ? 'A severe storm tide, under every sea level estimate'
+        : n ? `A severe storm tide, but only under the ${n === 1 ? 'highest' : 'two higher'} sea level estimates`
+        : 'Not under any estimate' });
+  }
+  return out;
+}
+
+function rungsHTML(T, how) {
+  return `<ul class="rungs">${ladder(T).map(r => `<li class="rung"><span class="when">${r.when}</span>${r.lv
+    ? `<button data-lv="${r.lv}" data-how="${how}">${r.text}</button>` : `<span class="no">${r.text}</span>`}</li>`).join('')}</ul>`;
+}
+
+function scaleHTML(T) {
+  const pos = (v) => `${(100 * (v - 6) / (16.5 - 6)).toFixed(1)}%`;
+  const ticks = [[6.2, 'high tide'], [9.73, 'today'], [10.73, '2050'], [14.53, '2100']];
+  return `<div class="scale" aria-hidden="true" title="Severe (1% a year) storm tides: today, and the middle estimate for 2050 and 2100"><div class="bar"></div>${ticks.map(([v, l]) => `<div class="tick up" style="left:${pos(v)}"><span>${l}</span></div>`).join('')}<div class="thr" style="left:${pos(Math.min(T, 16.5))}"><span>reaches here</span></div></div>`;
+}
+
+function place(p) {
+  const parts = [];
+  if (p.drain != null && (p.bay == null || p.drain < p.bay)) parts.push(`<p><span class="how drain">up the storm drains</span></p>${rungsHTML(p.drain, 'drain')}<div class="nums" ${showNums ? '' : 'hidden'}>First reached through drains at ${ft(p.drain)} (derived)</div>`);
+  if (p.bay != null) parts.push(`<p><span class="how bay">over the ground from the Bay</span></p>${rungsHTML(p.bay, 'bay')}<div class="nums" ${showNums ? '' : 'hidden'}>${p.edge ? 'First water on the ground' : 'A quarter or more reached'} at ${ft(p.bay)} (derived)${p.lidar ? '; bare-earth terrain' : ''}</div>`);
+  if (p.bay == null && p.touch) parts.push(`<p class="what">Only its edge is reached, and only by water above every estimate for 2100 except the highest.</p>`);
+  return `<div class="place"><h4>${p.name}</h4>${p.what ? `<p class="what">${p.what}</p>` : ''}${scaleHTML(Math.min(p.drain ?? 99, p.bay ?? p.touch ?? 99))}${parts.join('')}</div>`;
+}
+
+const numsToggle = () => `<label class="toggle"><input type="checkbox" id="numsBox" ${showNums ? 'checked' : ''}> Show the numbers (water levels in feet, with sources)</label>`;
+const drainNote = `<div class="caveat">"Up the storm drains" assumes the drain outlets to the Bay have no working tide gates. The City has not published which ones have them. If they all do, only "over the ground" applies.</div>`;
+
+const QUESTIONS = [
+  { id: 'address', title: 'Could Bay flooding reach my home or street?', sub: 'Type an address, or use your location.', render: () => `
+    <h2>Could Bay flooding reach my home or street?</h2>
+    <div class="addr"><input id="addrIn" value="200 Marina Blvd" aria-label="Address in Berkeley"><button type="button">Look up</button><button type="button">Use my location</button></div>
+    <p class="fine">The address goes to the U.S. Census Bureau's address lookup and is not stored. Your location stays on your device and only fills in the address box. In this mockup the lookup is fixed to the example below.</p>
+    <p class="finding">At <b>200 Marina Blvd</b> (the DoubleTree hotel), Bay water first reaches the edge of the grounds in a storm with a 0.2% chance each year. By 2050 a 1% storm reaches it under every estimate.</p>
+    ${place({ name: '200 Marina Blvd', what: 'The ground at this address. Floors may sit higher; floor heights are not published.', bay: 9.85, edge: true })}
+    <p class="fine">Most of Berkeley sits higher than any level here. An address on higher ground gets: "None of the water levels here reach this address, including the highest estimate for 2100."</p>` },
+  { id: 'toxic', title: 'When could flooding reach contaminated ground and carry it into the Bay?', sub: 'Eight sites with known pollution near the shore.', render: () => `
+    <h2>When could flooding reach contaminated ground?</h2>
+    <p class="finding">Up the storm drains, Bay water first covers a quarter of the Berkeley Forge site in a storm tide with a 0.2% chance each year. By 2100's severe storm tide it covers four inland sites this way, even under the City's lowest estimate. Over the ground, it reaches none of the inland sites until it is high enough to cross behind I-80. That takes more than the City's estimate for 2100, and less than the State's middle-high estimate.</p>
+    ${drainNote}
+    <div class="caveat">Groundwater is a third way in. A USGS model (CoSMoS-GW) puts the water table at the ground surface across nearly all of the Pacific Steel and Berkeley Forge sites today, under its middle assumption about the soil. That result swings widely with the assumption, and the explorer's water levels do not include it.</div>
+    ${SITES.map(place).join('')}
+    <div class="place"><h4>Former Berkeley Landfill, under César Chávez Park</h4><p class="what">About 1.5 million tons of waste on Bay mud, with no liner. A water level is the wrong test here: the risks are the shoreline wearing away and groundwater rising into the waste, which this explorer does not model.</p></div>
+    ${numsToggle()}` },
+  { id: 'roads', title: 'When does flooding close I-80, its ramps or the roads to the Marina?', sub: 'Also Bolivar Dr and the frontage road.', render: () => `
+    <h2>When does flooding close the roads?</h2>
+    <p class="finding">The roads to the Marina go under in 2050's 1% storm, under every estimate. I-80 follows at a slightly higher level, then its ramps. Up the drains, Bay water can reach Bolivar Dr at this winter's highest tide, and the frontage road in a storm tide with a 20% chance each year.</p>
+    ${drainNote}
+    <div class="caveat">For I-80 and its ramps the terrain is bare earth: the survey removes bridges, overpasses and the raised road deck. Caltrans road profiles would settle where the freeway really goes under.</div>
+    ${ROADS.map(place).join('')}
+    <div class="place"><h4>The rail line (Amtrak and freight)</h4><p class="what">Coming in the full build: the tracks are being added to the map.</p></div>
+    ${numsToggle()}` },
+  { id: 'king', title: "What will this winter's king tides reach?", sub: 'And where to go and see for yourself.', render: () => `
+    <h2>What will this winter's king tides reach?</h2>
+    <p class="finding">The highest tide this winter, on December 24, can push Bay water up the storm drains onto Bolivar Dr, if its drain outlet has no working tide gate. Over the ground, it stays at the shoreline.</p>
+    ${drainNote}
+    ${place(ROADS[0])}
+    <p>Go and look on the mornings of Nov 24–26, Dec 23–25 and Jan 21–22. The <a href="../../field-guide.html">king tide field guide</a> has times, four places to stand and what to photograph. Photos test whether the drains really let the Bay in.</p>` },
+  { id: 'plans', title: 'What do the City\'s flood plans protect, and what do they leave out?', sub: 'Floodwalls, raised roads and tide gates.', soon: true, render: () => `
+    <h2>What do the City's flood plans protect?</h2><p>Not in this mockup. It will use the plans already in the explorer: the City study's floodwalls for 2050 and 2100, raised Spinnaker Way and University Ave, and tide gates on every drain outlet. Each will be compared with no plan, using the same water.</p>` },
+];
+
+function guidedHome() {
+  $('panel').innerHTML = `<h2>What do you want to know?</h2>
+    <p class="lede">Pick a question. The answer says when Bay water reaches each place: today, by 2050 and by 2100. Click any line in an answer to see it on the map.</p>
+    <div class="qs">${QUESTIONS.map(q => `<button class="q${q.soon ? ' soon' : ''}" data-q="${q.id}"><b>${q.title}</b><span>${q.sub}</span></button>`).join('')}</div>
+    <p class="fine" style="margin-top:16px">Want to set every level and plan yourself? Switch to <a href="#" data-mode="expert">Expert</a>.</p>`;
+  setMap(9.73);
+}
+function guidedQ(id) {
+  const q = QUESTIONS.find(x => x.id === id);
+  $('panel').innerHTML = `<button class="back" data-home>&larr; All questions</button>${q.render()}<a class="expert-link" href="#" data-mode="expert">Check this in expert mode &rarr;</a>`;
+  $('panel').scrollTop = 0;
+}
+
+function setMap(lv) {
+  let best = MAPS[0];
+  for (const m of MAPS) if (Math.abs(m[0] - lv) < Math.abs(best[0] - lv)) best = m;
+  $('mapimg').src = `map-${best[1]}.png`;
+  $('mapcap').innerHTML = `<b>${best[2]}</b>${showNums ? `${ft(best[0])}, still water. ` : ''}Not a flood forecast.`;
+}
+
+function expert() {
+  $('panel').innerHTML = `<div class="rail">
+    <details open><summary>Water level <small>1% storm tide today</small></summary>
+      <div class="opt"><span>Ordinary high tide</span><span>6.20</span></div>
+      <div class="opt"><span>This winter's highest tide</span><span>7.40</span></div>
+      <div class="opt"><span>Storm tide, 10% a year</span><span>8.47</span></div>
+      <div class="opt"><b>Storm tide, 1% a year</b><span>9.73</span></div>
+      <div class="opt"><span>2050, 1% a year (three estimates)</span><span>10.70–11.03</span></div>
+      <div class="opt"><span>2100, 1% a year (three estimates)</span><span>13.00–16.23</span></div>
+      <p class="fine">All 18 levels, grouped as today, future and tests, plus a slider. Levels in feet <span class="tip" title="North American Vertical Datum of 1988: the zero that land and water heights are measured from. Ordinary high tide off Berkeley is 6.2 ft on it.">NAVD88</span>, still water.</p></details>
+    <details><summary>Rain on this tide <small>off</small></summary><p class="fine">The current rain controls.</p></details>
+    <details><summary>Plan <small>none</small></summary><p class="fine">Floodwalls, raised roads, tide gates, walls you draw.</p></details>
+    <details><summary>Published maps to compare <small>none</small></summary><p class="fine">ART, ART disconnected areas, CoSMoS, tsunami area. "Why these maps disagree" moves into the Method tab.</p></details>
+    <details><summary>Sites <small>no changes</small></summary><p class="fine">Flood-proof, move, contain or remove each site.</p></details>
+    <p class="fine" style="margin-top:12px">Every section starts closed except the water level. The map key moves onto the map. Results move into the tabbed box on the map, so nothing sits below the page.</p></div>`;
+  $('expertMap').hidden = false;
+  $('expertMap').innerHTML = `<details class="legend" open><summary>Map key</summary>
+      <div><i style="background:var(--wet)"></i>Under Bay water</div><div><i style="background:var(--drain)"></i>Can fill up the storm drains</div><div><i style="background:var(--low)"></i>Low, not connected</div><div><i style="background:#d22"></i>Street under water</div>
+      <p class="fine" style="color:#5d5d58;margin:4px 0 0">Shows only the layers on the map now.</p></details>
+    <div class="drawer"><div class="tabs" role="tablist"><button role="tab" aria-selected="true">Summary</button><button role="tab">Streets</button><button role="tab">Sites</button><button role="tab">Gaps</button><button role="tab">Method</button></div>
+      <div class="body"><p><b>1% storm tide today: 9.73 ft NAVD88</b><br>About 3½ ft above an ordinary high tide, and a foot above the highest tide on record nearby (Richmond, 1998). Sourced: FEMA/BCDC point 518 <span class="tip" title="SOURCE_NOTES W11">[W11]</span>.</p>
+      <table><tr><td>Berkeley ground under Bay water</td><td>11.7 ha</td></tr><tr><td>Low ground that can fill up the drains</td><td>13.2 ha</td></tr><tr><td>Streets that can flood up the drains</td><td>1.91 km</td></tr><tr><td>Streets under Bay water</td><td>0.00 km</td></tr></table>
+      <p class="fine">Figures from today's explorer at this level. Source codes become hover notes and links to the source list.</p></div></div>`;
+  setMap(9.73);
+}
+
+function mode(m) {
+  $('mGuided').setAttribute('aria-pressed', m === 'guided'); $('mExpert').setAttribute('aria-pressed', m === 'expert');
+  $('expertMap').hidden = m !== 'expert'; $('mapcap').hidden = m === 'expert';
+  m === 'guided' ? guidedHome() : expert();
+}
+
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('button, a'); if (!t) return;
+  if (t.id === 'mGuided') mode('guided'); else if (t.id === 'mExpert') mode('expert');
+  else if (t.dataset.mode) { e.preventDefault(); mode(t.dataset.mode); }
+  else if (t.dataset.q) guidedQ(t.dataset.q);
+  else if (t.hasAttribute('data-home')) guidedHome();
+  else if (t.dataset.lv) setMap(Number(t.dataset.lv));
+});
+document.addEventListener('change', (e) => {
+  if (e.target.id === 'numsBox') { showNums = e.target.checked; document.querySelectorAll('.nums').forEach(n => n.hidden = !showNums); }
+});
+mode('guided');
+</script>
