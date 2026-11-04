@@ -991,8 +991,12 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   center; the raster's origin (558892.4796 E, 4195523.0018 N) puts those points 0.26 and 0.0009 of a
   2 m cell from a cell edge, so the move keeps every sample in the same cell, and not one cell of any
   of the 20 masks changes: C21 stands. CoSMoS-GW's polygons (`tools/build-cosmos-gw.mjs`, NAD83(NSRS2007)
-  taken as NAD83(2011)) do move; C22 is restated with the new figures, which change by up to 2
-  percentage points or 0.6 ha.
+  taken as NAD83(2011)) do move; C22 is restated with the new figures. Berkeley-wide class areas change by at most
+  0.9 ha (marine at 1.5 m of rise, 34.2 to 33.3 ha). The named places change more, because a 1.5 m
+  move shifts many cells of a narrow outline: Eastshore Hwy's emergent share by up to 12 percentage
+  points (51 to 62% at 1.5 m of rise), Berkeley Forge's by 3 (97 to 100% at 0 m), the transfer
+  station's by 2 (27 to 25% at 0 m); every place's shares are in `node tools/compare-cosmos-gw.mjs`
+  (Codex review, PR #17).
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
