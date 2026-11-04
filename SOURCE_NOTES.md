@@ -852,6 +852,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     | 2.0 m | 68% | 13.35 |
 
     At 0–0.75 m the agreement is 13–45%. There CoSMoS floods 1.4–14 ha and keeps dry the North Basin shoreline strip (37.8749 N, 122.3089 W) and the west edge of Aquatic Park, which the fill wets.
+  - **Background tide, 0–0.75 m of rise:** best agreement 6–18%, with CoSMoS flooding 0.5–2.2 ha of Berkeley land (`data/hazard/cosmos.json`; Codex review, PR #10).
   - **The Marina agrees.** At 1.5 m + 100-year, the DoubleTree grounds are 83% flooded in CoSMoS and 89% in the fill; Marina Blvd is 93% and 98%.
   - **The flats behind I-80.** CoSMoS floods none of the transfer station, Second St, Bolivar Dr, Eastshore Hwy or the I-80 corridor at 37.8812 N, 122.3073 W in any scenario up to 2.0 m. That holds although its water surface over the Bay off Berkeley reaches 13.82 ft NAVD88 (2.0 m, 100-year storm) and 14.21 ft NAVD88 (2.0 m, background tide). At 5 m it covers all of the transfer station.
   - **At 5 m** the fill matches at 22.3 ft NAVD88 (background tide) and 23.55 ft NAVD88 (100-year storm), both 94%. A first run searched only to 16.5 ft NAVD88 and reported that edge as the best match (Codex review, PR 8); the search range is now stored in `cosmos.json`, and a test fails if a best match sits at its edge.
@@ -1310,3 +1311,13 @@ Three claims in the outside review behind E9, checked against primary sources be
      (13% best overlap; a best-fitting level is neither validation nor an equivalent scenario);
      clickable SOURCE_NOTES references linking on to primary records; a compact scenario summary
      with jumps to Map, Plans and What's exposed; shareable scenario URLs.
+## Eric's decisions, 2026-11-04 (Claude Code session)
+
+- **E12. The third outside review's recommendations (E11).** Eric agreed with the order proposed
+  in the session: publish the two blocking fixes (PR #9); then a "Why these maps disagree" note at
+  the CoSMoS comparison; shareable scenario URLs; clickable source references; a compact scenario
+  summary with jump links; a records request to Caltrans for I-80 profiles and culverts near
+  Gilman; and a working rule that a corrected SOURCE_NOTES row is followed by a search of the page
+  text for its reference and figure. Applied here: the note, under the CoSMoS outline in
+  `index.html`, drawn from C21, C6, C1 and F2 only, and a line in the CoSMoS result saying a best
+  match is neither validation nor an equivalent scenario.
