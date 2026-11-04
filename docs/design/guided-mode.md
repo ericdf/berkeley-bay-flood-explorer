@@ -72,6 +72,32 @@ Every current control stays, rearranged:
   connected fill, still water) get hover definitions.
 - On a phone: map first, then a pull-up panel.
 
+## Eric's review of the mockup (2026-11-04)
+
+Guided mode is promising; layout and phone use need a real build to judge. Changes for the build:
+
+- **"Explain this" links** that open a short note, in expert mode wherever a reader meets a term or
+  a choice without context. First case: the published maps to compare (ART, ART disconnected areas,
+  CoSMoS, the tsunami area), each with one or two sentences on what it is and how it differs.
+- **Tsunamis in the opening text**, with an "Explain this" note: water comes in over the shoreline,
+  up the storm drains and from rising groundwater; rain that cannot drain out pools in low streets;
+  water going out, in a tsunami's drawdown or a flood's retreat, can carry contamination into the
+  Bay; and these can happen together. Proposed opening (E13's text plus tsunamis): "Explore how
+  storm tides, tsunamis, sea level rise and heavy rain could affect west Berkeley's streets,
+  critical infrastructure, I-80, pollution sources and the Bay shoreline. Not a flood forecast."
+- **Section labels in expert mode** say what the section does:
+
+  | Was | Proposed |
+  |---|---|
+  | Water level | How high the Bay rises |
+  | (selected) "1% storm tide today" | "Rare storm tide, at today's sea level (1% chance each year)" |
+  | Rain on this tide | Add a rainstorm during the high water |
+  | Plan | Flood defenses: walls, raised roads, tide gates |
+  | Published maps to compare | Compare with official flood maps |
+  | Sites | Polluted and hazardous sites: what if they are moved or cleaned up |
+
+  "Today" in a level's name always means today's sea level, never today's weather.
+
 ## Order of work
 
 1. This mockup, for Eric's reactions.
