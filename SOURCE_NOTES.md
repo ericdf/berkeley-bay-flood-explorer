@@ -852,6 +852,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     | 2.0 m | 68% | 13.35 |
 
     At 0–0.75 m the agreement is 13–45%. There CoSMoS floods 1.4–14 ha and keeps dry the North Basin shoreline strip (37.8749 N, 122.3089 W) and the west edge of Aquatic Park, which the fill wets.
+  - **Background tide, 0–0.75 m of rise:** best agreement 6–18%, with CoSMoS flooding 0.5–2.2 ha of Berkeley land (`data/hazard/cosmos.json`; Codex review, PR #10).
   - **The Marina agrees.** At 1.5 m + 100-year, the DoubleTree grounds are 83% flooded in CoSMoS and 89% in the fill; Marina Blvd is 93% and 98%.
   - **The flats behind I-80.** CoSMoS floods none of the transfer station, Second St, Bolivar Dr, Eastshore Hwy or the I-80 corridor at 37.8812 N, 122.3073 W in any scenario up to 2.0 m. That holds although its water surface over the Bay off Berkeley reaches 13.82 ft NAVD88 (2.0 m, 100-year storm) and 14.21 ft NAVD88 (2.0 m, background tide). At 5 m it covers all of the transfer station.
   - **At 5 m** the fill matches at 22.3 ft NAVD88 (background tide) and 23.55 ft NAVD88 (100-year storm), both 94%. A first run searched only to 16.5 ft NAVD88 and reported that edge as the best match (Codex review, PR 8); the search range is now stored in `cosmos.json`, and a test fails if a best match sits at its edge.
