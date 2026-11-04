@@ -49,7 +49,7 @@ and code comments. The rules that come up most:
   with its source (document and page, or speaker, meeting and timestamp) and what we did
   with it. Record conflicts between sources there too.
 - **A corrected row is corrected on the page too.** When a `SOURCE_NOTES.md` row is corrected or
-  superseded, search `js/`, `data/`, `index.html` and `field-guide.html` for the row's reference
+  superseded, search `js/`, `data/` and `index.html` for the row's reference
   (for example "C20") and for each figure the correction changed, and fix every string that relies
   on it in the same PR. Both blocking findings of the 2026-11-04 outside review were page text left
   behind by a correction (SOURCE_NOTES E11).

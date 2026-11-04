@@ -880,27 +880,30 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     - The modeled water surface does not rise steadily with the storm (2.0 m: background 14.21, 100-year 13.82 ft NAVD88).
     - The extent polygons cover more land than the depth rasters (0 m + 100-year, ground 2.0–2.5 m NAVD88: 4,525 vs 2,330 2 m cells). The explorer uses the depth rasters, and the page says the extent polygons on the City's and Our Coast, Our Future's maps cover more land.
   - **What the explorer offers.** Since 2026-11-04 it offers only the background tide and the 100-year storm, at all ten rises (Eric, PR 8).
-  - **Datum.** CoSMoS's coordinates are NAD83 / UTM zone 10N and are used without the 1.46 m shift applied to ART (C1); this is not yet corrected.
+  - **Datum.** CoSMoS's coordinates are NAD83 / UTM zone 10N. Since 2026-11-04 they are moved to the grid's WGS 84 as ART's are (C1, C29); the move changes no cell of any CoSMoS mask, so every figure above stands.
 
   Reproduce with `node tests/check.mjs` and `node tools/cosmos-report.mjs`.
 - **C22. CoSMoS-GW groundwater against the explorer (H7; derived, 2026-11-03).** Kh 1.0 m/day, MHHW
   boundary, full model. On Berkeley land in the grid (1,008.6 ha at or above 3.31 ft NAVD88), ground
-  marine, emergent or within 1 m of the water table: 325 ha at 0 m of rise, 376 at 1.0 m, 418 at
-  2.0 m, 529 at 5 m. Emergent alone: 43.3, 62.7, 59.8 and 1.1 ha; it falls from 2.5 m because that
+  marine, emergent or within 1 m of the water table: 324 ha at 0 m of rise, 375 at 1.0 m, 417 at
+  2.0 m, 529 at 5 m. Emergent alone: 43.2, 62.6, 59.8 and 1.1 ha; it falls from 2.5 m because that
   ground turns marine. Today's land within 1 m is 66, 320 and 682 ha at Kh 10, 1.0 and 0.1: a
-  ten-fold spread. At 0 m: the transfer station 27% emergent, 61% 0–1 m, 13% 1–2 m and none deeper
+  ten-fold spread. At 0 m: the transfer station 25% emergent, 63% 0–1 m, 13% 1–2 m and none deeper
   than 2 m. The Draft EIR measured 5 to 10 ft (1.5–3.0 m) below ground (F6), so the model is
-  shallower at all three Kh (Kh 10: 11% deeper than 2 m). Second St 95%, Bolivar Dr 98%, Pacific
-  Steel (1333 Second St) 100% and Berkeley Forge & Tool (1331 Eastshore Hwy) 97% emergent, at or
-  above the Gilman Gateway EIR's shallowest 1.5 ft (F17, F18). Eastshore Hwy 21% emergent and 68%
+  shallower at all three Kh (Kh 10: 11% deeper than 2 m). Second St 94%, Bolivar Dr 96%, Pacific
+  Steel (1333 Second St) 100% and Berkeley Forge & Tool (1331 Eastshore Hwy) 100% emergent, at or
+  above the Gilman Gateway EIR's shallowest 1.5 ft (F17, F18). Eastshore Hwy 22% emergent and 70%
   0–1 m. DoubleTree grounds 83% at 1–2 m. Matching each rise to the explorer's MHHW 6.20 ft NAVD88
   (point 518) plus the rise (a derived choice): 90–98% of the explorer's low, not connected ground is
   CoSMoS-GW emergent at 0–2.0 m. The match is partly shared terrain, because both mark the lidar's
-  closed depressions. Most emergent ground is ground the fill calls dry (40.5 of 43.3 ha at 0 m).
+  closed depressions. Most emergent ground is ground the fill calls dry (40.4 of 43.2 ha at 0 m).
   CoSMoS-GW's marine class agrees with the fill's Bay water at 79–97% (both / either) from 1.5 m up
-  (46–65% below). Both keep the flats behind I-80 dry of Bay water at 2.0 m (12.76 ft NAVD88) and take
-  them at 2.5 m (14.40; transfer station 58% marine, 59% in the fill), bracketing C6's 13.35.
+  (45–66% below). Both keep the flats behind I-80 dry of Bay water at 2.0 m (12.76 ft NAVD88) and take
+  them at 2.5 m (14.40; transfer station 57% marine, 59% in the fill), bracketing C6's 13.35.
   Reproduce with `node tools/compare-cosmos-gw.mjs` and `node tests/check.mjs`.
+  Restated 2026-11-04 with the polygons moved from NAD83 to the grid's WGS 84 as ART's are (C29);
+  the first version used them unshifted.
+
 - **C23. The level at which each place is first reached (derived, 2026-11-04).** The connected fill
   read the other way, for guided mode: `node tools/thresholds.mjs` runs `js/analyze.js` with no plan
   and no rain from 6.00 to 16.50 ft NAVD88 in 0.05 ft steps and keeps the first level at which each
@@ -978,9 +981,18 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     with waves, 12 to 16 ft NAVD88 in VE zones.
   The explorer's 100-year level, 9.73 at point 518 (W11, the 2016 study), is 0.16 to 0.21 ft below
   FEMA's 2018 transects and 0.47 below Table 5; its 500-year level, 10.91, is 0.39 to 0.50 below
-  FEMA's 0.2% transect values. No scenario is changed: choosing between the sources is Eric's
-  (AGENTS.md).
+  FEMA's 0.2% transect values. Eric chose on 2026-11-04 to add FEMA's levels as scenarios beside
+  W11's (E18): transect 11, at University Ave by the Marina, 9.90 (1%) and 11.32 (0.2%).
 
+- **C29. CoSMoS and CoSMoS-GW moved from NAD83 to the grid's WGS 84 (derived, 2026-11-04; E18).**
+  The same transformation as ART's (C1, `tools/nad83.mjs`, EPSG:7807 at epoch 2017.0): 1.436 m west
+  and 0.283 m north at the grid's center, varying by under 1 mm across it. CoSMoS
+  (`tools/build-cosmos.mjs`) samples its 2 m depth rasters at four points 1 m from each 4 m cell's
+  center; the raster's origin (558892.4796 E, 4195523.0018 N) puts those points 0.26 and 0.0009 of a
+  2 m cell from a cell edge, so the move keeps every sample in the same cell, and not one cell of any
+  of the 20 masks changes: C21 stands. CoSMoS-GW's polygons (`tools/build-cosmos-gw.mjs`, NAD83(NSRS2007)
+  taken as NAD83(2011)) do move; C22 is restated with the new figures, which change by up to 2
+  percentage points or 0.6 ha.
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
 From a research agent's reading; the quotes marked "verified" were checked against the downloaded
@@ -1472,3 +1484,12 @@ Three claims in the outside review behind E9, checked against primary sources be
   estimates shown"; the I-80 crossing is stated as this terrain model's first surface connection,
   near 13.4 ft NAVD88 (C6), with the real crossings to be confirmed; and a loading message with a
   retry button replaces the empty page left by a failed data download.
+- **E18. Decisions of 2026-11-04 (late).** Eric answered yes to the open questions: apply the datum
+  shift to CoSMoS and CoSMoS-GW (C29); add FEMA's 2018 levels as scenarios (C28; `fema100`,
+  `fema500`); take the field guide off the site (the volunteer has the PDF, with Eric's email as
+  the contact; the page's last version stays in the repository's history); and, in the archive,
+  merge PRs #31 to #34, stage the 2016 extreme tides study through his Drive, archive the Baykeeper
+  pages from his saved PDF, accept Berkeleyside's copy of the 2015 work session item and the new
+  `sources/sewers` collection. He authorized merging this work without further approval and
+  publishing once the merges are done. He ran the Wayback captures for archive PRs #25 and #26
+  (recorded in archive PR #34).

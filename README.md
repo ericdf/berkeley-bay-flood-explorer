@@ -77,12 +77,11 @@ Rebuilding the data: `node tools/fetch-dem.mjs`, `node tools/build-streets.mjs
 and for the ART layers `python3 -I tools/fetch-art-dc.py --connected` and `python3 -I tools/fetch-art-dc.py`, then `node tools/simplify-art-dc.mjs 0.5 data/raw/art-dc/inundation_*.json`, `node tools/build-art-dc.mjs --connected` and `node tools/build-art-dc.mjs`. To reproduce the Caltrans comparison (C1): `python3 -I tools/fetch-art.py` in a scratch folder, then `node tools/build-art.mjs <that folder> <out folder>`. For CoSMoS: `python3 -I tools/fetch-cosmos.py <cache dir>`, then `node tools/build-cosmos.mjs` (add `--all --out DIR` for every storm); for the tsunami outline `node tools/build-tsunami.mjs`
 (source in `data/raw/cgs/`). `node tools/site-check.mjs` reproduces the site checks in SOURCE_NOTES.
 
-## King tide field guide
+## King tide field check
 
-`field-guide.html` is a printable guide for checking the explorer against this winter's king
-tides (Dec 23–25, 2026, highest 7.42 ft NAVD88 at 10:58 a.m. on Dec 24): four stops in west
-Berkeley, what the explorer shows at each, what to photograph, and where to send the photos
-(SOURCE_NOTES E10).
+A volunteer checks the explorer against this winter's king tides from a printable guide. The guide
+is for the volunteer, not the web (Eric, SOURCE_NOTES E18): it left the site on 2026-11-04, and its
+last version is in this repository's history before that change.
 
 ## Relation to the wildfire simulator
 

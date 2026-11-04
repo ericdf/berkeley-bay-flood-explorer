@@ -43,12 +43,12 @@
     "1to2m": "cosmos-gw-slr000-1to2m.bits"
    },
    "berkeleyLandHa": {
-    "emergent": 43.3,
-    "0to1m": 276.5,
-    "1to2m": 223.5,
-    "2to5m": 260.6,
-    "over5m": 199.5,
-    "marine": 5.1,
+    "emergent": 43.2,
+    "0to1m": 276.7,
+    "1to2m": 223.4,
+    "2to5m": 260.8,
+    "over5m": 199.9,
+    "marine": 4.5,
     "none": 0.1
    },
    "belowMslHa": {
@@ -73,12 +73,12 @@
     "1to2m": "cosmos-gw-slr025-1to2m.bits"
    },
    "berkeleyLandHa": {
-    "emergent": 46.4,
+    "emergent": 46.5,
     "0to1m": 283.3,
     "1to2m": 223.6,
-    "2to5m": 250.5,
-    "over5m": 198.4,
-    "marine": 6.3,
+    "2to5m": 250.7,
+    "over5m": 198.8,
+    "marine": 5.7,
     "none": 0.1
    },
    "belowMslHa": {
@@ -104,11 +104,11 @@
    },
    "berkeleyLandHa": {
     "emergent": 51,
-    "0to1m": 288.3,
+    "0to1m": 288.4,
     "1to2m": 220.1,
-    "2to5m": 244.1,
-    "over5m": 197.1,
-    "marine": 7.9,
+    "2to5m": 244.4,
+    "over5m": 197.5,
+    "marine": 7.2,
     "none": 0.1
    },
    "belowMslHa": {
@@ -133,12 +133,12 @@
     "1to2m": "cosmos-gw-slr075-1to2m.bits"
    },
    "berkeleyLandHa": {
-    "emergent": 56.9,
-    "0to1m": 293.6,
-    "1to2m": 212.6,
-    "2to5m": 239.2,
-    "over5m": 196.1,
-    "marine": 10.3,
+    "emergent": 56.8,
+    "0to1m": 293.9,
+    "1to2m": 212.7,
+    "2to5m": 239.3,
+    "over5m": 196.5,
+    "marine": 9.4,
     "none": 0.1
    },
    "belowMslHa": {
@@ -163,12 +163,12 @@
     "1to2m": "cosmos-gw-slr100-1to2m.bits"
    },
    "berkeleyLandHa": {
-    "emergent": 62.7,
-    "0to1m": 300.7,
-    "1to2m": 203.1,
-    "2to5m": 234.6,
-    "over5m": 194.9,
-    "marine": 12.5,
+    "emergent": 62.6,
+    "0to1m": 301,
+    "1to2m": 203.2,
+    "2to5m": 234.7,
+    "over5m": 195.4,
+    "marine": 11.7,
     "none": 0.1
    },
    "belowMslHa": {
@@ -193,12 +193,12 @@
     "1to2m": "cosmos-gw-slr125-1to2m.bits"
    },
    "berkeleyLandHa": {
-    "emergent": 68.3,
-    "0to1m": 306.1,
+    "emergent": 68.4,
+    "0to1m": 306.3,
     "1to2m": 192.8,
-    "2to5m": 231.7,
-    "over5m": 194,
-    "marine": 15.5,
+    "2to5m": 231.9,
+    "over5m": 194.5,
+    "marine": 14.7,
     "none": 0.1
    },
    "belowMslHa": {
@@ -223,12 +223,12 @@
     "1to2m": "cosmos-gw-slr150-1to2m.bits"
    },
    "berkeleyLandHa": {
-    "emergent": 59.1,
-    "0to1m": 310.2,
-    "1to2m": 182.4,
-    "2to5m": 229.5,
-    "over5m": 193.2,
-    "marine": 34.2,
+    "emergent": 59.2,
+    "0to1m": 310.4,
+    "1to2m": 182.5,
+    "2to5m": 229.6,
+    "over5m": 193.6,
+    "marine": 33.3,
     "none": 0.1
    },
    "belowMslHa": {
@@ -254,11 +254,11 @@
    },
    "berkeleyLandHa": {
     "emergent": 61.2,
-    "0to1m": 304.8,
-    "1to2m": 177.6,
-    "2to5m": 227.4,
-    "over5m": 192.3,
-    "marine": 45.1,
+    "0to1m": 305,
+    "1to2m": 177.7,
+    "2to5m": 227.5,
+    "over5m": 192.8,
+    "marine": 44.3,
     "none": 0.1
    },
    "belowMslHa": {
@@ -284,11 +284,11 @@
    },
    "berkeleyLandHa": {
     "emergent": 59.8,
-    "0to1m": 297.4,
+    "0to1m": 297.6,
     "1to2m": 173.1,
-    "2to5m": 225.9,
-    "over5m": 191.5,
-    "marine": 60.7,
+    "2to5m": 226.1,
+    "over5m": 191.9,
+    "marine": 60,
     "none": 0.1
    },
    "belowMslHa": {
@@ -314,11 +314,11 @@
    },
    "berkeleyLandHa": {
     "emergent": 2.8,
-    "0to1m": 272.1,
-    "1to2m": 168.4,
-    "2to5m": 218.9,
-    "over5m": 189.8,
-    "marine": 156.6,
+    "0to1m": 272,
+    "1to2m": 168.6,
+    "2to5m": 218.8,
+    "over5m": 190.2,
+    "marine": 156.1,
     "none": 0.1
    },
    "belowMslHa": {
@@ -344,11 +344,11 @@
    },
    "berkeleyLandHa": {
     "emergent": 2.6,
-    "0to1m": 248.1,
-    "1to2m": 165.2,
-    "2to5m": 204.3,
-    "over5m": 187.8,
-    "marine": 200.5,
+    "0to1m": 248.4,
+    "1to2m": 165.1,
+    "2to5m": 204.4,
+    "over5m": 188.3,
+    "marine": 199.7,
     "none": 0.1
    },
    "belowMslHa": {
@@ -374,11 +374,11 @@
    },
    "berkeleyLandHa": {
     "emergent": 1.1,
-    "0to1m": 259.7,
-    "1to2m": 136.4,
+    "0to1m": 259.8,
+    "1to2m": 136.6,
     "2to5m": 162.5,
-    "over5m": 180.6,
-    "marine": 268.3,
+    "over5m": 181,
+    "marine": 267.6,
     "none": 0.1
    },
    "belowMslHa": {
