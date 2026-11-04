@@ -322,7 +322,7 @@ async function loadCosmosMask() {
 }
 function cosmosText(s) {
   const ws = s.waterSurface ? `; CoSMoS's water surface over the Bay off Berkeley is ${fmt(s.waterSurface.medianFt, 1)} ft NAVD88 (median; a modeled total water level, not still water)` : '';
-  return `CoSMoS: ${s.label}, ${fmt(s.cosmosHa, 1)} ha of Berkeley land flooded${ws}. This explorer's still-water fill matches its extent best at ${fmt(s.bestMatch.levelFt, 2)} ft NAVD88${s.bestMatch.levelFt > +document.getElementById('level').max ? ', above the level slider\'s range' : ''} (${fmt(100 * s.bestMatch.agreement)}% agreement; derived, SOURCE_NOTES C21).`;
+  return `CoSMoS: ${s.label}, ${fmt(s.cosmosHa, 1)} ha of Berkeley land flooded${ws}. This explorer's still-water fill matches its extent best at ${fmt(s.bestMatch.levelFt, 2)} ft NAVD88${s.bestMatch.levelFt > +document.getElementById('level').max ? ', above the level slider\'s range' : ''} (${fmt(100 * s.bestMatch.agreement)}% agreement; derived, SOURCE_NOTES C21). A best match is a comparison, neither validation nor an equivalent scenario: see "Why these maps disagree".`;
 }
 
 function nearestArt(levelFt) {
