@@ -33,22 +33,26 @@ each item here once it is done.
    service failed to connect on 2026-11-03).
 7. **Duration and waves.** The remaining piece of that phase; CoSMoS (C21) and CoSMoS-GW (C22) are in.
 
+8. **The third outside review's optional items (E11, item 4).** A "Why these maps disagree" note
+   at the CoSMoS comparison; clickable SOURCE_NOTES references linking on to primary records; a
+   compact scenario summary with jumps to Map, Plans and What's exposed; shareable scenario URLs.
+
 ## After the king tides
 
-8. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
+9. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
     volunteer's photos and sheet with NOAA's measured water level at Richmond (9414863) for that
     morning, and with the explorer at 7.4 ft NAVD88. Record the result under E10 in
     `SOURCE_NOTES.md`, credited or anonymous as the volunteer chose.
 
 ## Archive (berkeley-public-records)
 
-9. **Large-file intake.** A separate session is running it (started 2026-11-03). It stages the
+10. **Large-file intake.** A separate session is running it (started 2026-11-03). It stages the
     2024 Local Hazard Mitigation Plan, the transfer station Draft EIR and its Appendix G, and the
     2019 feasibility study from Eric's Google Drive, and commits Appendix H. Check its PRs.
-10. **Wayback captures** of the source URLs for archive PRs #25 and #26, and for whatever the
+11. **Wayback captures** of the source URLs for archive PRs #25 and #26, and for whatever the
     intake session lists. Eric does these. Uploads to the Wayback Machine or the Internet Archive
     were blocked for the agent.
-11. **What else to archive.** Eric has not decided which State and federal documents belong in
+12. **What else to archive.** Eric has not decided which State and federal documents belong in
     the archive:
     - the Baykeeper consent decree;
     - the 2016 extreme tides study;

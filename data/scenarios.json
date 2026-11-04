@@ -142,7 +142,7 @@
       "label": "Modeled surface connection behind I-80",
       "levelFt": 13.4,
       "category": "derived",
-      "source": "A result of this explorer's terrain model, not a protective threshold. The connected fill first reaches the transfer station and the West Berkeley flats once the level passes 13.35 ft NAVD88, over ground just east of I-80 about 250 m south of Gilman St (tools/overtop.mjs; SOURCE_NOTES C6). The figure is uncertain and the uncertainty is not quantified: lidar error, the 4 m grid, and culverts, ramps and embankments the bare-earth surface misrepresents can each move it, and the crossing needs Caltrans profiles to confirm. The Draft EIR's ART-based maps put the site's first flooding near 13.2 ft NAVD88 (F9).",
+      "source": "A result of this explorer's terrain model, not a protective threshold. The connected fill first reaches the transfer station and the West Berkeley flats once the level passes 13.35 ft NAVD88, over ground just east of I-80 about 250 m south of Gilman St (tools/overtop.mjs; SOURCE_NOTES C6). The figure is uncertain and the uncertainty is not quantified: lidar error, the 4 m grid, and culverts, ramps and embankments the bare-earth surface misrepresents can each move it, and the crossing needs Caltrans profiles to confirm. The Draft EIR's ART-based maps put the site's first flooding near 13.2 ft NAVD88 (F9); ART's layers at that level, MHHW + 84 in (13.20 ft NAVD88), show the site as disconnected low-lying ground (41% of it), not connected to the Bay; ART's next map, + 96 in (14.20 ft NAVD88), floods 56% of it from the Bay (C6, C20). Those discrete maps bracket the connection without establishing its level.",
       "precision": 1,
       "group": "Model thresholds"
     }
