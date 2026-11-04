@@ -39,6 +39,8 @@ const X = D.exposure;
 
 const groups = {
   'I-80 mainline': (e) => e.freeway && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name),
+  // Its first flooding is in Albany (C27); Berkeley's own stretch is kept separately.
+  'I-80 mainline in Berkeley': (e) => e.berkeley && e.freeway && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name),
   'Gilman St ramps': (e) => e.freeway && /^GILMAN /.test(e.name),
   'University Ave ramps': (e) => e.freeway && /^UNIVERSITY /.test(e.name),
   'Ashby Ave ramps': (e) => e.freeway && /^ASHBY /.test(e.name),
@@ -69,9 +71,9 @@ function sweep(plan, withCells) {
       if (s.sh.wet + s.sh.drain > 0) set(sites, id, 'drainTouchFt', k);
       if (s.sh.wet + s.sh.drain >= 0.25) set(sites, id, 'drainCountedFt', k);
     }
-    for (const s of r.railSegs) {
-      if (s.cls === 'wet') set(roads, 'Rail main line', 'bayFt', k);
-      if (s.cls === 'wet' || s.cls === 'drain') set(roads, 'Rail main line', 'drainFt', k);
+    for (const s of r.railSegs) for (const g of s.e.berkeley ? ['Rail main line', 'Rail main line in Berkeley'] : ['Rail main line']) {
+      if (s.cls === 'wet') set(roads, g, 'bayFt', k);
+      if (s.cls === 'wet' || s.cls === 'drain') set(roads, g, 'drainFt', k);
     }
     for (const s of r.segs) {
       const bay = s.cls === 'wet', drain = s.cls === 'wet' || s.cls === 'drain';

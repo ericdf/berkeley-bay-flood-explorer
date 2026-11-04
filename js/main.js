@@ -5,6 +5,7 @@ import { WET, LOW } from './fill.js';
 import { exposure, groundText } from './exposure.js';
 import { encodeView, decodeView, wallFits, MAX_WALL_POINTS, MAX_WALLS } from './share.js';
 import { initGuided } from './guided.js';
+import { watchRefs } from './refs.js';
 
 const $ = (id) => document.getElementById(id);
 const fmt = (x, d = 0) => x.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -735,6 +736,8 @@ function planPanel(rerender) {
   else if (view.lv != null && view.lv >= +$('level').min && view.lv <= +$('level').max) {
     $('level').value = view.lv; $('levelOut').textContent = fmt(view.lv, 2); show(view.lv, null);
   } else pick(current);
+  // Source references become links with their row's label (js/refs.js).
+  fetch('data/notes.json').then(r => r.ok ? r.json() : null).then(n => { if (n) watchRefs(n, [$('guide'), $('rail'), $('results'), $('exposed'), $('hdr')]); }).catch(() => {});
   // A link from before guided mode carries expert settings and no mode: it opens in expert mode.
   setMode(view.mode || (hadHash ? 'expert' : 'guided'));
   guided.show(view.mode === 'guided' && guided.questions.includes(view.q) ? view.q : null);

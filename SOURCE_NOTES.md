@@ -124,6 +124,11 @@ rows rested on press reports and the future levels on superseded guidance.
   the year is not stated). Adding the two, as the City study did with the 2018 rises (W5),
   counts the rise between 2000 and the modeling twice. At the Low scenario's pace (0.3 ft from
   2000 to 2030, W17) that is about 0.1 ft or less, not corrected.
+- **W19. Measured water levels at Richmond, 2016–2025 (read 2026-11-04).** NOAA CO-OPS station 9414863,
+  verified hourly heights and daily highs and lows, datum NAVD88, feet
+  (`tools/fetch-noaa-richmond.py`; `data/raw/noaa/richmond-hourly.csv`, `richmond-highlow.csv`;
+  public domain). Station datums: MHHW 17.63, MSL 14.84, MLLW 11.59, NAVD88 11.57 ft on station
+  datum (1983–2001 epoch), so MHHW is 6.06 ft NAVD88. Used in C26.
 
 ## Meeting remarks: Scott Ferris, Director of Parks, Recreation and Waterfront
 
@@ -908,7 +913,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   (bare-earth lidar, F2); University Ave ramps 12.05 up the drains; Ashby ramps 13.65; Gilman
   ramps 14.05. DoubleTree grounds first wet at 9.85. Bolivar Dr at 7.25 is below this winter's
   highest tide, 7.4 (W14), which the field check (E10) can test.
-  Rail main line (C24) 11.40 over the ground. Every site in the panel lies wholly inside the
+  Rail main line (C24) 11.40 over the ground, in Albany; in Berkeley 13.50. I-80's 11.20 is also in
+  Albany; in Berkeley the mainline is first reached at 14.05 (C27, corrected 2026-11-04: the first
+  version reported both Albany figures as the road's and line's without naming the place). Every site in the panel lies wholly inside the
   State tsunami hazard area (H6), as do the Marina, Aquatic Park and the flats east of I-80 to about
   Fourth St (2nd St 24 of 24 street samples, 4th St 29 of 40, 6th St and San Pablo Ave none).
   With each defense (the same sweep with a plan): tide gates on every outlet move every inland
@@ -920,10 +927,59 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 - **C24. The rail main line (derived, 2026-11-04).** OpenStreetMap ways tagged railway=rail,
   usage=main in the grid: 26 ways, 15.8 km counting both tracks, 7.7 km in Berkeley, 4 bridges
   (`tools/fetch-rail.py`, `tools/build-rail.mjs`). Sampled as streets are (a segment counts at 25%
-  flooded), bridges skipped. First reached at 11.40 ft NAVD88 by Bay water. Bare-earth lidar keeps
+  flooded), bridges skipped. First reached at 11.40 ft NAVD88 by Bay water, on a segment in Albany
+  (lowest ground 10.86 ft NAVD88, near 37.9020 N, 122.3151 W); in Berkeley at 13.50, once the water
+  crosses behind I-80 (C6, C27). Bare-earth lidar keeps
   the track's embankment but not its bridges; the railroad's profile would confirm. The Overpass
   API dropped every connection from the build environment on 2026-11-04, so the data come from the
   main API's /map call in 20 small tiles.
+- **C25. The City study's walls moved within the tracing error (derived, 2026-11-04).**
+  `node tools/wall-sensitivity.mjs` runs each wall set as traced (C11), with every wall's ends
+  extended 30 and 60 m, moved 30 m north, south, east and west, and 12 m wide. 2100 walls at 13.0 ft
+  NAVD88: Berkeley land under Bay water 58.8 to 61.7 ha in every variant (60.1 as traced, 62.4
+  with none); DoubleTree grounds 76 to 85% (88% with none); Marina Blvd under water for its whole
+  675 m in every variant. C11's finding for the 2100 walls holds across the tracing error. 2050
+  walls at 10.7: moved 30 m north they keep Marina Blvd dry (675 m under water as traced) and cut
+  University Ave's from 282 to 134 m; the DoubleTree grounds range from 8 to 22% (16% as traced, 25%
+  with none). For the 2050 walls, whether Marina Blvd stays dry turns on where the wall runs, within
+  the tracing error, so C11's "leave Marina Blvd under water" is a result of this tracing, not of
+  the study's alignment. The study's own drawings or CAD files would settle it.
+- **C26. How often and how long the Bay stands above a level (W19; derived, 2026-11-04).** NOAA's
+  measured water levels at Richmond (9414863), 2016 through 2025, in ft NAVD88
+  (`tools/fetch-noaa-richmond.py`). High tides (higher high and high) at or above a level, per
+  year, and the longest run of hourly readings at or above it: 7.00, 40.7 a year, 4 h; 7.25 (Bolivar
+  Dr up the drains, C23), 19.3 a year, every year, 3 h, median 1 h; 7.40, 9.7 a year, every year;
+  7.85 (the frontage road up the drains), 1.0 a year, in 5 of 10 years; 8.00, 0.5 a year, 3 of 10
+  years; 8.16, once in 10 years; 8.47 and above, never. The highest reading was 8.39 (hourly,
+  2024-12-14 10:00) and 8.33 (high tide, 10:12). Richmond's MHHW is 6.06 ft NAVD88 (NOAA datums,
+  1983–2001 epoch) against 6.20 at point 518 off the Marina (W11), so Berkeley's tides may run about
+  0.1 ft higher than these readings; they are used unadjusted. If Bolivar Dr's outlet let the Bay
+  in, the street would take water on about 19 tides a year, for an hour or so each time; that is
+  what the field check (E10) can see.
+- **C27. I-80's lowest stretch is in Albany (derived, 2026-11-04).** The first I-80 segment the fill
+  floods (11.20 ft NAVD88, C23) is westbound, near 37.8986 N, 122.3097 W, south of Golden Gate
+  Fields in Albany. Along its northern 100 m the mapped line's ground is 10.3 to 11.0 ft NAVD88 (one
+  4 m cell at 4.4 ft, a pit, probably an inlet or culvert). Cross-sections at 10, 40 and 70 m show a
+  raised strip about 30 m wide at 10.8 to 11.8 ft NAVD88, the roadway, with the mapped line on its
+  west edge and ground falling to 7.4 to 9.2 ft just west of it. So the freeway there takes water at
+  its west shoulder from about 11.2 ft NAVD88 and across its lanes from about 11.5 to 12, on this
+  bare-earth terrain. In Berkeley the mainline is first reached at 14.05. The Caltrans request sent
+  on 2026-11-04 asks for profiles from Ashby Ave to Buchanan St, which ends south of this stretch.
+- **C28. FEMA's 2018 flood study for Alameda County (V3; read 2026-11-04).** FIS 06001CV001B and
+  06001CV002B (Volumes 1 and 2, revised 2018-12-21; FEMA Map Service Center). Two sets of Bay still
+  water levels, ft NAVD88:
+  - Table 5, "Summary of Stillwater Elevations" (Vol. 1, printed p. 44), "San Francisco Bay, At
+    Berkeley": 9.8 (10% annual chance), 9.9 (2%), 10.2 (1%), 10.3 (0.2%). This is the 10.2 the
+    Gilman hydraulic study used (V3). The volume does not say where this row comes from; its
+    Alameda entries cite a 1984 USACE tide gauge analysis.
+  - Table 10, "Transect Data" (Vol. 2, printed p. 104), from the 2018 coastal study (BakerAECOM,
+    DHI regional modeling of 1973–2003): Berkeley's shoreline transects 4 to 12 give 8.48 to 8.49
+    (10%), 9.32 to 9.39 (2%), 9.89 to 9.94 (1%) and 11.30 to 11.41 (0.2%). Base Flood Elevations
+    with waves, 12 to 16 ft NAVD88 in VE zones.
+  The explorer's 100-year level, 9.73 at point 518 (W11, the 2016 study), is 0.16 to 0.21 ft below
+  FEMA's 2018 transects and 0.47 below Table 5; its 500-year level, 10.91, is 0.39 to 0.50 below
+  FEMA's 0.2% transect values. No scenario is changed: choosing between the sources is Eric's
+  (AGENTS.md).
 
 ## Tsunami: what is in place (read 2026-11-03, asked by Eric: "Are there mitigations or do we have an environmental disaster if a tsunami arrives today")
 
@@ -1388,3 +1444,13 @@ Three claims in the outside review behind E9, checked against primary sources be
   shoreline. Not a flood forecast." Scenario groups are renamed "At today's sea level" and "With
   future sea level rise", and "today" is dropped from the 100- and 500-year labels; the map stamp
   adds "at today's sea level" to a level in that group.
+- **E16. Follow-ups (2026-11-04).** Eric sent the Caltrans records request drafted in the session
+  (As-Built Plans; the flap gate inspection records possibly as a second request): I-80 between
+  Ashby Ave and Buchanan St, the Gilman interchange's as-built drainage plans and flap gate, roadway
+  profiles with datum, and the Codornices Creek culvert. He asked for the field guide as a PDF with
+  his email as the contact, for the volunteer only; the published page keeps "in whatever way he
+  arranged with you". He approved archiving the Baykeeper consent decree, the 2016 extreme tides
+  study, the Coastal Commission's 2024 guidance and the CGS tsunami data, and the C19 documents
+  (archive PRs #31 to #33), and asked for the walls' tracing test (C25), the I-80 and rail heights
+  (C27), FEMA's 2018 study (C28), source references as links (`js/refs.js`) and the duration work
+  (C26).
