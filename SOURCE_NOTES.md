@@ -1325,3 +1325,5 @@ Three claims in the outside review behind E9, checked against primary sources be
   kept in the URL after "#" (`js/share.js`), with a "Copy a link to this view" button; map pan and
   zoom are not kept. A link sets only values the page offers, and a wall only if it lies on the
   terrain grid.
+  Eric approved merging PRs #9, #10 and #12 and publishing the result to `pages` (a6214f4) in the
+  same session, 2026-11-04.
