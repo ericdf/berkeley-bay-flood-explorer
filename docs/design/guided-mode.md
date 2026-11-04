@@ -17,7 +17,7 @@ The page opens on "What do you want to know?" with question cards:
 
 1. Could Bay flooding reach my home or street? (address, or the phone's location)
 2. When could flooding reach contaminated ground and carry it into the Bay?
-3. When does flooding close I-80, its ramps, the roads to the Marina or the rail line?
+3. Which roads and rail corridors could be exposed: I-80, its ramps, the roads to the Marina, the rail line? (Exposure of the ground, not closure; E17.)
 4. What will this winter's king tides reach?
 5. What do the City's flood plans protect, and what do they leave out?
 

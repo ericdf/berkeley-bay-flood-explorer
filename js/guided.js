@@ -23,7 +23,9 @@ const STORM2100 = [13.0, 14.53, 16.23];   // 1% storm tide in 2100: City study, 
 const HIGHEST = 16.5;                     // the top of the sweep
 
 const count = (arr, T) => arr.filter(v => v >= T).length;
-const estimates = (n) => n === 3 ? 'under every sea level estimate' : `but only under the ${n === 1 ? 'highest' : 'two higher'} sea level estimate${n === 1 ? '' : 's'}`;
+// The three sea level estimates shown for each year (City study, State Intermediate-High, State High),
+// not every estimate published.
+const estimates = (n) => n === 3 ? 'under all three sea level estimates shown' : `but only under the ${n === 1 ? 'highest' : 'two higher'} of the three estimates shown`;
 
 // The plain-language ladder for a threshold T: the most frequent water today that reaches it,
 // then 2050 and 2100. Each rung carries the level it stands for, so a click can show it.
@@ -32,9 +34,9 @@ export function ladder(T) {
   const n50 = count(STORM2050, T), n00 = count(STORM2100, T);
   return [
     { when: 'Today', lv: t ? t.ft : null, text: t ? `${t.text}, ${t.often}` : "None of today's storm tides, up to one with a 0.2% chance each year" },
-    { when: '2050', lv: n50 ? STORM2050.find(v => v >= T) : null, text: n50 ? `A severe storm tide (1% chance each year), ${estimates(n50)}` : 'Not by a severe storm tide under any estimate' },
+    { when: '2050', lv: n50 ? STORM2050.find(v => v >= T) : null, text: n50 ? `A severe storm tide (1% chance each year), ${estimates(n50)}` : 'Not by a severe storm tide under any of the estimates shown' },
     T <= TIDE2100 ? { when: '2100', lv: TIDE2100, text: "An ordinary high tide, under the City's estimate" }
-      : { when: '2100', lv: n00 ? STORM2100.find(v => v >= T) : null, text: n00 ? `A severe storm tide, ${estimates(n00)}` : 'Not under any estimate' },
+      : { when: '2100', lv: n00 ? STORM2100.find(v => v >= T) : null, text: n00 ? `A severe storm tide, ${estimates(n00)}` : 'Not under any of the estimates shown' },
   ];
 }
 
@@ -98,13 +100,17 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     return `<div class="scale" aria-hidden="true" title="Severe (1% each year) storm tides today, and the middle sea level estimate for 2050 and 2100"><div class="bar"></div>${ticks.map(([v, l]) => `<div class="tick" style="left:${pos(v)}"><span>${l}</span></div>`).join('')}${Tv <= HIGHEST ? `<div class="thr" style="left:${pos(Tv)}"><span>reaches here</span></div>` : ''}</div>`;
   }
   // One place: its name (a click shows it on the map), what it is, and a ladder per way in.
-  // p: { name, what, drain, bay, touch, edge, lidar, at: [x, y] | lines, tsunami }
+  // p: { name, what, drain, bay, touch, drainFirst, bayFirst, lidar, at: [x, y] | lines, tsunami }
+  // For a site the ladder counts a quarter of its grounds (js/exposure.js); drainFirst and bayFirst,
+  // where lower, are the first modeled water on any of its ground, said in plain view beside it.
+  const firstNote = (f, q, unit) => f == null || f >= q ? `<p class="nums">${unit} at ${ft(q)} (derived)</p>`
+    : `${whenShort(f) !== whenShort(q) ? `<p class="what">First modeled water on any of its ground comes sooner: ${esc(whenShort(f))}. The steps above count a quarter of its grounds.</p>` : ''}<p class="nums">First water at ${ft(f)}; a quarter or more of its grounds at ${ft(q)} (derived)</p>`;
   function place(p) {
     placeN = places.push(p) - 1;
-    const parts = [];
-    if (p.drain != null && (p.bay == null || p.drain < p.bay)) parts.push(`<span class="way drain">up the storm drains</span>${rungs(p.drain)}<p class="nums">${p.edge ? 'First water' : 'A quarter or more reached'} at ${ft(p.drain)} (derived)</p>`);
-    if (p.bay != null) parts.push(`<span class="way bay">over the ground from the Bay</span>${rungs(p.bay)}<p class="nums">${p.edge ? 'First water' : 'A quarter or more reached'} at ${ft(p.bay)} (derived)${p.lidar ? '; bare-earth terrain' : ''}</p>`);
-    if (p.drain == null && p.bay == null) parts.push(p.touch ? `<p class="what">Only its edge is reached, and only by water above every 2100 estimate except the highest.</p><p class="nums">First water at ${ft(p.touch)} (derived)</p>` : `<p class="what">None of the water levels here reach it, up to ${ft(HIGHEST)}, above the highest estimate for 2100.</p>`);
+    const parts = [], unit = p.edge ? 'First water' : p.road ? "A quarter or more of a segment's length reached" : 'A quarter or more of its grounds reached';
+    if (p.drain != null && (p.bay == null || p.drain < p.bay)) parts.push(`<span class="way drain">up the storm drains</span>${rungs(p.drain)}${firstNote(p.drainFirst, p.drain, unit)}`);
+    if (p.bay != null) parts.push(`<span class="way bay">over the ground from the Bay</span>${rungs(p.bay)}${firstNote(p.bayFirst, p.bay, unit)}${p.lidar ? '<p class="nums">Bare-earth terrain</p>' : ''}`);
+    if (p.drain == null && p.bay == null) parts.push(p.touch ? `<p class="what">Only its edge is reached, and only by water above every 2100 estimate shown except the highest.</p><p class="nums">First water at ${ft(p.touch)} (derived)</p>` : `<p class="what">None of the water levels here reach it, up to ${ft(HIGHEST)}, above the highest 2100 estimate shown.</p>`);
     const first = Math.min(p.drain ?? 99, p.bay ?? 99, p.touch ?? 99);
     return `<div class="place"><h3><button type="button" data-show="${placeN}">${esc(p.name)}</button></h3>${p.what ? `<p class="what">${esc(p.what)}</p>` : ''}${p.tsunami ? '<p class="what">Inside the State\'s tsunami evacuation area.</p>' : ''}${scale(first)}${parts.join('')}</div>`;
   }
@@ -114,14 +120,15 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     return Object.entries(T.sites).filter(([, s]) => !s.stillWaterNotApplicable).map(([id, s]) => ({
       id, name: s.name, what: SITE_TEXT[id], tsunami: s.tsunamiShare >= 0.25, at: sitePoint(id),
       drain: s.drainCountedFt ?? null, bay: s.bayCountedFt ?? null, touch: s.bayCountedFt == null ? s.bayTouchFt : null,
+      drainFirst: s.drainTouchFt ?? null, bayFirst: s.bayTouchFt ?? null,
     })).sort((a, b) => Math.min(a.drain ?? 99, a.bay ?? 99, a.touch ?? 99) - Math.min(b.drain ?? 99, b.bay ?? 99, b.touch ?? 99));
   }
-  const roadPlace = (r) => { const t = roadT(r); return { name: r.name, what: r.what, lidar: r.lidar, lines: roadLines(r), drain: t.drainFt ?? null, bay: t.bayFt ?? null }; };
+  const roadPlace = (r) => { const t = roadT(r); return { name: r.name, what: r.what, road: true, lidar: r.lidar, lines: roadLines(r), drain: t.drainFt ?? null, bay: t.bayFt ?? null }; };
 
   const QUESTIONS = [
     { id: 'address', title: 'Could Bay flooding reach my home or street?', sub: 'Type an address, or use your location.' },
     { id: 'toxic', title: 'When could flooding reach contaminated ground and carry it into the Bay?', sub: 'Eight sites with known pollution near the shore, and the old landfill.' },
-    { id: 'roads', title: 'When does flooding close I-80, the rail line or the roads to the Marina?', sub: 'Also Bolivar Dr, the frontage road and the I-80 ramps.' },
+    { id: 'roads', title: 'Which roads and rail corridors could be exposed to flooding?', sub: 'I-80, the rail line, the roads to the Marina, Bolivar Dr, the frontage road and the I-80 ramps.' },
     { id: 'king', title: "What will this winter's king tides reach?", sub: 'And where to go and see for yourself.' },
     { id: 'tsunami', title: 'What about a tsunami?', sub: "The State's evacuation area, and what is inside it." },
     { id: 'defenses', title: 'What would flood walls, raised roads or tide gates change?', sub: 'Each defense the explorer can test, side by side.' },
@@ -139,7 +146,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     const ps = sitePlaces(), viaDrain = ps.filter(p => p.drain != null && (p.bay == null || p.drain < p.bay));
     const drainBy = (lv) => viaDrain.filter(p => p.drain <= lv).length, first = [...viaDrain].sort((a, b) => a.drain - b.drain)[0];
     return `<h2 class="q">When could flooding reach contaminated ground?</h2>
-      <p class="finding">Up the storm drains, Bay water first covers a quarter of the ${esc(first.name.split(',')[0])} site in ${esc(whenShort(first.drain))}. By 2100's severe storm tide it covers ${drainBy(13.0)} sites this way, even under the City's lowest estimate. Over the ground, it reaches none of the sites behind I-80 until it crosses the freeway corridor, which takes more water than the City's estimate for 2100 and less than the State's middle-high estimate.</p>
+      <p class="finding">Up the storm drains, Bay water first covers a quarter of the ${esc(first.name.split(',')[0])} site in ${esc(whenShort(first.drain))}. By 2100's severe storm tide it covers ${drainBy(13.0)} sites this way, even under the City's lowest estimate. Over the ground, in this terrain model, it reaches none of the sites behind I-80 until it crosses the freeway corridor, which takes more water than the City's estimate for 2100 and less than the State's middle-high estimate. Where the water really crosses, through culverts and openings under the freeway, needs confirmation.</p>
       ${drainNote}
       <p class="warn">Groundwater is a third way in. A USGS model (CoSMoS-GW) puts the water table at the ground surface across nearly all of the Pacific Steel and Berkeley Forge sites today, under its middle assumption about the soil (SOURCE_NOTES C22). That result swings widely with the assumption, and the levels here do not include it.</p>
       ${ps.map(place).join('')}
@@ -149,8 +156,9 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
 
   function roads() {
     const ps = ROADS.map(roadPlace), mar = roadT(ROADS[2]), bol = roadT(ROADS[0]), fr = roadT(ROADS[1]);
-    return `<h2 class="q">When does flooding close the roads and the rail line?</h2>
-      <p class="finding">The roads to the Marina go under in ${esc(whenShort(mar.bayFt))}${count(STORM2050, mar.bayFt) === 3 ? ", and in 2050's severe storm tide under every sea level estimate" : ''}. Just north of Berkeley, in Albany, I-80 and the rail line follow at slightly higher water. In Berkeley itself they hold until the water crosses behind I-80: ${(() => { const rw = whenShort(roadT(ROADS.find(r => r.key === 'Rail main line in Berkeley')).bayFt), iw = whenShort(roadT(ROADS.find(r => r.key === 'I-80 mainline in Berkeley')).bayFt); return esc(rw === iw ? `both in ${rw}` : `the rail line in ${rw}, I-80 in ${iw}`); })()}. Up the drains, Bay water can reach Bolivar Dr at ${esc(whenShort(bol.drainFt))} and the frontage road in ${esc(whenShort(fr.drainFt))}.</p>
+    return `<h2 class="q">Which roads and rail corridors could be exposed?</h2>
+      <p class="finding">In this model, Bay water first covers a stretch of the roads to the Marina in ${esc(whenShort(mar.bayFt))}${count(STORM2050, mar.bayFt) === 3 ? ", and in 2050's severe storm tide under all three sea level estimates shown" : ''}. Just north of Berkeley, in Albany, the ground under I-80 and the rail line is exposed at slightly higher water. In Berkeley itself the model keeps both dry until the water crosses the I-80 corridor: ${(() => { const rw = whenShort(roadT(ROADS.find(r => r.key === 'Rail main line in Berkeley')).bayFt), iw = whenShort(roadT(ROADS.find(r => r.key === 'I-80 mainline in Berkeley')).bayFt); return esc(rw === iw ? `both in ${rw}` : `the rail line in ${rw}, I-80 in ${iw}`); })()}. Up the drains, Bay water can reach Bolivar Dr at ${esc(whenShort(bol.drainFt))} and the frontage road in ${esc(whenShort(fr.drainFt))}.</p>
+      <p class="warn">This is modeled exposure: flooded ground under a road or track, a quarter or more of a segment's length. It does not say when traffic stops or a track fails. That depends on the road and railway profiles, raised decks and how deep the water stands and for how long, which this model does not establish.</p>
       ${drainNote}${lidarNote}
       ${ps.map(place).join('')}
       ${numsToggle()}`;
@@ -163,7 +171,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
       <p class="finding">The highest tide this winter, on December 24, can push Bay water up the storm drains onto ${hits.map(([n]) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase())).join(', ') || 'no street'}, if the drain outlet there has no working tide gate. Over the ground, it stays at the shoreline.</p>
       ${drainNote}
       <p>This is no rare event. From 2016 through 2025, high tides at NOAA's Richmond gauge reached that level about 19 times a year, in every year, and stayed above it for one to three hours each time (SOURCE_NOTES C26). If Bolivar Dr's drain outlet let the Bay in, the street would flood that often. Whether it does is what the field check tests.</p>
-      ${place({ name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', lines: roadLines(ROADS[0]), drain: bol.drainFt ?? null, bay: bol.bayFt ?? null })}
+      ${place({ name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', road: true, lines: roadLines(ROADS[0]), drain: bol.drainFt ?? null, bay: bol.bayFt ?? null })}
       <p>Go and look on the mornings of Nov 24–26, Dec 23–25 and Jan 21–22. The <a href="field-guide.html">king tide field guide</a> has times, four places to stand and what to photograph. Photos test whether the drains really let the Bay in.</p>
       ${numsToggle()}`;
   }
@@ -178,11 +186,15 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
   }
 
   function defenses() {
-    // Places compared: the first-reached level with no defense and with each one.
+    // Places compared, with no defense and with each one. A site has two levels: first modeled water
+    // on any of its ground, and a quarter of its grounds (js/exposure.js); a road has one, a quarter
+    // of a segment's length (js/analyze.js).
+    const site = (id) => (x) => x.sites[id] && (x.sites[id].drainCountedFt ?? x.sites[id].bayCountedFt);
+    const siteFirst = (id) => (x) => x.sites[id] && (x.sites[id].drainTouchFt ?? x.sites[id].bayTouchFt);
     const P = [
-      { name: 'Berkeley Forge & Tool', get: (x) => x.sites['berkeley-forge'] && (x.sites['berkeley-forge'].drainCountedFt ?? x.sites['berkeley-forge'].bayCountedFt) },
-      { name: 'Former Pacific Steel', get: (x) => x.sites['pacific-steel-geotracker'] && (x.sites['pacific-steel-geotracker'].drainCountedFt ?? x.sites['pacific-steel-geotracker'].bayCountedFt) },
-      { name: 'Transfer station', get: (x) => x.sites['transfer-station'] && (x.sites['transfer-station'].drainCountedFt ?? x.sites['transfer-station'].bayCountedFt) },
+      { name: 'Berkeley Forge & Tool', first: siteFirst('berkeley-forge'), get: site('berkeley-forge') },
+      { name: 'Former Pacific Steel', first: siteFirst('pacific-steel-geotracker'), get: site('pacific-steel-geotracker') },
+      { name: 'Transfer station', first: siteFirst('transfer-station'), get: site('transfer-station') },
       { name: 'Roads to the Marina', get: (x) => x.roads['Marina access roads'] && x.roads['Marina access roads'].drainFt },
       { name: 'I-80 in Albany', get: (x) => x.roads['I-80 mainline'] && x.roads['I-80 mainline'].drainFt },
       { name: 'I-80 in Berkeley', get: (x) => x.roads['I-80 mainline in Berkeley'] && x.roads['I-80 mainline in Berkeley'].drainFt },
@@ -191,18 +203,26 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     ];
     const ha = (x) => x.land['13.00'];
     const card = (d) => {
-      const changed = P.filter(p => p.get(d) !== p.get(T));
+      const changed = P.filter(p => p.get(d) !== p.get(T) || (p.first && p.first(d) !== p.first(T)));
+      const cell = (p, x) => {
+        const q = p.get(x), f = p.first ? p.first(x) : null;
+        if (!p.first) return `${esc(whenShort(q))}<span class="nums"><br>${q != null ? ft(q) : 'not reached'}</span>`;
+        const nums = `<span class="nums"><br>${f != null && f < q ? `${ft(f)}; ${ft(q)}` : q != null ? ft(q) : 'not reached'}</span>`;
+        if (f != null && f < q && whenShort(f) !== whenShort(q)) return `First water: ${esc(whenShort(f))}<br>A quarter of the grounds: ${esc(whenShort(q))}${nums}`;
+        return `First water and a quarter of the grounds: ${esc(whenShort(q))}${nums}`;
+      };
       return `<div class="place"><h3>${esc(d.label)}</h3>
         <p class="what">${esc(d.cost)}.</p>
-        ${changed.length ? `<table class="defs"><tr><th>Place</th><th>First reached, no defenses</th><th>With this defense</th></tr>${changed.map(p => `<tr><td>${esc(p.name)}</td><td>${esc(whenShort(p.get(T)))}<span class="nums"><br>${ft(p.get(T))}</span></td><td>${esc(whenShort(p.get(d)))}<span class="nums"><br>${p.get(d) != null ? ft(p.get(d)) : 'not reached'}</span></td></tr>`).join('')}</table>`
+        ${changed.length ? `<table class="defs"><tr><th>Place</th><th>No defenses</th><th>With this defense</th></tr>${changed.map(p => `<tr><td>${esc(p.name)}</td><td>${cell(p, T)}</td><td>${cell(p, d)}</td></tr>`).join('')}</table>
+        <p class="src">For a site, "first water" is the first modeled water on any of its ground, and "a quarter of the grounds" is when it covers 25% or more. For a road or the rail line, a quarter or more of a segment's length.</p>`
           : '<p>It does not change when any of these places is first reached.</p>'}
         <p class="what">Berkeley land under water or filling up the drains in 2100's severe storm tide (City's estimate): ${ha(d)} ha, against ${ha(T)} ha with no defenses.</p></div>`;
     };
     return `<h2 class="q">What would flood defenses change?</h2>
-      <p class="finding">With tide gates on every storm drain outlet, no inland site floods until the water crosses behind I-80, and the land under water in 2100's severe storm tide (City's estimate) falls from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha. The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn, because the water goes around their ends (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
-      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves or groundwater.</p>
+      <p class="finding">With working tide gates on every storm drain outlet, this model keeps Bay water out of the listed inland sites until it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha. The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn, because the water goes around their ends (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
+      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
       ${T.defenses.map(card).join('')}
-      <p class="src">One spot decides when the flats behind I-80 flood: above 13.35 ft NAVD88 the water crosses the freeway corridor about 250 m south of Gilman St (SOURCE_NOTES C6). A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
+      <p class="src">In this terrain model, the first surface connection across the I-80 corridor appears near 13.4 ft NAVD88 (13.35), about 250 m south of Gilman St (SOURCE_NOTES C6). The actual crossings and drainage openings under the freeway need confirmation. A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
       ${numsToggle()}`;
   }
 
@@ -243,7 +263,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     const lv = (k) => k === 255 ? null : Math.round((6 + 0.05 * k) * 100) / 100;
     const p = { name: label, what: 'The ground at and in front of this address. Floors may sit higher; floor heights are not published.', at: [x, y], bay: lv(bay), drain: lv(drain) < lv(bay) || (lv(bay) == null && lv(drain) != null) ? lv(drain) : null, edge: true };
     const first = Math.min(p.drain ?? 99, p.bay ?? 99);
-    out.innerHTML = `<p class="finding">${first > HIGHEST ? `None of the water levels here reach ${esc(label)}, up to the highest estimate for 2100.` : `At ${esc(label)}, Bay water first reaches the ground in ${esc(whenShort(first))}.`}</p>${p.drain != null ? drainNote : ''}${place(p)}${numsToggle()}`;
+    out.innerHTML = `<p class="finding">${first > HIGHEST ? `None of the water levels here reach ${esc(label)}, up to above the highest 2100 estimate shown.` : `At ${esc(label)}, Bay water first reaches the ground in ${esc(whenShort(first))}.`}</p>${p.drain != null ? drainNote : ''}${place(p)}${numsToggle()}`;
     focus({ points: [p.at], label });
   }
   function address() {

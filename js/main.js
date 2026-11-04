@@ -646,14 +646,26 @@ function planPanel(rerender) {
   // The header's height sets the map's height, and with it the width the map takes (index.html --mapw).
   new ResizeObserver(() => document.documentElement.style.setProperty('--hdr', `${$('hdr').offsetHeight}px`)).observe($('hdr'));
   if (window.innerWidth < 1000) $('legend').open = false; // on a phone the key starts closed, so the map shows
-  D = await load();
+  // A failed download would otherwise leave an empty page: say so, and offer a reload.
+  const status = document.createElement('p');
+  status.className = 'warn'; status.setAttribute('role', 'status'); status.textContent = 'Loading the terrain and flood data…';
+  $('guide').before(status);
+  try {
+    D = await load();
+    if (D.art) await Promise.all(D.art.levels.map(async l => { artMasks[l.file] = new Uint8Array(await fetch(`data/hazard/${l.file}`).then(r => { if (!r.ok) throw new Error(l.file); return r.arrayBuffer(); })); }));
+  } catch (e) {
+    status.textContent = `Some of the explorer's data did not load (${e.message || 'network error'}). `;
+    const retry = document.createElement('button'); retry.type = 'button'; retry.textContent = 'Try again';
+    retry.addEventListener('click', () => location.reload()); status.append(retry);
+    return;
+  }
+  status.remove();
   const W = D.dem.width, H = D.dem.height;
   canvas = $('map'); ctx = canvas.getContext('2d');
   grid = document.createElement('canvas'); grid.width = W; grid.height = H; gctx = grid.getContext('2d');
   sizeCanvas();
   base = shade(D);
-  if (D.art) await Promise.all(D.art.levels.map(async l => { artMasks[l.file] = new Uint8Array(await fetch(`data/hazard/${l.file}`).then(r => r.arrayBuffer())); }));
-  else $('showArt').disabled = true;
+  if (!D.art) $('showArt').disabled = true;
   // ART disconnected low-lying areas (H5, C20): the level list now, each level's mask when first drawn.
   D.artDc = await fetch('data/hazard/art-dc.json').then(r => r.ok ? r.json() : null).catch(() => null);
   if (!D.artDc) $('showArtDc').disabled = true;
