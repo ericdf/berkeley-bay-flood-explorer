@@ -2,7 +2,7 @@
 // chosen level and plan (js/analyze.js), and draws the map and results.
 import { analyze, FLANKED, DRAIN, RAIN } from './analyze.js';
 import { WET, LOW } from './fill.js';
-import { exposure } from './exposure.js';
+import { exposure, groundText } from './exposure.js';
 import { encodeView, decodeView, wallFits } from './share.js';
 
 const $ = (id) => document.getElementById(id);
@@ -436,7 +436,7 @@ function render(levelFt, sc) {
     <p class="src">${sc ? esc(sc.source) : 'A level chosen with the slider.'}</p>
     <p class="src">${esc(context(levelFt))}.</p>
     ${sc && sc.category === 'sensitivity' ? `<p class="warn">A sensitivity test: a hypothetical combination of two sourced figures, with no established likelihood.${sc.id === 'y10Kelvin' ? ' Part of the El Niño rise is already in the storm-tide statistics (SOURCE_NOTES W16).' : ''}</p>` : ''}
-    ${sc && sc.id === 'spill' ? '<p class="warn">A result of this explorer\'s terrain model, not a protective threshold: the connection could open lower or higher, and the published ART maps put it near 13.2 ft NAVD88.</p>' : ''}
+    ${sc && sc.id === 'spill' ? '<p class="warn">A result of this explorer\'s terrain model, not a protective threshold: the connection could open lower or higher. ART\'s published maps come in steps: at MHHW + 84 in (13.20 ft NAVD88) they show the transfer station as disconnected low-lying ground (41% of the site), with no flooding connected to the Bay there; at + 96 in (14.20 ft NAVD88) they flood 56% of it from the Bay (SOURCE_NOTES C6, C20). The connection lies somewhere between those two maps; they do not establish the level at which it opens.</p>' : ''}
     ${sc && sc.id === 'ferris12' ? '<p class="warn">This figure is shown by the project owner\'s decision; who said it is in the source line above. Its source, datum and whether it includes waves are unconfirmed; it is read here as a still-water level of 12 ft NAVD88. FEMA\'s flood elevations on the wave-exposed Marina shoreline, which include waves, are 12 to 14 ft NAVD88; this map shows still water only.</p>' : ''}
     <p class="src"><span class="cat">derived</span> Everything below is calculated by this explorer, not published: a connected fill on USGS 3DEP lidar (a model rule, explained under Method), at the level above. The level's own category is shown next to it.</p>
     ${plan ? `<p class="warn">Comparing <b>no plan</b> with <b>your plan</b> at the same level. Green on the map is ground the plan keeps dry. ${res.overtopped.length ? `Overtopped at this level: ${res.overtopped.map(esc).join('; ')}.` : 'Nothing in the plan is overtopped at this level; water can still go around the ends of a wall.'}</p>` : ''}
@@ -497,10 +497,10 @@ function exposedPanel(levelFt, res, B, plan) {
   const cell = (r) => {
     const parts = [];
     if (r.site.stillWaterNotApplicable) parts.push('not described by a still-water level');
-    else parts.push(r.reach ? `<b>reached</b>: ${esc(r.reach.how)}, ${fmt(100 * r.reach.share)}% of its ground` : 'not reached at this level');
+    else parts.push(r.reach ? `<b>reached</b>: ${esc(r.reach.how)}, ${fmt(100 * r.reach.share)}% of its ground` : esc(groundText(r.water)));
     if (r.tsunami >= 0.25) parts.push('inside the State tsunami hazard area');
     for (const n of r.notes) parts.push(`<i>${esc(n)}</i>`);
-    if (r.reach && !r.counts) parts.push('no longer counted as a pollution source here');
+    if ((r.reach && !r.counts) || (r.partial && !r.partlyExposed)) parts.push('no longer counted as a pollution source here');
     return parts.join('<br>');
   };
   const srow = (r0, r1) => `<tr><td><b>${esc(r0.site.name)}</b>${r0.site.verified ? '' : ' <span class="cat">not re-read</span>'}<details><summary>What it holds</summary>${esc(r0.site.holds)} (SOURCE_NOTES ${esc(r0.site.refs)})</details>${r0.site.costs ? `<details><summary>Costs on record</summary>${esc(r0.site.costs)}</details>` : ''}</td><td>${cell(r0)}</td>${mine ? `<td>${cell(r1)}</td>` : ''}</tr>`;
@@ -512,7 +512,7 @@ function exposedPanel(levelFt, res, B, plan) {
     <p class="src">From the plans, reviews and rules read for this explorer. Each names its source row in SOURCE_NOTES.md; figures this explorer derives say so.</p>
     <ul>${D.exposure.gaps.map(g => `<li><b>${esc(g.title)}.</b> ${esc(g.text)} <span class="src">(SOURCE_NOTES ${esc(g.refs)})</span></li>`).join('')}</ul>
     <h2>What's exposed <span class="cat">derived</span></h2>
-    <p class="src">At this level: <b>${ex0.reachedCount}</b> of ${ex0.sites.length} listed pollution sources reached if we do nothing${mine ? `; <b>${ex1.reachedCount}</b> with your choices` : ''}. ${ex0.tsunamiCount} lie inside the State tsunami hazard area, which does not depend on the level. Measures as in SOURCE_NOTES E6: pollution sources, then critical services, with ways off the waterfront as a check. Choices are your assumptions; they change what is exposed, never the water. Not a forecast.</p>
+    <p class="src">At this level: <b>${ex0.reachedCount}</b> of ${ex0.sites.length} listed pollution sources reached if we do nothing${mine ? `; <b>${ex1.reachedCount}</b> with your choices` : ''}, counting a site when water covers 25% or more of its ground${ex0.partialCount ? `; ${ex0.partialCount} more partially reached, under 25%, shown in the table` : ''}. The count is a screening result: it does not measure what a site would release, how toxic or how far it would travel, or what cleanup would cost, and a choice of yours counts only if the measure works. ${ex0.tsunamiCount} lie inside the State tsunami hazard area, which does not depend on the level. Measures as in SOURCE_NOTES E6: pollution sources, then critical services, with ways off the waterfront as a check. Choices are your assumptions; they change what is exposed, never the water. Not a forecast.</p>
     <table>${head}<tr><th colspan="${mine ? 3 : 2}">Pollution sources</th></tr>${ex0.sites.map((r, k) => srow(r, ex1.sites[k])).join('')}
       <tr><th colspan="${mine ? 3 : 2}">Critical services</th></tr>${ex0.services.filter(s => !s.wayOut).map((s, k) => vrow(s, ex1.services.filter(t => !t.wayOut)[k])).join('')}
       <tr><th colspan="${mine ? 3 : 2}">Ways off the waterfront (a check)</th></tr>${vrow(ways0, ways1)}</table>`;

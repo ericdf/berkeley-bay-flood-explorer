@@ -142,6 +142,19 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   // station at 12 ft with open outfalls and rain is flooded through drains and by rain.
   const rMix = analyze(X, 12, null, rain12), stMix = exposure(X, rMix).sites.find(s => s.site.id === 'transfer-station');
   ok(stMix.reach && stMix.counts, `12 ft, open outfalls, rain: transfer station reached (${stMix.reach ? stMix.reach.how : 'not reached'})`);
+  // Under the 25% threshold a site is partially reached, never "not reached" (outside review,
+  // 2026-11-04; SOURCE_NOTES E11): at 12 ft with open outfalls the transfer station has 18% of its
+  // ground flooded through drains. Waste transfer's status states the share and leaves the service
+  // question open.
+  {
+    const { groundText } = await import('../js/exposure.js');
+    const e12 = exposure(X, analyze(X, 12)), st12 = e12.sites.find(s => s.site.id === 'transfer-station');
+    ok(st12.partial && !st12.reach && !st12.counts && /partially reached/.test(groundText(st12.water)),
+      `12 ft: transfer station partially reached (${Math.round(100 * st12.partial.share)}% through drains), not counted, not "not reached"`);
+    const waste = e12.services.find(s => s.name === 'Waste transfer');
+    ok(/partially reached/.test(waste.status) && /not assessed/.test(waste.status) && !/not reached/.test(waste.status), 'waste transfer at 12 ft: partial ground share shown, service continuity not assessed');
+    ok(e12.partialCount >= 1 && !e12.sites.some(s => !s.water && s.sh.wet + s.sh.drain + s.sh.rain > 0 && !s.site.stillWaterNotApplicable), `12 ft: ${e12.partialCount} sites partially reached; every site with water on it says so`);
+  }
   // I-80 counts rain and drain flooding too (Codex, PR #6): Bay at 7.4 ft, gates, all runoff held back.
   const rI = analyze(X, 7.4, planFrom(X, 'gates'), { ari: '10', duration: '6-hr', blocked: 1 });
   const i80 = exposure(X, rI).services.find(s => s.name === 'I-80');
