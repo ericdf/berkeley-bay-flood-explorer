@@ -357,6 +357,8 @@ if (fs.existsSync('data/hazard/cosmos-gw.json')) {
   const rf = T.roads['Rail main line'] && T.roads['Rail main line'].bayFt;
   ok(rf && railAt(rf) && !railAt(Math.round((rf - 0.05) * 100) / 100), `rail main line first under Bay water at ${rf} ft NAVD88 (C24)`);
   ok(D.rail && D.rail.edges.length > 0 && D.rail.edges.every(e => e.geom.length >= 2), `data/rail.json: ${D.rail ? D.rail.edges.length : 0} main-line ways`);
+  const ib = T.roads['I-80 mainline in Berkeley'], rb = T.roads['Rail main line in Berkeley'];
+  ok(ib && rb && ib.bayFt >= 13.35 && rb.bayFt >= 13.35 && T.roads['I-80 mainline'].bayFt < ib.bayFt, `I-80 and the rail line in Berkeley first reached at ${ib && ib.bayFt} and ${rb && rb.bayFt}, after the crossing behind I-80; lower in Albany (C27)`);
   const g = T.defenses.find(d => d.id === 'gates');
   ok(g && g.sites['berkeley-forge'].drainCountedFt >= 13.35, 'with tide gates, Berkeley Forge is first reached at the crossing behind I-80 (C6, C23)');
   const fb = new Uint8Array(fs.readFileSync('data/hazard/first-bay.u8')), fd = new Uint8Array(fs.readFileSync('data/hazard/first-drain.u8'));

@@ -99,11 +99,19 @@
    "drainFt": 12.3,
    "bayFt": 13.4
   },
+  "Rail main line in Berkeley": {
+   "bayFt": 13.5,
+   "drainFt": 13.5
+  },
   "Ashby Ave ramps": {
    "bayFt": 13.65,
    "drainFt": 13.65
   },
   "Gilman St ramps": {
+   "bayFt": 14.05,
+   "drainFt": 14.05
+  },
+  "I-80 mainline in Berkeley": {
    "bayFt": 14.05,
    "drainFt": 14.05
   }
@@ -332,11 +340,19 @@
      "bayFt": 13.4,
      "drainFt": 13.4
     },
+    "Rail main line in Berkeley": {
+     "bayFt": 13.5,
+     "drainFt": 13.5
+    },
     "Ashby Ave ramps": {
      "bayFt": 13.65,
      "drainFt": 13.65
     },
     "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    },
+    "I-80 mainline in Berkeley": {
      "bayFt": 14.05,
      "drainFt": 14.05
     }
@@ -449,11 +465,19 @@
      "drainFt": 12.3,
      "bayFt": 13.4
     },
+    "Rail main line in Berkeley": {
+     "bayFt": 13.5,
+     "drainFt": 13.5
+    },
     "Ashby Ave ramps": {
      "bayFt": 13.65,
      "drainFt": 13.65
     },
     "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    },
+    "I-80 mainline in Berkeley": {
      "bayFt": 14.05,
      "drainFt": 14.05
     }
@@ -566,11 +590,19 @@
      "drainFt": 12.3,
      "bayFt": 13.4
     },
+    "Rail main line in Berkeley": {
+     "bayFt": 13.5,
+     "drainFt": 13.5
+    },
     "Ashby Ave ramps": {
      "bayFt": 13.65,
      "drainFt": 13.65
     },
     "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    },
+    "I-80 mainline in Berkeley": {
      "bayFt": 14.05,
      "drainFt": 14.05
     }
@@ -683,11 +715,19 @@
      "drainFt": 12.3,
      "bayFt": 13.4
     },
+    "Rail main line in Berkeley": {
+     "bayFt": 13.5,
+     "drainFt": 13.5
+    },
     "Ashby Ave ramps": {
      "bayFt": 13.65,
      "drainFt": 13.65
     },
     "Gilman St ramps": {
+     "bayFt": 14.05,
+     "drainFt": 14.05
+    },
+    "I-80 mainline in Berkeley": {
      "bayFt": 14.05,
      "drainFt": 14.05
     }

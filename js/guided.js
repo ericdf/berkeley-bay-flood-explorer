@@ -67,14 +67,16 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     { key: 'BOLIVAR DR', street: true, name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', match: (e) => e.name === 'BOLIVAR DR' },
     { key: 'Frontage roads (Eastshore Hwy)', name: 'Eastshore Hwy (the frontage road)', what: 'The local road along I-80.', match: (e) => /^EASTSHORE HWY?$/.test(e.name) && e.berkeley },
     { key: 'Marina access roads', name: 'Roads to the Marina', what: 'Marina Blvd, Spinnaker Way and University Ave west of I-80: also the only ways off the waterfront.', match: (e) => e.berkeley && D.exposure.marinaRoutes.includes(e.name) && !(e.name === 'UNIVERSITY AV' && !e.geom.every(([x]) => x <= D.exposure.marinaMaxX)) },
-    { key: 'I-80 mainline', name: 'I-80', what: 'The freeway, both directions.', lidar: true, match: (e) => e.freeway && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
-    { key: 'Rail main line', rail: true, name: 'The rail line (Amtrak and freight)', what: "Union Pacific's main line, used by Amtrak's Capitol Corridor and San Joaquins.", lidar: true },
+    { key: 'I-80 mainline', name: 'I-80 in Albany, just north of Berkeley', what: 'Its lowest stretch, by the Albany shoreline south of Golden Gate Fields: the west shoulder sits at about 10.3 ft, the lanes at 11 to 11.8 ft (SOURCE_NOTES C27).', lidar: true, match: (e) => e.freeway && !e.berkeley && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
+    { key: 'I-80 mainline in Berkeley', name: 'I-80 in Berkeley', what: 'The freeway, both directions.', lidar: true, match: (e) => e.freeway && e.berkeley && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
+    { key: 'Rail main line', rail: true, name: 'The rail line in Albany', what: "Union Pacific's main line, used by Amtrak's Capitol Corridor and San Joaquins; its lowest stretch is north of Berkeley.", lidar: true, railMatch: (e) => !e.berkeley },
+    { key: 'Rail main line in Berkeley', rail: true, name: 'The rail line in Berkeley', what: 'The same line through west Berkeley.', lidar: true, railMatch: (e) => !!e.berkeley },
     { key: 'University Ave ramps', name: 'I-80 ramps at University Ave', lidar: true, match: (e) => e.freeway && /^UNIVERSITY /.test(e.name) },
     { key: 'Ashby Ave ramps', name: 'I-80 ramps at Ashby Ave', lidar: true, match: (e) => e.freeway && /^ASHBY /.test(e.name) },
     { key: 'Gilman St ramps', name: 'I-80 ramps at Gilman St', lidar: true, match: (e) => e.freeway && /^GILMAN /.test(e.name) },
   ];
   const roadT = (r) => r.street ? T.streets[r.key] || {} : T.roads[r.key] || {};
-  const roadLines = (r) => r.rail ? D.rail.edges.map(e => e.geom) : D.streets.edges.filter(r.match).map(e => e.geom);
+  const roadLines = (r) => r.rail ? D.rail.edges.filter(r.railMatch).map(e => e.geom) : D.streets.edges.filter(r.match).map(e => e.geom);
   const W = D.dem.width, R = D.dem.resolution, Hm = D.dem.ymax - D.dem.ymin;
   const sitePoint = (id) => {
     const site = D.exposure.sites.find(s => s.id === id), cells = site.facility ? D.facilityCells[D.facilities.findIndex(f => f.label.startsWith(site.facility))].cells : (D.siteCells[id] || []);
@@ -148,7 +150,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
   function roads() {
     const ps = ROADS.map(roadPlace), mar = roadT(ROADS[2]), bol = roadT(ROADS[0]), fr = roadT(ROADS[1]);
     return `<h2 class="q">When does flooding close the roads and the rail line?</h2>
-      <p class="finding">The roads to the Marina go under in ${esc(whenShort(mar.bayFt))}${count(STORM2050, mar.bayFt) === 3 ? ", and in 2050's severe storm tide under every sea level estimate" : ''}. I-80 and the rail line follow at slightly higher water, then the I-80 ramps. Up the drains, Bay water can reach Bolivar Dr at ${esc(whenShort(bol.drainFt))} and the frontage road in ${esc(whenShort(fr.drainFt))}.</p>
+      <p class="finding">The roads to the Marina go under in ${esc(whenShort(mar.bayFt))}${count(STORM2050, mar.bayFt) === 3 ? ", and in 2050's severe storm tide under every sea level estimate" : ''}. Just north of Berkeley, in Albany, I-80 and the rail line follow at slightly higher water. In Berkeley itself they hold until the water crosses behind I-80: ${(() => { const rw = whenShort(roadT(ROADS.find(r => r.key === 'Rail main line in Berkeley')).bayFt), iw = whenShort(roadT(ROADS.find(r => r.key === 'I-80 mainline in Berkeley')).bayFt); return esc(rw === iw ? `both in ${rw}` : `the rail line in ${rw}, I-80 in ${iw}`); })()}. Up the drains, Bay water can reach Bolivar Dr at ${esc(whenShort(bol.drainFt))} and the frontage road in ${esc(whenShort(fr.drainFt))}.</p>
       ${drainNote}${lidarNote}
       ${ps.map(place).join('')}
       ${numsToggle()}`;
@@ -160,6 +162,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     return `<h2 class="q">What will this winter's king tides reach?</h2>
       <p class="finding">The highest tide this winter, on December 24, can push Bay water up the storm drains onto ${hits.map(([n]) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase())).join(', ') || 'no street'}, if the drain outlet there has no working tide gate. Over the ground, it stays at the shoreline.</p>
       ${drainNote}
+      <p>This is no rare event. From 2016 through 2025, high tides at NOAA's Richmond gauge reached that level about 19 times a year, in every year, and stayed above it for one to three hours each time (SOURCE_NOTES C26). If Bolivar Dr's drain outlet let the Bay in, the street would flood that often. Whether it does is what the field check tests.</p>
       ${place({ name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', lines: roadLines(ROADS[0]), drain: bol.drainFt ?? null, bay: bol.bayFt ?? null })}
       <p>Go and look on the mornings of Nov 24–26, Dec 23–25 and Jan 21–22. The <a href="field-guide.html">king tide field guide</a> has times, four places to stand and what to photograph. Photos test whether the drains really let the Bay in.</p>
       ${numsToggle()}`;
@@ -181,8 +184,9 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
       { name: 'Former Pacific Steel', get: (x) => x.sites['pacific-steel-geotracker'] && (x.sites['pacific-steel-geotracker'].drainCountedFt ?? x.sites['pacific-steel-geotracker'].bayCountedFt) },
       { name: 'Transfer station', get: (x) => x.sites['transfer-station'] && (x.sites['transfer-station'].drainCountedFt ?? x.sites['transfer-station'].bayCountedFt) },
       { name: 'Roads to the Marina', get: (x) => x.roads['Marina access roads'] && x.roads['Marina access roads'].drainFt },
-      { name: 'I-80', get: (x) => x.roads['I-80 mainline'] && x.roads['I-80 mainline'].drainFt },
-      { name: 'Rail line', get: (x) => x.roads['Rail main line'] && x.roads['Rail main line'].drainFt },
+      { name: 'I-80 in Albany', get: (x) => x.roads['I-80 mainline'] && x.roads['I-80 mainline'].drainFt },
+      { name: 'I-80 in Berkeley', get: (x) => x.roads['I-80 mainline in Berkeley'] && x.roads['I-80 mainline in Berkeley'].drainFt },
+      { name: 'Rail line in Berkeley', get: (x) => x.roads['Rail main line in Berkeley'] && x.roads['Rail main line in Berkeley'].drainFt },
       { name: 'Frontage road', get: (x) => x.roads['Frontage roads (Eastshore Hwy)'] && x.roads['Frontage roads (Eastshore Hwy)'].drainFt },
     ];
     const ha = (x) => x.land['13.00'];
@@ -195,7 +199,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
         <p class="what">Berkeley land under water or filling up the drains in 2100's severe storm tide (City's estimate): ${ha(d)} ha, against ${ha(T)} ha with no defenses.</p></div>`;
     };
     return `<h2 class="q">What would flood defenses change?</h2>
-      <p class="finding">With tide gates on every storm drain outlet, no inland site floods until the water crosses behind I-80, and the land under water in 2100's severe storm tide (City's estimate) falls from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha. The City study's floodwalls, as this explorer traces them, change little, because the water goes around their ends (SOURCE_NOTES C11).</p>
+      <p class="finding">With tide gates on every storm drain outlet, no inland site floods until the water crosses behind I-80, and the land under water in 2100's severe storm tide (City's estimate) falls from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha. The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn, because the water goes around their ends (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
       <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves or groundwater.</p>
       ${T.defenses.map(card).join('')}
       <p class="src">One spot decides when the flats behind I-80 flood: above 13.35 ft NAVD88 the water crosses the freeway corridor about 250 m south of Gilman St (SOURCE_NOTES C6). A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
