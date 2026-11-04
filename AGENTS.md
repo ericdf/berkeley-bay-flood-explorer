@@ -34,7 +34,9 @@ Mark every finding **blocking** or **optional** with its location.
 
 ### Blocking
 
-- **A water level without a datum,** or a level presented as a rise (or the reverse).
+- **A water level without a datum,** or a level presented as a rise (or the reverse). Guided
+  mode's plain-language text is exempt from the datum (CLAUDE.md, E14); its levels must still
+  trace to a scenario or a derived threshold, shown with the datum under "Show the numbers".
 - **Still water and wave-inclusive elevations mixed** in one comparison or table.
 - **Untraceable numbers.** Every figure traces to a cited source, a file in the repository
   or a reproducible run. Recompute where you can.

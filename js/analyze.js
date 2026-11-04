@@ -101,6 +101,18 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     const n = cells.length || 1;
     return { ...f, wetShare: w / n, lowShare: l / n, drainShare: d / n, rainShare: rn / n, medianGroundFt: g.length ? g[g.length >> 1] / 30.48 : NaN };
   });
+  // The rail main line (data/rail.json, tools/build-rail.mjs), sampled as streets are: a segment
+  // counts when a quarter of its length is flooded (model rule). Bridges are left out: the bare-earth
+  // terrain under them says nothing about the track.
+  const railSegs = [];
+  for (const e of (D.rail ? D.rail.edges : [])) {
+    if (e.bridge) continue;
+    const s = sampleLine(e.geom, state, z, dem, water0, 4, rainRes ? D.rainSurface : null, crest);
+    if (s.n === 0 || s.waterSamples > 0) continue;
+    const flooded = s.wetShare + s.rainShare + s.drainShare;
+    if (flooded < STREET_WET_SHARE) continue;
+    railSegs.push({ e, ...s, cls: s.wetShare >= s.rainShare && s.wetShare >= s.drainShare ? 'wet' : s.rainShare >= s.drainShare ? 'rain' : 'drain' });
+  }
   const sumB = (cls) => segs.filter(s => s.cls === cls && s.e.berkeley).reduce((t, s) => t + s.e.len, 0);
   // Walls the water goes over at this level.
   const overtopped = [...((plan && plan.walls) || []), ...((plan && plan.roads) || [])].filter(w => w.crestFt <= levelFt).map(w => w.label);
@@ -115,6 +127,6 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     rainSurface: rainRes ? D.rainSurface : null,
     wetStreetM: sumB('wet'), lowStreetM: sumB('low'), drainStreetM: sumB('drain'), rainStreetM: sumB('rain'),
     freewayWet: streetsOut.filter(s => s.wet && s.freeway),
-    streets: streetsOut, facilities: fac, overWater, overtopped,
+    streets: streetsOut, facilities: fac, overWater, overtopped, railSegs,
   };
 }

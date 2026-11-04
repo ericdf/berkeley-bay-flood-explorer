@@ -343,5 +343,32 @@ if (fs.existsSync('data/hazard/cosmos-gw.json')) {
     ok(r.status === 0, `js/${f} parses${r.status === 0 ? '' : ': ' + String(r.stderr).split('\n').find(l => /Error/.test(l))}`);
   }
 }
+// Guided mode (js/guided.js, SOURCE_NOTES C23, C24): data/thresholds.json agrees with the fill one
+// step either side of a threshold, and the plain-language ladder names the right water.
+{
+  const T = JSON.parse(fs.readFileSync('data/thresholds.json'));
+  const { exposure } = await import('../js/exposure.js');
+  const X = { ...D, exposure: JSON.parse(fs.readFileSync('data/exposure.json')), siteCells: JSON.parse(fs.readFileSync('data/site-cells.json')),
+    tsunami: { mask: new Uint8Array(fs.readFileSync('data/hazard/tsunami.bits')) } };
+  const reach = (lv, id) => { const s = exposure(X, analyze(X, lv)).sites.find(r => r.site.id === id); return s.sh.wet + s.sh.drain >= 0.25; };
+  const f = T.sites['berkeley-forge'].drainCountedFt;
+  ok(reach(f, 'berkeley-forge') && !reach(Math.round((f - 0.05) * 100) / 100, 'berkeley-forge'), `Berkeley Forge first counted at ${f} ft NAVD88 up the drains, not at ${(f - 0.05).toFixed(2)}`);
+  const railAt = (lv) => analyze(X, lv).railSegs.some(s => s.cls === 'wet');
+  const rf = T.roads['Rail main line'] && T.roads['Rail main line'].bayFt;
+  ok(rf && railAt(rf) && !railAt(Math.round((rf - 0.05) * 100) / 100), `rail main line first under Bay water at ${rf} ft NAVD88 (C24)`);
+  ok(D.rail && D.rail.edges.length > 0 && D.rail.edges.every(e => e.geom.length >= 2), `data/rail.json: ${D.rail ? D.rail.edges.length : 0} main-line ways`);
+  const g = T.defenses.find(d => d.id === 'gates');
+  ok(g && g.sites['berkeley-forge'].drainCountedFt >= 13.35, 'with tide gates, Berkeley Forge is first reached at the crossing behind I-80 (C6, C23)');
+  const fb = new Uint8Array(fs.readFileSync('data/hazard/first-bay.u8')), fd = new Uint8Array(fs.readFileSync('data/hazard/first-drain.u8'));
+  ok(fb.length === D.dem.width * D.dem.height && fd.length === fb.length, 'first-reached rasters match the terrain grid');
+  let worse = 0; for (let i = 0; i < fb.length; i++) if (fd[i] > fb[i]) worse++;
+  ok(worse === 0, 'a cell is never first reached later through the drains than over the ground');
+  const { ladder, whenShort } = await import('../js/guided.js').catch(() => ({}));
+  if (ladder) {
+    ok(ladder(7.25)[0].lv === 7.4 && ladder(9.85)[0].lv === 10.91 && ladder(9.85)[2].lv === 13.0, 'the ladder names the first named water at or above a threshold');
+    ok(ladder(13.4)[2].text.includes('two higher') && ladder(9.4)[2].lv === 9.4, 'the ladder counts the 2100 estimates that reach a threshold');
+    ok(whenShort(17) === 'none of these levels', 'a place above every level reads "none of these levels"');
+  }
+}
 console.log(fail ? `\n${fail} check(s) failed` : '\nall checks passed');
 process.exit(fail ? 1 : 0);

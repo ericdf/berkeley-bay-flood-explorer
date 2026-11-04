@@ -111,6 +111,11 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
     // I-80 last among the roads: bare-earth lidar removes the raised deck and overpasses, so its
     // figure is the least certain here (an outside review, 2026-11-03); the caveat leads.
     { name: 'I-80', status: i80 > 0 ? `on bare-earth lidar, which removes the raised deck and overpasses, ${(i80 / 1000).toFixed(2)} km of freeway lines in both directions and ramps, in Berkeley and beyond, are flooded (${i80Parts.join(', ')}); Caltrans road profiles are needed to confirm (F2)` : 'no freeway segment has a quarter or more of its length flooded at this level', reached: i80 > 0 },
+    ...(D.rail ? [(() => {
+      const by = { wet: 0, drain: 0, rain: 0 }; for (const s of res.railSegs || []) by[s.cls] += s.e.len;
+      const m = by.wet + by.drain + by.rain, parts = [['Bay water', by.wet], ['through drains', by.drain], ['pooled rain', by.rain]].filter(([, v]) => v > 0).map(([h, v]) => `${h} ${(v / 1000).toFixed(2)} km`);
+      return { name: 'Rail line (Amtrak and freight)', status: m > 0 ? `${(m / 1000).toFixed(2)} km of main-line track flooded, counting both tracks, in Berkeley and beyond (${parts.join(', ')}); bare-earth terrain, so the track bed's height needs the railroad's profile to confirm` : 'no main-line segment has a quarter or more of its length flooded at this level', reached: m > 0 };
+    })()] : []),
     { name: 'Sanitary sewers', status: 'not modeled (F15)', reached: null },
   ];
   for (const s of services) if (s.reachedKey) {

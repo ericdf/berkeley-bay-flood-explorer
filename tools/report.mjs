@@ -7,7 +7,7 @@ export function load() {
   const z = new Int16Array(b.buffer, b.byteOffset, b.length / 2);
   return { dem, z, streets: JSON.parse(fs.readFileSync('data/streets.json')), facilities: JSON.parse(fs.readFileSync('data/facilities.json')).facilities, facilityCells: JSON.parse(fs.readFileSync('data/facility-cells.json')), berkeley: new Uint8Array(fs.readFileSync('data/terrain/berkeley.bits')),
     drains: JSON.parse(fs.readFileSync('data/drains.json')), watershedIds: new Uint8Array(fs.readFileSync('data/hazard/watersheds.u8')),
-    plans: JSON.parse(fs.readFileSync('data/plans.json')).presets,
+    plans: JSON.parse(fs.readFileSync('data/plans.json')).presets, rail: JSON.parse(fs.readFileSync('data/rail.json')),
     atlas: JSON.parse(fs.readFileSync('data/raw/noaa/atlas14-berkeley.json')),
     impervious: JSON.parse(fs.readFileSync('data/raw/nlcd/impervious-by-watershed.json')).watersheds };
 }

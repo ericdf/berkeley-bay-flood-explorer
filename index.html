@@ -5,28 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Berkeley Bay Flood Explorer</title>
 <style>
-  :root { --bg: #fbfaf7; --fg: #1d1d1b; --muted: #5d5d58; --line: #d9d6cf; --accent: #1f5fa8;
-          --wet: #2f7fd6; --low: #e08a1e; --flank: #8b3fb8; --panel: #ffffff; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #161615; --fg: #ecebe6; --muted: #a9a8a1; --line: #3a3936; --panel: #1f1f1d; --accent: #7fb0ea; } }
+  /* Layout: a reading or control column, the map at the width its terrain needs for the window's
+     height, and in expert mode the results beside it, so nothing sits below the page. */
+  :root { --bg: #fbfaf7; --fg: #1d1d1b; --muted: #5d5d58; --line: #d9d6cf; --accent: #1f5fa8; --accent-soft: #e8eff8;
+          --wet: #2f7fd6; --low: #e08a1e; --flank: #8b3fb8; --drain: #26b2a0; --panel: #ffffff; --mark: #c0392b;
+          --hdr: 96px; --mapw: min(calc((100vh - var(--hdr)) * 0.6153), 58vw); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #161615; --fg: #ecebe6; --muted: #a9a8a1; --line: #3a3936; --panel: #1f1f1d; --accent: #7fb0ea; --accent-soft: #24303d; --mark: #ff7a6b; color-scheme: dark; } }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  header { padding: 14px 16px 8px; border-bottom: 1px solid var(--line); }
-  h1 { font-size: 20px; margin: 0 0 4px; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  header { display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  header .intro { flex: 1 1 520px; min-width: 0; }
+  h1 { font-size: 20px; margin: 0 0 2px; }
   .notice { font-size: 13px; color: var(--muted); margin: 0; }
-  main { display: grid; grid-template-columns: 300px minmax(0, 1fr) 380px; gap: 0; min-height: calc(100vh - 70px); }
-  @media (max-width: 1100px) { main { grid-template-columns: 1fr; } }
-  aside, section.results { padding: 12px 16px; background: var(--panel); border-right: 1px solid var(--line); overflow: auto; }
-  section.results { border-right: 0; border-left: 1px solid var(--line); }
-  #mapwrap { position: relative; overflow: hidden; background: #0f2747; height: calc(100vh - 72px); touch-action: none; }
-  @media (max-width: 1100px) { #mapwrap { height: 60vh; order: -1; } }
-  h3.grp { font-size: 12px; font-weight: 600; color: var(--muted); margin: 10px 0 2px 6px; }
+  .modes { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex: none; }
+  .modes button { border: 0; background: transparent; color: var(--fg); padding: 6px 16px; cursor: pointer; font-size: 14px; }
+  .modes button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+
+  /* "Explain this": a short note that opens in place. */
+  details.explain { display: inline; margin: 0; font-size: inherit; }
+  details.explain > summary { display: inline; cursor: pointer; color: var(--accent); text-decoration: underline dotted; text-underline-offset: 3px; list-style: none; font-size: 13px; white-space: nowrap; }
+  details.explain > summary::-webkit-details-marker { display: none; }
+  details.explain[open] > summary { font-weight: 600; }
+  details.explain > div { display: block; margin: 6px 0 8px; padding: 8px 10px; background: var(--accent-soft); border-radius: 6px; color: var(--fg); font-size: 13px; max-width: 70ch; }
+  details.explain[open] { flex-basis: 100%; }
+  .hdrlinks { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; font-size: 13px; margin-top: 2px; }
+  details.explain > div p { margin: 0 0 6px; } details.explain > div p:last-child { margin: 0; }
+
+  main { display: grid; height: calc(100vh - var(--hdr)); }
+  main.expert { grid-template-columns: 330px var(--mapw) minmax(340px, 1fr); }
+  main.guided { grid-template-columns: minmax(340px, 720px) minmax(var(--mapw), 1fr); }
+  main.guided #rail, main.guided #side { display: none; }
+  main.expert #guide { display: none; }
+  aside, #side { padding: 12px 16px 24px; background: var(--panel); overflow: auto; min-width: 0; }
+  #rail { border-right: 1px solid var(--line); }
+  #side { border-left: 1px solid var(--line); padding-top: 0; }
+  #guide { border-right: 1px solid var(--line); padding: 18px clamp(16px, 3vw, 40px) 32px; }
+  #guide > * { max-width: 680px; }
+  #mapwrap { position: relative; overflow: hidden; background: #0f2747; touch-action: none; min-width: 0; }
+  @media (max-width: 1000px) {
+    :root { --mapw: 100%; }
+    main, main.expert, main.guided { display: flex; flex-direction: column; height: auto; }
+    #mapwrap { order: -1; position: sticky; top: 0; z-index: 5; height: 46vh; flex: none; }
+    #mapwrap #legend { top: 46px; max-height: calc(100% - 120px); overflow: auto; }
+    #side { border-left: 0; border-top: 1px solid var(--line); }
+    #guide { border-right: 0; }
+  }
   #mapwrap:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
   #map { width: 100%; height: 100%; display: block; cursor: grab; }
   #map.dragging { cursor: grabbing; }
   .zoom { position: absolute; top: 8px; right: 8px; display: flex; flex-direction: column; gap: 4px; }
-  .zoom button { width: 34px; height: 34px; font-size: 18px; line-height: 1; border: 1px solid #0006; border-radius: 6px; background: #fff; color: #1d1d1b; cursor: pointer; }
+  .zoom button { width: 34px; height: 34px; font-size: 18px; line-height: 1; border: 1px solid #0006; border-radius: 6px; background: #fff; color: #1d1d1b; cursor: pointer; padding: 0; }
   .zoom button:hover { background: #eef3fa; }
+  /* The map key floats on the map and lists only what is drawn. */
+  #legend { position: absolute; left: 8px; top: 46px; max-width: min(270px, calc(100% - 60px)); background: #fffffff0; color: #1d1d1b; border-radius: 6px; padding: 4px 8px; font-size: 12px; margin: 0; }
+  #legend summary { cursor: pointer; font-weight: 600; font-size: 12px; }
+  #legend div { margin: 2px 0; }
+  #legend span.sw { display: inline-block; width: 11px; height: 11px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+
   h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 16px 0 6px; }
+  h3.grp { font-size: 12px; font-weight: 600; color: var(--muted); margin: 10px 0 2px 6px; }
   label.sc { display: flex; gap: 6px; align-items: baseline; padding: 4px 6px; border-radius: 6px; cursor: pointer; font-size: 14px; }
   label.sc:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
   label.sc .t { flex: 1; }
@@ -37,61 +76,112 @@
   .src { font-size: 13px; color: var(--muted); }
   ul { padding-left: 18px; margin: 4px 0; }
   li { margin: 2px 0; }
-  .legend span { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
-  .legend div { font-size: 13px; margin: 2px 0; }
   .warn { border-left: 3px solid var(--low); padding: 4px 8px; font-size: 13px; background: color-mix(in srgb, var(--low) 8%, transparent); }
   table { border-collapse: collapse; width: 100%; font-size: 13px; }
   td, th { text-align: left; padding: 3px 4px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   details { margin: 6px 0; font-size: 13px; }
-  .row { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; }
   .lever { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; padding: 6px; border: 1px solid var(--line); border-radius: 6px; }
   label.lever { flex-direction: row; align-items: flex-start; }
   button { font: inherit; font-size: 13px; padding: 3px 8px; }
-  section.exposed { grid-column: 1 / -1; padding: 12px 16px 24px; background: var(--panel); border-top: 1px solid var(--line); }
-  section.exposed table { max-width: 1400px; }
-  section.exposed td:first-child { width: 34%; }
-  section.exposed ul { max-width: 1100px; }
-  section.exposed th { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+
+  /* Expert controls: collapsible sections. */
+  details.sec { border-bottom: 1px solid var(--line); margin: 0; padding: 8px 0; font-size: 14px; }
+  details.sec > summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+  details.sec > summary .now { display: block; font-weight: 400; font-size: 12px; color: var(--muted); margin-left: 18px; }
+  details.sec > .body { padding: 6px 0 0; }
+
+  /* Results beside the map, in tabs. */
+  .tabs { position: sticky; top: 0; z-index: 2; display: flex; gap: 2px; background: var(--panel); border-bottom: 1px solid var(--line); margin: 0 -16px 8px; padding: 8px 16px 0; }
+  .tabs button { border: 0; background: none; color: var(--fg); padding: 6px 10px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 14px; }
+  .tabs button[aria-selected="true"] { border-bottom-color: var(--accent); font-weight: 600; }
+  #exposed td:first-child { width: 38%; }
+  #exposed th { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+
+  /* Guided mode */
+  #guide h2.q { font-size: 20px; text-transform: none; letter-spacing: 0; color: var(--fg); margin: 4px 0 8px; text-wrap: balance; }
+  .qs { display: grid; gap: 8px; margin-top: 12px; }
+  .qcard { display: grid; gap: 2px; text-align: left; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 8px; padding: 10px 12px; cursor: pointer; font-size: 15px; }
+  .qcard:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .qcard span { font-size: 13px; color: var(--muted); }
+  .back { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 0; margin-bottom: 8px; font-size: 14px; }
+  .finding { font-size: 16px; margin: 4px 0 12px; }
+  .place { border-top: 1px solid var(--line); padding: 12px 0; }
+  .place h3 { margin: 0 0 2px; font-size: 15px; }
+  .place h3 button { all: unset; cursor: pointer; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
+  .place .what { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
+  .way { display: inline-block; font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; margin: 6px 0 4px; }
+  .way.drain { border-color: var(--drain); } .way.bay { border-color: var(--wet); }
+  .rungs { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+  .rung { display: grid; grid-template-columns: 52px 1fr; gap: 8px; align-items: baseline; font-size: 14px; margin: 0; }
+  .rung .when { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .rung button { border: 0; background: none; padding: 0; text-align: left; cursor: pointer; color: var(--fg); font-size: 14px; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
+  .rung button:hover, .rung button[aria-current="true"] { color: var(--accent); }
+  .rung .no { color: var(--muted); }
+  .nums { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin: 4px 0 0; }
+  body:not(.shownums) .nums { display: none; }
+  .scale { position: relative; height: 46px; margin: 4px 14px 0; }
+  .scale .bar { position: absolute; left: 0; right: 0; top: 20px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--accent-soft), var(--wet)); }
+  .scale .tick { position: absolute; top: 14px; width: 2px; height: 18px; background: var(--muted); }
+  .scale .tick span { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .scale .thr { position: absolute; top: 16px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--mark); border: 2px solid var(--panel); }
+  .scale .thr span { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; color: var(--mark); white-space: nowrap; }
+  .addr { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .addr input { flex: 1 1 220px; min-width: 0; font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
+  .addr button { padding: 6px 10px; }
+  .toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); margin: 14px 0 0; }
+  .defs td, .defs th { font-size: 13px; }
 </style>
 </head>
 <body>
-<header>
-  <h1>Berkeley Bay Flood Explorer</h1>
-  <p class="notice">Explore how storm tides, sea level rise and heavy rain could affect west Berkeley's streets, critical infrastructure, I-80, pollution sources and the Bay shoreline. Not a flood forecast.</p>
-  <p class="notice"><b>Start here:</b> pick a water level, then see what it reaches. <a href="field-guide.html">King tide field guide</a> for this winter's highest tides.</p>
+<header id="hdr">
+  <div class="intro">
+    <h1>Berkeley Bay Flood Explorer</h1>
+    <p class="notice">Explore how storm tides, tsunamis, sea level rise and heavy rain could affect west Berkeley's streets, critical infrastructure, I-80, pollution sources and the Bay shoreline. Not a flood forecast.</p>
+    <div class="hdrlinks"><details class="explain"><summary>Explain this</summary><div>
+        <p>Water can come in four ways: over the shoreline when the Bay rises; up the storm drains, when the Bay is higher than the pipes' outlets and nothing closes them; up from below, as groundwater rises with the Bay; and in a tsunami.</p>
+        <p>Water also has to get out. When the drain outlets are under the tide, rain that falls in Berkeley cannot drain and pools in the low streets. And water going out, as a flood drains back or a tsunami pulls back, can carry what it picked up, from contaminated ground and stored chemicals, into the Bay.</p>
+        <p>These can happen together: a winter storm brings a high storm tide and heavy rain at once, and both come on top of the rise in sea level. The explorer shows Bay water and storm drains at a level you choose, can add a rainstorm, and outlines the State's tsunami evacuation area. It does not model waves, groundwater or a tsunami's flooding.</p>
+      </div></details> <a href="field-guide.html">King tide field guide</a></div>
+  </div>
+  <div class="modes" role="group" aria-label="Mode">
+    <button type="button" id="modeGuided" aria-pressed="true">Guided</button>
+    <button type="button" id="modeExpert" aria-pressed="false">Expert</button>
+  </div>
 </header>
-<main>
-  <aside>
-    <h2>Water level</h2>
-    <div id="scenarios"></div>
-    <h2>Any level</h2>
-    <input id="level" type="range" min="6" max="16.5" step="0.05" value="9.73" aria-label="Water level, feet NAVD88">
-    <div class="row"><span id="levelOut" class="big"></span><span class="src">ft NAVD88, still water</span></div>
-    <div class="row"><button id="shareBtn" type="button">Copy a link to this view</button></div>
-    <p class="src" id="shareNote"></p>
-    <h2>Map</h2>
-    <div class="legend">
-      <div><span style="background:#0f2747"></span>Open Bay (below mean sea level, connected)</div>
-      <div><span style="background:var(--wet)"></span>Under water: below the level and connected to the Bay</div>
-      <div><span style="background:var(--flank)"></span>Under water, reached only through Albany or Emeryville land</div>
-      <div><span style="background:#26b2a0"></span>Low ground that can fill through the storm drains</div>
-      <div><span style="background:#7b5cff"></span>Rain that cannot drain, pooled at the low ground</div>
-      <div><span style="background:var(--low)"></span>Below the level, not connected even through drains</div>
-      <div><span style="background:#46c85a"></span>Kept dry by your plan (wet with no plan)</div>
-      <div><span style="background:#111;outline:2px solid #fff"></span>Wall or raised road in your plan</div>
-      <div><span style="background:#d22"></span>Street under water &nbsp;<span style="background:#0e8f7e"></span>through drains &nbsp;<span style="background:#5a3fd6"></span>rain &nbsp;<span style="background:#f0a020"></span>low ground</div>
-    </div>
-    <label class="row"><input id="showArt" type="checkbox"> Outline the published ART map at the nearest level</label>
-    <p class="src" id="artNote"></p>
-    <label class="row"><input id="showArtDc" type="checkbox"> Outline ART's disconnected low-lying areas at the same level <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#a6ff00;vertical-align:-1px"></span></label>
-    <p class="src">A published hazard layer, BCDC/MTC Adapting to Rising Tides (ART, 2017): ground below the water level that is not connected to the Bay, in patches over one acre. Such ground may still flood through storm drains or from groundwater. Drawn at the same nearest ART level as the ART outline. Not a flood forecast (SOURCE_NOTES H5, C20).</p>
-    <p class="src" id="artDcNote"></p>
-    <label class="row"><input id="showCosmos" type="checkbox"> Outline the published USGS CoSMoS map <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#00e5ff;vertical-align:-1px"></span></label>
-    <div class="row" style="flex-wrap:wrap"><label>Sea level rise <select id="cosmosSlr"></select></label> <label>Storm <select id="cosmosStorm"></select></label></div>
-    <p class="src">A published hazard layer, USGS CoSMoS v2.1 (San Francisco Bay, 2014): a model of total water levels driven by tides, storms with in-Bay waves and ocean swell, river flow and sea level rise, so it includes waves and is not still water. Each scenario is a sea level rise plus a storm, not a water level, so the outline does not follow the level above. The outline is drawn from CoSMoS's flood depth rasters; the extent polygons shown on the City's and Our Coast, Our Future's maps cover more land (SOURCE_NOTES C21). Not a flood forecast (SOURCE_NOTES H1).</p>
-    <p class="src" id="cosmosNote"></p>
-    <details class="src"><summary>Why these maps disagree</summary>
+<main id="main" class="guided">
+  <aside id="guide" aria-live="polite"></aside>
+  <aside id="rail">
+    <details class="sec" open><summary>How high the Bay rises<span class="now" id="nowLevel"></span></summary><div class="body">
+      <div id="scenarios"></div>
+      <h3 class="grp">Any level</h3>
+      <input id="level" type="range" min="6" max="16.5" step="0.05" value="9.73" aria-label="Water level, feet NAVD88">
+      <div class="row"><span id="levelOut" class="big"></span><span class="src">ft NAVD88, still water</span>
+        <details class="explain"><summary>Explain this</summary><div><p><b>NAVD88</b> is the zero that land and water heights are measured from (the North American Vertical Datum of 1988). An ordinary high tide off Berkeley is 6.2 ft on it.</p><p><b>Still water</b> is the Bay's level without waves. Waves add height on the open Marina shoreline.</p><p><b>"At today's sea level"</b> means with the sea where it is now, not today's weather. A "100-year" storm tide has a 1% chance of happening in any year.</p></div></details></div>
+    </div></details>
+    <details class="sec"><summary>Add a rainstorm during the high water<span class="now" id="nowRain">Off</span></summary><div class="body">
+      <p class="src">A rainstorm while the Bay is at the level above, with the storm drain outlets unable to empty into the Bay. An illustrative storage experiment: each watershed's runoff comes up at its lowest inlet and fills the ground around it (model rule). It can overstate water at that inlet and miss ponding elsewhere.</p>
+      <label class="row"><input id="rainOn" type="checkbox"> Add a rainstorm</label>
+      <div class="row"><label>Storm <select id="rainAri"><option value="2">2-year (50% annual chance)</option><option value="10" selected>10-year (10%)</option><option value="100">100-year (1%)</option></select></label>
+        <select id="rainDur" aria-label="Storm length"><option value="6-hr" selected>6 hours</option><option value="24-hr">24 hours</option></select></div>
+      <div class="row"><label>Share that cannot drain <select id="rainBlocked"><option value="1" selected>100% (outlets closed the whole storm)</option><option value="0.5">50%</option><option value="0.25">25%</option><option value="0.1">10%</option></select></label></div>
+      <p class="src" id="rainNote"></p>
+    </div></details>
+    <details class="sec"><summary>Flood defenses: walls, raised roads, tide gates<span class="now" id="nowPlan">None</span></summary><div class="body">
+      <p class="src">What Berkeley controls. A defense changes the ground, never the water; results compare it with no defenses at the same level.</p>
+      <div id="plan"></div>
+    </div></details>
+    <details class="sec"><summary>Compare with official flood maps<span class="now" id="nowMaps">None shown</span></summary><div class="body">
+      <p class="src">Outlines of maps published by agencies, drawn over this explorer's water. They are different models and often disagree.</p>
+      <div class="row"><label><input id="showArt" type="checkbox"> ART sea level rise map, nearest level</label> <details class="explain"><summary>Explain this</summary><div><p>Adapting to Rising Tides (ART), by the Bay Conservation and Development Commission and MTC, 2017: ground flooded from the Bay at ten levels, from 1 to 9 ft above an ordinary high tide. Still water, like this explorer. Drawn in white at the ART level nearest yours (SOURCE_NOTES H5).</p></div></details></div>
+      <p class="src" id="artNote"></p>
+      <div class="row"><label><input id="showArtDc" type="checkbox"> ART low ground cut off from the Bay <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#a6ff00"></span></label> <details class="explain"><summary>Explain this</summary><div><p>A second published hazard layer from ART (BCDC/MTC Adapting to Rising Tides, ART, 2017): ground below the water level that is not connected to the Bay, in patches over one acre. Such ground may still flood through storm drains or from groundwater. Drawn in lime at the same ART level as the outline above (SOURCE_NOTES H5, C20). Not a flood forecast.</p></div></details></div>
+      <p class="src" id="artDcNote"></p>
+      <div class="row"><label><input id="showCosmos" type="checkbox"> USGS CoSMoS storm map <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#00e5ff"></span></label> <details class="explain"><summary>Explain this</summary><div><p>USGS CoSMoS v2.1 (San Francisco Bay, 2014) models tides, storms with waves, ocean swell, river flow and sea level rise together, so its water includes waves and is not still water. Each map is a sea level rise plus a storm, chosen below, and does not follow your level. The outline comes from CoSMoS's flood depth rasters; the extent polygons on the City's and Our Coast, Our Future's maps cover more land (SOURCE_NOTES C21, H1). Not a flood forecast.</p></div></details></div>
+      <div class="row" style="flex-wrap:wrap"><label>Sea level rise <select id="cosmosSlr"></select></label> <label>Storm <select id="cosmosStorm"></select></label></div>
+      <p class="src" id="cosmosNote"></p>
+      <details class="src"><summary>Why these maps disagree</summary>
       <p>The explorer and CoSMoS are different models. The explorer is a still-water fill: any ground below the level that connects to the Bay is wet (a model rule). CoSMoS models a total water level, with tides, storm surge, in-Bay waves, ocean swell and river flow, so its water is not a still-water level. Where they differ, which one is closer to what would happen is not established; neither has been checked here against observed flooding.</p>
       <ul>
         <li><b>Low agreement means the models differ.</b> At 0 to 0.75 m of rise the best agreement is 13 to 45% with the 100-year storm, where CoSMoS floods 1.4 to 14 ha of Berkeley land and keeps dry the North Basin shoreline strip and the west edge of Aquatic Park, which the fill wets; with the background tide alone it is 6 to 18%, on 0.5 to 2.2 ha. On the Marina the two agree closely (SOURCE_NOTES C21).</li>
@@ -102,27 +192,24 @@
       </ul>
       <p>The <a href="field-guide.html">king tide field check</a>, the City's records on outfalls and tide gates (D6) and Caltrans profiles of I-80 are the evidence that could test the differences.</p>
     </details>
-    <label class="row"><input id="showTsunami" type="checkbox"> Outline the State's tsunami hazard area <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ff2dc8;vertical-align:-1px"></span></label>
-    <p class="src">Drawn by the State for tsunami evacuation planning; it combines the largest tsunamis considered for the area. It is an area to leave when a warning is issued, not a flood depth or a forecast, and it does not change with the water level above (SOURCE_NOTES H6).</p>
-    <h2>Rain on this tide</h2>
-    <p class="src">A rainstorm while the Bay is at the level above, with the storm drain outfalls unable to discharge. An illustrative storage experiment: each watershed's runoff comes up at its lowest inlet and fills the ground around it (model rule). It can overstate water at that inlet and miss ponding elsewhere.</p>
-    <label class="row"><input id="rainOn" type="checkbox"> Add a rainstorm</label>
-    <div class="row"><label>Storm <select id="rainAri"><option value="2">2-year (50% annual chance)</option><option value="10" selected>10-year (10%)</option><option value="100">100-year (1%)</option></select></label>
-      <select id="rainDur"><option value="6-hr" selected>6 hours</option><option value="24-hr">24 hours</option></select></div>
-    <div class="row"><label>Share that cannot drain <select id="rainBlocked"><option value="1" selected>100% (outfalls closed the whole storm)</option><option value="0.5">50%</option><option value="0.25">25%</option><option value="0.1">10%</option></select></label></div>
-    <p class="src" id="rainNote"></p>
-    <h2>Plan</h2>
-    <p class="src">What Berkeley controls. A plan changes the ground, never the water; results compare it with no plan at the same level.</p>
-    <div id="plan"></div>
-    <h2>Sites</h2>
-    <div id="sitesPanel"></div>
+      <div class="row"><label><input id="showTsunami" type="checkbox"> State tsunami hazard area <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ff2dc8"></span></label> <details class="explain"><summary>Explain this</summary><div><p>Drawn by the State for tsunami evacuation planning, it combines the largest tsunamis considered for the area. It marks ground to leave when a warning is issued. It is not a flood depth or a forecast, and it does not change with your water level (SOURCE_NOTES H6).</p></div></details></div>
+    </div></details>
+    <details class="sec"><summary>Polluted and hazardous sites: what if they are moved or cleaned up<span class="now" id="nowSites">No changes</span></summary><div class="body">
+      <div id="sitesPanel"></div>
+    </div></details>
+    <div class="row" style="margin-top:12px"><button id="shareBtn" type="button">Copy a link to this view</button></div>
+    <p class="src" id="shareNote"></p>
   </aside>
   <div id="mapwrap" tabindex="0" aria-label="Map of west Berkeley. Scroll, pinch or use the plus and minus keys to zoom; drag or use the arrow keys to pan; 0 shows the whole map.">
     <canvas id="map" aria-hidden="true"></canvas>
     <div class="zoom"><button type="button" id="zoomIn" aria-label="Zoom in" title="Zoom in">+</button><button type="button" id="zoomOut" aria-label="Zoom out" title="Zoom out">&minus;</button><button type="button" id="zoomFit" aria-label="Show the whole map" title="Show the whole map">&#x2922;</button></div>
+    <details id="legend" open><summary>Map key</summary><div id="legendBody"></div></details>
   </div>
-  <section class="results" id="results" aria-live="polite"></section>
-  <section class="exposed" id="exposed" aria-live="polite"></section>
+  <section id="side">
+    <div class="tabs" role="tablist"><button type="button" role="tab" id="tabLevel" aria-selected="true" aria-controls="results">This level</button><button type="button" role="tab" id="tabExposed" aria-selected="false" aria-controls="exposed">What's exposed</button></div>
+    <div id="results" role="tabpanel" aria-labelledby="tabLevel" aria-live="polite"></div>
+    <div id="exposed" role="tabpanel" aria-labelledby="tabExposed" hidden></div>
+  </section>
 </main>
 <script type="module" src="js/main.js"></script>
 </body>

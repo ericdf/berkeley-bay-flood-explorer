@@ -23,7 +23,10 @@ and code comments. The rules that come up most:
 
 ## Project rules
 
-- **Every water level names its datum.** Write "9.8 ft NAVD88", never "9.8 feet". A level
+- **Every water level names its datum,** except in guided mode's plain-language text (Eric, E14).
+  Guided mode describes a level by how often it happens and by height above an ordinary high tide;
+  the datum appears in expert mode, behind guided mode's "Show the numbers", and in the map stamp.
+  Write "9.8 ft NAVD88", never "9.8 feet". A level
   quoted without a datum (a meeting remark, a news story) is recorded in `SOURCE_NOTES.md`
   as stated, with the datum marked unknown, and is not used in the explorer until the
   datum is established, unless Eric decides to show it; then it is shown with the reading
@@ -50,7 +53,9 @@ and code comments. The rules that come up most:
   (for example "C20") and for each figure the correction changed, and fix every string that relies
   on it in the same PR. Both blocking findings of the 2026-11-04 outside review were page text left
   behind by a correction (SOURCE_NOTES E11).
-- Do not store personal or household-level information or parcel owner names.
+- Do not store personal or household-level information or parcel owner names. Guided mode's
+  address lookup sends the typed address to the U.S. Census Bureau geocoder and keeps nothing
+  (Eric, E14); a phone's location only fills in the address box and stays on the device.
 
 ## Pull requests, review and publishing
 
