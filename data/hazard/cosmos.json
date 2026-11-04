@@ -247,11 +247,11 @@
     "samples": 19669
    },
    "bestMatch": {
-    "levelFt": 9.6,
+    "levelFt": 10.2,
     "agreement": 0.301,
-    "oursHa": 11.4,
-    "cosmosOnlyHa": 1.7,
-    "oursOnlyHa": 7.4
+    "oursHa": 13.1,
+    "cosmosOnlyHa": 1.3,
+    "oursOnlyHa": 8.8
    }
   },
   {

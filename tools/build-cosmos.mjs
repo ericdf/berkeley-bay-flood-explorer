@@ -73,13 +73,13 @@ for (const [key, sc] of Object.entries(clips.scenarios).filter(([, sc]) => ALL |
     let both = 0, either = 0, ours = 0;
     for (let j = 0; j < f.length; j++) { if (f[j] || cm[j]) either++; if (f[j] && cm[j]) both++; ours += f[j]; }
     const agree = either ? both / either : 1;
-    if (!best || agree > best.agreement + 1e-12) best = { levelFt: LEVELS[k], agreement: Math.round(agree * 1000) / 1000, oursHa: ours * R * R / 1e4, bothHa: both * R * R / 1e4 };
+    if (!best || agree > best.agreement + 1e-12) best = { levelFt: LEVELS[k], agreement: agree, oursHa: ours * R * R / 1e4, bothHa: both * R * R / 1e4 };
   });
   const ha = (x) => Math.round(x * 10) / 10;
   out.push({ id: key, slrM: sc.slrM, storm: sc.storm, label: `${sc.slrM} m of sea level rise, ${STORM[sc.storm]}`, file, source: sc.depthSource,
     cosmosHa: ha(cosmosHa * R * R / 1e4), waterSurface: wse,
     ...(best.levelFt === LEVELS[0] || best.levelFt === LEVELS[LEVELS.length - 1] ? (() => { throw new Error(`${key}: best match at the search edge (${best.levelFt} ft NAVD88)`); })() : {}),
-    bestMatch: { levelFt: best.levelFt, agreement: best.agreement, oursHa: ha(best.oursHa), cosmosOnlyHa: ha(cosmosHa * R * R / 1e4 - best.bothHa), oursOnlyHa: ha(best.oursHa - best.bothHa) } });
+    bestMatch: { levelFt: best.levelFt, agreement: Math.round(best.agreement * 1000) / 1000, oursHa: ha(best.oursHa), cosmosOnlyHa: ha(cosmosHa * R * R / 1e4 - best.bothHa), oursOnlyHa: ha(best.oursHa - best.bothHa) } });
   console.log(`${key}: ${ha(cosmosHa * R * R / 1e4)} ha of Berkeley land; water surface off Berkeley ${wse ? wse.medianFt.toFixed(2) + ' ft NAVD88' : 'n/a'}; best fill match ${best.levelFt} ft NAVD88, agreement ${(100 * best.agreement).toFixed(0)}%`);
 }
 fs.writeFileSync(`${OUT}/cosmos.json`, JSON.stringify({
