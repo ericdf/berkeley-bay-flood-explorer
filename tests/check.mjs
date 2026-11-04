@@ -315,6 +315,10 @@ if (fs.existsSync('data/hazard/cosmos-gw.json')) {
   const sc = decodeView('#' + encodeView({ sc: 'spill', lv: 13.4 }));
   ok(sc.sc === 'spill' && sc.lv === null, 'a scenario link names the scenario, not its level');
   const bad = decodeView('#lv=abc&rain=10_6-hr&wall=x_1*2&site=foo&cosmos=1.5');
+  const { wallFits } = await import('../js/share.js');
+  const Wm = D.dem.width * D.dem.resolution, Hm = D.dem.ymax - D.dem.ymin;
+  const far = decodeView('#wall=12_0*0_1e100*0').walls[0];
+  ok(far && !wallFits(far, Wm, Hm) && wallFits(back.walls[0], Wm, Hm), 'a shared wall off the terrain grid is refused (it would stall the wall stamping; Codex, PR #11)');
   ok(bad.lv === null && bad.rain === null && bad.walls.length === 0 && Object.keys(bad.sites).length === 0 && bad.cosmos === null, 'a damaged link sets nothing');
 }
 // 12. Every browser script parses. js/main.js runs only in the browser, so a syntax error there

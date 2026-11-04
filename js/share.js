@@ -40,3 +40,12 @@ export function decodeView(hash) {
   if (cs.length === 2 && cs[0] && cs[1]) out.cosmos = { slr: cs[0], storm: cs[1] };
   return out;
 }
+
+// A shared wall is drawn only if every point lies on the terrain grid (meters, 0 to widthM and
+// 0 to heightM) and it has at most MAX_WALL_POINTS points: a far-off point would make the wall
+// stamping in js/plan.js run for a very long time (Codex review, PR #11).
+export const MAX_WALL_POINTS = 200;
+export function wallFits(w, widthM, heightM) {
+  return w.line.length >= 2 && w.line.length <= MAX_WALL_POINTS
+    && w.line.every(([x, y]) => x >= 0 && x <= widthM && y >= 0 && y <= heightM);
+}

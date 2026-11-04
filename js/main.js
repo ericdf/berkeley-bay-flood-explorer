@@ -3,7 +3,7 @@
 import { analyze, FLANKED, DRAIN, RAIN } from './analyze.js';
 import { WET, LOW } from './fill.js';
 import { exposure } from './exposure.js';
-import { encodeView, decodeView } from './share.js';
+import { encodeView, decodeView, wallFits } from './share.js';
 
 const $ = (id) => document.getElementById(id);
 const fmt = (x, d = 0) => x.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -391,7 +391,8 @@ function applyView(v) {
     ui.rain = { ari: $('rainAri').value, duration: $('rainDur').value, blocked: Number($('rainBlocked').value) };
     $('rainNote').textContent = `${D.atlas.depthIn[ui.rain.duration][ui.rain.ari]} in of rain (NOAA Atlas 14, SOURCE_NOTES R1).`;
   }
-  for (const w of v.walls) if (w.crestFt >= 6 && w.crestFt <= 20) ui.drawn.push(w);
+  const widthM = D.dem.width * D.dem.resolution, heightM = D.dem.ymax - D.dem.ymin;
+  for (const w of v.walls.slice(0, 20)) if (w.crestFt >= 6 && w.crestFt <= 20 && wallFits(w, widthM, heightM)) ui.drawn.push(w);
   if (ui.drawn.length) $('drawNote').textContent = `${ui.drawn.length} wall(s) drawn.`;
   for (const [id, c] of Object.entries(v.sites)) if (setSelect(document.querySelector(`select[data-site="${CSS.escape(id)}"]`), c)) ui.siteChoices[id] = c;
   if (v.floodproofFt != null && v.floodproofFt >= 8 && v.floodproofFt <= 20 && $('floodproofFt')) { ui.floodproofFt = v.floodproofFt; $('floodproofFt').value = v.floodproofFt; }
