@@ -22,15 +22,26 @@ function shares(D, res, cells) {
   return { wet: wet / n, drain: drain / n, rain: rain / n, waterFt: top };
 }
 
-// How a site is reached at this level, or null. The threshold applies to all the water on it
-// together (Bay, drains and rain), as it does for streets (js/analyze.js); the sources are then
-// named, largest first.
-function reachOf(sh) {
+// The water a site has at this level, or null when none of its ground is wet. The 25% threshold
+// applies to all the water on it together (Bay, drains and rain), as it does for streets
+// (js/analyze.js), and decides only whether the site is counted in the summary: a site under it is
+// partially reached, never "not reached" (an outside review, 2026-11-04; SOURCE_NOTES E11). A small
+// share of the ground can still hold a store of hazardous materials or an entrance. The sources are
+// named largest first.
+function waterOn(sh) {
   const total = sh.wet + sh.drain + sh.rain;
-  if (total < REACH) return null;
+  if (!(total > 0)) return null;
   const parts = [['Bay water over the ground', sh.wet], ['Bay water up the storm drains', sh.drain], ['pooled rain', sh.rain]]
     .filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
-  return { how: parts.map(([h, v]) => parts.length > 1 ? `${h} (${Math.round(100 * v)}%)` : h).join(', '), share: total, main: parts[0][0] };
+  return { how: parts.map(([h, v]) => parts.length > 1 ? `${h} (${Math.round(100 * v)}%)` : h).join(', '), share: total, main: parts[0][0], counted: total >= REACH };
+}
+
+// One line for a site's ground at this level, the same wherever it is shown.
+export function groundText(w) {
+  if (!w) return 'no modeled water on its ground at this level';
+  const pct = Math.round(100 * w.share);
+  return w.counted ? `reached: ${w.how}, ${pct}% of its ground`
+    : `partially reached: ${w.how}, ${pct < 1 ? 'under 1' : pct}% of its ground; below the summary's 25% counting threshold`;
 }
 
 export function siteCellsFor(D, site) {
@@ -44,7 +55,8 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
   const X = D.exposure, lv = res.levelFt;
   const tsu = D.tsunami && D.tsunami.mask, inTsu = (i) => tsu && ((tsu[i >> 3] >> (i & 7)) & 1);
   const sites = X.sites.map(site => {
-    const cells = siteCellsFor(D, site), sh = shares(D, res, cells), reach = site.stillWaterNotApplicable ? null : reachOf(sh);
+    const cells = siteCellsFor(D, site), sh = shares(D, res, cells), water = site.stillWaterNotApplicable ? null : waterOn(sh);
+    const reach = water && water.counted ? water : null, partial = water && !water.counted ? water : null;
     const tsunami = cells.length ? cells.filter(inTsu).length / cells.length : 0;
     const c = choices[site.id] || 'none';
     const inUse = site.kinds.includes('in use'), inGround = site.kinds.includes('in ground');
@@ -57,6 +69,7 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
     const exposedUse = inUse && !useGone && !useDry;
     const exposedGround = inGround && !groundGone;
     const counts = !!reach && (exposedUse || exposedGround);
+    const partlyExposed = !!partial && (exposedUse || exposedGround);
     const notes = [];
     if (c === 'floodproof') notes.push(useDry
       ? `stored materials kept dry: flood-proofed to ${floodproofFt} ft NAVD88, above the water on the site (your assumption; still water only, not tsunami)`
@@ -65,7 +78,7 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
     if (c === 'exit') notes.push('the City stops running a transfer station; waste goes to a regional one (your assumption; E7). Its ground stays');
     if (c === 'contain') notes.push('contained (your assumption): caps and vapor controls can fail when flooded or under rising groundwater (F17)');
     if (c === 'remove') notes.push('contamination removed (your assumption)');
-    return { site, reach, sh, tsunami, choice: c, counts, inTsunami: tsunami >= REACH && (exposedUse || exposedGround), notes };
+    return { site, water, reach, partial, sh, tsunami, choice: c, counts, partlyExposed, inTsunami: tsunami >= REACH && (exposedUse || exposedGround), notes };
   });
   // Critical services: functions, attached to whichever facility performs them (E8).
   const station = sites.find(s => s.site.id === 'transfer-station');
@@ -87,20 +100,22 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
   const gates = plan && plan.gates && Object.keys(plan.gates).length > 0;
   const services = [
     { name: 'Waste transfer', facility: exited ? 'a regional transfer station' : 'the City transfer station',
+      // The site's ground and the service are separate questions: a share of flooded ground does
+      // not establish whether waste transfer continues (an outside review, 2026-11-04; E11).
       status: exited ? 'not checked here: outside the map; choosing a regional station includes its own flood and tsunami check (E8)'
-        : station.reach ? `reached: ${station.reach.how}, ${Math.round(100 * station.reach.share)}% of its ground` : 'not reached at this level',
-      reached: !exited && !!station.reach, tsunami: !exited && station.tsunami >= REACH },
+        : `site ${groundText(station.water)}. Whether waste transfer continues is not assessed here: that turns on which buildings, equipment and entrances take water, and on power and access, which a share of flooded ground does not establish`,
+      reached: !exited && !!station.water, tsunami: !exited && station.tsunami >= REACH },
     { name: 'Frontage roads', roads: roadM(X.frontageRoads), reachedKey: true },
     { name: 'Marina access roads, also the ways off the waterfront', roads: roadM(X.marinaRoutes, X.marinaMaxX), reachedKey: true, wayOut: true },
     { name: 'Storm drain outfalls', status: gates ? 'tide gates on every outfall (your assumption)' : 'assumed open: which outfalls have working tide gates is not published (D6)', reached: !gates },
     // I-80 last among the roads: bare-earth lidar removes the raised deck and overpasses, so its
     // figure is the least certain here (an outside review, 2026-11-03); the caveat leads.
-    { name: 'I-80', status: i80 > 0 ? `on bare-earth lidar, which removes the raised deck and overpasses, ${(i80 / 1000).toFixed(2)} km of freeway lines in both directions and ramps, in Berkeley and beyond, are flooded (${i80Parts.join(', ')}); Caltrans road profiles are needed to confirm (F2)` : 'not reached at this level', reached: i80 > 0 },
+    { name: 'I-80', status: i80 > 0 ? `on bare-earth lidar, which removes the raised deck and overpasses, ${(i80 / 1000).toFixed(2)} km of freeway lines in both directions and ramps, in Berkeley and beyond, are flooded (${i80Parts.join(', ')}); Caltrans road profiles are needed to confirm (F2)` : 'no freeway segment has a quarter or more of its length flooded at this level', reached: i80 > 0 },
     { name: 'Sanitary sewers', status: 'not modeled (F15)', reached: null },
   ];
   for (const s of services) if (s.reachedKey) {
     const parts = Object.entries(s.roads).map(([n, m]) => `${n.replace(/\b(\w)(\w*)/g, (_, a, b) => a + b.toLowerCase())} ${Math.round(m)} m`);
-    s.reached = parts.length > 0; s.status = parts.length ? `under water or flooded: ${parts.join(', ')}` : 'not reached at this level';
+    s.reached = parts.length > 0; s.status = parts.length ? `under water or flooded: ${parts.join(', ')}` : 'no segment has a quarter or more of its length flooded at this level';
   }
-  return { sites, services, reachedCount: sites.filter(s => s.counts).length, tsunamiCount: sites.filter(s => s.inTsunami).length };
+  return { sites, services, reachedCount: sites.filter(s => s.counts).length, partialCount: sites.filter(s => s.partlyExposed).length, tsunamiCount: sites.filter(s => s.inTsunami).length };
 }
