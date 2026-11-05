@@ -1213,6 +1213,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
     describes GEV for runup (total water level); it does not say how SWEL was fitted, at which
     model point, or whether the trend was removed. Any of those could account for a few tenths of
     a foot (our inference). Open.
+  Caveat added 2026-11-05 (claude/fema-caveat): the scenarios keep these values as sourced numbers, but
+  their labels and source lines now say the still-water reading is our inference, until (b) closes.
+  Found by a peer session's review (C28 (b) had been stated as the FIS's own label).
 
 - **C29. CoSMoS and CoSMoS-GW moved from NAD83 to the grid's WGS 84 (derived, 2026-11-04; E19).**
   The same transformation as ART's (C1, `tools/nad83.mjs`, EPSG:7807 at epoch 2017.0): 1.436 m west
