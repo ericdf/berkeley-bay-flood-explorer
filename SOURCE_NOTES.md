@@ -696,20 +696,29 @@ addresses shoreline flooding (V1).
   EIR's table; the explorer converts no level in Berkeley MLLW any other way.
 - **C30. The roads to the pier at the EIR's levels (derived, model rule, 2026-11-05).** The
   explorer's connected still-water fill (C1), no rain, run at P12's levels in ft NAVD88 with
-  `analyze` (`tools/report.mjs` 9.7 11.3 12.7). Berkeley streets reached by Bay water:
+  `analyze` (`tools/report.mjs` 9.7 11.3 12.7). Lengths are of street segments the explorer
+  flags, those with at least 25% of their 4 m samples wet (model rule, `STREET_WET_SHARE` in
+  `js/analyze.js`); the length under water is each segment's length times its wet share, summed
+  (corrected 2026-11-05 after Codex's review of PR #24: the first version gave flagged lengths as
+  if they were wholly under water). Berkeley streets reached by Bay water:
   - 9.7: none; 98 m of Marina Blvd is low ground not connected to the Bay.
-  - 11.3: Marina Blvd, its whole 675 m; University Ave, 334 m, on the stretch between Marina Blvd
-    and about 135 m east of it; lowest street ground 9.22 ft NAVD88, so about 2 ft of still water
-    there.
-  - 12.7: University Ave, 1,368 m, from Marina Blvd to about 60 m short of the I-80 interchange
-    (both carriageways counted); Marina Blvd, 675 m; Breakwater Dr, 308 m. About 3.5 ft at the
-    low point.
+  - 11.3: Marina Blvd, both its segments flagged (675 m), about 240 m of them under water (52% and
+    33% of each segment's samples); University Ave, 334 m flagged, about 150 m under water, on the
+    stretch between Marina Blvd and about 135 m east of it; lowest street ground 9.22 ft NAVD88, so
+    about 2 ft of still water there.
+  - 12.7: University Ave, 1,368 m flagged, about 1,130 m under water, from Marina Blvd to about
+    60 m short of the I-80 interchange (both carriageways counted); Marina Blvd, 675 m flagged,
+    about 610 m under water; Breakwater Dr, 308 m flagged, about 100 m under water. About 3.5 ft at
+    the low point.
   University Ave west of Marina Blvd, about 560 m to Seawall Dr and the pier, stays dry at all
   three. In the explorer's street layer, every street route from I-80 to it runs along University
-  Ave east of Marina Blvd or along Marina Blvd, so at 11.3 and 12.7 each crosses Bay water. The
-  City study's 2050 and 2100 walls (C11) change none of these results. Raising Spinnaker Way and
-  University Ave west of I-80 to 12.7 ft NAVD88 (the City study's Zones 7 and 8) keeps University
-  Ave dry at 11.3 (Marina Blvd 577 m) and is overtopped at 12.7. Limits: a still-water fill is
+  Ave east of Marina Blvd or along Marina Blvd, and at 11.3 and 12.7 each of those has wet samples
+  on its centerline, so each route crosses Bay water. The City study's 2050 and 2100 walls (C11)
+  flag the same segments at every level; they shorten the length under water (University Ave about
+  130 m at 11.3 with either; Marina Blvd about 465 m at 12.7 with the 2100 walls). Raising Spinnaker
+  Way and University Ave west of I-80 to 12.7 ft NAVD88 (the City study's Zones 7 and 8) keeps
+  University Ave dry at 11.3 (Marina Blvd 577 m flagged, about 180 m under water) and is
+  overtopped at 12.7. Limits: a still-water fill is
   not a flood forecast; P12's levels are design conditions for 2075, not storm forecasts;
   bare-earth lidar and the street layer's geometry (C6). Shown on the page as a note under "What
   current plans leave out" (E22).
