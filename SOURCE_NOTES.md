@@ -755,7 +755,8 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 
   Reproduce with `node tests/check.mjs`.
 - **C2. City 2019 Marina study (W7, W8).** At 10.7 ft NAVD88 (its 2050 100-year level) the
-  fill has all 675 m of Marina Blvd under water (W8: "most likely" impassable) and 25% of the
+  fill reaches both Marina Blvd segments, 675 m counted, about 175 m of it under water (W8: "most
+  likely" impassable; corrected 2026-11-05, E23: "all 675 m under water" was the counted length) and 25% of the
   DoubleTree grounds (W7: two buildings' floors below the water). At 10.1 (its 2030 level),
   where W8 has Marina Blvd flooding north of University Ave and south of Spinnaker Way, the
   fill shows 98 m of Marina Blvd on low ground that is not connected and none under water:
@@ -808,7 +809,7 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
 - **C11. Floodwalls as traced (P2, P3, P9).** At 10.7 ft the 2050 walls cut the DoubleTree
   grounds under water from 25% to 16% and leave Marina Blvd and University Ave under water; at
   13.0 the 2100 walls leave the hotel grounds 84% under water (88% with no walls) and University
-  Ave under water for 1.4 km (1.8 km with none). The water goes around the walls' ends and
+  Ave reached for 1.4 km counted, about 1.2 km under water (1.8 and 1.4 km with none; E23). The water goes around the walls' ends and
   reaches the hotel parking along the harbor, which the 2050 alignment leaves outside. The
   figures do not show how the walls tie into high ground, and the tracing is ±30 m, so this is
   a question to put to the alignment, not a verdict on the study's plan.
@@ -875,13 +876,15 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   the Bay. A plan's walls and raised roads count as ground for the pools.
 - **C13. The State's 2024 scenarios (W17, W18).** Today's 100-year storm tide plus each rise at
   the San Francisco gauge, connected fill, no plan, outfalls assumed open:
+  Street lengths are of segments a quarter or more wet, then (in parentheses) the length under
+  water (E23).
   - 2050: Intermediate 10.53 ft NAVD88, 23 ha of Berkeley land under water, no Berkeley street
     segment under water, 19 ha that can fill through drains; Intermediate-High 10.73, Marina
-    Blvd (675 m) and University Ave (282 m) under water, DoubleTree grounds 27%; High 11.03,
-    32 ha, 1.0 km of Berkeley streets, DoubleTree grounds 37%.
-  - 2100: Intermediate 12.83, 60 ha, 3.2 km of streets, DoubleTree grounds 86%, transfer
-    station not reached; Intermediate-High 14.53, 162 ha, 24 km, transfer station grounds
-    60%, I-80 under water; High 16.23, 200 ha, 33 km, transfer station grounds 81%.
+    Blvd (675 m; about 175 m) and University Ave (282 m; about 80 m) reached, DoubleTree grounds 27%; High 11.03,
+    32 ha, 1.0 km of Berkeley streets (0.35 km), DoubleTree grounds 37%.
+  - 2100: Intermediate 12.83, 60 ha, 3.2 km of streets (2.7 km), DoubleTree grounds 86%, transfer
+    station not reached; Intermediate-High 14.53, 162 ha, 24 km (19 km), transfer station grounds
+    60%, I-80 reached; High 16.23, 200 ha, 33 km (29 km), transfer station grounds 81%.
   - The modeled connection behind I-80 (13.35, C6) is a rise of 3.62 ft on today's 100-year
     tide. Interpolating Table F-5's decades linearly, the median rise reaches 3.62 ft about
     2076 under High, 2088 under Intermediate-High and 2107 under Intermediate. The guidance
@@ -1126,10 +1129,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   `node tools/wall-sensitivity.mjs` runs each wall set as traced (C11), with every wall's ends
   extended 30 and 60 m, moved 30 m north, south, east and west, and 12 m wide. 2100 walls at 13.0 ft
   NAVD88: Berkeley land under Bay water 58.8 to 61.7 ha in every variant (60.1 as traced, 62.4
-  with none); DoubleTree grounds 76 to 85% (88% with none); Marina Blvd under water for its whole
-  675 m in every variant. C11's finding for the 2100 walls holds across the tracing error. 2050
-  walls at 10.7: moved 30 m north they keep Marina Blvd dry (675 m under water as traced) and cut
-  University Ave's from 282 to 134 m; the DoubleTree grounds range from 8 to 22% (16% as traced, 25%
+  with none); DoubleTree grounds 76 to 85% (88% with none); Marina Blvd reached on both segments,
+  675 m counted, in every variant, about 400 to 660 m of it under water (about 660 m with none; E23). C11's finding for the 2100 walls holds across the tracing error. 2050
+  walls at 10.7: moved 30 m north they keep Marina Blvd dry (675 m counted, about 175 m under water,
+  as traced) and cut University Ave's from 282 to 134 m counted (about 75 to 36 m under water); the DoubleTree grounds range from 8 to 22% (16% as traced, 25%
   with none). For the 2050 walls, whether Marina Blvd stays dry turns on where the wall runs, within
   the tracing error, so C11's "leave Marina Blvd under water" is a result of this tracing, not of
   the study's alignment. The study's own drawings or CAD files would settle it.
@@ -1726,3 +1729,19 @@ Three claims in the outside review behind E9, checked against primary sources be
   recommended order ("go with your recommendations"): C30 goes on the page as a note under "What
   current plans leave out" (`data/exposure.json`), not as new scenarios; then FEMA's open
   questions (C28) and a Codex review of PR #16's commit c268dc5 (requested on PR #16).
+- **E23. Counted street length is not length under water (2026-11-05).** Codex's review of PR #24
+  found the pier note giving Marina Blvd's whole 675 m as under water at 11.3 ft NAVD88, when the
+  explorer counts a segment once a quarter of its samples are wet and sums whole segments; about
+  240 m was under water (C30). The live page and C2, C11, C13 and C25 did the same. Eric answered
+  yes to merging PR #24, publishing it, and a follow-up PR (2026-11-05): the page now labels counted
+  lengths as segments a quarter or more wet and gives the length under water beside them
+  (`js/analyze.js` `coveredM`, `wetStreetCoveredM`); the rows above give both. Which segments count,
+  and every level's onset, are unchanged.
+- **E24. PR #16's review (2026-11-05).** Codex reviewed merge commit 088d490 on PR #16 and found no
+  major issues. That merge's tree is identical to c268dc5, and its diff from `main` is c268dc5's
+  diff, so the review covered PR #16's changes. Claude Code also read the diff against AGENTS.md's
+  blocking list and found nothing blocking. Its tide gate finding ("keeps Bay water out of the
+  listed inland sites until it crosses the I-80 corridor") was already superseded by D9 (PR #19).
+  One optional note: the guided-mode defenses table would show a site's first water as "not
+  reached" if a defense left a site with first water but never a quarter of its grounds; no listed
+  site does at any defense (`data/thresholds.json`), so nothing was changed. HANDOFF item 8 is done.
