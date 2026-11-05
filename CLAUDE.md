@@ -65,13 +65,3 @@ and code comments. The rules that come up most:
   comment is never approval. Never push to `main` directly.
 - **Merging is not publishing.** If GitHub Pages is set up, it serves a `pages` branch,
   updated only when Eric approves that specific publish.
-- **Correspondence stays off the site.** Drafts for people outside the repository (memos,
-  letters, replies to a council or agency) are HTML files in `correspondence/`, committed to
-  git on `main` through a PR like other work. Write new drafts there, in HTML. Nothing in
-  `correspondence/` is a source for the explorer; its claims cite `SOURCE_NOTES.md` rows.
-- **`pages` is a copy of the repository's tree, so every publish leaves `correspondence/`
-  out.** Build the `pages` commit from `main` with that folder removed, with its parent the
-  current `pages` commit, and push that commit to `pages`: `GIT_INDEX_FILE` set to a temporary
-  index file, `git read-tree origin/main`, `git rm --cached -r -q correspondence`, then
-  `git write-tree` and `git commit-tree` with `-p origin/pages`. Check the result has no
-  `correspondence/` path before pushing.
