@@ -1,5 +1,6 @@
-// The Aquatic Park tide tubes (SOURCE_NOTES D7–D9): what the "tide gate on every outfall" plan keeps
-// dry around the lagoon that the lagoon could reach if it stood at the Bay's level through its tubes.
+// The Aquatic Park tide tubes (SOURCE_NOTES D7–D9): what a tide gate plan that also shut the tubes
+// would keep dry around the lagoon, land the lagoon could reach if it stood at the Bay's level. The
+// explorer's gate plan leaves the tubes open (data/drains.json keptOpen; Eric, 2026-11-05).
 //   node tools/lagoon-tubes.mjs
 // Lagoon (derived): each patch of ground below mean sea level (3.31 ft NAVD88) that does not connect
 // to the open Bay over the surface and has at least 0.5 ha inside the Aquatic Park outline
@@ -30,13 +31,14 @@ const lagoonIds = new Set(patches.filter(p => p.apHa >= 0.5).map(p => p.id));
 const lagoon = (i) => lagoonIds.has(lab[i]);
 console.log(`Lagoon patches: ${patches.filter(p => lagoonIds.has(p.id)).map(p => `${p.ha.toFixed(1)} ha`).join(', ')}`);
 const gates = planFrom(D, 'gates');
+const sealed = { ...D, drains: { ...D.drains, watersheds: D.drains.watersheds.map(w => ({ ...w, keptOpen: false })) } };
 const sc = JSON.parse(fs.readFileSync('data/scenarios.json')).scenarios.slice().sort((a, b) => a.levelFt - b.levelFt);
-console.log('level ft NAVD88 | reached from the lagoon, ha: no plan (wet / through drains / low) | with gates on every outfall (wet / low)');
+console.log('level ft NAVD88 | reached from the lagoon, ha: no plan (wet / through drains / low) | gates on every outfall, tubes shut too (wet / low)');
 for (const s of sc) {
   const lev = s.levelFt * 30.48, seen = new Uint8Array(N); let h = 0, t = 0;
   for (let i = 0; i < N; i++) if (lagoon(i)) { seen[i] = 1; q[t++] = i; }
   while (h < t) { const i = q[h++]; for (const j of nb(i)) if (j >= 0 && !seen[j] && z[j] !== -32768 && z[j] < lev) { seen[j] = 1; q[t++] = j; } }
-  const a = analyze(D, s.levelFt, null).state.slice(), g = analyze(D, s.levelFt, gates).state;
+  const a = analyze(D, s.levelFt, null).state.slice(), g = analyze(sealed, s.levelFt, gates).state;
   const c = { aw: 0, ad: 0, al: 0, gw: 0, gl: 0 };
   for (let i = 0; i < N; i++) {
     if (!seen[i] || lagoon(i) || !inB(i) || z[i] < msl) continue;

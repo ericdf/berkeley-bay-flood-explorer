@@ -107,7 +107,7 @@ export function exposure(D, res, choices = {}, floodproofFt = null, plan = null)
       reached: !exited && !!station.water, tsunami: !exited && station.tsunami >= REACH },
     { name: 'Frontage roads', roads: roadM(X.frontageRoads), reachedKey: true },
     { name: 'Marina access roads, also the ways off the waterfront', roads: roadM(X.marinaRoutes, X.marinaMaxX), reachedKey: true, wayOut: true },
-    { name: 'Storm drain outfalls', status: gates ? 'tide gates on every outfall (your assumption)' : 'assumed open: which outfalls have working tide gates is not published (D6)', reached: !gates },
+    { name: 'Storm drain outfalls', status: gates ? 'tide gates on every outfall but the Aquatic Park tide tubes (your assumption)' : 'assumed open: which outfalls have working tide gates is not published (D6)', reached: !gates },
     // I-80 last among the roads: bare-earth lidar removes the raised deck and overpasses, so its
     // figure is the least certain here (an outside review, 2026-11-03); the caveat leads.
     { name: 'I-80', status: i80 > 0 ? `on bare-earth lidar, which removes the raised deck and overpasses, ${(i80 / 1000).toFixed(2)} km of freeway lines in both directions and ramps, in Berkeley and beyond, are flooded (${i80Parts.join(', ')}); Caltrans road profiles are needed to confirm (F2)` : 'no freeway segment has a quarter or more of its length flooded at this level', reached: i80 > 0 },

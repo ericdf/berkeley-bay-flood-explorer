@@ -44,12 +44,16 @@ for (const w of out) {
   w.cellsInMap = cells;
   if (best >= 0) { const r = (best / W) | 0, c = best - r * W; w.distanceToWaterM = dist[best] * R; w.link = w.distanceToWaterM <= MAX_LINK_M; w.outfall = [(c + 0.5) * R, Hm - (r + 0.5) * R]; } else w.link = false;
 }
+// Aquatic Park drains to its lagoon, which the City keeps open to the Bay through five tide tubes with
+// sliding gates (SOURCE_NOTES D7). A tide gate plan leaves this link open (Eric, 2026-11-05, D9).
+const KEPT_OPEN = new Set(['Aquatic Park']);
+for (const w of out) if (w.link && KEPT_OPEN.has(w.name)) w.keptOpen = true;
 const inl = JSON.parse(fs.readFileSync('data/raw/city/inlets.json')).points;
 const inletCells = new Set();
 for (const p of inl) { const [x, y] = local(p); const c = Math.floor(x / R), r = Math.floor((Hm - y) / R); if (c >= 0 && r >= 0 && c < W && r < H) inletCells.add(r * W + c); }
 fs.writeFileSync('data/hazard/watersheds.u8', ids);
 fs.writeFileSync('data/drains.json', JSON.stringify({
-  note: 'Drain links for the "Bay water up the drains" rule (model rule, docs/design/levers-and-drains.md). Watersheds and inlets: City of Berkeley open data (SOURCE_NOTES D1, D2). A watershed has a link when it meets open water inside the map; the outfall point is where it meets it, not a surveyed outfall.',
+  note: 'Drain links for the "Bay water up the drains" rule (model rule, docs/design/levers-and-drains.md). Watersheds and inlets: City of Berkeley open data (SOURCE_NOTES D1, D2). A watershed has a link when it meets open water inside the map; the outfall point is where it meets it, not a surveyed outfall. keptOpen: the link stays open under a tide gate plan (the Aquatic Park tide tubes, SOURCE_NOTES D7, D9).',
   watersheds: out, inletCells: [...inletCells].sort((a, b) => a - b),
 }) + '\n');
 console.log(out.map(w => `${w.name}: ${w.cellsInMap} cells, ${w.distanceToWaterM ?? '-'} m to open water${w.link ? ', link' : ''}`).join('\n'), `\n${inletCells.size} inlet cells in the map`);

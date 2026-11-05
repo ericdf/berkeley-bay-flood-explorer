@@ -24,7 +24,8 @@ function markDrains(D, state, gates) {
   const W = D.dem.width, H = D.dem.height, ids = D.watershedIds;
   const inlet = D.inletMask ??= (() => { const m = new Uint8Array(W * H); for (const i of D.drains.inletCells) m[i] = 1; return m; })();
   const open = new Uint8Array(256);
-  for (const w of D.drains.watersheds) if (w.link && !(gates && gates[w.name])) open[w.id] = 1;
+  // A keptOpen link (the Aquatic Park tide tubes, SOURCE_NOTES D7, D9) stays open under a gate plan.
+  for (const w of D.drains.watersheds) if (w.link && (w.keptOpen || !(gates && gates[w.name]))) open[w.id] = 1;
   const seen = new Uint8Array(W * H), q = new Int32Array(W * H), byName = {};
   const names = []; for (const w of D.drains.watersheds) names[w.id] = w.name;
   for (let s = 0; s < W * H; s++) {
