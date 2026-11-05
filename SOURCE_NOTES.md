@@ -678,7 +678,9 @@ addresses shoreline flooding (V1).
   adds to Draft EIR p. 3.8-11: "The BFE for Zone VE ranges from approximately 12 to 13 feet and the
   BFE for adjacent Zone AE areas is approximately 10 feet", citing FEMA's Map Service Center
   (accessed February 2026). No datum is stated. Recorded as stated, datum unknown; not used. Bears
-  on C28's open question of which FIRM panels are effective. (A BFE, Base Flood Elevation, is
+  on C28's open question of which FIRM panels are effective. Datum established 2026-11-05 (C28 (a)): the
+  effective NFHL gives VE 13 ft NAVD88 at the pier's base and AE 10 ft NAVD88 behind it, the EIR's
+  figures, so its BFEs are FEMA's in ft NAVD88 (derived by matching). Still not used on the page. (A BFE, Base Flood Elevation, is
   FEMA's 1%-annual-chance flood elevation; in a VE zone it includes wave effects.)
 - **P14. Dates.** The Draft EIR was published 2026-02-27; the City's project page says review
   "concluded on April 28, 2026". The Final EIR is dated 2026-11-05, twelve days before the hearing
@@ -1172,6 +1174,45 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   FEMA's 2018 transects and 0.47 below Table 5; its 500-year level, 10.91, is 0.39 to 0.50 below
   FEMA's 0.2% transect values. Eric chose on 2026-11-04 to add FEMA's levels as scenarios beside
   W11's (E19): transect 11, at University Ave by the Marina, 9.90 (1%) and 11.32 (0.2%).
+  Three open questions, answered 2026-11-05 (HANDOFF item 7; Eric's order, E22). Sources: FEMA's
+  National Flood Hazard Layer map service (hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer,
+  read 2026-11-05) and both FIS volumes from the Map Service Center
+  (map1.msc.fema.gov/data/06/S/PDF/06001CV001B.pdf, sha256 408f3695…; 06001CV002B.pdf, sha256
+  795e2d66…; downloaded 2026-11-05). Volume 1 pages are printed numbers, with PDF pages in brackets.
+  - **(a) The 2018 panels are effective.** The NFHL's FIRM Panels layer gives Berkeley's shore four
+    Alameda County panels, 06001C0014H, 0018H, 0052H and 0056H, all effective 2018-12-21; its LOMR
+    layer has no Letter of Map Revision in west Berkeley. Its Coastal Transects layer gives
+    Berkeley's transects 1 to 12 1% still water (SWEL) of 9.89 to 9.96 ft NAVD88, cited to
+    06001C_STUDY11, matching Table 10 (transect 11: 9.90, the `fema100` scenario). Its flood zones
+    cite the same study: at the pier's base Zone VE, BFE 13 ft NAVD88; at Seawall Dr, Marina Blvd and
+    Spinnaker Way Zone AE, BFE 10 ft NAVD88; University Ave just west of I-80 and the shore near
+    Gilman St, Zone X (0.2% annual chance). So the scenarios use the effective study.
+  - **(b) Whether Table 10's still water includes wave setup: not stated.** Table 10's footnote 1
+    names the datum (NAVD88) and footnote 2 says the BFE is the "Wave runup elevation" (Vol. 2,
+    p. 105 [PDF 18]); neither addresses setup. The methods (Vol. 2, p. 99 [PDF 12]) say the regional
+    MIKE 21 hydrodynamic model "included the effects of tide, storm surge, and riverine discharge"
+    and that "Wave setup, runup, overtopping, and overland wave propagation were analyzed at
+    representative transects" in the 1D analysis. That reads as still water from the regional
+    model, with setup added later in the transect analysis, but it is our inference, not FEMA's
+    statement. The NFHL's setup field (SETUP_DPTH) is empty for every Berkeley transect. Open; the
+    BakerAECOM coastal analysis report for Alameda County, which the FIS does not reproduce, would
+    settle it.
+  - **(c) Table 5's 10.2 is the 1978 Berkeley study's tide level.** Vol. 1 (p. 21 [PDF 27]), in the
+    City of Berkeley's hydrologic analyses (USACE, completed October 1975, for the FIS of March
+    1978; p. 2 [PDF 8]): "San Francisco Bay tidal elevations were established by extrapolating tidal records
+    at nearby tidal gages ... Tidal elevations have an accuracy of plus or minus 0.5 foot and do not
+    include local setup or rideup that would accompany high winds", followed by 9.8, 9.9, 10.2 and
+    10.3 ft NAVD. Table 5 (p. 44 [PDF 50]) repeats them, converted to NAVD88 with the rest of the
+    report (p. 65 [PDF 71]). They predate the 2018 coastal analysis that sets the effective shoreline zones;
+    the Gilman study's 10.2 (V3) is this 1975 figure.
+  - **(c) The 0.16 to 0.50 ft gap to the 2016 study: narrowed, not explained.** Both studies use the
+    same DHI regional model run (North and Central Bay, 1973–2003; FIS Vol. 2 p. 99; 2016 study
+    PDF p. 48). The 2016 study removed the local mean sea level trend, took July–June annual
+    maxima at its shoreline output points and fitted a GEV distribution (PDF p. 48). The FIS says
+    only that the frequency of surge and waves "were derived statistically" from the hindcast and
+    describes GEV for runup (total water level); it does not say how SWEL was fitted, at which
+    model point, or whether the trend was removed. Any of those could account for a few tenths of
+    a foot (our inference). Open.
   Caveat added 2026-11-05 (claude/fema-caveat): the scenarios keep these values as sourced numbers, but
   their labels and source lines now say the still-water reading is our inference, until (b) closes.
   Found by a peer session's review (C28 (b) had been stated as the FIS's own label).
