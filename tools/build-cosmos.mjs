@@ -8,10 +8,12 @@
 // Writes <out>/cosmos-slr<cm>-<storm>.bits (one bit per cell, row-major, 1 = CoSMoS gives a
 // flood depth there, any depth) and <out>/cosmos.json; <out> is data/hazard unless --out is given.
 // A 4 m cell is flooded when at least two of the four 2 m CoSMoS cells under its quarter points
-// carry a depth. CoSMoS cells are NAD83 UTM 10N, the grid UTM 10N (dem.json); the two are taken as
-// the same coordinates (difference about 1.5 m, under half a cell: 1.44 m west and 0.28 m north by
-// tools/nad83.mjs, which tools/build-art-dc.mjs applies to ART; not applied here, assumption).
+// carry a depth. CoSMoS cells are NAD83 UTM 10N, the grid WGS 84 UTM 10N (dem.json); the CoSMoS
+// coordinates are moved to the grid's with the same transformation as ART's (tools/nad83.mjs, EPSG:7807
+// at epoch 2017.0; about 1.44 m west and 0.28 m north here), as a constant offset taken at the grid's
+// center, which varies by under 1 mm across the grid (Eric, 2026-11-04, SOURCE_NOTES E19, C29).
 import fs from 'fs';
+import { nad83ToWgs84 } from './nad83.mjs';
 import zlib from 'zlib';
 import { connectedFill, openWater, WET } from '../js/fill.js';
 
@@ -21,6 +23,8 @@ const dem = JSON.parse(fs.readFileSync('data/terrain/dem.json'));
 const zb = fs.readFileSync('data/terrain/dem.i16'), z = new Int16Array(zb.buffer, zb.byteOffset, zb.length / 2);
 const berkeley = new Uint8Array(fs.readFileSync('data/terrain/berkeley.bits'));
 const W = dem.width, H = dem.height, R = dem.resolution, N = W * H;
+// NAD83 to the grid: a point at (x, y) in CoSMoS's coordinates lies at (x + DX, y + DY) on the grid.
+const [DX, DY] = (() => { const cx = (dem.xmin + dem.xmax) / 2, cy = (dem.ymin + dem.ymax) / 2, [u, v] = nad83ToWgs84()(cx, cy); return [u - cx, v - cy]; })();
 const inB = (i) => (berkeley[i >> 3] >> (i & 7)) & 1;
 const water0 = openWater(z, W, H);
 const STORM = { w000: 'background tide, no storm', w001: 'annual storm', w020: '20-year storm', w100: '100-year storm', wkt: 'king tide' };
@@ -44,7 +48,7 @@ for (const [key, sc] of Object.entries(clips.scenarios).filter(([, sc]) => ALL |
   const bits = new Uint8Array(Math.ceil(N / 8));
   for (let r = 0; r < H; r++) for (let c = 0; c < W; c++) {
     const x = dem.xmin + (c + 0.5) * R, y = dem.ymax - (r + 0.5) * R;
-    let n = 0; for (const [dx, dy] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) n += at(x + dx, y + dy);
+    let n = 0; for (const [dx, dy] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) n += at(x + dx - DX, y + dy - DY);
     if (n >= 2) { const i = r * W + c; bits[i >> 3] |= 1 << (i & 7); }
   }
   const file = `cosmos-slr${key.slice(3, 6)}-${sc.storm}.bits`;
@@ -56,7 +60,7 @@ for (const [key, sc] of Object.entries(clips.scenarios).filter(([, sc]) => ALL |
     const w = sc.wse, v = new Int16Array(zlib.gunzipSync(fs.readFileSync(`${RAW}/${sc.wseFile}`)).buffer.slice(0)), vals = [];
     for (let r = 0; r < w.height; r++) for (let c = 0; c < w.width; c++) {
       const s = v[r * w.width + c]; if (s === -32768) continue;
-      const x = w.xmin + (c + 0.5) * w.resolution, y = w.ymax - (r + 0.5) * w.resolution;
+      const x = w.xmin + (c + 0.5) * w.resolution + DX, y = w.ymax - (r + 0.5) * w.resolution + DY;
       const gc = Math.floor((x - dem.xmin) / R), gr = Math.floor((dem.ymax - y) / R);
       if (gc < 0 || gr < 0 || gc >= W || gr >= H) continue;
       const i = gr * W + gc; if (water0[i] && inB(i)) vals.push(s / 304.8);

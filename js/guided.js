@@ -170,9 +170,9 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     return `<h2 class="q">What will this winter's king tides reach?</h2>
       <p class="finding">The highest tide this winter, on December 24, can push Bay water up the storm drains onto ${hits.map(([n]) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase())).join(', ') || 'no street'}, if the drain outlet there has no working tide gate. Over the ground, it stays at the shoreline.</p>
       ${drainNote}
-      <p>This is no rare event. From 2016 through 2025, high tides at NOAA's Richmond gauge reached that level about 19 times a year, in every year, and stayed above it for one to three hours each time (SOURCE_NOTES C26). If Bolivar Dr's drain outlet let the Bay in, the street would flood that often. Whether it does is what the field check tests.</p>
+      <p>This is no rare event. From 2016 through 2025, high tides at NOAA's Richmond gauge reached that level about 19 times a year, in every year, and stayed above it for one to three hours each time (SOURCE_NOTES C26). If Bolivar Dr's drain outlet let the Bay in, the street would flood that often. Whether it does is what a field check this winter tests.</p>
       ${place({ name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', road: true, lines: roadLines(ROADS[0]), drain: bol.drainFt ?? null, bay: bol.bayFt ?? null })}
-      <p>Go and look on the mornings of Nov 24–26, Dec 23–25 and Jan 21–22. The <a href="field-guide.html">king tide field guide</a> has times, four places to stand and what to photograph. Photos test whether the drains really let the Bay in.</p>
+      <p>The highest tides this winter come on the late mornings of Nov 24–26, Dec 23–25 and Jan 21–22 (NOAA's predictions for Richmond). If you go and look, watch the storm drain grates on Bolivar Dr around high tide, stay off the shoreline rocks and out of the road, and share your photos with the California Coastal Commission's <a href="https://www.coastal.ca.gov/kingtides/participate.html">King Tides Project</a>.</p>
       ${numsToggle()}`;
   }
 

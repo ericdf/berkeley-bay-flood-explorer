@@ -9,13 +9,15 @@
 //   data/hazard/cosmos-gw-slr<cm>-1to2m.bits     fbin_m 2: water table 1-2 m below the ground surface
 // and data/hazard/cosmos-gw.json (the scenarios, files and Berkeley land area in each class).
 // A cell takes the class of the polygon its center is in (even-odd rule over each polygon's rings, as
-// tools/build-art-dc.mjs does). Polygon coordinates are NAD83(NSRS2007) UTM zone 10N; they are used
-// as the grid's WGS 84 UTM zone 10N without a datum shift (about 1.5 m, under half a cell;
-// assumption; tools/build-art-dc.mjs applies the shift to ART since 2026-11-04, tools/nad83.mjs). The classes are depths to groundwater below the ground in
+// tools/build-art-dc.mjs does). Polygon coordinates are NAD83(NSRS2007) UTM zone 10N; they are moved
+// to the grid's WGS 84 UTM zone 10N with ART's transformation (tools/nad83.mjs, taking NSRS2007 as
+// NAD83(2011), which differ by centimeters here; about 1.5 m; Eric, 2026-11-04, E19, C29). The classes are depths to groundwater below the ground in
 // CoSMoS-GW's own terrain (a 2 m lidar DEM, smoothed by USGS), not flood depths and not water levels.
 import fs from 'fs';
 import zlib from 'zlib';
 import { openWater, MSL_FT } from '../js/fill.js';
+import { nad83ToWgs84 } from './nad83.mjs';
+const toGrid = nad83ToWgs84();
 
 const RAW = 'data/raw/cosmos-gw';
 const clips = JSON.parse(fs.readFileSync(`${RAW}/clips.json`));
@@ -38,7 +40,7 @@ const NONE = 127;
 function rasterize(features) {
   const cls = new Int8Array(N).fill(NONE);
   for (const f of features) {
-    const rings = f.rings.map(r => r.map(([x, y]) => [x - dem.xmin, y - dem.ymin]));
+    const rings = f.rings.map(r => r.map(([x0, y0]) => { const [x, y] = toGrid(x0, y0); return [x - dem.xmin, y - dem.ymin]; }));
     let ymin = Infinity, ymax = -Infinity; for (const r of rings) for (const [, y] of r) { ymin = Math.min(ymin, y); ymax = Math.max(ymax, y); }
     if (ymax < 0 || ymin > Hm) continue;
     for (let row = Math.max(0, Math.floor((Hm - ymax) / R)); row <= Math.min(H - 1, Math.ceil((Hm - ymin) / R)); row++) {
