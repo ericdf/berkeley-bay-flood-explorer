@@ -1,6 +1,6 @@
 # Handoff
 
-Open work for the next session, as of 2026-11-04. Read `CLAUDE.md` and `AGENTS.md` first. Delete
+Open work for the next session, as of 2026-11-05. Read `CLAUDE.md` and `AGENTS.md` first. Delete
 each item here once it is done.
 
 ## Waiting on Eric
@@ -11,39 +11,45 @@ each item here once it is done.
    Eric emailed on 2026-11-04; he wrote separately about the inspection records (R055865-110426,
    E18). Watch for both answers. The profiles stop south of I-80's low stretch in
    Albany (C27); a follow-up request could add Buchanan St to the Albany Golden Gate Fields area.
-2. **Two archive files only Eric can supply (E19).** The 2016 extreme tides study (26.3 MB, over
-   the archive's 25 MB limit; sha256 2bf12c79…870b, from adaptingtorisingtides.org) needs to go in
-   his Google Drive, shared "anyone with the link can view", for staging; the Baykeeper pages (F14,
-   F16; the site blocks automated downloads) need his saved PDF in the archive's inbox.
-3. **Wayback captures for archive PRs #31 to #33** and the three sources not yet archived: Eric
-   runs the script given in session 2026-11-04 and pastes the output; recording it is a manifest PR.
-4. **Archive PR #38** (berkeley-public-records,
+2. **PR #19, Aquatic Park tide tubes** (https://github.com/ericdf/berkeley-bay-flood-explorer/pull/19).
+   Carries Eric's decisions of 2026-11-05 (E21): the gate plan leaves the tubes open, with the
+   recomputed results (D9). Needs his approval to merge.
+3. **Archive PR #38** (berkeley-public-records,
    https://github.com/ericdf/berkeley-public-records/pull/38): the D7–D8 documents. Eric merges;
-   then request Wayback captures of the three source URLs.
+   then Wayback captures of the three source URLs.
 
 ## Ready to do, once Eric approves each
 
-5. **The Nov 17 Council agenda (V1).** It should post about Nov 6. Check whether the ferry item is
+4. **The Nov 17 Council agenda (V1).** It should post about Nov 6. Check whether the ferry item is
    on it and whether its EIR addresses shoreline flooding.
-6. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
-7. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
+5. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
+6. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
    NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Showing either needs a design that
    keeps still water and waves apart (CLAUDE.md).
-8. **A compact scenario summary with jumps** (E12) is superseded by the two-column layout (E15);
-    drop it unless Eric still wants it.
+7. **A compact scenario summary with jumps** (E12) is superseded by the two-column layout (E15);
+   drop it unless Eric still wants it.
+8. **FEMA's 2018 levels: three open questions (C28, E19).** `fema100` and `fema500` are scenarios
+   now, but (a) whether the 2018 FIRM panels for Berkeley are effective has not been checked;
+   (b) whether Table 10's still water includes wave setup is not recorded; (c) why FEMA's
+   transects sit 0.16 to 0.50 ft above the 2016 study's point 518 (W11), and where Table 5's 10.2
+   comes from, is not documented. Read the FIS methods sections and FEMA's map service; record
+   each answer in C28.
+9. **A Codex review of PR #16** (guided mode against the fourth outside review, E17). It was merged
+   and published on 2026-11-04 before Codex reviewed it. Ask Codex to review commit c268dc5, and
+   fix whatever it finds in a new PR.
 
 ## After the king tides
 
-9. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
+10. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
     volunteer's photos and sheet with NOAA's measured water level at Richmond (9414863) for that
     morning, and with the explorer at 7.4 ft NAVD88. Record the result under E10 in
     `SOURCE_NOTES.md`, credited or anonymous as the volunteer chose.
 
 ## Archive (berkeley-public-records)
 
-10. **Done 2026-11-03 and 2026-11-04:** the large-file intake (PRs #27 to #30, merged, with Wayback
-    captures in #30); Eric's choice of State and federal documents (E16), now in PRs #31 to #33
-    (items 2 and 3 above).
+11. **Done 2026-11-03 to 2026-11-05:** the large-file intake (PRs #27 to #30, merged, with Wayback
+    captures in #30); Eric's choice of State and federal documents (E16), in PRs #31 to #33 and
+    #35, merged; their Wayback captures in #36, merged 2026-11-05.
 
 ## Housekeeping
 
