@@ -14,11 +14,10 @@ each item here once it is done.
 
 ## Ready to do, once Eric approves each
 
-3. **The Nov 17 hearing (V1, P10–P14, C30).** A text search of the Final EIR (2026-11-05) found no
-   discussion of the roads to the pier (P10, P11); at its 2075 design levels (11.3 and 12.7 ft NAVD88) every street route from
-   I-80 to the pier crosses Bay water in the explorer (C30, derived). Whether to show C30 or the
-   EIR's levels on the page is Eric's decision; nothing is on the page yet. Check the agenda packet
-   when it posts for a staff report on flooding.
+3. **The Nov 17 hearing (V1, P10–P14, C30): PR #24.** The note on the roads to the pier is in
+   "What current plans leave out" (E22). Waiting on Codex's review of PR #24, then Eric's merge and
+   a separate publish approval before Nov 17. Check the agenda packet when it posts for a staff
+   report on flooding.
 4. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
 5. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
    NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Showing either needs a design that
@@ -32,7 +31,7 @@ each item here once it is done.
    comes from, is not documented. Read the FIS methods sections and FEMA's map service; record
    each answer in C28. The ferry EIR quotes BFEs of 12 to 13 ft (VE) and 10 ft (AE) with no datum
    (P13).
-8. **A Codex review of PR #16** (guided mode against the fourth outside review, E17). It was merged
+8. **A Codex review of PR #16** (requested on PR #16, 2026-11-05; watch for it) (guided mode against the fourth outside review, E17). It was merged
    and published on 2026-11-04 before Codex reviewed it. Ask Codex to review commit c268dc5, and
    fix whatever it finds in a new PR.
 

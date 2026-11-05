@@ -711,7 +711,8 @@ addresses shoreline flooding (V1).
   University Ave west of I-80 to 12.7 ft NAVD88 (the City study's Zones 7 and 8) keeps University
   Ave dry at 11.3 (Marina Blvd 577 m) and is overtopped at 12.7. Limits: a still-water fill is
   not a flood forecast; P12's levels are design conditions for 2075, not storm forecasts;
-  bare-earth lidar and the street layer's geometry (C6). Not yet shown on the page.
+  bare-earth lidar and the street layer's geometry (C6). Shown on the page as a note under "What
+  current plans leave out" (E22).
 
 ## Explorer checks and findings (derived, 2026-11-02)
 
@@ -1712,4 +1713,7 @@ Three claims in the outside review behind E9, checked against primary sources be
   at its levels as a derived row only (C30), with no new scenario on the page. Wayback: Save Page
   Now failed (HTTP 520) for the three D7–D8 documents; their latest status-200 captures are
   recorded instead (berkeley-public-records PR #45, merged 2026-11-05), after Eric checked each snapshot's sha256
-  against the archive's copy (all three match).
+  against the archive's copy (all three match). Later the same session Eric accepted the
+  recommended order ("go with your recommendations"): C30 goes on the page as a note under "What
+  current plans leave out" (`data/exposure.json`), not as new scenarios; then FEMA's open
+  questions (C28) and a Codex review of PR #16's commit c268dc5 (requested on PR #16).
