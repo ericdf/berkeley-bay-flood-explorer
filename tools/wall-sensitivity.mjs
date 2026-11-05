@@ -26,7 +26,8 @@ const variants = {
 };
 const metrics = (r) => {
   const dt = r.facilities.find(f => /DoubleTree/.test(f.label));
-  const m = (n) => Math.round(r.streets.filter(s => s.name === n && s.berkeley && s.wet).reduce((t, s) => t + s.m, 0));
+  // Counted length (segments a quarter or more wet) and, after the slash, the length under water.
+  const m = (n) => { const ss = r.streets.filter(s => s.name === n && s.berkeley && s.wet); return `${Math.round(ss.reduce((t, s) => t + s.m, 0))}/${Math.round(ss.reduce((t, s) => t + s.coveredM, 0))}`; };
   return { landHa: +r.wetLandHa.toFixed(1), doubleTree: Math.round(100 * dt.wetShare), marinaBlvdM: m('MARINA BL'), universityM: m('UNIVERSITY AV'), spinnakerM: m('SPINNAKER WY') };
 };
 const out = {};

@@ -87,11 +87,14 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     const depthFt = cls === 'rain' ? s.rainDepthFt : undefined; // deepest pooled rain, from the same 4 m samples
     segs.push({ e, ...s, cls, wet: cls === 'wet', raisedFt: raised[e.id], depthFt });
   }
+  // A counted segment's length times the share of its samples under the water it is reported for
+  // (Bay water or pooled rain): the length under water, as against the whole segment counted.
+  const coveredShare = (s) => s.cls === 'wet' ? s.wetShare : s.cls === 'rain' ? s.rainShare : 0;
   const byName = new Map();
   for (const s of segs) {
     const k = `${s.e.name}|${s.e.berkeley ? 1 : 0}|${s.cls}`;
-    const v = byName.get(k) || { name: s.e.name, berkeley: !!s.e.berkeley, cls: s.cls, wet: s.wet, freeway: !!s.e.freeway, frontage: !!s.e.frontage, m: 0, minFt: Infinity };
-    v.m += s.e.len; v.minFt = Math.min(v.minFt, s.minFt); if (s.depthFt != null) v.depthFt = Math.max(v.depthFt || 0, s.depthFt); byName.set(k, v);
+    const v = byName.get(k) || { name: s.e.name, berkeley: !!s.e.berkeley, cls: s.cls, wet: s.wet, freeway: !!s.e.freeway, frontage: !!s.e.frontage, m: 0, coveredM: 0, minFt: Infinity };
+    v.m += s.e.len; v.coveredM += s.e.len * coveredShare(s); v.minFt = Math.min(v.minFt, s.minFt); if (s.depthFt != null) v.depthFt = Math.max(v.depthFt || 0, s.depthFt); byName.set(k, v);
   }
   const rank = { wet: 3, rain: 2, drain: 1, low: 0 };
   const streetsOut = [...byName.values()].sort((a, b) => (rank[b.cls] - rank[a.cls]) || (b.freeway - a.freeway) || (b.berkeley - a.berkeley) || (b.m - a.m));
@@ -115,6 +118,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     railSegs.push({ e, ...s, cls: s.wetShare >= s.rainShare && s.wetShare >= s.drainShare ? 'wet' : s.rainShare >= s.drainShare ? 'rain' : 'drain' });
   }
   const sumB = (cls) => segs.filter(s => s.cls === cls && s.e.berkeley).reduce((t, s) => t + s.e.len, 0);
+  const coveredB = (cls) => segs.filter(s => s.cls === cls && s.e.berkeley).reduce((t, s) => t + s.e.len * coveredShare(s), 0);
   // Walls the water goes over at this level.
   const overtopped = [...((plan && plan.walls) || []), ...((plan && plan.roads) || [])].filter(w => w.crestFt <= levelFt).map(w => w.label);
   // Drain-fillable Berkeley land by the City watershed each cell lies in.
@@ -127,6 +131,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
     // This run's pool surface (cm NAVD88); D.rainSurface is overwritten by the next run with rain.
     rainSurface: rainRes ? D.rainSurface : null,
     wetStreetM: sumB('wet'), lowStreetM: sumB('low'), drainStreetM: sumB('drain'), rainStreetM: sumB('rain'),
+    wetStreetCoveredM: coveredB('wet'), rainStreetCoveredM: coveredB('rain'),
     freewayWet: streetsOut.filter(s => s.wet && s.freeway),
     streets: streetsOut, facilities: fac, overWater, overtopped, railSegs,
   };
