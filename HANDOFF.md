@@ -39,5 +39,3 @@ each item here once it is done.
 
 - Private correspondence that gave leads on the transfer station economics stays out of the
   repository. Its claims were checked against public records only (Z1–Z6).
-- Drafts for people outside the repository are HTML in `correspondence/`, kept in git and not
-  published to `pages` (CLAUDE.md). The EIR findings memo is there.
