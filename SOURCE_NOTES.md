@@ -1511,3 +1511,11 @@ Three claims in the outside review behind E9, checked against primary sources be
   `sources/sewers` collection. He authorized merging this work without further approval and
   publishing once the merges are done. He ran the Wayback captures for archive PRs #25 and #26
   (recorded in archive PR #34).
+- **E20. Archive follow-ups (2026-11-05).** The 2016 extreme tides study is archived, staged from
+  Eric's Google Drive copy, whose sha256 matches the download from adaptingtorisingtides.org
+  (archive PR #35). Wayback captures for the documents of archive PRs #31 to #33 and #35 are
+  recorded in archive PR #36, except the CGS tsunami query (lookup rate-limited; to retry). The
+  Baykeeper pages (F14, F16): Eric chose not to archive his saved PDFs; Wayback captures failed for
+  both, including Save Page Now from his browser ("job failed"), because the site blocks automated
+  visitors. F14 and F16 cite the live pages and quote them; their claims about the sites are
+  checked against court and State records (F15, F17 to F19).
