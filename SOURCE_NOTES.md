@@ -1172,6 +1172,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   FEMA's 2018 transects and 0.47 below Table 5; its 500-year level, 10.91, is 0.39 to 0.50 below
   FEMA's 0.2% transect values. Eric chose on 2026-11-04 to add FEMA's levels as scenarios beside
   W11's (E19): transect 11, at University Ave by the Marina, 9.90 (1%) and 11.32 (0.2%).
+  Caveat added 2026-11-05 (claude/fema-caveat): the scenarios keep these values as sourced numbers, but
+  their labels and source lines now say the still-water reading is our inference, until (b) closes.
+  Found by a peer session's review (C28 (b) had been stated as the FIS's own label).
 
 - **C29. CoSMoS and CoSMoS-GW moved from NAD83 to the grid's WGS 84 (derived, 2026-11-04; E19).**
   The same transformation as ART's (C1, `tools/nad83.mjs`, EPSG:7807 at epoch 2017.0): 1.436 m west
