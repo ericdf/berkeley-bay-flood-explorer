@@ -558,7 +558,7 @@ City ArcGIS organization services1.arcgis.com/IYiCpZoSIq9lAxi8.
 ## Aquatic Park tide tubes and their gates (read 2026-11-05, asked by Eric)
 
 Leads came from a ChatGPT summary Eric pasted in session; every claim below was checked against the
-City document named, read in full. In `berkeley-public-records` (PR #38, pending merge):
+City document named, read in full. In `berkeley-public-records` (PR #38, merged 2026-11-05):
 `bcc-2021-03-16-special-item-03a-staff-report`, `parks-2023-02-15-update-on-aquatic-park`,
 `bcc-2023-11-07-item-16-revised`; the 2025-03-28 update was already archived as
 `t1-2025-03-28-parks-recreation-and-waterfront-department-capital-improvement`.
@@ -1621,6 +1621,6 @@ Three claims in the outside review behind E9, checked against primary sources be
 - **E21. The Aquatic Park tide tubes (D7–D9).** Eric asked to use the City's tide gate records
   while the Caltrans request (E18) waits. Decided: the tide gate plan leaves the Aquatic Park
   link open, as the City keeps the tubes (D9: the plan's results, `data/thresholds.json`, C9, C12
-  and C23 recomputed, PR #19); no request to Parks, Recreation and Waterfront for lagoon records;
+  and C23 recomputed, PR #19, merged and published 2026-11-05 as c155db8); no request to Parks, Recreation and Waterfront for lagoon records;
   the D7–D8 documents go to the archive (berkeley-public-records PR #38; the 2025-03-28 update was
   already there as `t1-2025-03-28-parks-recreation-and-waterfront-department-capital-improvement`).
