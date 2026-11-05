@@ -633,6 +633,86 @@ City document named, read in full. In `berkeley-public-records` (PR #38, merged 
   assume the lagoon stands at the Bay's level, and the 11.85 crossing to the Gilman St sites is
   over low ground the fill links to the lagoon, not a surveyed path.
 
+## Berkeley Water Transportation Pier Ferry Project EIR (City of Berkeley, read 2026-11-05)
+
+Draft EIR, February 2026, 661 pp.
+(https://berkeleyca.gov/sites/default/files/2026-02/Berkeley-Water-Transportation-Pier-Ferry-Project-Draft-EIR.pdf),
+and Final EIR, dated 2026-11-05, 1,087 pp., prepared with Rincon Consultants
+(https://berkeleyca.gov/sites/default/files/BWTPF_Final-EIR_Reduced-PRNT-FINAL.pdf), both linked
+from the City's project page (https://berkeleyca.gov/node/9711). SCH 2025040995. Draft EIR pages
+are printed numbers; Final EIR pages are printed numbers in Chapter 2's topical responses and PDF
+pages in the individual responses, which print none. Asked by Eric whether the Council item
+addresses shoreline flooding (V1).
+
+- **P10. The EIR treats flooding as a question about the pier, not the roads to it.** Draft EIR
+  Impact HYD-4 (pp. 3.8-39 to 3.8-40) finds construction and operation in the 100-year floodplain
+  and tsunami zone less than significant: the "climate-adaptive design elevations, watertight
+  storage, battery safety systems" and BMPs keep pollutant release low. The Final EIR's topical
+  response on sea level rise (§2.2.23, pp. 2-51 to 2-53) says the comments concern "the impact of
+  the environment on the project, rather than the impact of the project on the environment", which
+  CEQA does not require, and answers them "nonetheless". A text search of both EIRs for University
+  Ave, Marina Blvd or Spinnaker Way near "flood", "inundat" or "sea level" found nothing; the
+  documents were not read in full. Used for: C30.
+- **P11. BCDC asked about access; the answer is about ferry service.** BCDC's comment letter
+  (Letter A3, Lindsay Martien, Principal Shoreline Development Analyst, 2026-04-28; Final EIR PDF
+  p. 119), comment A3-48: "Please discuss the potential for interruptions to ferry terminal access
+  in the analysis of sea level rise." The response to A3-47 (PDF pp. 138–139), to which A3-48's
+  response refers, says ferry operations "would likely be suspended" in a 500-year storm for
+  navigational safety and public access to the pier "may be temporarily restricted"; "the peak
+  water levels associated with a 500-year storm are expected to persist for a relatively short
+  duration, typically less than four hours", so "any interruption in service would be temporary".
+  It does not mention the roads between I-80 and the pier. The duration figure cites no source in
+  the response. Used for: C30.
+- **P12. The project's design water levels, in "Berkeley MLLW" (still water).** Draft EIR p. 3.8-7:
+  "+6.8 feet" MLLW at average higher-high tide; "+10.3 feet MLLW under 100-year extreme tide
+  events"; a design still water level of "+11.9 feet MLLW" with sea level rise through 2075.
+  BCDC (A3-46) pointed out that +10.3 is the Extreme Water Level and +8.4 the Highest Astronomical
+  Tide; the Final EIR corrects the text (PDF p. 137). Final EIR §2.2.23 (p. 2-51): COWI's Coastal
+  Study (December 2025) used the Intermediate scenario (1.6 ft of rise by 2075, design still water
+  11.9 ft Berkeley MLLW); after BCDC's Engineering Criteria Review Board, the governing condition
+  became the Intermediate-High scenario, "a sea level rise allowance of 3.0 feet and a design still
+  water level of 13.3 feet (Berkeley MLLW)" (COWI response of 2026-04-10). In NAVD88, by the
+  Final EIR's own conversion (W20): 10.3 → 9.7, 11.9 → 11.3, 13.3 → 12.7 ft NAVD88 (derived). These
+  are still water levels; the EIR treats waves separately. Used for: C30.
+- **P13. FEMA flood elevations quoted without a datum.** Final EIR response to A3-49 (PDF p. 140)
+  adds to Draft EIR p. 3.8-11: "The BFE for Zone VE ranges from approximately 12 to 13 feet and the
+  BFE for adjacent Zone AE areas is approximately 10 feet", citing FEMA's Map Service Center
+  (accessed February 2026). No datum is stated. Recorded as stated, datum unknown; not used. Bears
+  on C28's open question of which FIRM panels are effective. (A BFE, Base Flood Elevation, is
+  FEMA's 1%-annual-chance flood elevation; in a VE zone it includes wave effects.)
+- **P14. Dates.** The Draft EIR was published 2026-02-27; the City's project page says review
+  "concluded on April 28, 2026". The Final EIR is dated 2026-11-05, twelve days before the hearing
+  (V1).
+- **W20. "Berkeley MLLW" is not NOAA's MLLW at Berkeley: conflict.** The Final EIR's new Table
+  3.8-1 (response to A3-45, PDF p. 137; source: COWI Basis of Design 60% Submittal, 2025-12-12)
+  gives, in ft NAVD88 / ft Berkeley MLLW: HAT 7.8 / 8.4; MHHW 6.2 / 6.8; MHW 5.6 / 6.2; MSL 3.4 /
+  4.0; NAVD88 0.0 / 0.6; Berkeley MLLW −0.6 / 0.0; LAT −2.1 / −1.6; and says "NAVD88 is
+  approximately 0.6 feet below Berkeley MLLW", which contradicts its own table (NAVD88 is 0.6 ft
+  above Berkeley MLLW in it). NOAA's Berkeley station 9414816 (CO-OPS Metadata API, read
+  2026-11-05, epoch 1983–2001) gives MHHW 6.23, MHW 5.62, MSL 3.41 and MLLW +0.13 ft NAVD88. The two
+  agree on MHHW, MHW and MSL, and differ by 0.73 ft on MLLW. Berkeley MLLW is therefore a datum
+  0.73 ft below NOAA's MLLW at this station; the CLAUDE.md rule that feet above MLLW and feet
+  NAVD88 differ by 0.25 ft or less does not apply to it. Used for: converting P12's levels, by the
+  EIR's table; the explorer converts no level in Berkeley MLLW any other way.
+- **C30. The roads to the pier at the EIR's levels (derived, model rule, 2026-11-05).** The
+  explorer's connected still-water fill (C1), no rain, run at P12's levels in ft NAVD88 with
+  `analyze` (`tools/report.mjs` 9.7 11.3 12.7). Berkeley streets reached by Bay water:
+  - 9.7: none; 98 m of Marina Blvd is low ground not connected to the Bay.
+  - 11.3: Marina Blvd, its whole 675 m; University Ave, 334 m, on the stretch between Marina Blvd
+    and about 135 m east of it; lowest street ground 9.22 ft NAVD88, so about 2 ft of still water
+    there.
+  - 12.7: University Ave, 1,368 m, from Marina Blvd to about 60 m short of the I-80 interchange
+    (both carriageways counted); Marina Blvd, 675 m; Breakwater Dr, 308 m. About 3.5 ft at the
+    low point.
+  University Ave west of Marina Blvd, about 560 m to Seawall Dr and the pier, stays dry at all
+  three. In the explorer's street layer, every street route from I-80 to it runs along University
+  Ave east of Marina Blvd or along Marina Blvd, so at 11.3 and 12.7 each crosses Bay water. The
+  City study's 2050 and 2100 walls (C11) change none of these results. Raising Spinnaker Way and
+  University Ave west of I-80 to 12.7 ft NAVD88 (the City study's Zones 7 and 8) keeps University
+  Ave dry at 11.3 (Marina Blvd 577 m) and is overtopped at 12.7. Limits: a still-water fill is
+  not a flood forecast; P12's levels are design conditions for 2075, not storm forecasts;
+  bare-earth lidar and the street layer's geometry (C6). Not yet shown on the page.
+
 ## Explorer checks and findings (derived, 2026-11-02)
 
 Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/overtop.mjs`.
@@ -1338,14 +1418,16 @@ Used for: C1, C6, C20, C21, the explorer's ART outline and its optional disconne
 
 Three claims in the outside review behind E9, checked against primary sources before use.
 
-- **V1. A November 17 ferry terminal vote: unconfirmed.** A Council meeting on 2026-11-17 is
-  confirmed: the 2026-10-27 annotated agenda sets second readings of Ordinances 8,036, 8,037 and
-  8,038 for that date. A WETA letter to residents, quoted elsewhere and not read here, says the
-  Council is to "certify the environmental review and approve the project" that night. No posted
-  agenda lists the item as of 2026-11-03, and the City's Berkeley Pier-Ferry Access Project page
-  (berkeleyca.gov) gives no Final EIR or approval date. Whether the item touches shoreline flooding
-  is unchecked: the Draft EIR and BCDC's 2026 comment letter were not read. Used for: nothing yet.
-  The agenda should post about 11 days ahead.
+- **V1. A November 17 ferry terminal vote: confirmed (2026-11-05).** The City's Notice of Public
+  Hearing (mailed 2026-11-03; https://berkeleyca.gov/sites/default/files/Pier-Ferry-Project_PHN-POST.pdf)
+  sets the hearing for 2026-11-17 at 6:00 p.m., School District Board Room, 1231 Addison St. Parks,
+  Recreation & Waterfront proposes that Council "Adopt a Resolution certifying the Berkeley Water
+  Transportation Pier Ferry Project Environmental Impact Report (EIR) (SCH #2025040995)", with CEQA
+  findings, "a statement of overriding considerations", mitigation measures and a monitoring
+  program, and approve the project and Use Permit #ZP2026-0014. The notice says agenda material
+  would be on the City's website "as of November 5, 2026"; Eric found it not yet posted that day.
+  The Final EIR is dated 2026-11-05. What it says about shoreline flooding: P10 to P14.
+  Superseded: the 2026-11-03 text of this row, which found no posted agenda, Final EIR or date.
 - **V2. BCDC and a Berkeley subregional plan: partly confirmed.** The duty comes from the statute,
   SB 272 (Laird, 2023), which BCDC administers: local governments on the Bay shoreline must address
   sea level rise "through Local Coastal Programs or San Francisco Bay Shoreline Resiliency Plans by
@@ -1624,3 +1706,10 @@ Three claims in the outside review behind E9, checked against primary sources be
   and C23 recomputed, PR #19, merged and published 2026-11-05 as c155db8); no request to Parks, Recreation and Waterfront for lagoon records;
   the D7–D8 documents go to the archive (berkeley-public-records PR #38; the 2025-03-28 update was
   already there as `t1-2025-03-28-parks-recreation-and-waterfront-department-capital-improvement`).
+- **E22. The Pier-Ferry EIR and the tide tube captures (2026-11-05, later).** Eric asked whether
+  the ferry EIR was published elsewhere when the Nov 17 agenda had not posted, and answered yes to
+  recording what it says about flooding (P10 to P14, W20, V1) and to measuring the access roads
+  at its levels as a derived row only (C30), with no new scenario on the page. Wayback: Save Page
+  Now failed (HTTP 520) for the three D7–D8 documents; their latest status-200 captures are
+  recorded instead (berkeley-public-records PR #45, merged 2026-11-05), after Eric checked each snapshot's sha256
+  against the archive's copy (all three match).

@@ -1,6 +1,6 @@
 # Handoff
 
-Open work for the next session, as of 2026-11-05 (late). Read `CLAUDE.md` and `AGENTS.md` first. Delete
+Open work for the next session, as of 2026-11-05 (evening). Read `CLAUDE.md` and `AGENTS.md` first. Delete
 each item here once it is done.
 
 ## Waiting on Eric
@@ -11,14 +11,14 @@ each item here once it is done.
    Eric emailed on 2026-11-04; he wrote separately about the inspection records (R055865-110426,
    E18). Watch for both answers. The profiles stop south of I-80's low stretch in
    Albany (C27); a follow-up request could add Buchanan St to the Albany Golden Gate Fields area.
-2. **Wayback captures for the D7–D8 documents** (archive PR #38, merged 2026-11-05): Eric runs
-   the capture script for the three source URLs and pastes the output; recording the captures is a
-   manifest PR in berkeley-public-records.
 
 ## Ready to do, once Eric approves each
 
-3. **The Nov 17 Council agenda (V1).** It should post about Nov 6. Check whether the ferry item is
-   on it and whether its EIR addresses shoreline flooding.
+3. **The Nov 17 hearing (V1, P10–P14, C30).** A text search of the Final EIR (2026-11-05) found no
+   discussion of the roads to the pier (P10, P11); at its 2075 design levels (11.3 and 12.7 ft NAVD88) every street route from
+   I-80 to the pier crosses Bay water in the explorer (C30, derived). Whether to show C30 or the
+   EIR's levels on the page is Eric's decision; nothing is on the page yet. Check the agenda packet
+   when it posts for a staff report on flooding.
 4. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
 5. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
    NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Showing either needs a design that
@@ -30,7 +30,8 @@ each item here once it is done.
    (b) whether Table 10's still water includes wave setup is not recorded; (c) why FEMA's
    transects sit 0.16 to 0.50 ft above the 2016 study's point 518 (W11), and where Table 5's 10.2
    comes from, is not documented. Read the FIS methods sections and FEMA's map service; record
-   each answer in C28.
+   each answer in C28. The ferry EIR quotes BFEs of 12 to 13 ft (VE) and 10 ft (AE) with no datum
+   (P13).
 8. **A Codex review of PR #16** (guided mode against the fourth outside review, E17). It was merged
    and published on 2026-11-04 before Codex reviewed it. Ask Codex to review commit c268dc5, and
    fix whatever it finds in a new PR.
@@ -47,7 +48,8 @@ each item here once it is done.
 10. **Done 2026-11-03 to 2026-11-05:** the large-file intake (PRs #27 to #30, merged, with Wayback
     captures in #30); Eric's choice of State and federal documents (E16), in PRs #31 to #33 and
     #35, merged; their Wayback captures in #36, merged 2026-11-05; the Aquatic Park tide tube
-    documents (D7–D8, E21) in PR #38, merged 2026-11-05, Wayback captures pending (item 2).
+    documents (D7–D8, E21) in PR #38, merged 2026-11-05, with Wayback captures in PR #45, merged
+    2026-11-05 (E22).
 
 ## Housekeeping
 
