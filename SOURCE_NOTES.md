@@ -1789,3 +1789,11 @@ Three claims in the outside review behind E9, checked against primary sources be
   One optional note: the guided-mode defenses table would show a site's first water as "not
   reached" if a defense left a site with first water but never a quarter of its grounds; no listed
   site does at any defense (`data/thresholds.json`), so nothing was changed. HANDOFF item 8 is done.
+- **E25. Next steps and the page's simplicity (2026-11-05).** Eric dropped the compact scenario
+  summary with jump links (E12). It was superseded by the two-column layout (E15), and no code
+  for it remains (`js/`, `index.html` searched). Eric's constraints on the next steps: request
+  third-party information only where it changes an accuracy or result, since such requests are
+  expensive; prefer changes that keep the page simple. Applied: the BakerAECOM coastal report
+  (C28 (b)) is not requested; the I-80 barrier (C6) and the waves layer (C21, C28) are deferred,
+  since each adds a control; the king tide comparison is prepared from data already in the
+  repository. Records requests (E16, E18) stay open. HANDOFF rewritten to match.
