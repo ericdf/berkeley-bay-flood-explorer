@@ -14,10 +14,11 @@ each item here once it is done.
 
 ## Ready to do, once Eric approves each
 
-3. **The Nov 17 hearing (V1, P10–P14, C30): PR #24.** The note on the roads to the pier is in
-   "What current plans leave out" (E22). Waiting on Codex's review of PR #24, then Eric's merge and
-   a separate publish approval before Nov 17. Check the agenda packet when it posts for a staff
-   report on flooding.
+3. **The Nov 17 hearing (V1, P10–P14, C30).** PR #24 merged 2026-11-05 as be9620c, after
+   Codex's finding on counted vs. under-water length (E23). Publishing be9620c to `pages` is
+   approved by Eric but was refused by the session's permission check; Eric runs
+   `git push origin be9620c:refs/heads/pages` or allows it. Check the agenda packet when it posts
+   for a staff report on flooding.
 4. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
 5. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
    NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Showing either needs a design that

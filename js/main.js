@@ -505,7 +505,7 @@ function render(levelFt, sc) {
   const nChoices = Object.values(ui.siteChoices).filter(c => c && c !== 'none').length;
   $('nowSites').textContent = nChoices ? `${nChoices} site choice(s)` : 'No changes';
   const bStreets = res.streets.filter(s => s.berkeley), oStreets = res.streets.filter(s => !s.berkeley);
-  const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft NAVD88`}</li>`;
+  const li = (s) => `<li>${esc(title(s.name))}${s.freeway ? ' (freeway)' : s.frontage ? ' (frontage road)' : ''}: ${fmt(s.m)} m${s.cls === 'wet' || s.cls === 'rain' ? `, about ${fmt(s.coveredM)} m of it under ${s.cls === 'wet' ? 'water' : 'pooled rain'}` : ''}, ${s.depthFt != null ? `up to ${fmt(s.depthFt, 1)} ft of water` : `lowest ground ${fmt(s.minFt, 1)} ft NAVD88`}</li>`;
   const art = nearestArt(levelFt);
   $('artNote').textContent = D.art ? (art ? `Nearest ART level: MHHW + ${art.inches} in, about ${fmt(art.levelFt, 1)} ft NAVD88 (SOURCE_NOTES H5).` : '') : 'ART map not loaded.';
   const dl = $('showArtDc').checked && artDcLevel(levelFt);
@@ -535,8 +535,10 @@ function render(levelFt, sc) {
       ${rain ? row('Ground under pooled rain', B.rainLandHa, res.rainLandHa, 'ha') : ''}
       ${row('Low ground that can fill through the storm drains', B.drainLandHa, res.drainLandHa, 'ha')}
       ${row('Low ground not connected, even through drains', B.lowLandHa, res.lowLandHa, 'ha')}
-      ${row('Streets under water', B.wetStreetM / 1000, res.wetStreetM / 1000, 'km', 2)}
-      ${rain ? row('Streets under pooled rain', B.rainStreetM / 1000, res.rainStreetM / 1000, 'km', 2) : ''}
+      ${row('Streets reached by Bay water (segments a quarter or more wet)', B.wetStreetM / 1000, res.wetStreetM / 1000, 'km', 2)}
+      ${row('&nbsp;&nbsp;of which under water', B.wetStreetCoveredM / 1000, res.wetStreetCoveredM / 1000, 'km', 2)}
+      ${rain ? row('Streets under pooled rain (segments a quarter or more covered)', B.rainStreetM / 1000, res.rainStreetM / 1000, 'km', 2) : ''}
+      ${rain ? row('&nbsp;&nbsp;of which under pooled rain', B.rainStreetCoveredM / 1000, res.rainStreetCoveredM / 1000, 'km', 2) : ''}
       ${row('Streets that can flood through drains', B.drainStreetM / 1000, res.drainStreetM / 1000, 'km', 2)}
       ${row('Streets on low ground, not connected', B.lowStreetM / 1000, res.lowStreetM / 1000, 'km', 2)}
     </table>
@@ -551,8 +553,8 @@ function render(levelFt, sc) {
     <table>${res.facilities.map((f, k) => `<tr><td><b>${esc(f.label)}</b>${f.note ? `<details><summary>About</summary>${esc(f.note)}</details>` : ''}</td><td class="n">${fmt(100 * f.wetShare)}% under water${plan ? ` (no plan ${fmt(100 * B.facilities[k].wetShare)}%)` : ''}<br>${rain ? `${fmt(100 * f.rainShare)}% under pooled rain<br>` : ''}${fmt(100 * f.drainShare)}% through drains<br>${fmt(100 * f.lowShare)}% low<br>median ground ${fmt(f.medianGroundFt, 1)} ft NAVD88${D.tsunami ? `<br>${fmt(100 * tsunamiShare(k))}% in the State tsunami hazard area` : ''}</td></tr>`).join('')}</table>
     <h2>Berkeley streets <span class="cat">derived</span></h2>
     <details><summary>${bStreets.length} street segments reached or on low ground${oStreets.length ? `; ${oStreets.length} outside Berkeley` : ''}</summary>
-    ${bStreets.filter(s => s.cls === 'wet').length ? `<p class="src">Under water:</p><ul>${bStreets.filter(s => s.cls === 'wet').map(li).join('')}</ul>` : '<p class="src">No Berkeley street segment is under water at this level.</p>'}
-    ${bStreets.filter(s => s.cls === 'rain').length ? `<p class="src">Under pooled rain:</p><ul>${bStreets.filter(s => s.cls === 'rain').map(li).join('')}</ul>` : ''}
+    ${bStreets.filter(s => s.cls === 'wet').length ? `<p class="src">Reached by Bay water (segments a quarter or more wet; the whole segment length, then the length under water):</p><ul>${bStreets.filter(s => s.cls === 'wet').map(li).join('')}</ul>` : '<p class="src">No Berkeley street segment has a quarter or more of its length under water at this level.</p>'}
+    ${bStreets.filter(s => s.cls === 'rain').length ? `<p class="src">Under pooled rain (segments a quarter or more covered):</p><ul>${bStreets.filter(s => s.cls === 'rain').map(li).join('')}</ul>` : ''}
     ${bStreets.filter(s => s.cls === 'drain').length ? `<p class="src">On low ground that can fill through the storm drains:</p><ul>${bStreets.filter(s => s.cls === 'drain').map(li).join('')}</ul>` : ''}
     ${bStreets.filter(s => s.cls === 'low').length ? `<p class="src">On low ground, not connected (rain decides these):</p><ul>${bStreets.filter(s => s.cls === 'low').map(li).join('')}</ul>` : ''}
     ${oStreets.length ? `<h2>Outside Berkeley <span class="cat">derived</span></h2><ul>${oStreets.map(s => li(s).replace('</li>', s.cls === 'wet' ? '</li>' : s.cls === 'drain' ? ' (through drains)</li>' : s.cls === 'rain' ? ' (pooled rain)</li>' : ' (low, not connected)</li>')).join('')}</ul>` : ''}

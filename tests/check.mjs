@@ -33,7 +33,8 @@ for (const lv of [6.2, 7.4, 8.47, 9.73, 10.7, 12, 13]) {
 const r107 = analyze(D, 10.7);
 const marina = r107.streets.find(s => s.name === 'MARINA BL' && s.wet);
 const marinaAll = D.streets.edges.filter(e => e.name === 'MARINA BL').reduce((t, e) => t + e.len, 0);
-ok(marina && marina.m / marinaAll >= 0.5, `10.7 ft: Marina Blvd under water for ${marina ? Math.round(marina.m) : 0} of ${marinaAll} m (City study W8: "most likely" impassable by 2050)`);
+ok(r107.streets.every(s => s.coveredM <= s.m + 1e-6) && r107.wetStreetCoveredM <= r107.wetStreetM, 'length under water never exceeds the counted length (E23)');
+ok(marina && marina.m / marinaAll >= 0.5, `10.7 ft: Marina Blvd reached by Bay water, ${marina ? Math.round(marina.m) : 0} of ${marinaAll} m counted, about ${marina ? Math.round(marina.coveredM) : 0} m under water (City study W8: "most likely" impassable by 2050)`);
 const dt = r107.facilities.find(f => /DoubleTree/.test(f.label));
 ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)}% under water (City study W7: two buildings' floors below the water)`);
 
