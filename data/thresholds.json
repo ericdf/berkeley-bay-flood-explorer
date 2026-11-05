@@ -244,40 +244,40 @@
   {
    "id": "gates",
    "spec": "gates",
-   "label": "Tide gates on every storm drain outlet",
-   "cost": "Cost not published; which outlets already have gates is not published (D6)",
+   "label": "Tide gates on every storm drain outlet but the Aquatic Park tide tubes",
+   "cost": "Cost not published; which outlets already have gates is not published (D6); the Aquatic Park tide tubes have gates the City keeps open to the tide, and this plan leaves them open (D7, D9)",
    "sites": {
     "transfer-station": {
      "name": "City transfer station and recycling center, Second St at Gilman St",
      "tsunamiShare": 1,
+     "drainTouchFt": 11.85,
+     "drainCountedFt": 12.4,
      "bayTouchFt": 13.4,
-     "bayCountedFt": 13.4,
-     "drainTouchFt": 13.4,
-     "drainCountedFt": 13.4
+     "bayCountedFt": 13.4
     },
     "pacific-steel-geotracker": {
      "name": "Former Pacific Steel Casting, Second St (closed 2018)",
      "tsunamiShare": 1,
+     "drainTouchFt": 11.85,
+     "drainCountedFt": 11.85,
      "bayTouchFt": 13.4,
-     "bayCountedFt": 13.4,
-     "drainTouchFt": 13.4,
-     "drainCountedFt": 13.4
+     "bayCountedFt": 13.4
     },
     "berkeley-forge": {
      "name": "Berkeley Forge & Tool, 1331 Eastshore Hwy",
      "tsunamiShare": 1,
+     "drainTouchFt": 11.85,
+     "drainCountedFt": 11.85,
      "bayTouchFt": 13.4,
-     "bayCountedFt": 13.4,
-     "drainTouchFt": 13.4,
-     "drainCountedFt": 13.4
+     "bayCountedFt": 13.4
     },
     "eastshore-1255": {
      "name": "1255 Eastshore Hwy (former Hawkins Traffic Safety Supply)",
      "tsunamiShare": 1,
+     "drainTouchFt": 11.85,
+     "drainCountedFt": 11.85,
      "bayTouchFt": 13.4,
-     "bayCountedFt": 13.4,
-     "drainTouchFt": 13.4,
-     "drainCountedFt": 13.4
+     "bayCountedFt": 13.4
     },
     "marine-center": {
      "name": "Berkeley Marine Center boatyard, 1 Spinnaker Way",
@@ -290,8 +290,8 @@
     "terminal-mfg": {
      "name": "Terminal Manufacturing, 707 Gilman St",
      "tsunamiShare": 1,
+     "drainTouchFt": 13.2,
      "bayTouchFt": 13.4,
-     "drainTouchFt": 13.4,
      "bayCountedFt": 13.55,
      "drainCountedFt": 13.55
     },
@@ -316,6 +316,10 @@
     }
    },
    "roads": {
+    "Frontage roads (Eastshore Hwy)": {
+     "drainFt": 7.9,
+     "bayFt": 13.3
+    },
     "Marina access roads": {
      "bayFt": 10.7,
      "drainFt": 10.7
@@ -328,17 +332,13 @@
      "bayFt": 11.4,
      "drainFt": 11.4
     },
-    "Frontage roads (Eastshore Hwy)": {
-     "bayFt": 13.3,
-     "drainFt": 13.3
-    },
     "University Ave ramps": {
-     "bayFt": 13.4,
-     "drainFt": 13.4
+     "drainFt": 12.05,
+     "bayFt": 13.4
     },
     "Frontage road ramps": {
-     "bayFt": 13.4,
-     "drainFt": 13.4
+     "drainFt": 12.3,
+     "bayFt": 13.4
     },
     "Rail main line in Berkeley": {
      "bayFt": 13.5,
@@ -358,9 +358,9 @@
     }
    },
    "land": {
-    "9.73": 11.7,
-    "10.73": 27.2,
-    "13.00": 62.4,
+    "9.73": 23.7,
+    "10.73": 41.3,
+    "13.00": 111.3,
     "14.53": 161.9
    }
   },

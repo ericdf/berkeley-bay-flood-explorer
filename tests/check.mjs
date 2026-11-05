@@ -49,8 +49,11 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
     let diff = 0; for (let i = 0; i < hi.state.length; i++) if (isW(hi.state[i]) !== isW(hi0.state[i])) diff++;
     ok(diff === 0, `${spec} above its crest (15.5 ft) changes nothing (${diff} cells differ)`);
   }
-  const g = analyze(D, 12, planFrom(D, 'gates'));
-  ok(g.drainLandHa === 0, `tide gates on every outfall: no ground fills through drains at 12 ft (${g.drainLandHa.toFixed(1)} ha)`);
+  // The gate plan closes every drain link but the Aquatic Park tide tubes, kept open (SOURCE_NOTES D7, D9).
+  const g = analyze(D, 12, planFrom(D, 'gates')), g0 = analyze(D, 12, null);
+  const sealed = { ...D, drains: { ...D.drains, watersheds: D.drains.watersheds.map(w => ({ ...w, keptOpen: false })) } };
+  const gs = analyze(sealed, 12, planFrom(D, 'gates'));
+  ok(gs.drainLandHa === 0 && g.drainLandHa > 0 && g.drainLandHa < g0.drainLandHa, `tide gates on every outfall: nothing fills through drains at 12 ft with the Aquatic Park tubes shut too; with them open, ${g.drainLandHa.toFixed(1)} ha (no plan ${g0.drainLandHa.toFixed(1)})`);
   const r = analyze(D, 10.7, planFrom(D, 'roads'));
   ok(!r.streets.some(s => s.berkeley && s.cls === 'wet'), 'Spinnaker Way and University Ave raised to 12.7 ft: no Berkeley street under water at 10.7 ft');
 }
@@ -135,9 +138,12 @@ ok(dt.wetShare > 0, `10.7 ft: DoubleTree grounds ${Math.round(100 * dt.wetShare)
   // Each run keeps its own rain surface: with a plan run first and the no-plan run second (the
   // page's order), the plan's exposure still reads the plan's pools (Codex, PR #6).
   const rain12 = { ari: '10', duration: '6-hr', blocked: 1 }, gates = planFrom(X, 'gates');
-  const rPlan = analyze(X, 12, gates, rain12); analyze(X, 12, null, rain12);
-  const bf13 = exposure(X, rPlan, { 'berkeley-forge': 'floodproof' }, 13, gates).sites.find(s => s.site.id === 'berkeley-forge');
-  ok(!bf13.counts, `12 ft, gates, rain: Berkeley Forge's own pool (${bf13.sh.waterFt.toFixed(2)} ft NAVD88) is under flood-proofing at 13 ft, read from its own run`);
+  // The two runs' pools at Berkeley Forge differ by a few hundredths of a foot once the gate plan
+  // leaves the Aquatic Park tide tubes open (SOURCE_NOTES D9), so the check compares the surfaces.
+  const forgeFt = (r, pl) => exposure(X, r, {}, null, pl).sites.find(s => s.site.id === 'berkeley-forge').sh.waterFt;
+  const rPlan = analyze(X, 12, gates, rain12); const ownFt = forgeFt(rPlan, gates);
+  const rNone = analyze(X, 12, null, rain12); const noneFt = forgeFt(rNone, null), afterFt = forgeFt(rPlan, gates);
+  ok(afterFt === ownFt && Math.abs(ownFt - noneFt) > 0.01, `12 ft, gates, rain: Berkeley Forge's pool (${afterFt.toFixed(2)} ft NAVD88) is read from its own run after a no-plan run (${noneFt.toFixed(2)})`);
   // The 25% threshold applies to all the water on a site together (Codex, PR #6): the transfer
   // station at 12 ft with open outfalls and rain is flooded through drains and by rain.
   const rMix = analyze(X, 12, null, rain12), stMix = exposure(X, rMix).sites.find(s => s.site.id === 'transfer-station');
@@ -360,7 +366,10 @@ if (fs.existsSync('data/hazard/cosmos-gw.json')) {
   const ib = T.roads['I-80 mainline in Berkeley'], rb = T.roads['Rail main line in Berkeley'];
   ok(ib && rb && ib.bayFt >= 13.35 && rb.bayFt >= 13.35 && T.roads['I-80 mainline'].bayFt < ib.bayFt, `I-80 and the rail line in Berkeley first reached at ${ib && ib.bayFt} and ${rb && rb.bayFt}, after the crossing behind I-80; lower in Albany (C27)`);
   const g = T.defenses.find(d => d.id === 'gates');
-  ok(g && g.sites['berkeley-forge'].drainCountedFt >= 13.35, 'with tide gates, Berkeley Forge is first reached at the crossing behind I-80 (C6, C23)');
+  // With the Aquatic Park tubes left open (D9, E21) the gates delay Berkeley Forge, which the lagoon
+  // then reaches before the crossing behind I-80.
+  const bf0 = T.sites['berkeley-forge'].drainCountedFt, bfg = g && g.sites['berkeley-forge'].drainCountedFt;
+  ok(bfg > bf0 && bfg < 13.35, `with tide gates (Aquatic Park tubes open), Berkeley Forge is first reached later (${bfg} against ${bf0}) but before the crossing behind I-80 (C6, C23, D9)`);
   const fb = new Uint8Array(fs.readFileSync('data/hazard/first-bay.u8')), fd = new Uint8Array(fs.readFileSync('data/hazard/first-drain.u8'));
   ok(fb.length === D.dem.width * D.dem.height && fd.length === fb.length, 'first-reached rasters match the terrain grid');
   let worse = 0; for (let i = 0; i < fb.length; i++) if (fd[i] > fb[i]) worse++;

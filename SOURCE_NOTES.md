@@ -551,6 +551,87 @@ City ArcGIS organization services1.arcgis.com/IYiCpZoSIq9lAxi8.
   reader adds gates.
   One gate is documented at design stage: the I-80/Gilman interchange project's tidal flap gate at
   the Gilman outfall (V3); whether it was built is unchecked.
+  The Aquatic Park lagoon's tide tubes carry the only City gates documented so far (D7–D9). They
+  are sliding gates on pipes kept open for tidal exchange, so the tide gate plan leaves the Aquatic
+  Park link open (Eric, 2026-11-05, E21; `data/drains.json` `keptOpen`).
+
+## Aquatic Park tide tubes and their gates (read 2026-11-05, asked by Eric)
+
+Leads came from a ChatGPT summary Eric pasted in session; every claim below was checked against the
+City document named, read in full. In `berkeley-public-records` (PR #38, pending merge):
+`bcc-2021-03-16-special-item-03a-staff-report`, `parks-2023-02-15-update-on-aquatic-park`,
+`bcc-2023-11-07-item-16-revised`; the 2025-03-28 update was already archived as
+`t1-2025-03-28-parks-recreation-and-waterfront-department-capital-improvement`.
+
+- **D7. Five tubes with sliding gates, restored for tidal exchange.** City of Berkeley capital
+  project page, "Aquatic Park Central Tide Tubes Maintenance: Sediment Removal" (berkeleyca.gov,
+  no date on the page; read 2026-11-05): "the five 24-inch diameter central tide tubes located under
+  Interstate 80" were "once clogged with sediment"; the project worked "by cleaning out the
+  accumulated sediment and replacing the sliding tide gates"; "Construction began in August, 2020
+  and was completed in October, 2020"; "functionality of central tide tubes were restored to provide
+  tidal exchange between the Bay and the lagoon." Measure T1. The page names no flap gates and says
+  nothing on how or when the gates are set.
+  Parks, Recreation and Waterfront, "Parks Capital Improvement Plan, Recent Projects and Ongoing
+  Needs", Council work session, 2021-03-16, Item 3a, PDF p. 10: the project "is complete and has
+  resulted in the successful establishment of good tidal flow between the bay and the lagoon. The
+  operating capacity of the tide tubes has been fully restored." The sediment haul-off was to follow
+  "later this year" with T1 Phase 2 funds.
+  City Manager, "Update on Aquatic Park", memo to Council, 2023-02-15, p. 1: "Thanks to the repair
+  of the five tide tubes, completed in 2022"; "In the past, the failed tubes meant that we regularly
+  saw flooding during heavy rains… This year, during rains that some believe have not been seen for
+  a century, we did not see any flooding at the lagoon."
+  Conflict: the project page dates construction to August–October 2020; the memo says the repair
+  was "completed in 2022". The 2021 work session's pending haul-off may account for the later date;
+  no document read says so.
+  Used for: D9; the gates lever and guided-mode texts now say the tubes are gated but kept open.
+- **D8. The tubes are failing, and three more are clogged.** Councilmember Harrison (author) and
+  Councilmember Taplin (co-sponsor), Budget Referral, Consent Calendar, 2023-11-07, Item 16
+  (revised, Supplemental Packet 1), pp. 1–4: the T1 evaluation found "a large portion of the five
+  main Tide Tubes are clay walls that are failing" and recommended replacing or sleeving them; "the
+  City could expect complete failure in no later than 10 years from 2020"; three other tubes, two
+  from the lagoon to the Model Yacht Basin and one from the basin to the Bay, "are significantly
+  clogged"; "only five of the eight tubes are fully functional"; flow through the tubes scours under
+  I-80. The item cites the City Manager and the Parks department for these findings; the T1
+  evaluation itself was not read. It estimates $3.6–4.0M to repair all eight. The 2021 work session
+  (D7, p. 10) already said "all eight tubes need to be sleeved before the existing tube shells
+  collapse" ($6.5M estimate). Acting City Manager, Parks, Recreation and Waterfront capital
+  improvement update, memo, 2025-03-28: "Aquatic Park – Tide Tube Replacement Project
+  (Pre-Design) / Grant, General Fund". No later status was found.
+  Not used in the model. It bears on how long D9's open connection lasts and on I-80 (C27).
+- **Not a City source, not used:** aquaticpark.org, "Connections and Circulation" (no author,
+  updated about June 2026), says the main lagoon's gates are adjusted by hand, "not often"; that
+  the pipes and gates keep the lagoon within "about two feet"; and that a gate on the Radio Tower
+  Pond's Bay pipe "apparently has not worked since at least 1990". None of this is in a City
+  document read here. Lagoon water level records and the gates' operating practice are open
+  questions (DATA_INVENTORY).
+- **D9. The tide tubes under the gate plan (derived, model rule, `node tools/lagoon-tubes.mjs`).** The explorer's lagoon is ground below mean sea level (3.31 ft
+  NAVD88) that does not connect to the Bay over the surface; two such patches touch the Aquatic Park
+  outline, 22.8 and 1.9 ha. The tubes connect them to the Bay (D7). If the lagoon stood at the
+  Bay's level, Berkeley land at or above mean sea level that it reaches over the surface is 2.0 ha
+  at MHHW (6.20 ft NAVD88), 4.1 ha at this winter's king tide (7.40), 12.0 ha at the 100-year level
+  (9.73), 14.3 ha at the 500-year level (10.91), 35.8 ha at 12.00 and 48.4 ha at 13.00; from 13.40
+  the Bay reaches all of it over the surface anyway. With no plan, the explorer already shows that
+  land as "can fill through drains", except 1.8 ha at MHHW, shown low. Until 2026-11-05 the tide
+  gate plan closed the Aquatic Park link too and showed all of it as low, not connected, sealing a
+  lagoon the City keeps open to the tide. Eric decided that day that the plan leaves the tubes open
+  (E21); the plan now shows that land as the no-plan view does. Upper bound: five 24-inch tubes may well hold the lagoon below the Bay's
+  peak for a tide of a few hours (inference, ours; no lagoon level record was found), and how the
+  gates are set during a storm tide is not documented. Rain: how much runoff is held back is
+  the reader's choice in the rain experiment (`js/rain.js`, the share that cannot drain), not a
+  setting of the gate plan; the City Manager reports the restored tubes draining the lagoon in the
+  January 2023 rains (D7), which no setting of the experiment represents. What the open link
+  changes is where the Aquatic Park pool starts: from the lagoon at the Bay's level, with that
+  watershed's runoff spread over it (C12).
+  What the change does to the gate plan (`tools/thresholds.mjs`, `data/thresholds.json`; C23):
+  water through the lagoon now reaches the inland sites south of Gilman St before the crossing
+  behind I-80. With gates, first modeled water at Berkeley Forge, former Pacific Steel, 1255
+  Eastshore Hwy and the transfer station comes at 11.85 ft NAVD88, against 9.75 to 10.70 with no
+  plan and 13.40 when the plan also shut the tubes; a quarter of the transfer station's grounds at
+  12.40, as with no plan. Bolivar Dr stays at 7.25 with or without gates. Berkeley land under water
+  or filling up the drains with gates: 23.7 ha at 9.73, 41.3 at 10.73, 111.3 at 13.00 (no plan
+  24.9, 49.0, 111.8; tubes shut too, 11.7, 27.2, 62.4). These carry the same upper bound: they
+  assume the lagoon stands at the Bay's level, and the 11.85 crossing to the Gilman St sites is
+  over low ground the fill links to the lagoon, not a surveyed path.
 
 ## Explorer checks and findings (derived, 2026-11-02)
 
@@ -623,7 +704,10 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   this winter's highest tide (7.4 ft NAVD88) 5.1 ha of Berkeley land can fill through the drains
   (Aquatic Park watershed 3.0 ha, Derby 2.1 ha), including Bolivar Dr; at the 100-year level (9.73)
   13.2 ha, with Second St (680 m), Bolivar Dr, Eastshore Hwy and Potter St; at 12 ft 40.4 ha,
-  including 18% of the transfer station. With tide gates on every outfall, none. Land counts leave
+  including 18% of the transfer station. With tide gates on every outfall but the Aquatic Park tide
+  tubes, which the plan leaves open (D9, E21): 3.8 ha at 7.4 (Aquatic Park watershed 3.0, Derby
+  0.8; Bolivar Dr), 12.0 ha at 9.73, 35.8 ha at 12, including 18% of the transfer station. With the
+  tubes shut too, none (the plan before 2026-11-05). Land counts leave
   out the Aquatic Park lagoon (ground below mean sea level, not connected to the Bay); a first
   version counted it and reported 31, 39 and 67 ha. An upper bound until the City's outfalls and
   gates are known.
@@ -679,10 +763,18 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   the watershed's boundary (revised 2026-11-03 after an outside review).
 - **C12. Rain results (derived; revised after Codex review of PR #3, which found the first
   version created water when a pool spilled into a hollow below its surface).** At this winter's
-  highest tide (7.4 ft NAVD88), with tide gates on every outfall, a 10-year 6-hour storm (2.04 in)
-  pools on Berkeley land as follows, by share of the runoff that cannot drain: 100%, 49.4 ha;
-  50%, 32.9 ha; 25%, 22.9 ha; 10%, 11.1 ha. For the 2-year 6-hour storm: 39.9, 27.8, 17.5 and
-  8.9 ha; for the 100-year 6-hour storm: 57.1, 42.3, 29.1 and 16.0 ha. Each pool holds its
+  highest tide (7.4 ft NAVD88), with tide gates on every outfall but the Aquatic Park tide tubes
+  (D9; recomputed 2026-11-05, E21), a 10-year 6-hour storm (2.04 in) pools on Berkeley land as
+  follows, by share of the runoff that cannot drain: 100%, 54.1 ha; 50%, 35.9 ha; 25%, 25.9 ha;
+  10%, 14.0 ha. For the 2-year 6-hour storm: 43.2, 30.9, 20.7 and 11.8 ha; for the 100-year 6-hour
+  storm: 60.2, 45.8, 32.1 and 19.3 ha. With the tubes shut too (the plan before 2026-11-05) the
+  figures were 49.4, 32.9, 22.9 and 11.1; 39.9, 27.8, 17.5 and 8.9; 57.1, 42.3, 29.1 and 16.0. The
+  difference is mostly the Aquatic Park pool, which now starts from the lagoon at the Bay's level
+  and covers about 25 ha, 2.9 to 3.0 ha more Berkeley land than before in every case. The Derby
+  pool also changes, by up to 1.71 ha (10-year storm, all runoff held back: Aquatic Park 2.97 ha
+  and Derby 1.71 ha of the 4.67 ha increase; Codex review of PR #19), and by 0 to 0.52 ha in the
+  other cases. The Second St, transfer station and Gilman and Codornices figures below did not
+  change. Each pool holds its
   watershed's runoff to within 1 cm of rounding (`tests/check.mjs`). Second St is under pooled
   rain in every case tested, 1.3–1.8 km of it, which matches the Draft EIR's 10-year flooding there
   (F8); its deepest point, which may be where Codornices Creek crosses, ranges from 2.5 to 7.0 ft
@@ -921,10 +1013,14 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   version reported both Albany figures as the road's and line's without naming the place). Every site in the panel lies wholly inside the
   State tsunami hazard area (H6), as do the Marina, Aquatic Park and the flats east of I-80 to about
   Fourth St (2nd St 24 of 24 street samples, 4th St 29 of 40, 6th St and San Pablo Ave none).
-  With each defense (the same sweep with a plan): tide gates on every outlet move every inland
-  site's first level to 13.40 (the crossing behind I-80, C6) and Bolivar Dr from 7.25 to 13.40,
-  and cut Berkeley land under water or filling up the drains at 13.00 ft NAVD88 from 111.8 to 62.4
-  ha; at 14.53 they change nothing (161.9 ha), because the flats are open from the Bay. The City
+  With each defense (the same sweep with a plan): tide gates on every outlet but the Aquatic Park
+  tide tubes (D9, E21) move the first water at Berkeley Forge, former Pacific Steel, 1255 Eastshore
+  Hwy and the transfer station to 11.85, through the lagoon, and leave Bolivar Dr at 7.25; they cut
+  Berkeley land under water or filling up the drains at 13.00 ft NAVD88 only from 111.8 to 111.3 ha
+  (at 9.73, from 24.9 to 23.7); at 14.53 they change nothing (161.9 ha), because the flats are open
+  from the Bay. Before 2026-11-05 the plan shut the tubes too, and moved every inland site's first
+  level to 13.40 (the crossing behind I-80, C6), Bolivar Dr from 7.25 to 13.40, and land at 13.00
+  to 62.4 ha. The City
   study's 2050 and 2100 walls move no site or road group's first level (land at 13.00: 111.8 and
   109.5 ha), as C11 found. The raised roads move the Marina access roads from 10.70 to 10.85.
 - **C24. The rail main line (derived, 2026-11-04).** OpenStreetMap ways tagged railway=rail,
@@ -1519,3 +1615,12 @@ Three claims in the outside review behind E9, checked against primary sources be
   both, including Save Page Now from his browser ("job failed"), and archive.today captured only
   the site's security check page, because the site blocks automated visitors. F14 and F16 cite the live pages and quote them; their claims about the sites are
   checked against court and State records (F15, F17 to F19).
+
+## Eric's decisions, 2026-11-05 (Claude Code session)
+
+- **E21. The Aquatic Park tide tubes (D7–D9).** Eric asked to use the City's tide gate records
+  while the Caltrans request (E18) waits. Decided: the tide gate plan leaves the Aquatic Park
+  link open, as the City keeps the tubes (D9: the plan's results, `data/thresholds.json`, C9, C12
+  and C23 recomputed, PR #19); no request to Parks, Recreation and Waterfront for lagoon records;
+  the D7–D8 documents go to the archive (berkeley-public-records PR #38; the 2025-03-28 update was
+  already there as `t1-2025-03-28-parks-recreation-and-waterfront-department-capital-improvement`).

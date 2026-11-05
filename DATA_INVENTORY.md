@@ -35,6 +35,7 @@ What is in hand, what is still needed, and each dataset's license.
 | State sea level rise guidance, 2024 | Ocean Protection Council | Replaces the 2018 guidance the City study and the Draft EIR used. In use: the San Francisco gauge table, as the Coastal Commission's 2024 guidance reproduces it (SOURCE_NOTES W17). The OPC document itself refused automated access. |
 | FEMA flood insurance rate map, Berkeley shoreline | FEMA NFHL (public domain) | Zone boundaries; VE vs AE. |
 | Storm drain pipes, outfalls, inverts and tide gates | City of Berkeley Public Works (not in its open data); the 2019 Marina study lists Marina outfall elevations | Which outfalls have tide gates decides the drain results (D6, C9). |
+| Aquatic Park lagoon water levels and tide tube gate settings | City of Berkeley Parks, Recreation and Waterfront (no record found); the T1 tide tube evaluation (cited in D8, not read) | Whether the lagoon follows the Bay at a storm tide decides D9: the gate plan seals the lagoon, which the City keeps open to the tide (D7). |
 | Storm drain outfall inverts and pipe capacities | City of Berkeley Public Works | Replaces the "share that cannot drain" setting with how long the tide holds each outfall shut (R5). |
 | Alameda County Flood Control District Hydrology and Hydraulics Manual (2016) | acfloodcontrol.org | The County's runoff coefficients, to check the Simple Method shares (R3). |
 | Floodwall alignments and tie-ins as drawings | City of Berkeley / the study's consultant | The traced alignments are ±30 m (P9, C11). |

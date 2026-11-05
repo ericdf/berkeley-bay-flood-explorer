@@ -54,6 +54,9 @@
   "D4": "Other City layers found and not used yet: CoSMoS_SLR_100_Year_Storm_Event (100-year storm with 0.25, 0.75 and 1.25 m of sea level rise), BerkeleyFloodplain_WFL1…",
   "D5": "StormDrainOverflow_WFL1, layer \"Areas of Observed Storm Drain Overflow\": 300 Public Works storm work orders, January–June 2023. The records name staff and give…",
   "D6": "Rule built (model rule, js/analyze.js markDrains): with a watershed's link open, each patch of low, not-connected ground that holds an inlet can fill through…",
+  "D7": "Five tubes with sliding gates, restored for tidal exchange.",
+  "D8": "The tubes are failing, and three more are clogged.",
+  "D9": "The tide tubes under the gate plan (derived, model rule, node tools/lagoon-tubes.mjs).",
   "C1": "Terrain against the published ART maps (H5).",
   "C2": "City 2019 Marina study (W7, W8).",
   "C3": "Today's storm tides.",
@@ -128,6 +131,7 @@
   "E17": "The fourth outside review, of guided mode (published 354364e, 2026-11-04).",
   "E18": "Caltrans's answer to the records request (2026-11-04).",
   "E19": "Decisions of 2026-11-04 (late).",
-  "E20": "Archive follow-ups (2026-11-05)."
+  "E20": "Archive follow-ups (2026-11-05).",
+  "E21": "The Aquatic Park tide tubes (D7–D9)."
  }
 }
