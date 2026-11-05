@@ -1,6 +1,6 @@
 # Handoff
 
-Open work for the next session, as of 2026-11-05 (evening). Read `CLAUDE.md` and `AGENTS.md` first. Delete
+Open work for the next session, as of 2026-11-05 (night). Read `CLAUDE.md` and `AGENTS.md` first. Delete
 each item here once it is done.
 
 ## Waiting on Eric
@@ -14,24 +14,20 @@ each item here once it is done.
 
 ## Ready to do, once Eric approves each
 
-3. **The Nov 17 hearing (V1, P10–P14, C30).** PR #24 merged 2026-11-05 as be9620c, after
-   Codex's finding on counted vs. under-water length (E23). Publishing be9620c to `pages` is
-   approved by Eric but was refused by the session's permission check; Eric runs
-   `git push origin be9620c:refs/heads/pages` or allows it. Check the agenda packet when it posts
-   for a staff report on flooding.
+3. **The Nov 17 hearing (V1, P10–P14, C30).** PR #24 (be9620c) and PR #25 (96ef704, E23) are
+   merged and published 2026-11-05. Check the agenda packet when it posts for a staff report on
+   flooding.
 4. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
 5. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
    NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Showing either needs a design that
    keeps still water and waves apart (CLAUDE.md).
 6. **A compact scenario summary with jumps** (E12) is superseded by the two-column layout (E15);
    drop it unless Eric still wants it.
-7. **FEMA's 2018 levels: three open questions (C28, E19).** `fema100` and `fema500` are scenarios
-   now, but (a) whether the 2018 FIRM panels for Berkeley are effective has not been checked;
-   (b) whether Table 10's still water includes wave setup is not recorded; (c) why FEMA's
-   transects sit 0.16 to 0.50 ft above the 2016 study's point 518 (W11), and where Table 5's 10.2
-   comes from, is not documented. Read the FIS methods sections and FEMA's map service; record
-   each answer in C28. The ferry EIR quotes BFEs of 12 to 13 ft (VE) and 10 ft (AE) with no datum
-   (P13).
+7. **FEMA's 2018 levels: two questions left (C28).** The 2018 panels are effective and P13's BFEs
+   are in ft NAVD88 (PR #26). Still open: (b) whether Table 10's still water includes wave setup,
+   which FEMA's coastal analysis report for Alameda County (BakerAECOM) would settle, if Eric wants
+   it requested; (c) how the FIS fitted its still water from the DHI hindcast, which would explain
+   the 0.16 to 0.50 ft gap to W11.
 
 ## After the king tides
 
