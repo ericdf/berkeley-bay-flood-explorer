@@ -57,6 +57,13 @@
   "D7": "Five tubes with sliding gates, restored for tidal exchange.",
   "D8": "The tubes are failing, and three more are clogged.",
   "D9": "The tide tubes under the gate plan (derived, model rule, node tools/lagoon-tubes.mjs).",
+  "P10": "The EIR treats flooding as a question about the pier, not the roads to it.",
+  "P11": "BCDC asked about access; the answer is about ferry service.",
+  "P12": "The project's design water levels, in \"Berkeley MLLW\" (still water).",
+  "P13": "FEMA flood elevations quoted without a datum.",
+  "P14": "Dates.",
+  "W20": "\"Berkeley MLLW\" is not NOAA's MLLW at Berkeley: conflict.",
+  "C30": "The roads to the pier at the EIR's levels (derived, model rule, 2026-11-05).",
   "C1": "Terrain against the published ART maps (H5).",
   "C2": "City 2019 Marina study (W7, W8).",
   "C3": "Today's storm tides.",
@@ -109,7 +116,7 @@
   "H5": "BCDC/MTC Adapting to Rising Tides (ART) Bay Area Sea Level Rise and Shoreline Analysis Maps (AECOM, 2017): flooding depth for total water levels of MHHW plus…",
   "H6": "Tsunami, 2011 (asked by Eric, 2026-11-03, recalling water \"at high speed. 20 knots?\").",
   "H7": "USGS CoSMoS-GW, groundwater emergence and shoaling (read 2026-11-03).",
-  "V1": "A November 17 ferry terminal vote: unconfirmed.",
+  "V1": "A November 17 ferry terminal vote: confirmed (2026-11-05).",
   "V2": "BCDC and a Berkeley subregional plan: partly confirmed.",
   "V3": "The I-80/Gilman interchange: built, and its documents state flood levels.",
   "E1": "Show Ferris's 12 ft figure. Applied in specification.md (Scenarios): shown as stated, with our NAVD88 reading labeled inference and its source and wave content…",
@@ -132,6 +139,7 @@
   "E18": "Caltrans's answer to the records request (2026-11-04).",
   "E19": "Decisions of 2026-11-04 (late).",
   "E20": "Archive follow-ups (2026-11-05).",
-  "E21": "The Aquatic Park tide tubes (D7–D9)."
+  "E21": "The Aquatic Park tide tubes (D7–D9).",
+  "E22": "The Pier-Ferry EIR and the tide tube captures (2026-11-05, later)."
  }
 }
