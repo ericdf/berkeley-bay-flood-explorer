@@ -86,7 +86,7 @@
   "C26": "How often and how long the Bay stands above a level (W19; derived, 2026-11-04).",
   "C27": "I-80's lowest stretch is in Albany (derived, 2026-11-04).",
   "C28": "FEMA's 2018 flood study for Alameda County (V3; read 2026-11-04).",
-  "C29": "CoSMoS and CoSMoS-GW moved from NAD83 to the grid's WGS 84 (derived, 2026-11-04; E18).",
+  "C29": "CoSMoS and CoSMoS-GW moved from NAD83 to the grid's WGS 84 (derived, 2026-11-04; E19).",
   "T1": "The City's after-action report on the 2024-12-05 warning.",
   "T2": "The City's 2024 Local Hazard Mitigation Plan",
   "T3": "State rules for hazardous materials sites.",
@@ -126,6 +126,7 @@
   "E15": "Guided mode's first build (2026-11-04).",
   "E16": "Follow-ups (2026-11-04).",
   "E17": "The fourth outside review, of guided mode (published 354364e, 2026-11-04).",
-  "E18": "Decisions of 2026-11-04 (late)."
+  "E18": "Caltrans's answer to the records request (2026-11-04).",
+  "E19": "Decisions of 2026-11-04 (late)."
  }
 }

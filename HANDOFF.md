@@ -7,9 +7,11 @@ each item here once it is done.
 
 1. **Records requests.** The City (outfalls, inverts, tide gates, D6) since 2026-11-03; Caltrans
    (I-80 as-built plans, the Gilman flap gate, profiles from Ashby Ave to Buchanan St, the
-   Codornices culvert) since 2026-11-04 (E16). The profiles stop south of I-80's low stretch in
+   Codornices culvert) since 2026-11-04 (E16). Caltrans sent the plans to its As-Built form, which
+   Eric emailed on 2026-11-04; he wrote separately about the inspection records (R055865-110426,
+   E18). Watch for both answers. The profiles stop south of I-80's low stretch in
    Albany (C27); a follow-up request could add Buchanan St to the Albany Golden Gate Fields area.
-2. **Two archive files only Eric can supply (E18).** The 2016 extreme tides study (26.3 MB, over
+2. **Two archive files only Eric can supply (E19).** The 2016 extreme tides study (26.3 MB, over
    the archive's 25 MB limit; sha256 2bf12c79…870b, from adaptingtorisingtides.org) needs to go in
    his Google Drive, shared "anyone with the link can view", for staging; the Baykeeper pages (F14,
    F16; the site blocks automated downloads) need his saved PDF in the archive's inbox.

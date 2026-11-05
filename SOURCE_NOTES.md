@@ -982,9 +982,9 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   The explorer's 100-year level, 9.73 at point 518 (W11, the 2016 study), is 0.16 to 0.21 ft below
   FEMA's 2018 transects and 0.47 below Table 5; its 500-year level, 10.91, is 0.39 to 0.50 below
   FEMA's 0.2% transect values. Eric chose on 2026-11-04 to add FEMA's levels as scenarios beside
-  W11's (E18): transect 11, at University Ave by the Marina, 9.90 (1%) and 11.32 (0.2%).
+  W11's (E19): transect 11, at University Ave by the Marina, 9.90 (1%) and 11.32 (0.2%).
 
-- **C29. CoSMoS and CoSMoS-GW moved from NAD83 to the grid's WGS 84 (derived, 2026-11-04; E18).**
+- **C29. CoSMoS and CoSMoS-GW moved from NAD83 to the grid's WGS 84 (derived, 2026-11-04; E19).**
   The same transformation as ART's (C1, `tools/nad83.mjs`, EPSG:7807 at epoch 2017.0): 1.436 m west
   and 0.283 m north at the grid's center, varying by under 1 mm across it. CoSMoS
   (`tools/build-cosmos.mjs`) samples its 2 m depth rasters at four points 1 m from each 4 m cell's
@@ -1488,7 +1488,21 @@ Three claims in the outside review behind E9, checked against primary sources be
   estimates shown"; the I-80 crossing is stated as this terrain model's first surface connection,
   near 13.4 ft NAVD88 (C6), with the real crossings to be confirmed; and a loading message with a
   retry button replaces the empty page left by a failed data download.
-- **E18. Decisions of 2026-11-04 (late).** Eric answered yes to the open questions: apply the datum
+- **E18. Caltrans's answer to the records request (2026-11-04).** Caltrans logged the request as
+  R055865-110426 and replied the same day that as-built plans and right-of-way maps need no public
+  records request: as-builts through the District 4 As-Built Plan Request Form, an email to
+  Mapfile.Dist04@dot.ca.gov; right-of-way maps through D4 Maps on Demand and CTRIP. The reply did
+  not address the flap gate inspection and maintenance records or the Codornices Creek culvert
+  inspection records. Eric sent the as-built request on 2026-11-04 (Alameda County, Route 80, about
+  PM 4.5 to 8.0, Ashby Ave to Buchanan St: the Gilman interchange drainage sheets and flap gate,
+  mainline and ramp profiles with datum, outfall sheets with invert elevations, the Codornices
+  culvert), and wrote to Caltrans about the inspection records himself. Checked in the session: the
+  Maps on Demand index (ArcGIS layer MapIndexMOD) lists 63 sheets for this stretch, right-of-way
+  record maps (1951, replaced 2011), survey monument and control diagrams and one bridge sheet;
+  R-89.16 (Gilman St to Harrison St) shows property lines and grantors, with no elevations or
+  drainage. Not used, and not archived, since it names parcel owners. CTRIP refused connections
+  from the cloud session.
+- **E19. Decisions of 2026-11-04 (late).** Eric answered yes to the open questions: apply the datum
   shift to CoSMoS and CoSMoS-GW (C29); add FEMA's 2018 levels as scenarios (C28; `fema100`,
   `fema500`); take the field guide off the site (the volunteer has the PDF, with Eric's email as
   the contact; the page's last version stays in the repository's history); and, in the archive,

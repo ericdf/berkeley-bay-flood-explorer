@@ -11,7 +11,7 @@
 // A cell takes the class of the polygon its center is in (even-odd rule over each polygon's rings, as
 // tools/build-art-dc.mjs does). Polygon coordinates are NAD83(NSRS2007) UTM zone 10N; they are moved
 // to the grid's WGS 84 UTM zone 10N with ART's transformation (tools/nad83.mjs, taking NSRS2007 as
-// NAD83(2011), which differ by centimeters here; about 1.5 m; Eric, 2026-11-04, E18, C29). The classes are depths to groundwater below the ground in
+// NAD83(2011), which differ by centimeters here; about 1.5 m; Eric, 2026-11-04, E19, C29). The classes are depths to groundwater below the ground in
 // CoSMoS-GW's own terrain (a 2 m lidar DEM, smoothed by USGS), not flood depths and not water levels.
 import fs from 'fs';
 import zlib from 'zlib';

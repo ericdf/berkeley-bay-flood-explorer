@@ -11,7 +11,7 @@
 // carry a depth. CoSMoS cells are NAD83 UTM 10N, the grid WGS 84 UTM 10N (dem.json); the CoSMoS
 // coordinates are moved to the grid's with the same transformation as ART's (tools/nad83.mjs, EPSG:7807
 // at epoch 2017.0; about 1.44 m west and 0.28 m north here), as a constant offset taken at the grid's
-// center, which varies by under 1 mm across the grid (Eric, 2026-11-04, SOURCE_NOTES E18, C29).
+// center, which varies by under 1 mm across the grid (Eric, 2026-11-04, SOURCE_NOTES E19, C29).
 import fs from 'fs';
 import { nad83ToWgs84 } from './nad83.mjs';
 import zlib from 'zlib';

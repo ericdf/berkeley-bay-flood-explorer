@@ -80,7 +80,7 @@ and for the ART layers `python3 -I tools/fetch-art-dc.py --connected` and `pytho
 ## King tide field check
 
 A volunteer checks the explorer against this winter's king tides from a printable guide. The guide
-is for the volunteer, not the web (Eric, SOURCE_NOTES E18): it left the site on 2026-11-04, and its
+is for the volunteer, not the web (Eric, SOURCE_NOTES E19): it left the site on 2026-11-04, and its
 last version is in this repository's history before that change.
 
 ## Relation to the wildfire simulator
