@@ -1737,3 +1737,11 @@ Three claims in the outside review behind E9, checked against primary sources be
   lengths as segments a quarter or more wet and gives the length under water beside them
   (`js/analyze.js` `coveredM`, `wetStreetCoveredM`); the rows above give both. Which segments count,
   and every level's onset, are unchanged.
+- **E24. PR #16's review (2026-11-05).** Codex reviewed merge commit 088d490 on PR #16 and found no
+  major issues. That merge's tree is identical to c268dc5, and its diff from `main` is c268dc5's
+  diff, so the review covered PR #16's changes. Claude Code also read the diff against AGENTS.md's
+  blocking list and found nothing blocking. Its tide gate finding ("keeps Bay water out of the
+  listed inland sites until it crosses the I-80 corridor") was already superseded by D9 (PR #19).
+  One optional note: the guided-mode defenses table would show a site's first water as "not
+  reached" if a defense left a site with first water but never a quarter of its grounds; no listed
+  site does at any defense (`data/thresholds.json`), so nothing was changed. HANDOFF item 8 is done.

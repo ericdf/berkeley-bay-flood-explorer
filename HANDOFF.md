@@ -32,10 +32,6 @@ each item here once it is done.
    comes from, is not documented. Read the FIS methods sections and FEMA's map service; record
    each answer in C28. The ferry EIR quotes BFEs of 12 to 13 ft (VE) and 10 ft (AE) with no datum
    (P13).
-8. **A Codex review of PR #16** (requested on PR #16, 2026-11-05; watch for it) (guided mode against the fourth outside review, E17). It was merged
-   and published on 2026-11-04 before Codex reviewed it. Ask Codex to review commit c268dc5, and
-   fix whatever it finds in a new PR.
-
 ## After the king tides
 
 9. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
