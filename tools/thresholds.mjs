@@ -92,7 +92,7 @@ function sweep(plan, withCells) {
 const base = sweep(null, true);
 process.stderr.write('base done\n');
 const DEFENSES = [
-  { id: 'gates', spec: 'gates', label: 'Tide gates on every storm drain outlet', cost: 'Cost not published; which outlets already have gates is not published (D6)' },
+  { id: 'gates', spec: 'gates', label: 'Tide gates on every storm drain outlet', cost: 'Cost not published; which outlets already have gates is not published (D6); the Aquatic Park tide tubes have gates kept open to the tide, and this plan shuts them (D7, D9)' },
   ...D.plans.map(p => ({ id: p.id, spec: p.id, label: p.label, cost: p.cost, source: p.source, crestFt: p.crestFt })),
 ];
 const defenses = DEFENSES.map(d => {

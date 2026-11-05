@@ -86,7 +86,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     return cells.length ? [sx / cells.length, sy / cells.length] : null;
   };
 
-  const drainNote = '<p class="warn">"Up the storm drains" assumes the drain outlets to the Bay have no working tide gates. The City has not published which ones have them. Where they do, only "over the ground" applies.</p>';
+  const drainNote = '<p class="warn">"Up the storm drains" assumes the drain outlets to the Bay have no working tide gates. The City has not published which ones have them. Where they do, only "over the ground" applies. The Aquatic Park lagoon is the exception on record: its five tide tubes have sliding gates the City keeps open to the tide (SOURCE_NOTES D7).</p>';
   const lidarNote = '<p class="warn">For I-80, its ramps and the rail line, the terrain is bare earth: the survey removes bridges and raised decks. Caltrans and railroad profiles would settle where they really go under.</p>';
 
   let placeN = 0; const places = [];
@@ -220,7 +220,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     };
     return `<h2 class="q">What would flood defenses change?</h2>
       <p class="finding">With working tide gates on every storm drain outlet, this model keeps Bay water out of the listed inland sites until it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha. The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn, because the water goes around their ends (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
-      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
+      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists, except at Aquatic Park: the lagoon's five tide tubes have sliding gates the City keeps open to the tide, and the plan shuts them (D7, D9). A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
       ${T.defenses.map(card).join('')}
       <p class="src">In this terrain model, the first surface connection across the I-80 corridor appears near 13.4 ft NAVD88 (13.35), about 250 m south of Gilman St (SOURCE_NOTES C6). The actual crossings and drainage openings under the freeway need confirmation. A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
       ${numsToggle()}`;

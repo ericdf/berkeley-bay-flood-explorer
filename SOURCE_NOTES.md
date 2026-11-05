@@ -551,6 +551,72 @@ City ArcGIS organization services1.arcgis.com/IYiCpZoSIq9lAxi8.
   reader adds gates.
   One gate is documented at design stage: the I-80/Gilman interchange project's tidal flap gate at
   the Gilman outfall (V3); whether it was built is unchecked.
+  The Aquatic Park lagoon's tide tubes carry the only City gates documented so far (D7–D9). They
+  are sliding gates on pipes kept open for tidal exchange, so the "tide gate on every outfall"
+  plan does not describe them.
+
+## Aquatic Park tide tubes and their gates (read 2026-11-05, asked by Eric)
+
+Leads came from a ChatGPT summary Eric pasted in session; every claim below was checked against the
+City document named, read in full. The documents are not yet in `berkeley-public-records`.
+
+- **D7. Five tubes with sliding gates, restored for tidal exchange.** City of Berkeley capital
+  project page, "Aquatic Park Central Tide Tubes Maintenance: Sediment Removal" (berkeleyca.gov,
+  no date on the page; read 2026-11-05): "the five 24-inch diameter central tide tubes located under
+  Interstate 80" were "once clogged with sediment"; the project worked "by cleaning out the
+  accumulated sediment and replacing the sliding tide gates"; "Construction began in August, 2020
+  and was completed in October, 2020"; "functionality of central tide tubes were restored to provide
+  tidal exchange between the Bay and the lagoon." Measure T1. The page names no flap gates and says
+  nothing on how or when the gates are set.
+  Parks, Recreation and Waterfront, "Parks Capital Improvement Plan, Recent Projects and Ongoing
+  Needs", Council work session, 2021-03-16, Item 3a, PDF p. 10: the project "is complete and has
+  resulted in the successful establishment of good tidal flow between the bay and the lagoon. The
+  operating capacity of the tide tubes has been fully restored." The sediment haul-off was to follow
+  "later this year" with T1 Phase 2 funds.
+  City Manager, "Update on Aquatic Park", memo to Council, 2023-02-15, p. 1: "Thanks to the repair
+  of the five tide tubes, completed in 2022"; "In the past, the failed tubes meant that we regularly
+  saw flooding during heavy rains… This year, during rains that some believe have not been seen for
+  a century, we did not see any flooding at the lagoon."
+  Conflict: the project page dates construction to August–October 2020; the memo says the repair
+  was "completed in 2022". The 2021 work session's pending haul-off may account for the later date;
+  no document read says so.
+  Used for: D9; the gates lever and guided-mode texts now say the tubes are gated but kept open.
+- **D8. The tubes are failing, and three more are clogged.** Councilmember Harrison (author) and
+  Councilmember Taplin (co-sponsor), Budget Referral, Consent Calendar, 2023-11-07, Item 16
+  (revised, Supplemental Packet 1), pp. 1–4: the T1 evaluation found "a large portion of the five
+  main Tide Tubes are clay walls that are failing" and recommended replacing or sleeving them; "the
+  City could expect complete failure in no later than 10 years from 2020"; three other tubes, two
+  from the lagoon to the Model Yacht Basin and one from the basin to the Bay, "are significantly
+  clogged"; "only five of the eight tubes are fully functional"; flow through the tubes scours under
+  I-80. The item cites the City Manager and the Parks department for these findings; the T1
+  evaluation itself was not read. It estimates $3.6–4.0M to repair all eight. The 2021 work session
+  (D7, p. 10) already said "all eight tubes need to be sleeved before the existing tube shells
+  collapse" ($6.5M estimate). Acting City Manager, Parks, Recreation and Waterfront capital
+  improvement update, memo, 2025-03-28: "Aquatic Park – Tide Tube Replacement Project
+  (Pre-Design) / Grant, General Fund". No later status was found.
+  Not used in the model. It bears on how long D9's open connection lasts and on I-80 (C27).
+- **Not a City source, not used:** aquaticpark.org, "Connections and Circulation" (no author,
+  updated about June 2026), says the main lagoon's gates are adjusted by hand, "not often"; that
+  the pipes and gates keep the lagoon within "about two feet"; and that a gate on the Radio Tower
+  Pond's Bay pipe "apparently has not worked since at least 1990". None of this is in a City
+  document read here. Lagoon water level records and the gates' operating practice are open
+  questions (DATA_INVENTORY).
+- **D9. What "a tide gate on every outfall" seals at Aquatic Park (derived, model rule,
+  `node tools/lagoon-tubes.mjs`).** The explorer's lagoon is ground below mean sea level (3.31 ft
+  NAVD88) that does not connect to the Bay over the surface; two such patches touch the Aquatic Park
+  outline, 22.8 and 1.9 ha. The tubes connect them to the Bay (D7). If the lagoon stood at the
+  Bay's level, Berkeley land at or above mean sea level that it reaches over the surface is 2.0 ha
+  at MHHW (6.20 ft NAVD88), 4.1 ha at this winter's king tide (7.40), 12.0 ha at the 100-year level
+  (9.73), 14.3 ha at the 500-year level (10.91), 35.8 ha at 12.00 and 48.4 ha at 13.00; from 13.40
+  the Bay reaches all of it over the surface anyway. With no plan, the explorer already shows that
+  land as "can fill through drains", except 1.8 ha at MHHW, shown low. With the tide
+  gate plan it shows all of it as low, not connected: the plan seals the lagoon, which the City
+  keeps open to the tide. Upper bound: five 24-inch tubes may well hold the lagoon below the Bay's
+  peak for a tide of a few hours (inference, ours; no lagoon level record was found), and how the
+  gates are set during a storm tide is not documented. The same applies to rain: the plan holds the
+  Aquatic Park watershed's runoff behind a shut outfall, while the City Manager reports the restored
+  tubes draining the lagoon in the January 2023 rains (D7). Whether the plan should leave the tubes
+  open is Eric's decision (HANDOFF).
 
 ## Explorer checks and findings (derived, 2026-11-02)
 

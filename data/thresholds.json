@@ -245,7 +245,7 @@
    "id": "gates",
    "spec": "gates",
    "label": "Tide gates on every storm drain outlet",
-   "cost": "Cost not published; which outlets already have gates is not published (D6)",
+   "cost": "Cost not published; which outlets already have gates is not published (D6); the Aquatic Park tide tubes have gates kept open to the tide, and this plan shuts them (D7, D9)",
    "sites": {
     "transfer-station": {
      "name": "City transfer station and recycling center, Second St at Gilman St",

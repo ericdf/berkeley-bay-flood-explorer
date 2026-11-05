@@ -17,30 +17,40 @@ each item here once it is done.
    F16; the site blocks automated downloads) need his saved PDF in the archive's inbox.
 3. **Wayback captures for archive PRs #31 to #33** and the three sources not yet archived: Eric
    runs the script given in session 2026-11-04 and pastes the output; recording it is a manifest PR.
+4. **The Aquatic Park tide tubes and the gate plan (D7–D9).** The "tide gate on every outfall" plan
+   closes the Aquatic Park link, sealing a lagoon the City keeps open to the tide through five gated
+   tubes. Options: leave the plan as it is, with the caveat now on the page; or keep the Aquatic
+   Park link open under the plan, which changes the plan's results, `data/thresholds.json` and the
+   rain figures in C-rows computed with gates. Eric's decision (AGENTS.md: plan options).
+5. **Ask for lagoon records.** Lagoon water level records, the gates' operating practice and the
+   T1 tide tube evaluation (D8), from Parks, Recreation and Waterfront; could join the City request
+   in item 1.
+6. **Archive the D7–D8 documents** in `berkeley-public-records`: the 2021-03-16 work session item,
+   the 2023-02-15 City Manager memo, the 2023-11-07 Item 16 and the 2025-03-28 Parks update.
 
 ## Ready to do, once Eric approves each
 
-4. **The Nov 17 Council agenda (V1).** It should post about Nov 6. Check whether the ferry item is
+7. **The Nov 17 Council agenda (V1).** It should post about Nov 6. Check whether the ferry item is
    on it and whether its EIR addresses shoreline flooding.
-5. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
-6. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
+8. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25).
+9. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
    NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Showing either needs a design that
    keeps still water and waves apart (CLAUDE.md).
-7. **A compact scenario summary with jumps** (E12) is superseded by the two-column layout (E15);
+10. **A compact scenario summary with jumps** (E12) is superseded by the two-column layout (E15);
     drop it unless Eric still wants it.
 
 ## After the king tides
 
-8. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
+11. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
     volunteer's photos and sheet with NOAA's measured water level at Richmond (9414863) for that
     morning, and with the explorer at 7.4 ft NAVD88. Record the result under E10 in
     `SOURCE_NOTES.md`, credited or anonymous as the volunteer chose.
 
 ## Archive (berkeley-public-records)
 
-9. **Done 2026-11-03 and 2026-11-04:** the large-file intake (PRs #27 to #30, merged, with Wayback
+12. **Done 2026-11-03 and 2026-11-04:** the large-file intake (PRs #27 to #30, merged, with Wayback
     captures in #30); Eric's choice of State and federal documents (E16), now in PRs #31 to #33
-    (item 5 above).
+    (items 2 and 3 above).
 
 ## Housekeeping
 
