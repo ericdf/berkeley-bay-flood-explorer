@@ -616,11 +616,12 @@ City document named, read in full. In `berkeley-public-records` (PR #38, pending
   lagoon the City keeps open to the tide. Eric decided that day that the plan leaves the tubes open
   (E21); the plan now shows that land as the no-plan view does. Upper bound: five 24-inch tubes may well hold the lagoon below the Bay's
   peak for a tide of a few hours (inference, ours; no lagoon level record was found), and how the
-  gates are set during a storm tide is not documented. The same applies to rain: the plan holds the
-  Aquatic Park watershed's runoff behind a shut outfall, while the City Manager reports the restored
-  tubes draining the lagoon in the January 2023 rains (D7). With the tubes open the rain experiment
-  starts the Aquatic Park pool from the lagoon at the Bay's level and spreads that watershed's
-  runoff over it (C12).
+  gates are set during a storm tide is not documented. Rain: how much runoff is held back is
+  the reader's choice in the rain experiment (`js/rain.js`, the share that cannot drain), not a
+  setting of the gate plan; the City Manager reports the restored tubes draining the lagoon in the
+  January 2023 rains (D7), which no setting of the experiment represents. What the open link
+  changes is where the Aquatic Park pool starts: from the lagoon at the Bay's level, with that
+  watershed's runoff spread over it (C12).
   What the change does to the gate plan (`tools/thresholds.mjs`, `data/thresholds.json`; C23):
   water through the lagoon now reaches the inland sites south of Gilman St before the crossing
   behind I-80. With gates, first modeled water at Berkeley Forge, former Pacific Steel, 1255
@@ -768,9 +769,12 @@ Reproduce with `node tests/check.mjs`, `node tools/report.mjs` and `node tools/o
   10%, 14.0 ha. For the 2-year 6-hour storm: 43.2, 30.9, 20.7 and 11.8 ha; for the 100-year 6-hour
   storm: 60.2, 45.8, 32.1 and 19.3 ha. With the tubes shut too (the plan before 2026-11-05) the
   figures were 49.4, 32.9, 22.9 and 11.1; 39.9, 27.8, 17.5 and 8.9; 57.1, 42.3, 29.1 and 16.0. The
-  difference is the Aquatic Park pool, which now starts from the lagoon at the Bay's level and
-  covers about 25 ha, 3.0 to 3.3 ha of it Berkeley land; the Second St, transfer station and
-  Gilman and Codornices figures below did not change. Each pool holds its
+  difference is mostly the Aquatic Park pool, which now starts from the lagoon at the Bay's level
+  and covers about 25 ha, 2.9 to 3.0 ha more Berkeley land than before in every case. The Derby
+  pool also changes, by up to 1.71 ha (10-year storm, all runoff held back: Aquatic Park 2.97 ha
+  and Derby 1.71 ha of the 4.67 ha increase; Codex review of PR #19), and by 0 to 0.52 ha in the
+  other cases. The Second St, transfer station and Gilman and Codornices figures below did not
+  change. Each pool holds its
   watershed's runoff to within 1 cm of rounding (`tests/check.mjs`). Second St is under pooled
   rain in every case tested, 1.3–1.8 km of it, which matches the Draft EIR's 10-year flooding there
   (F8); its deepest point, which may be where Codornices Creek crosses, ranges from 2.5 to 7.0 ft
