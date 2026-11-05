@@ -1472,3 +1472,17 @@ Three claims in the outside review behind E9, checked against primary sources be
   estimates shown"; the I-80 crossing is stated as this terrain model's first surface connection,
   near 13.4 ft NAVD88 (C6), with the real crossings to be confirmed; and a loading message with a
   retry button replaces the empty page left by a failed data download.
+- **E18. Caltrans's answer to the records request (2026-11-04).** Caltrans logged the request as
+  R055865-110426 and replied the same day that as-built plans and right-of-way maps need no public
+  records request: as-builts through the District 4 As-Built Plan Request Form, an email to
+  Mapfile.Dist04@dot.ca.gov; right-of-way maps through D4 Maps on Demand and CTRIP. The reply did
+  not address the flap gate inspection and maintenance records or the Codornices Creek culvert
+  inspection records. Eric sent the as-built request on 2026-11-04 (Alameda County, Route 80, about
+  PM 4.5 to 8.0, Ashby Ave to Buchanan St: the Gilman interchange drainage sheets and flap gate,
+  mainline and ramp profiles with datum, outfall sheets with invert elevations, the Codornices
+  culvert), and wrote to Caltrans about the inspection records himself. Checked in the session: the
+  Maps on Demand index (ArcGIS layer MapIndexMOD) lists 63 sheets for this stretch, right-of-way
+  record maps (1951, replaced 2011), survey monument and control diagrams and one bridge sheet;
+  R-89.16 (Gilman St to Harrison St) shows property lines and grantors, with no elevations or
+  drainage. Not used, and not archived, since it names parcel owners. CTRIP refused connections
+  from the cloud session.
