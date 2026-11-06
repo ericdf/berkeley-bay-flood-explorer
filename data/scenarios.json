@@ -150,7 +150,7 @@
       "label": "A 12 ft level quoted at a Council committee (Oct 22, 2026)",
       "levelFt": 12.0,
       "category": "inference",
-      "source": "Scott Ferris, Budget and Finance Policy Committee, 2026-10-22, as quoted by Kelly Hammargren: a \"5 or 10-year storm\" \"could result in a 12-foot sea level rise in the waterfront\" (M1). Read here as a 12 ft NAVD88 water level (M2, inference). Unconfirmed: its source, its datum, and whether it includes waves. As still water it is above the 500-year level (10.91, W11); FEMA's wave-inclusive flood elevations on the exposed Marina shoreline are 12 to 14 ft (W6), and a still-water fill shows no waves.",
+      "source": "Scott Ferris, Budget and Finance Policy Committee, 2026-10-22, as quoted by Kelly Hammargren: a \"5 or 10-year storm\" \"could result in a 12-foot sea level rise in the waterfront\" (M1). Read here as a 12 ft NAVD88 water level (M2, inference). Unconfirmed: its source, its datum, and whether it includes waves. As still water it is above the 500-year level (10.91, W11); FEMA's wave runup elevations on the exposed Berkeley shoreline (transects 4 to 12) are 12 to 16 ft NAVD88 (C31), and a still-water fill shows no waves.",
       "group": "Quoted at a public meeting"
     },
     {
