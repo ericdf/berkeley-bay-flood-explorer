@@ -5,26 +5,27 @@ each item here once it is done.
 
 ## Ready when Eric asks
 
-2. **FEMA's wave setup question (C28 (b)).** Open. Settling it needs FEMA's BakerAECOM coastal
+1. **FEMA's wave setup question (C28 (b)).** Open. Settling it needs FEMA's BakerAECOM coastal
    report for Alameda County, which is expensive to obtain and changes only the labels of two
    scenarios (`fema100`, `fema500`), which already say "still-water reading inferred". Not requested.
    The question about how FEMA fitted its still water levels (C28 (c)) is also open, with low impact.
 
 ## Deferred (each adds a control to the page)
 
-3. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25). Deferred: it adds a
+2. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25). Deferred: it adds a
    defense option and a new result. Build it only when a specific question needs it.
-4. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
-   NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Deferred until question 2 is settled,
+3. **Waves.** FEMA's 2018 transects (C28) give wave-inclusive Base Flood Elevations of 12 to 16 ft
+   NAVD88 along Berkeley's shore; CoSMoS (C21) models waves. Deferred until question 1 is settled,
    and it needs a design that keeps still water and waves apart (CLAUDE.md).
 
 ## After the king tides
 
-5. **Record the field results** after Nov 24–26, Dec 23–25 and Jan 21–22. Compare the
-    volunteer's photos and sheet with NOAA's measured water level at Richmond (9414863) for that
-    morning, and with the explorer at 7.4 ft NAVD88. Prepare the comparison from data already in
-    the repository before the first date. Record the result under E10 in `SOURCE_NOTES.md`,
-    credited or anonymous as the volunteer chose.
+4. **Run the king tide comparison** after each field date: Nov 24–26, Dec 23–25 and Jan 21–22.
+    The volunteer's readings go in `data/field/kingtide-YYYY-MM-DD.csv`, and
+    `node tools/kingtide-compare.mjs` compares each with NOAA's predicted level at Richmond
+    (9414863, `data/raw/noaa/richmond-predictions-kingtide.csv`) and with the explorer's 7.4 ft
+    NAVD88 level. The script and predictions are merged (PR #32). Publish the output, and record
+    the result under E10 in `SOURCE_NOTES.md`, credited or anonymous as the volunteer chose.
 
 ## Housekeeping
 
