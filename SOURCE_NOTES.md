@@ -1797,3 +1797,7 @@ Three claims in the outside review behind E9, checked against primary sources be
   (C28 (b)) is not requested; the I-80 barrier (C6) and the waves layer (C21, C28) are deferred,
   since each adds a control; the king tide comparison is prepared from data already in the
   repository. Records requests (E16, E18) stay open. HANDOFF rewritten to match.
+- **E26. No further requests to outside people (2026-11-06).** Eric: "No more third party
+  correspondence. People do not engage." The records requests to the City (E16, D6) and Caltrans
+  (E16, E18, C27) are closed: no further requests, and they come off HANDOFF. Pulling public data
+  from NOAA, FEMA and similar sources continues, since Eric approved it: "Yes pull data by all means."

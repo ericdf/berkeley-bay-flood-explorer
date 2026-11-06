@@ -1,16 +1,7 @@
 # Handoff
 
-Open work for the next session, as of 2026-11-05 (late). Read `CLAUDE.md` and `AGENTS.md` first. Delete
+Open work for the next session, as of 2026-11-06. Read `CLAUDE.md` and `AGENTS.md` first. Delete
 each item here once it is done.
-
-## Waiting on outside parties
-
-1. **Records requests.** The City (outfalls, inverts, tide gates, D6) since 2026-11-03; Caltrans
-   (I-80 as-built plans, the Gilman flap gate, profiles from Ashby Ave to Buchanan St, the
-   Codornices culvert) since 2026-11-04 (E16). Caltrans sent the plans to its As-Built form, which
-   Eric emailed on 2026-11-04; he wrote separately about the inspection records (R055865-110426,
-   E18). Watch for both answers. The profiles stop south of I-80's low stretch in Albany (C27).
-   No new request unless an answer changes a result.
 
 ## Ready when Eric asks
 
