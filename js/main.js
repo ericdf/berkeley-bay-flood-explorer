@@ -562,7 +562,7 @@ function render(levelFt, sc) {
     ${res.overWater.length ? `<p class="src">Not counted: ${[...new Set(res.overWater.map(s => esc(s.e.name)))].join(', ')}, whose mapped line crosses water in the terrain (a bridge, or a street drawn across water).</p>` : ''}
     <h2>What this cannot tell you</h2>
     <details open><summary>Limits of the map</summary><ul>
-      <li>Still water only. Waves add height on the exposed Marina shoreline (FEMA VE zones, 12 to 14 ft NAVD88).</li>
+      <li>Still water only. Waves add height on the exposed Berkeley shoreline: FEMA's wave runup elevations are 12 to 16 ft NAVD88 on transects 4 to 12 (FEMA 2018, Vol. 2 Table 10).</li>
       <li>No timing or duration: a storm tide lasts hours around high tide.</li>
       <li>"Through the drains" assumes every mapped inlet in the watershed connects to an outfall without a tide gate, and that the pipes fill. The City does not publish its pipes, outfalls or tide gates.</li>
       <li>Rain, when "Add a rainstorm" is on, is an illustrative experiment: each watershed's runoff goes into one pool at its lowest inlet, with no pipe capacity, timing or overland flow, so it can overstate water in some places and miss it in others. Second St beside the transfer station floods today in a 10-year rainstorm because the Gilman St storm drain and the Codornices Creek culvert under I-80 are undersized (transfer station Draft EIR, SOURCE_NOTES F7, F8).</li>

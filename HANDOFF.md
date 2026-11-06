@@ -7,8 +7,9 @@ each item here once it is done.
 
 1. **FEMA's wave setup question (C28 (b)).** Open. Settling it needs FEMA's BakerAECOM coastal
    report for Alameda County, which is expensive to obtain and changes only the labels of two
-   scenarios (`fema100`, `fema500`), which already say "still-water reading inferred". Not requested.
-   FIS Volume 2 (pulled 2026-11-06) checks the transect values but does not settle it (SOURCE_NOTES C31).
+   scenarios (`fema100`, `fema500`). Not requested. FIS Volume 2 (pulled 2026-11-06) checks the
+   transect values but does not settle it (SOURCE_NOTES C31). The scenario labels now say "FEMA's
+   still-water column" (E28), so they are no longer inferred.
    The question about how FEMA fitted its still water levels (C28 (c)) is also open, with low impact.
 
 ## Deferred (each adds a control to the page)

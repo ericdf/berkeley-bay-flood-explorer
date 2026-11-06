@@ -59,18 +59,18 @@
     },
     {
       "id": "fema100",
-      "label": "100-year storm tide, FEMA 2018 flood study (1% annual chance; still-water reading inferred)",
+      "label": "100-year storm tide, FEMA 2018 flood study (1% annual chance; FEMA's still-water column)",
       "levelFt": 9.9,
       "category": "sourced",
-      "source": "FEMA Flood Insurance Study, Alameda County, revised 2018-12-21, Vol. 2 Table 10: Table 10 (1% annual chance) at transect 11, University Ave at the Marina: 9.90 ft NAVD88; 9.89 to 9.94 along Berkeley's shore (transects 4 to 12). Read as still water: our inference (C28 (b)). The FIS does not state whether wave setup is included, and its footnote 2 calls the BFE a wave runup elevation; FEMA's Base Flood Elevations with waves are 12 to 16 ft NAVD88.",
+      "source": "FEMA Flood Insurance Study, Alameda County, revised 2018-12-21, Vol. 2 Table 10, column 'Stillwater Elevation' (1% annual chance) at transect 11, University Ave at the Marina: 9.90 ft NAVD88; 9.89 to 9.94 along Berkeley's shore (transects 4 to 12). The FIS does not state whether wave setup is included in this column. Its 1% Base Flood Elevations, which footnote 2 defines as wave runup elevations, are 12 to 16 ft NAVD88 on transects 4 to 12 (C28, C31, E28).",
       "group": "At today's sea level"
     },
     {
       "id": "fema500",
-      "label": "500-year storm tide, FEMA 2018 flood study (0.2% annual chance; still-water reading inferred)",
+      "label": "500-year storm tide, FEMA 2018 flood study (0.2% annual chance; FEMA's still-water column)",
       "levelFt": 11.32,
       "category": "sourced",
-      "source": "FEMA Flood Insurance Study, Alameda County, revised 2018-12-21, Vol. 2 Table 10: 0.2% annual chance at transect 11, University Ave at the Marina: 11.32 ft NAVD88; 11.30 to 11.41 along Berkeley's shore (transects 4 to 12). Read as still water: our inference (C28 (b)). The FIS does not state whether wave setup is included; its footnote 2 calls the BFE a wave runup elevation (C28)",
+      "source": "FEMA Flood Insurance Study, Alameda County, revised 2018-12-21, Vol. 2 Table 10, column 'Stillwater Elevation' (0.2% annual chance) at transect 11, University Ave at the Marina: 11.32 ft NAVD88; 11.30 to 11.41 along Berkeley's shore (transects 4 to 12). The FIS does not state whether wave setup is included in this column. Its 1% Base Flood Elevations, which footnote 2 defines as wave runup elevations, are 12 to 16 ft NAVD88 on transects 4 to 12 (C28, C31, E28).",
       "group": "At today's sea level"
     },
     {
