@@ -1,0 +1,57 @@
+{
+ "schemaVersion": 1,
+ "issues": [
+  {
+   "id": "drain-records",
+   "question": "Does high Bay water get into Berkeley's storm drains, and do tide gates keep it out?",
+   "responsibleAgencies": [
+    {
+     "name": "City of Berkeley Public Works",
+     "role": "Holds storm drain records: its 2023 storm work orders are published (D5), and the pipe, outfall and gate records are not in the City's open data (D2, DATA_INVENTORY.md).",
+     "verified": "tentative",
+     "sourceRefs": ["D2", "D5"]
+    },
+    {
+     "name": "City of Berkeley City Clerk (public records requests)",
+     "role": "Receives public records requests through the NextRequest portal, by form, in person or by mail (D10).",
+     "verified": "sourced",
+     "sourceRefs": ["D10"]
+    }
+   ],
+   "decision": "No decision is pending on record. The open question is a records gap: which outfalls have tide gates, where they are, how high their pipes sit and whether the gates work.",
+   "alternatives": [
+    {
+     "label": "Ask for the records",
+     "detail": "A public records request for the outfall inventory, gate locations and condition, invert elevations, drainage studies and maintenance records. It would replace the model's assumed open outfalls with what is there.",
+     "tradeoffs": "Costs a request and staff time; the City may hold some records only on paper or not at all."
+    },
+    {
+     "label": "Look first at what is already released",
+     "detail": "NextRequest shows past requests and the documents released in response (D10). The City's utility as-built drawing request form is for contractors and engineers (D10).",
+     "tradeoffs": "Free and fast; may find nothing on outfalls or gates."
+    },
+    {
+     "label": "Watch the drains at a king tide",
+     "detail": "Photos of storm drain grates near the shore around this winter's highest tides (the king tide field guide) show whether water comes up, at that tide.",
+     "tradeoffs": "One tide, one place at a time; says nothing about a storm tide or rain."
+    },
+    {
+     "label": "Do nothing for now",
+     "detail": "Keep the explorer's two assumptions side by side, gates open and gates closed, and say which one the evidence supports when records appear.",
+     "tradeoffs": "The drain results stay a range between two assumptions."
+    }
+   ],
+   "evidenceGaps": [
+    { "item": "Outfall locations", "why": "The model places one outfall per watershed at the cell nearest open water (D3).", "sourceRefs": ["D3"] },
+    { "item": "Outfall invert elevations", "why": "Decide at what Bay level water enters each pipe and how long the tide holds it shut (DATA_INVENTORY.md).", "sourceRefs": ["D6"] },
+    { "item": "Tide gate inventory and condition", "why": "Which outfalls have gates, and whether they work, decides whether the teal ground can fill at all (D6, C9).", "sourceRefs": ["D6", "C9"] },
+    { "item": "Pipe network and capacity", "why": "The model assumes every inlet connects to its watershed's outfall (D6).", "sourceRefs": ["D6"] },
+    { "item": "Observations at high tides", "why": "The 2023 work orders follow rain, not high tides (D5).", "sourceRefs": ["D5"] },
+    { "item": "Aquatic Park lagoon levels and gate settings", "why": "Whether the lagoon follows the Bay at a storm tide (D9).", "sourceRefs": ["D8", "D9"] }
+   ],
+   "status": "proposed",
+   "sourceRefs": ["D6", "D10", "E26", "E29"],
+   "updatedAt": "2026-11-10"
+  }
+ ]
+}

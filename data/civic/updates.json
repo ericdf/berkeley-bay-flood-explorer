@@ -1,0 +1,16 @@
+{
+ "schemaVersion": 1,
+ "note": "Append-only history of each issue. Add an entry only with a dated source; never change a past entry, add a correction instead.",
+ "updates": [
+  {
+   "id": "drain-records-2026-11-10",
+   "issueId": "drain-records",
+   "date": "2026-11-10",
+   "eventType": "proposed",
+   "summary": "Request text drafted for readers to send themselves. Not submitted by this project: on 2026-11-06 the maintainer stopped requests from the project to outside people (E26).",
+   "sourceRefs": ["E26", "E29"],
+   "statusBefore": null,
+   "statusAfter": "proposed"
+  }
+ ]
+}

@@ -1815,3 +1815,34 @@ Three claims in the outside review behind E9, checked against primary sources be
   - Footnote 2 of Table 10 reads "Wave runup elevation" (checked on the page image; C31 is unchanged).
   - Codex's review of PR #35 (commit a0ccb79) found two more strings still giving the City's 12 to 14 ft on the Marina shoreline: the Ferris warning in `js/main.js` and the `ferris12` source line in `data/scenarios.json`. Both now give FEMA's 12 to 16 ft NAVD88 on transects 4 to 12 (C31) with no Marina attribution. The explain panel in `index.html` said "open Marina shoreline" for waves; it now says "open Berkeley shoreline." The City's range stays in SOURCE_NOTES W6.
 - **Federal Register check (2026-11-06).** Notice 2026-01748, "Final Flood Hazard Determinations," published 2026-01-29 (91 FR 3910; govinfo.gov). Its Alameda County entry (Docket FEMA–B–2485) lists only the City of Oakland and the unincorporated areas of Alameda County. Berkeley is not listed, so this notice does not change the 2018 Berkeley determinations (C31). Its FIRM and FIS date is 2026-05-26 for the listed communities. The check used the notice text only, not FEMA's Map Service Center effective-date listing; that listing was not checked.
+
+## Civic stories, evidence briefs and actions (2026-11-10)
+
+- **E29. The civic insight and action specification, and the calls made on it (2026-11-10).** Eric
+  committed `docs/civic/insight-and-action-spec.md` (commit dedd762, a snapshot of the repository
+  from before 2026-11-04 with the spec added) and asked for it to be picked up; asked about three
+  conflicts with `main`, he answered: "Just build and use your best judgment. Make any call that's
+  reversible yourself, and check in later with the calls you made." The calls, each reversible and
+  listed for his review in `docs/civic/implementation-notes.md`: (1) the work is built on `main`, not
+  on dedd762, which lacks guided mode, share links and later fixes; (2) stories extend guided mode
+  (E14, E15) rather than adding a second guided layer, and the existing questions on roads,
+  contaminated sites and defenses stand in for three of the spec's four homepage cards; (3) the
+  storm drain story ends with a public records request that readers can copy and send themselves.
+  The explorer sends nothing, and the request's status is "proposed, not submitted." E26 stopped requests
+  from the project to outside people; it did not address readers' requests, so this reading of
+  it is an inference for Eric to confirm.
+- **D10. The City's public records request channels (read 2026-11-10).** City of Berkeley, "Public
+  Records" (https://berkeleyca.gov/your-government/public-records) and "Requesting Public
+  Information" (https://berkeleyca.gov/your-government/public-records/requesting-public-information),
+  read 2026-11-10: "You can gain access to public information by submitting a request on the
+  NextRequest portal. City staff will respond through the portal and you will be able to track the
+  progress of your request. You can also view past requests that others have submitted on
+  NextRequest, along with any documents that the City may have released in response to the
+  request." A request can also go to the City Clerk Department on a Public Records Request Form, in
+  person or by mail. The Public Records page adds: "Contractors and engineers may request City of
+  Berkeley utility as-built drawings for planning or construction," with a request form (PDF,
+  reached 2026-11-10). Portal: https://cityofberkeleyca.nextrequest.com/ (reached 2026-11-10; its
+  past requests were not searched). Used for: the drain story's request (`data/civic/actions.json`)
+  and the City Clerk as the agency that receives requests (`data/civic/issues.json`). Which City
+  division holds the outfall and tide gate records is not stated there; Public Works is named
+  tentatively, from its published storm work orders (D5) and DATA_INVENTORY.md.
