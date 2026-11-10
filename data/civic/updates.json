@@ -8,7 +8,9 @@
    "date": "2026-06-23",
    "eventType": "council-action",
    "summary": "The Council adopted the FY 2027–2031 Capital Improvement Program (Resolution No. 72,340–N.S.), which carries the Stormwater Master Plan and lists the tide tube replacement grant.",
-   "sourceRefs": ["D11"],
+   "sourceRefs": [
+    "D11"
+   ],
    "statusBefore": null,
    "statusAfter": null
   },
@@ -17,8 +19,10 @@
    "issueId": "drain-backflow-plans",
    "date": "2026-11-10",
    "eventType": "proposed",
-   "summary": "A comment asking for both projects to address high Bay water was drafted for readers to send themselves. Not sent by this project.",
-   "sourceRefs": ["E30"],
+   "summary": "Drafted a comment for readers to send, asking both projects to plan for high Bay water.",
+   "sourceRefs": [
+    "E30"
+   ],
    "statusBefore": null,
    "statusAfter": "proposed"
   }
