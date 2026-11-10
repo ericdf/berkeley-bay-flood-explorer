@@ -5,21 +5,23 @@ published: `pages` changes only when Eric approves a publish.
 
 ## Calls made without asking (all reversible; for Eric's review)
 
+Story text follows the council project's style guide (`berkeley-council-analysis/docs/STYLE.md`; Eric, 2026-11-10): findings first, with no denial-first or "X, not Y" sentences and no narration of what the page claims. The standing "Not a flood forecast" line stays, as CLAUDE.md requires.
+
 Eric asked for these calls to be made and reported back (E29).
 
-1. **Built on `main`, not on dedd762.** dedd762, where the spec was committed, is a snapshot of the
+1. **Built on `main`.** dedd762, where the spec was committed, is a snapshot of the
    repository from before 2026-11-04. It has no parent and sits alone on a branch
    (`claude/affectionate-rubin-0rz24y`). It lacks guided mode, share links, the rail line and
    everything merged since, about 110,000 lines in 280 files. The spec's requirement that
    `#sc=y100&mode=expert` keep working only holds on `main`. The spec file was copied over unchanged.
-2. **Stories extend guided mode, not a second guided layer.** Guided mode (E14, E15) already answers
+2. **Stories extend guided mode.** Guided mode (E14, E15) already answers
    resident questions with a map per answer. The spec's "Discover" page is guided mode's question
    list. A "Follow a question through its evidence" block is added below the questions. Three of the
    spec's four cards already exist as guided questions: roads and rail (West Berkeley access),
    contaminated ground (contaminated sites) and flood defenses (shoreline responses). They stay as
    they are and are not yet rebuilt as five-stage stories (Phase C). The page's headline is
    unchanged; the spec's suggested sentence was not adopted, because the opening text is Eric's (E15).
-3. **The drain story ends with advocacy for a change, not a records request.** The first draft
+3. **The drain story ends by asking for a change.** The first draft
    ended with a records request for readers to send. Eric rejected it: "No records requested.
    Limit yourself to available data sources. Asking for records is not change advocacy which is
    our goal" (E30). The story now points to two City projects found in `berkeley-public-records`

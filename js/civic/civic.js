@@ -11,9 +11,10 @@ const STAGE_LABEL = { discover: 'Discover', understand: 'Understand', evaluate: 
 const EVIDENCE_LABEL = { observed: 'Observed', 'published-model': 'Published model', 'exploratory-model': 'This explorer\'s model (exploratory)', inference: 'Inference', unknown: 'Unknown' };
 const ACTION_LABEL = { comment: 'Comment to the City', meeting: 'Speak at a meeting', subscribe: 'Follow the decision', share: 'Share the evidence' };
 const EVENT_LABEL = { 'council-action': 'Council action', proposed: 'Proposed' };
-const STATUS_LABEL = { investigating: 'Investigating', proposed: 'Proposed, not sent', submitted: 'Submitted', acknowledged: 'Acknowledged', 'under-review': 'Under review', decided: 'Decided', implemented: 'Implemented', closed: 'Closed' };
+const STATUS_LABEL = { investigating: 'Investigating', proposed: 'Drafted', submitted: 'Submitted', acknowledged: 'Acknowledged', 'under-review': 'Under review', decided: 'Decided', implemented: 'Implemented', closed: 'Closed' };
 const DRAIN_LABEL = { hidden: 'drain pathway not shown', open: 'every modeled outfall open (no tide gates)', 'gates-closed': 'tide gates modeled closed on every outfall but the Aquatic Park tubes' };
-const NOT_FORECAST = 'Not a flood forecast, an official hazard map, an engineering design or an emergency decision tool. An educational comparison on bare-earth lidar.';
+// The page's standing caveat (CLAUDE.md keeps "Not a flood forecast" wherever results show).
+const NOT_FORECAST = 'Not a flood forecast: an educational comparison on bare-earth lidar.';
 export const CIVIC_FILES = ['stories', 'claims', 'issues', 'actions', 'updates'];
 
 // Loads and checks the civic data. Returns { ok, data, errors }; a failure never throws, so the
@@ -58,10 +59,10 @@ export function briefText(b, notesUrl) {
   const L = [];
   L.push(b.title, `Evidence brief, dated ${b.reviewed}`, '', 'The concern', b.concern, '', 'What the explorer shows');
   for (const s of b.shows) L.push(`- ${s.text}`, `  Evidence: ${s.evidence}.`, `  Level: ${s.level}.`, `  Model settings: ${s.state}`, `  Sources: ${s.sources.join(', ')}.`);
-  L.push('', 'What it does not establish');
+  L.push('', 'Limits of the evidence');
   for (const t of b.notEstablished) L.push(`- ${t}`);
   for (const i of b.issues) {
-    L.push('', 'Open questions and alternatives', i.question, i.decision);
+    L.push('', 'The decision and the options', i.question, i.decision);
     for (const g of i.evidenceGaps) L.push(`- Missing: ${g.item}. ${g.why}`);
     for (const a of i.alternatives) L.push(`- Option: ${a.label}. ${a.detail} Tradeoffs: ${a.tradeoffs}`);
     L.push('', 'Who could answer');
@@ -81,9 +82,9 @@ function briefHtml(b) {
     <h3>The concern</h3><p>${esc(b.concern)}</p>
     <h3>What the explorer shows</h3>
     <ul>${b.shows.map(s => `<li><p>${esc(s.text)}</p><p class="src"><span class="cat">${esc(s.evidence)}</span> ${esc(s.level)}.<br>Model settings: ${esc(s.state)}<br>Sources: ${esc(s.sources.join(', '))}</p></li>`).join('')}</ul>
-    <h3>What it does not establish</h3>
+    <h3>Limits of the evidence</h3>
     <ul class="limits">${b.notEstablished.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
-    ${b.issues.map(i => `<h3>Open questions and alternatives</h3><p>${esc(i.question)} ${esc(i.decision)}</p>
+    ${b.issues.map(i => `<h3>The decision and the options</h3><p>${esc(i.question)} ${esc(i.decision)}</p>
       <ul>${i.evidenceGaps.map(g => `<li>Missing: <b>${esc(g.item)}</b>. ${esc(g.why)}</li>`).join('')}</ul>
       <ul>${i.alternatives.map(a => `<li>Option: <b>${esc(a.label)}</b>. ${esc(a.detail)} <span class="src">Tradeoffs: ${esc(a.tradeoffs)}</span></li>`).join('')}</ul>
       <h3>Who could answer</h3><ul>${i.responsibleAgencies.map(a => `<li>${esc(a.name)} <span class="cat">${a.verified === 'sourced' ? 'sourced' : 'tentative'}</span>: ${esc(a.role)}</li>`).join('')}</ul>`).join('')}
@@ -154,7 +155,7 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
       <h3 class="stephead" tabindex="-1">${k + 1} of ${s.steps.length}. ${esc(st.heading)}</h3>
       <p>${esc(fill(st.body, vals))}</p>
       <p class="changed"><b>What changed?</b> ${esc(st.whatChanged)}</p>
-      <div class="prov"><p class="src"><b>Map:</b> ${esc(levelLine(sc))}.</p><p class="src">${esc(stateLine(st.mapState, D))}</p>${D ? '' : '<p class="warn">The map and its numbers did not load. The text above stands; numbers read "not available".</p>'}</div>
+      <div class="prov"><p class="src"><b>Map:</b> ${esc(levelLine(sc))}.</p><p class="src">${esc(stateLine(st.mapState, D))}</p>${D ? '' : '<p class="warn">The map and its numbers did not load, so the numbers read "not available".</p>'}</div>
       ${st.caveats.length ? `<ul class="limits">${st.caveats.map(c => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
       ${claims ? `<details class="claims"><summary>How sure is this?</summary><ul>${claims}</ul></details>` : ''}
       ${st.sourceRefs.length ? `<p class="src">Sources: ${esc(st.sourceRefs.join(', '))}</p>` : ''}
@@ -178,14 +179,14 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
       <label for="req-${esc(a.id)}">Text to copy and edit:</label>
       <textarea id="req-${esc(a.id)}" class="reqtext" rows="12" readonly>${esc(actionText(a))}</textarea>
       <p><button type="button" data-copy-request="${esc(a.id)}">Copy the text</button> <span class="copied" role="status"></span></p>
-      <p class="src">Copying sends nothing, and this page never asks for your name or contact details.${a.privacyNote ? ' ' + esc(a.privacyNote) : ''}</p>
+      <p class="src">Copy it, edit it and send it yourself.${a.privacyNote ? ' ' + esc(a.privacyNote) : ''}</p>
     </div>`).join('') + `<p class="src"><a href="#" data-civic="decisions">Status and history &rarr;</a></p>`;
   }
 
   function decisionsHtml() {
     return `<button type="button" class="back" data-home>&larr; All questions</button>
       <h2 class="q">Decisions and actions</h2>
-      <p>Open questions the explorer raises, who could answer them, and what has happened since. A status changes here only when a dated record shows it.</p>
+      <p>Questions the explorer raises, who decides them, and what has happened since. Every entry is dated and sourced.</p>
       ${data.issues.issues.map(i => {
         const log = data.updates.updates.filter(u => u.issueId === i.id);
         return `<div class="place"><h3>${esc(i.question)}</h3>
@@ -211,8 +212,8 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
   function render() {
     lastBrief = null;
     if (route.missing) {
-      el.innerHTML = `<button type="button" class="back" data-home>&larr; All questions</button><h2 class="q">This story is not available</h2>
-        <p>The link names ${esc(route.missing)}, which this version of the explorer does not have${civic.ok ? '' : ', or its story data did not load'}. Nothing on the map was changed to stand in for it.</p>
+      el.innerHTML = `<button type="button" class="back" data-home>&larr; All questions</button><h2 class="q">Story not found</h2>
+        <p>This version of the explorer has no ${esc(route.missing)}${civic.ok ? '' : ', or its story data failed to load'}. The map shows its usual view.</p>
         <p class="src">Data version: civic schema 1${data ? `, stories updated ${esc(data.stories.stories.map(s => s.updatedAt).sort().at(-1))}` : ''}.</p>`;
       return;
     }
@@ -230,11 +231,11 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
   function open(r, fromReader = true) {
     if (!r || (!r.story && r.view !== 'decisions')) return false;
     if (fromReader) beforeNavigate();
-    if (r.view === 'decisions') route = data ? { view: 'decisions' } : { missing: 'the decisions page' };
+    if (r.view === 'decisions') route = data ? { view: 'decisions' } : { missing: 'decisions page' };
     else if (r.story) {
       const s = story(r.story), n = r.step === 'brief' ? 'brief' : Number(r.step ?? 1) - 1;
-      route = !s ? { missing: `the story "${r.story}"` }
-        : n === 'brief' || (Number.isInteger(n) && n >= 0 && n < s.steps.length) ? { story: s.id, step: n } : { missing: `step ${r.step} of "${s.title}"` };
+      route = !s ? { missing: `story called "${r.story}"` }
+        : n === 'brief' || (Number.isInteger(n) && n >= 0 && n < s.steps.length) ? { story: s.id, step: n } : { missing: `step ${r.step} in "${s.title}"` };
     } else return false;
     render(); onRoute(); return true;
   }
@@ -247,9 +248,9 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
     else if (t.dataset.step != null && route && route.story) { open({ story: route.story, step: t.dataset.step === 'brief' ? 'brief' : Number(t.dataset.step) + 1 }); }
     else if (t.hasAttribute('data-expert') && route && route.story) { e.preventDefault(); const s = story(route.story); openExpert(s.steps[route.step === 'brief' ? s.steps.length - 1 : route.step].mapState); }
     else if (t.hasAttribute('data-copy-link')) status(await copyText(location.href) ? 'Link copied.' : `Copy this link: ${location.href}`);
-    else if (t.hasAttribute('data-copy-brief') && lastBrief) status(await copyText(briefText(lastBrief, notes ? notes.url : 'SOURCE_NOTES.md')) ? 'Brief copied as text. You can edit it before you share it.' : 'Copy did not work in this browser; select the brief and copy it.');
+    else if (t.hasAttribute('data-copy-brief') && lastBrief) status(await copyText(briefText(lastBrief, notes ? notes.url : 'SOURCE_NOTES.md')) ? 'Brief copied as text, ready to edit.' : 'Copy did not work in this browser; select the brief and copy it.');
     else if (t.hasAttribute('data-print')) window.print();
-    else if (t.dataset.copyRequest) { const a = data.actions.actions.find(x => x.id === t.dataset.copyRequest); status(await copyText(actionText(a)) ? 'Copied. Nothing was sent.' : 'Copy did not work; select the text above and copy it.'); }
+    else if (t.dataset.copyRequest) { const a = data.actions.actions.find(x => x.id === t.dataset.copyRequest); status(await copyText(actionText(a)) ? 'Copied.' : 'Copy did not work; select the text above and copy it.'); }
   });
 
   return {
