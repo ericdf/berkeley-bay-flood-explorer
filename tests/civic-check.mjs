@@ -46,6 +46,10 @@ broken('a story with no uncertainty statement', d => { for (const s of d.stories
 broken('stages out of order', d => { d.stories.stories[0].steps[0].stage = 'act'; }, /in order/);
 broken('rain with the drains hidden', d => { d.stories.stories[0].steps[0].mapState.rain = { ari: '10', duration: '6-hr', blocked: 1 }; }, /rain needs/);
 broken('an issue status that is not its latest update', d => { d.issues.issues[0].status = 'decided'; }, /latest update/);
+broken('a records request (E30)', d => { d.actions.actions[0].type = 'records-request'; }, /no records requests/);
+broken('a Public Records Act request in a comment (E30)', d => { d.actions.actions[0].requestText = 'Under the California Public Records Act, I request copies of records.'; }, /no records requests/);
+broken('a model number typed into an action', d => { d.actions.actions[0].requestText += ' It shows 13.2 ha.'; }, /use a token/);
+broken('an action token with no claim', d => { d.actions.actions[0].claimIds = []; }, /no claim/);
 broken('a story id used twice', d => { d.stories.stories.push(structuredClone(d.stories.stories[0])); }, /duplicate/);
 
 // 2. Token values from the model.
@@ -67,6 +71,12 @@ for (const c of data.claims.claims) {
 ok(Number(values['drain-c3'].drainLandHa) <= Number(values['drain-c3'].baseDrainLandHa), 'gates modeled closed never leave more ground filling up the drains than open outfalls');
 ok(Number(values['drain-c3'].aquaticParkDrainHa) <= Number(values['drain-c3'].drainLandHa), 'the Aquatic Park share is part of the total');
 ok(values['drain-c4'].rainDepthIn === D.atlas.depthIn['6-hr']['10'].toFixed(2), `rain depth is NOAA Atlas 14's (${values['drain-c4'].rainDepthIn} in)`);
+
+for (const a of data.actions.actions) {
+  const c = data.claims.claims.find(x => x.id === (a.claimIds || [])[0]);
+  const text = fill(a.requestText, c ? values[c.id] : null);
+  ok(!/\[not available\]|\{\{/.test(text), `${a.id}: every number in the text comes from the model (${(text.match(/[\d.]+ ha[^.]*/g) || []).join('; ')})`);
+}
 
 // 3. Hiding the drains: the same fill, drain cells shown as low ground.
 {
@@ -104,7 +114,7 @@ ok(values['drain-c4'].rainDepthIn === D.atlas.depthIn['6-hr']['10'].toFixed(2), 
   ok(b.notEstablished.length > 0 && b.notEstablished.every(l => t.includes(l)), `copied brief keeps all ${b.notEstablished.length} limitations`);
   ok(/Not a flood forecast/.test(t) && t.includes('What it does not establish'), 'copied brief keeps the disclaimer and the limits section');
   ok(!/\[not available\]/.test(t), 'copied brief has every number');
-  ok(/Proposed, not submitted/.test(t), 'copied brief gives the request status as not submitted');
+  ok(/Proposed, not sent/.test(t), 'copied brief gives the status as not sent');
   const late = buildBrief({ data, story, D, scenarios, values, link: '', today: '2027-06-01' });
   ok(late.actions.every(a => a.expired) && /check current details/.test(briefText(late, notes.url)), 'past its review window, a request says to check current details');
 }

@@ -16,7 +16,7 @@
    "id": "drain-c2",
    "text": "With every modeled outfall open, {{drainLandHa}} ha of cut-off ground holding a storm drain inlet could fill through the drains at the 100-year storm tide ({{drainByWatershed}}).",
    "evidenceClass": "exploratory-model",
-   "tokens": ["drainLandHa", "drainByWatershed"],
+   "tokens": ["drainLandHa", "drainByWatershed", "aquaticParkDrainHa"],
    "scenarioState": { "sc": "y100", "drains": "open", "rain": null },
    "sourceRefs": ["D2", "D3", "D6", "C9"],
    "limitations": ["Upper bound: assumes every inlet connects to an open outfall and the tide lasts long enough to fill the pipes.", "Outfall links are modeled, not surveyed outfalls.", "Which outfalls have tide gates is not published."],

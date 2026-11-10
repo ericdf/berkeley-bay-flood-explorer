@@ -70,7 +70,8 @@ Port 8767, because the wildfire simulator uses 8766.
   fill is compared, level by level, with the published ART flood maps.
 - **Civic stories** (`js/civic/`, `data/civic/`): guided stories that walk one question through
   five stages: discover, understand, evaluate, decide and act. Each story ends with an evidence
-  brief and, where one fits, a request readers can send themselves. Every number in a story comes
+  brief and, where one fits, a change readers can ask the City for, grounded in data the explorer
+  already holds (no records requests, E30). Every number in a story comes
   from the model at the step's settings. `node tests/civic-check.mjs` checks the data, the numbers,
   the links and the brief. Design: `docs/civic/insight-and-action-spec.md`; notes and the calls
   made: `docs/civic/implementation-notes.md`; rules: `docs/civic/editorial-policy.md`.

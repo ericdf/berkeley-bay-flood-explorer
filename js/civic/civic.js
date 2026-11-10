@@ -9,7 +9,9 @@ import { tokenValues, fill } from './tokens.js';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const STAGE_LABEL = { discover: 'Discover', understand: 'Understand', evaluate: 'Evaluate', decide: 'Decide', act: 'Act' };
 const EVIDENCE_LABEL = { observed: 'Observed', 'published-model': 'Published model', 'exploratory-model': 'This explorer\'s model (exploratory)', inference: 'Inference', unknown: 'Unknown' };
-const STATUS_LABEL = { investigating: 'Investigating', proposed: 'Proposed, not submitted', submitted: 'Submitted', acknowledged: 'Acknowledged', 'under-review': 'Under review', decided: 'Decided', implemented: 'Implemented', closed: 'Closed' };
+const ACTION_LABEL = { comment: 'Comment to the City', meeting: 'Speak at a meeting', subscribe: 'Follow the decision', share: 'Share the evidence' };
+const EVENT_LABEL = { 'council-action': 'Council action', proposed: 'Proposed' };
+const STATUS_LABEL = { investigating: 'Investigating', proposed: 'Proposed, not sent', submitted: 'Submitted', acknowledged: 'Acknowledged', 'under-review': 'Under review', decided: 'Decided', implemented: 'Implemented', closed: 'Closed' };
 const DRAIN_LABEL = { hidden: 'drain pathway not shown', open: 'every modeled outfall open (no tide gates)', 'gates-closed': 'tide gates modeled closed on every outfall but the Aquatic Park tubes' };
 const NOT_FORECAST = 'Not a flood forecast, an official hazard map, an engineering design or an emergency decision tool. An educational comparison on bare-earth lidar.';
 export const CIVIC_FILES = ['stories', 'claims', 'issues', 'actions', 'updates'];
@@ -66,7 +68,7 @@ export function briefText(b, notesUrl) {
     for (const a of i.responsibleAgencies) L.push(`- ${a.name} (${a.verified === 'sourced' ? 'sourced' : 'tentative, not confirmed'}): ${a.role}`);
   }
   for (const a of b.actions) {
-    L.push('', 'Civic request', `Status: ${STATUS_LABEL[a.status]} (as of ${a.reviewedAt}${a.expired ? '; check current details, this was last reviewed more than ' + a.reviewWindowDays + ' days ago' : ''}).`,
+    L.push('', 'What residents can ask for', `Status: ${STATUS_LABEL[a.status]} (as of ${a.reviewedAt}${a.expired ? '; check current details, this was last reviewed more than ' + a.reviewWindowDays + ' days ago' : ''}).`,
       `To: ${a.recipientName}, ${a.recipientUrlOrEmail}`, `Asks for: ${a.requestedOutcome}`, `Deadline: ${a.deadline ? `${a.deadline} (${a.deadlineSource})` : 'none on record'}.`);
   }
   L.push('', `Sources (SOURCE_NOTES.md rows, ${notesUrl}): ${b.sources.join(', ')}`, `Link to this story: ${b.link}`, '', b.disclaimer);
@@ -85,7 +87,7 @@ function briefHtml(b) {
       <ul>${i.evidenceGaps.map(g => `<li>Missing: <b>${esc(g.item)}</b>. ${esc(g.why)}</li>`).join('')}</ul>
       <ul>${i.alternatives.map(a => `<li>Option: <b>${esc(a.label)}</b>. ${esc(a.detail)} <span class="src">Tradeoffs: ${esc(a.tradeoffs)}</span></li>`).join('')}</ul>
       <h3>Who could answer</h3><ul>${i.responsibleAgencies.map(a => `<li>${esc(a.name)} <span class="cat">${a.verified === 'sourced' ? 'sourced' : 'tentative'}</span>: ${esc(a.role)}</li>`).join('')}</ul>`).join('')}
-    ${b.actions.map(a => `<h3>Civic request</h3>${statusBadge(a)}<p>To: ${esc(a.recipientName)}. Asks for: ${esc(a.requestedOutcome)} Deadline: ${a.deadline ? esc(`${a.deadline} (${a.deadlineSource})`) : 'none on record'}.</p>`).join('')}
+    ${b.actions.map(a => `<h3>What residents can ask for</h3>${statusBadge(a)}<p>To: ${esc(a.recipientName)}. Asks for: ${esc(a.requestedOutcome)} Deadline: ${a.deadline ? esc(`${a.deadline} (${a.deadlineSource})`) : 'none on record'}.</p>`).join('')}
     <p class="src">Sources (rows in SOURCE_NOTES.md): ${esc(b.sources.join(', '))}</p>
     <p class="src">Link: ${esc(b.link)}</p>
     <p class="warn">${esc(b.disclaimer)}</p>
@@ -118,13 +120,18 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
     return cache.get(k);
   };
   const story = (id) => data && data.stories.stories.find(s => s.id === id);
+  // An action's text, with its numbers from the model at its claim's state.
+  const actionText = (a) => {
+    const c = (a.claimIds || []).map(id => data.claims.claims.find(x => x.id === id))[0];
+    return fill(a.requestText, c ? valuesFor(c.scenarioState) : null);
+  };
   const linkFor = (r) => { const u = new URL(location.href); u.hash = routeHash(r); return u.toString(); };
 
   function homeBlock() {
     if (!data) return '';
     return `<section class="civic-home" aria-labelledby="civicH">
       <h2 class="q" id="civicH">Follow a question through its evidence</h2>
-      <div class="qs">${data.stories.stories.map(s => `<button type="button" class="qcard" data-story="${esc(s.id)}"><b>${esc(s.title)}</b><span>${esc(s.locationLabel)}. ${esc(EVIDENCE_LABEL[s.evidenceStatus])}; evidence brief and a records request.</span></button>`).join('')}</div>
+      <div class="qs">${data.stories.stories.map(s => `<button type="button" class="qcard" data-story="${esc(s.id)}"><b>${esc(s.title)}</b><span>${esc(s.locationLabel)}. ${esc(EVIDENCE_LABEL[s.evidenceStatus])}; an evidence brief and a change to ask for.</span></button>`).join('')}</div>
       <p class="src"><a href="#" data-civic="decisions">Decisions and actions</a> · <a href="https://github.com/ericdf/berkeley-bay-flood-explorer/blob/main/SOURCE_NOTES.md" target="_blank" rel="noopener">About the evidence</a></p>
     </section>`;
   }
@@ -163,15 +170,16 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
   function actionsHtml(issue) {
     const acts = data.actions.actions.filter(a => a.issueId === issue.id).map(a => ({ ...a, expired: reviewExpired(a, today) }));
     return acts.map(a => `<div class="action">
-      <h3>${esc(a.type === 'records-request' ? 'Public records request' : a.type)}</h3>
+      <h3>${esc(ACTION_LABEL[a.type] || a.type)}</h3>
       ${statusBadge(a)}
-      <p>To: ${esc(a.recipientName)}. <a href="${esc(a.recipientUrlOrEmail)}" target="_blank" rel="noopener">Open the City's records portal</a>${a.infoUrl ? ` · <a href="${esc(a.infoUrl)}" target="_blank" rel="noopener">How the City handles requests</a>` : ''} <span class="src">(links checked ${esc(a.linksCheckedAt)})</span></p>
+      <p>To: ${esc(a.recipientName)}. <a href="${esc(a.recipientUrlOrEmail)}" target="_blank" rel="noopener">Open ${esc(a.linkLabel || 'the official page')}</a>${a.infoUrl ? ` · <a href="${esc(a.infoUrl)}" target="_blank" rel="noopener">${esc(a.infoLabel || 'More information')}</a>` : ''} <span class="src">(links checked ${esc(a.linksCheckedAt)})</span></p>
+      <p>Asks for: ${esc(a.requestedOutcome)}</p>
       <p>Deadline: ${a.deadline ? esc(`${a.deadline} (${a.deadlineSource})`) : 'none on record.'}</p>
-      <label for="req-${esc(a.id)}">Request text, to copy and edit:</label>
-      <textarea id="req-${esc(a.id)}" class="reqtext" rows="10" readonly>${esc(a.requestText)}</textarea>
-      <p><button type="button" data-copy-request="${esc(a.id)}">Copy the request</button> <span class="copied" role="status"></span></p>
-      <p class="src">Copying sends nothing. Add your own name and contact details in the portal if you send it; this page never asks for them.</p>
-    </div>`).join('') + `<p class="src"><a href="#" data-civic="decisions">Status and history of this request &rarr;</a></p>`;
+      <label for="req-${esc(a.id)}">Text to copy and edit:</label>
+      <textarea id="req-${esc(a.id)}" class="reqtext" rows="12" readonly>${esc(actionText(a))}</textarea>
+      <p><button type="button" data-copy-request="${esc(a.id)}">Copy the text</button> <span class="copied" role="status"></span></p>
+      <p class="src">Copying sends nothing, and this page never asks for your name or contact details.${a.privacyNote ? ' ' + esc(a.privacyNote) : ''}</p>
+    </div>`).join('') + `<p class="src"><a href="#" data-civic="decisions">Status and history &rarr;</a></p>`;
   }
 
   function decisionsHtml() {
@@ -186,7 +194,7 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
           <h3>Who could answer</h3><ul>${i.responsibleAgencies.map(a => `<li>${esc(a.name)} <span class="cat">${a.verified === 'sourced' ? 'sourced' : 'tentative'}</span>: ${esc(a.role)} <span class="src">${esc((a.sourceRefs || []).join(', '))}</span></li>`).join('')}</ul>
           <h3>Options</h3><ul>${i.alternatives.map(a => `<li><b>${esc(a.label)}.</b> ${esc(a.detail)}</li>`).join('')}</ul>
           ${actionsHtml(i)}
-          <h3>History</h3><ol class="log">${log.map(u => `<li><b>${esc(u.date)}</b> ${esc(STATUS_LABEL[u.statusAfter] || u.eventType)}: ${esc(u.summary)} <span class="src">${esc(u.sourceRefs.join(', '))}</span></li>`).join('')}</ol>
+          <h3>History</h3><ol class="log">${log.map(u => `<li><b>${esc(u.date)}</b> ${esc(STATUS_LABEL[u.statusAfter] || EVENT_LABEL[u.eventType] || u.eventType)}: ${esc(u.summary)} <span class="src">${esc(u.sourceRefs.join(', '))}</span></li>`).join('')}</ol>
           <p class="src">Stories: ${data.stories.stories.filter(s => s.issueIds.includes(i.id)).map(s => `<a href="#" data-story="${esc(s.id)}">${esc(s.title)}</a>`).join(', ')}</p></div>`;
       }).join('')}`;
   }
@@ -241,7 +249,7 @@ export function initCivic({ el, civic, scenarios, D, setState, compute, openExpe
     else if (t.hasAttribute('data-copy-link')) status(await copyText(location.href) ? 'Link copied.' : `Copy this link: ${location.href}`);
     else if (t.hasAttribute('data-copy-brief') && lastBrief) status(await copyText(briefText(lastBrief, notes ? notes.url : 'SOURCE_NOTES.md')) ? 'Brief copied as text. You can edit it before you share it.' : 'Copy did not work in this browser; select the brief and copy it.');
     else if (t.hasAttribute('data-print')) window.print();
-    else if (t.dataset.copyRequest) { const a = data.actions.actions.find(x => x.id === t.dataset.copyRequest); status(await copyText(a.requestText) ? 'Request copied. Nothing was sent.' : 'Copy did not work; select the text above and copy it.'); }
+    else if (t.dataset.copyRequest) { const a = data.actions.actions.find(x => x.id === t.dataset.copyRequest); status(await copyText(actionText(a)) ? 'Copied. Nothing was sent.' : 'Copy did not work; select the text above and copy it.'); }
   });
 
   return {

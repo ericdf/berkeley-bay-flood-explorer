@@ -5,7 +5,8 @@
 export const STAGES = ['discover', 'understand', 'evaluate', 'decide', 'act'];
 export const EVIDENCE = ['observed', 'published-model', 'exploratory-model', 'inference', 'unknown'];
 export const STATUS = ['investigating', 'proposed', 'submitted', 'acknowledged', 'under-review', 'decided', 'implemented', 'closed'];
-export const ACTION_TYPES = ['records-request', 'comment', 'meeting', 'subscribe', 'share'];
+// No records requests (Eric, SOURCE_NOTES E30): an action asks for a change, from data in hand.
+export const ACTION_TYPES = ['comment', 'meeting', 'subscribe', 'share'];
 export const DRAINS = ['hidden', 'open', 'gates-closed'];
 export const COMPARE = ['gates-open'];
 export const RAIN_ARI = ['2', '10', '100'], RAIN_DUR = ['6-hr', '24-hr'], RAIN_BLOCKED = [1, 0.5, 0.25, 0.1];
@@ -89,7 +90,13 @@ export function validateCivic(data, ctx) {
   for (const a of A) {
     unique('action', a.id);
     if (!issues.has(a.issueId)) err(`action ${a.id}: issue ${a.issueId} not found`);
-    if (!ACTION_TYPES.includes(a.type)) err(`action ${a.id}: type must be one of ${ACTION_TYPES.join(', ')}`);
+    if (a.type === 'records-request' || /records? request|public records act/i.test(`${a.requestText} ${a.requestedOutcome}`)) err(`action ${a.id}: no records requests (E30)`);
+    else if (!ACTION_TYPES.includes(a.type)) err(`action ${a.id}: type must be one of ${ACTION_TYPES.join(', ')}`);
+    for (const t of tokensIn(a.requestText)) {
+      const c = (a.claimIds || []).map(id => claims.get(id)).find(c => c && (c.tokens || []).includes(t));
+      if (!c) err(`action ${a.id}: token ${t} has no claim in claimIds that carries it`);
+    }
+    if (/\d+(\.\d+)?\s*ha\b/.test(String(a.requestText).replace(/\{\{\w+\}\}/g, ''))) err(`action ${a.id}: a model number is typed into the text; use a token`);
     if (!STATUS.includes(a.status)) err(`action ${a.id}: status must be one of ${STATUS.join(', ')}`);
     str(`action ${a.id} recipient`, a.recipientName); str(`action ${a.id} outcome`, a.requestedOutcome);
     url(`action ${a.id}`, a.recipientUrlOrEmail); url(`action ${a.id}`, a.infoUrl);
