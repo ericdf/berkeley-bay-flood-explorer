@@ -9,49 +9,100 @@
      "name": "City of Berkeley Public Works",
      "role": "Is updating the Stormwater Master Plan, which includes the City's hydraulic model of the storm drains, condition and capacity assessments and capital priorities. The work plan gives January 2024 to December 2026 and $2,000,000; the CIP expects completion in FY 2027 (D11).",
      "verified": "sourced",
-     "sourceRefs": ["D11"]
+     "sourceRefs": [
+      "D11"
+     ]
     },
     {
      "name": "City of Berkeley Parks, Recreation and Waterfront",
      "role": "Holds a $4,122,000 California Transportation Commission grant for the Aquatic Park Tide Tube Replacement and Dredging Project (D11). The lagoon's tide tubes have sliding gates the City keeps open to the tide (D7).",
      "verified": "sourced",
-     "sourceRefs": ["D7", "D11"]
+     "sourceRefs": [
+      "D7",
+      "D11"
+     ]
     },
     {
      "name": "Berkeley City Council",
      "role": "Adopted the FY 2027–2031 Capital Improvement Program, which funds both projects, on 2026-06-23 (Resolution No. 72,340–N.S.; D11).",
      "verified": "sourced",
-     "sourceRefs": ["D11"]
+     "sourceRefs": [
+      "D11"
+     ]
     }
    ],
-   "decision": "Two City projects already under way will shape how west Berkeley's drains meet the Bay. The first is the Stormwater Master Plan. Its published description covers the hydraulic model, condition, capacity and priorities, and does not mention Bay tides, outfalls, tide gates or sea level rise (D11). The second is the Aquatic Park tide tube replacement, which is funded; its design is not published.",
+   "decision": "Two City projects already under way will shape how west Berkeley's drains meet the Bay. The Stormwater Master Plan's published scope covers the hydraulic model, the pipes' condition and capacity, and capital priorities, and leaves out Bay tides, outfalls, tide gates and sea level rise (D11). The Aquatic Park tide tube replacement is funded, and its design is unpublished.",
    "alternatives": [
     {
      "label": "Have the Stormwater Master Plan test high Bay water at the outfalls",
      "detail": "Run the City's hydraulic model with the Bay at today's storm tides and at the sea level rise levels the City already uses, list which outfalls have tide gates and their condition, and publish the results with the plan.",
-     "tradeoffs": "More scope and cost for a plan due in FY 2027; it would replace this explorer's assumed open outfalls with the City's hydraulic model."
+     "tradeoffs": "Adds scope and cost to a plan due in FY 2027. In return the City's hydraulic model, with real pipes and outfalls, replaces this explorer's assumption of open outfalls."
     },
     {
      "label": "Design the new tide tubes to close ahead of a storm tide",
      "detail": "Keep the tidal exchange the tubes were restored for (D7), and add gates that can be shut before a storm tide, with a written plan for when to shut and reopen them.",
-     "tradeoffs": "A shut gate holds rain in the lagoon: in 2023 the City Manager wrote that failed tubes had meant regular flooding at the lagoon in heavy rains (D7). Closing needs a forecast and staff to act; cost not known."
+     "tradeoffs": "A shut gate holds rain in the lagoon. In 2023 the City Manager wrote that failed tubes had meant regular flooding at the lagoon in heavy rains (D7). Closing ahead of a storm tide takes a forecast and staff on hand. Cost unknown."
     },
     {
      "label": "Proceed as scoped",
-     "detail": "Finish both projects as described. The master plan keeps the scope in its published description; the tubes are replaced and the lagoon dredged, with no published change to how the gates are run.",
-     "tradeoffs": "No added cost or delay; the high-water question stays open, and the explorer's results stay a range between gates open and gates closed."
+     "detail": "Finish both projects as described: the master plan keeps its published scope, and the tubes are replaced and the lagoon dredged with the gates run as they are now.",
+     "tradeoffs": "No added cost or delay. The high-water question stays open, and the explorer's results stay a range between gates open and gates closed."
     }
    ],
    "evidenceGaps": [
-    { "item": "Outfall locations", "why": "The model places one outfall per watershed at the cell nearest open water (D3).", "sourceRefs": ["D3"] },
-    { "item": "Outfall invert elevations", "why": "They decide at what Bay level water enters each pipe and how long the tide holds it shut.", "sourceRefs": ["D6"] },
-    { "item": "Tide gate inventory and condition", "why": "Which outfalls have gates, and whether they work, decides whether the teal ground can fill at all (D6, C9).", "sourceRefs": ["D6", "C9"] },
-    { "item": "Pipe network and capacity", "why": "The model assumes every inlet connects to its watershed's outfall (D6). The City's hydraulic model holds this; it is not published (D11).", "sourceRefs": ["D6", "D11"] },
-    { "item": "Observations at high tides", "why": "The 2023 work orders follow rain, not high tides (D5).", "sourceRefs": ["D5"] },
-    { "item": "Aquatic Park lagoon levels and gate settings", "why": "Whether the lagoon follows the Bay at a storm tide (D9).", "sourceRefs": ["D8", "D9"] }
+    {
+     "item": "Outfall locations",
+     "why": "The model places one outfall per watershed at the cell nearest open water (D3).",
+     "sourceRefs": [
+      "D3"
+     ]
+    },
+    {
+     "item": "Outfall invert elevations",
+     "why": "They decide at what Bay level water enters each pipe and how long the tide holds it shut.",
+     "sourceRefs": [
+      "D6"
+     ]
+    },
+    {
+     "item": "Tide gate inventory and condition",
+     "why": "Which outfalls have working gates decides whether the teal ground can fill at all (D6, C9).",
+     "sourceRefs": [
+      "D6",
+      "C9"
+     ]
+    },
+    {
+     "item": "Pipe network and capacity",
+     "why": "The model assumes every inlet connects to its watershed's outfall (D6). The City's hydraulic model holds the real network, unpublished (D11).",
+     "sourceRefs": [
+      "D6",
+      "D11"
+     ]
+    },
+    {
+     "item": "Observations at high tides",
+     "why": "The 2023 work orders record backups in rain (D5).",
+     "sourceRefs": [
+      "D5"
+     ]
+    },
+    {
+     "item": "Aquatic Park lagoon levels and gate settings",
+     "why": "Whether the lagoon follows the Bay at a storm tide (D9).",
+     "sourceRefs": [
+      "D8",
+      "D9"
+     ]
+    }
    ],
    "status": "proposed",
-   "sourceRefs": ["D6", "D7", "D11", "E30"],
+   "sourceRefs": [
+    "D6",
+    "D7",
+    "D11",
+    "E30"
+   ],
    "updatedAt": "2026-11-10"
   }
  ]

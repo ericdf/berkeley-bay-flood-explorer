@@ -12,14 +12,20 @@
    "infoUrl": "https://berkeleyca.gov/your-government/city-council/city-council-agendas",
    "infoLabel": "City Council agendas",
    "linksCheckedAt": "2026-11-10",
-   "privacyNote": "The City says communications to its commissions are public record, contact details included unless delivered by mail or in person (D11).",
+   "privacyNote": "Communications to City commissions are public record, contact details included unless you deliver them by mail or in person (D11).",
    "requestedOutcome": "That the Stormwater Master Plan test the storm drains with high Bay water at the outfalls, and that the Aquatic Park tide tube replacement be designed to close ahead of a storm tide while still draining rain.",
-   "requestText": "I am writing about two projects in the City's adopted FY 2027–2031 Capital Improvement Program.\n\nThe Stormwater Master Plan will update the City's hydraulic model of the storm drains and assess their condition and capacity. Its published description does not mention Bay tides or sea level rise. West Berkeley's storm drains empty into the Bay and the Aquatic Park lagoon, so a high Bay can keep them from draining and, where an outfall has no working tide gate, push water back up the pipes. I ask that the plan:\n1. run the hydraulic model with the Bay at today's 100-year storm tide and at the sea level rise levels the City already uses;\n2. list which outfalls have tide gates and their condition; and\n3. publish those results with the plan.\n\nThe Aquatic Park Tide Tube Replacement and Dredging Project has a $4,122,000 California Transportation Commission grant. The tubes keep the lagoon open to the tide. In 2023 the City Manager wrote that when the tubes had failed, the lagoon regularly flooded in heavy rains. I ask that the new tubes keep that tidal exchange and also have gates that can be closed ahead of a storm tide, with a written plan for when to close and reopen them, so the lagoon can still drain rain afterward.\n\nThe Berkeley Bay Flood Explorer, an educational model and not a forecast, suggests why this matters. At today's 100-year storm tide, it shows {{drainLandHa}} ha of low ground in west Berkeley that could fill through the drains if every outfall is open, {{aquaticParkDrainHa}} ha of it draining to the Aquatic Park lagoon. That is an upper bound; the City's hydraulic model would answer it better.",
-   "claimIds": ["drain-c2"],
+   "requestText": "I am writing about two projects in the City's adopted FY 2027–2031 Capital Improvement Program.\n\nThe Stormwater Master Plan will update the City's hydraulic model of the storm drains and assess their condition and capacity. Its published scope leaves out Bay tides and sea level rise. West Berkeley's storm drains empty into the Bay and the Aquatic Park lagoon. A high Bay keeps them from draining, and where an outfall has no working tide gate, it pushes water back up the pipes. I ask that the plan:\n1. run the hydraulic model with the Bay at today's 100-year storm tide and at the sea level rise levels the City already plans for;\n2. list which outfalls have tide gates and their condition; and\n3. publish those results with the plan.\n\nThe Aquatic Park Tide Tube Replacement and Dredging Project has a $4,122,000 California Transportation Commission grant. The tubes keep the lagoon open to the tide, and in 2023 the City Manager wrote that when they had failed, the lagoon regularly flooded in heavy rains. I ask that the new tubes keep that tidal exchange and also have gates that can close ahead of a storm tide, with a written plan for when to close and reopen them.\n\nThe Berkeley Bay Flood Explorer, a model built on lidar terrain and published tide levels, shows why this matters. At today's 100-year storm tide, {{drainLandHa}} ha of low ground in west Berkeley could fill through the drains if every outfall is open, {{aquaticParkDrainHa}} ha of it in the Aquatic Park watershed, whose drains empty into the lagoon. That is an upper bound, and the City's hydraulic model could replace it with an answer.",
+   "claimIds": [
+    "drain-c2"
+   ],
    "deadline": null,
    "deadlineSource": null,
    "status": "proposed",
-   "sourceRefs": ["D7", "D11", "C9"],
+   "sourceRefs": [
+    "D7",
+    "D11",
+    "C9"
+   ],
    "reviewedAt": "2026-11-10",
    "reviewWindowDays": 90
   }

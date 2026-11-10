@@ -112,9 +112,9 @@ for (const a of data.actions.actions) {
   ok(allSources.every(r => t.includes(r)), 'copied brief lists every claim source');
   ok(t.includes('ft NAVD88') && t.includes('still water'), 'copied brief names the datum and still water');
   ok(b.notEstablished.length > 0 && b.notEstablished.every(l => t.includes(l)), `copied brief keeps all ${b.notEstablished.length} limitations`);
-  ok(/Not a flood forecast/.test(t) && t.includes('What it does not establish'), 'copied brief keeps the disclaimer and the limits section');
+  ok(/Not a flood forecast/.test(t) && t.includes('Limits of the evidence'), 'copied brief keeps the disclaimer and the limits section');
   ok(!/\[not available\]/.test(t), 'copied brief has every number');
-  ok(/Proposed, not sent/.test(t), 'copied brief gives the status as not sent');
+  ok(/Drafted/.test(t), 'copied brief gives the status as drafted');
   const late = buildBrief({ data, story, D, scenarios, values, link: '', today: '2027-06-01' });
   ok(late.actions.every(a => a.expired) && /check current details/.test(briefText(late, notes.url)), 'past its review window, a request says to check current details');
 }
