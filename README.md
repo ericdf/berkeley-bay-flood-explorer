@@ -68,6 +68,12 @@ Port 8767, because the wildfire simulator uses 8766.
 - **Checks** (`node tests/check.mjs`): sources cited by every scenario exist; the fill is
   monotonic; the City study's 2050 results for Marina Blvd and the DoubleTree hold; and the
   fill is compared, level by level, with the published ART flood maps.
+- **Civic stories** (`js/civic/`, `data/civic/`): guided stories that walk one question through
+  five stages: discover, understand, evaluate, decide and act. Each story ends with an evidence
+  brief and, where one fits, a request readers can send themselves. Every number in a story comes
+  from the model at the step's settings. `node tests/civic-check.mjs` checks the data, the numbers,
+  the links and the brief. Design: `docs/civic/insight-and-action-spec.md`; notes and the calls
+  made: `docs/civic/implementation-notes.md`; rules: `docs/civic/editorial-policy.md`.
 - `node tools/report.mjs [levels] [--plan walls2050,roads,gates] [--rain 10:6-hr:0.25]` prints the results for every
   scenario, or for given levels, with or without a plan.
 

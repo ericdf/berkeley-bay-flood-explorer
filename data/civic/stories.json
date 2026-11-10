@@ -1,0 +1,119 @@
+{
+ "schemaVersion": 1,
+ "note": "Guided stories (docs/civic/insight-and-action-spec.md, docs/civic/editorial-policy.md). Each step's mapState is applied through js/main.js's render: the scenario by id, the drain display, modeled tide gates and the rain experiment. Body text may hold {{tokens}} filled from that run of the model (js/civic/tokens.js); a step with tokens lists the claims that carry their provenance. Checked by node tests/civic-check.mjs.",
+ "stories": [
+  {
+   "id": "drain-backflow",
+   "slug": "drain-backflow",
+   "title": "Can high Bay water interfere with Berkeley's storm drainage?",
+   "dek": "Storm drains carry rain to the Bay. When the Bay is high, the model says water could come back up through them, and rain could have nowhere to go. Whether that happens depends on pipes, outfalls and tide gates the City has not published.",
+   "status": "published-draft",
+   "evidenceStatus": "exploratory-model",
+   "locationLabel": "West Berkeley, from the Marina to Aquatic Park",
+   "issueIds": ["drain-records"],
+   "updatedAt": "2026-11-10",
+   "reviewedBy": null,
+   "owner": "Eric (maintainer)",
+   "sourceInventory": ["D1", "D2", "D3", "D5", "D6", "D7", "D9", "C9", "R1", "R3", "R5", "D10"],
+   "publishChecklist": {
+    "claimsCheckedAgainstModel": true,
+    "sourcesResolve": true,
+    "linksVerified": "2026-11-10",
+    "maintainerReviewed": false
+   },
+   "steps": [
+    {
+     "id": "orient",
+     "stage": "discover",
+     "heading": "Where the Bay meets west Berkeley",
+     "body": "The map shows west Berkeley at an ordinary high tide, which comes almost every day. Blue is ground the Bay covers over the surface. Orange is ground below that water that the Bay cannot reach over the surface. I-80 runs north to south behind the shoreline, and Aquatic Park's lagoon lies just east of it.",
+     "whatChanged": "The map shows an ordinary high tide, with the storm drain pathway hidden.",
+     "mapState": { "sc": "mhhw", "drains": "hidden", "rain": null },
+     "claimIds": [],
+     "caveats": ["Bare-earth lidar: the survey removes bridges and raised decks, so I-80 and its ramps can look lower than they are."],
+     "sourceRefs": ["H5"]
+    },
+    {
+     "id": "storm-tide",
+     "stage": "discover",
+     "heading": "A severe storm tide, over the ground",
+     "body": "Raise the Bay to a severe storm tide, one with about a 1% chance each year at today's sea level. In this model, {{wetLandHa}} ha of Berkeley land is under Bay water that arrives over the ground. Another {{lowLandHa}} ha lies below that level but is cut off from the Bay over the surface (orange).",
+     "whatChanged": "The water rose from an ordinary high tide to the 100-year storm tide. The drain pathway is still hidden.",
+     "mapState": { "sc": "y100", "drains": "hidden", "rain": null },
+     "claimIds": ["drain-c1"],
+     "caveats": ["Cut-off ground is not flooded ground. It is below the level, with no surface path from the Bay."],
+     "sourceRefs": ["W11", "C9"]
+    },
+    {
+     "id": "drains-open",
+     "stage": "understand",
+     "heading": "If the outfalls are open, the Bay can come up the drains",
+     "body": "Storm drains run downhill to outfalls on the Bay. If an outfall has no working tide gate, a high Bay can push water back up the pipes and out of the lowest inlets. The model marks cut-off ground that holds a storm drain inlet in a watershed with a modeled outfall: {{drainLandHa}} ha (teal) could fill this way at this level ({{drainByWatershed}}). This is an upper bound. It assumes every inlet connects to an open outfall and that the tide lasts long enough to fill the pipes.",
+     "whatChanged": "The drain pathway is now shown, with every outfall modeled open.",
+     "mapState": { "sc": "y100", "drains": "open", "rain": null },
+     "claimIds": ["drain-c2"],
+     "caveats": ["The outfall links are modeled from watershed outlines, not surveyed outfalls (D3).", "Pipe connections, capacity, invert elevations and tide duration are ignored (D6)."],
+     "sourceRefs": ["D2", "D3", "D6"]
+    },
+    {
+     "id": "gates-closed",
+     "stage": "evaluate",
+     "heading": "The same tide with tide gates modeled closed",
+     "body": "Now assume a working tide gate on every modeled outfall, except Aquatic Park's five tide tubes, which the City keeps open to the tide. Ground that can fill up the drains falls from {{baseDrainLandHa}} ha to {{drainLandHa}} ha. Of what remains, {{aquaticParkDrainHa}} ha drains to the Aquatic Park lagoon. This is a sensitivity test between two assumptions. Which outfalls have gates, and whether they work, is not published, so neither run describes the City's drains as they are today.",
+     "whatChanged": "Tide gates are modeled closed on every outfall but the Aquatic Park tubes. The numbers compare this with every outfall open.",
+     "mapState": { "sc": "y100", "drains": "gates-closed", "rain": null, "compare": "gates-open" },
+     "claimIds": ["drain-c3"],
+     "caveats": ["Closed gates in the model are not flood protection achieved: they also hold rain in (next step).", "A gate on record at design stage, the I-80/Gilman project's flap gate, has not been checked as built (V3)."],
+     "sourceRefs": ["D6", "D7", "D9", "V3"]
+    },
+    {
+     "id": "rain-held",
+     "stage": "evaluate",
+     "heading": "Rain with nowhere to go",
+     "body": "A shut gate keeps the Bay out and the rain in. Add a 10-year, 6-hour storm, {{rainDepthIn}} in of rain (NOAA Atlas 14), with all of it unable to drain while the tide holds the outfalls shut. The model pools each watershed's runoff at its lowest inlet: {{rainLandHa}} ha of Berkeley land under pooled rain. It is an illustrative storage experiment. One pool per watershed can overstate the depth at that inlet and miss ponding elsewhere, and the runoff method was made for annual loads, not one storm.",
+     "whatChanged": "A 10-year, 6-hour rainstorm is added, with tide gates still modeled closed and 100% of the runoff held back.",
+     "mapState": { "sc": "y100", "drains": "gates-closed", "rain": { "ari": "10", "duration": "6-hr", "blocked": 1 } },
+     "claimIds": ["drain-c4"],
+     "caveats": ["\"Share that cannot drain\" is the reader's assumption, not a measured value (R5).", "Runoff share uses the Simple Method beyond the drainage areas it was made for (R3)."],
+     "sourceRefs": ["R1", "R3", "R5"]
+    },
+    {
+     "id": "missing",
+     "stage": "evaluate",
+     "heading": "What would settle it",
+     "body": "The model cannot say how Berkeley's drains actually behave at a high tide. That takes records the City has not published: where each outfall is and how high its pipe sits, which outfalls have tide gates and whether they work, how the pipes connect and how much they carry, and what crews have seen at high tides. The City's 2023 work orders show where drains back up in rain (D5), not under a high tide.",
+     "whatChanged": "Same map as the last step. This step lists the evidence the model lacks.",
+     "mapState": { "sc": "y100", "drains": "gates-closed", "rain": { "ari": "10", "duration": "6-hr", "blocked": 1 } },
+     "claimIds": [],
+     "caveats": [],
+     "sourceRefs": ["D5", "D6"],
+     "showIssue": "evidenceGaps"
+    },
+    {
+     "id": "decide",
+     "stage": "decide",
+     "heading": "What could be done",
+     "body": "The explorer does not rank these options. Each is listed with what it would settle and what it would not.",
+     "whatChanged": "Same map. This step lists responses.",
+     "mapState": { "sc": "y100", "drains": "gates-closed", "rain": { "ari": "10", "duration": "6-hr", "blocked": 1 } },
+     "claimIds": [],
+     "caveats": [],
+     "sourceRefs": ["D6"],
+     "showIssue": "alternatives"
+    },
+    {
+     "id": "act",
+     "stage": "act",
+     "heading": "Ask for the records",
+     "body": "The records that would settle this are public records, and anyone can ask for them. Below is a request you can copy, edit and send yourself. This explorer sends nothing, and it records a request as submitted only when a submission is on record.",
+     "whatChanged": "Same map. This step shows the request and its status.",
+     "mapState": { "sc": "y100", "drains": "open", "rain": null },
+     "claimIds": [],
+     "caveats": ["Before sending, check the City's NextRequest portal: someone may already have asked, and released records are posted there (D10)."],
+     "sourceRefs": ["D10"],
+     "showIssue": "actions"
+    }
+   ]
+  }
+ ]
+}

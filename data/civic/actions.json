@@ -1,0 +1,23 @@
+{
+ "schemaVersion": 1,
+ "note": "Actions a reader can take. Dates are null unless a dated source gives them. A URL is listed only after it was checked (linksCheckedAt). Copying a request sends nothing.",
+ "actions": [
+  {
+   "id": "drain-records-request",
+   "issueId": "drain-records",
+   "type": "records-request",
+   "recipientName": "City of Berkeley, through its NextRequest public records portal",
+   "recipientUrlOrEmail": "https://cityofberkeleyca.nextrequest.com/",
+   "infoUrl": "https://berkeleyca.gov/your-government/public-records/requesting-public-information",
+   "linksCheckedAt": "2026-11-10",
+   "requestedOutcome": "Release of existing records on the storm drain outfalls to San Francisco Bay west of San Pablo Avenue.",
+   "requestText": "Under the California Public Records Act, I request copies of the following existing records about the City of Berkeley's storm drain system west of San Pablo Avenue:\n1. Any inventory, map or list of storm drain outfalls to San Francisco Bay, including the Aquatic Park lagoon, with their locations.\n2. Records showing which outfalls have tide gates, flap gates or backflow valves, and their type, installation date and most recent inspection or condition assessment.\n3. Invert elevations of those outfalls, with the vertical datum used.\n4. Storm drain master plans, hydraulic models or drainage studies that address high Bay water or tidal backflow.\n5. Maintenance or work-order records for those outfalls and gates from 2020 to the present.\nIf some of these records do not exist, please say so. Electronic copies are preferred.",
+   "deadline": null,
+   "deadlineSource": null,
+   "status": "proposed",
+   "sourceRefs": ["D6", "D10"],
+   "reviewedAt": "2026-11-10",
+   "reviewWindowDays": 90
+  }
+ ]
+}
