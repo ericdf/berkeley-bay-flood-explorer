@@ -1,0 +1,46 @@
+{
+ "schemaVersion": 1,
+ "note": "Claims a story makes. A quantitative claim names the tokens it fills, the model state that produces them and its limitations; its numbers are computed on the page from that state, never stored here (docs/civic/editorial-policy.md).",
+ "claims": [
+  {
+   "id": "drain-c1",
+   "text": "At the 100-year storm tide (9.73 ft NAVD88 still water), {{wetLandHa}} ha of Berkeley land is under Bay water connected over the ground, and {{lowLandHa}} ha is below the level but cut off from it.",
+   "evidenceClass": "exploratory-model",
+   "tokens": ["wetLandHa", "lowLandHa"],
+   "scenarioState": { "sc": "y100", "drains": "hidden", "rain": null },
+   "sourceRefs": ["W11", "C9"],
+   "limitations": ["Connected fill on bare-earth lidar (4 m grid): no waves, groundwater, duration or flow.", "Ground cut off from the Bay is not flooded ground."],
+   "verifiedAt": "2026-11-10"
+  },
+  {
+   "id": "drain-c2",
+   "text": "With every modeled outfall open, {{drainLandHa}} ha of cut-off ground holding a storm drain inlet could fill through the drains at the 100-year storm tide ({{drainByWatershed}}).",
+   "evidenceClass": "exploratory-model",
+   "tokens": ["drainLandHa", "drainByWatershed", "aquaticParkDrainHa"],
+   "scenarioState": { "sc": "y100", "drains": "open", "rain": null },
+   "sourceRefs": ["D2", "D3", "D6", "C9"],
+   "limitations": ["Upper bound: assumes every inlet connects to an open outfall and the tide lasts long enough to fill the pipes.", "Outfall links are modeled, not surveyed outfalls.", "Which outfalls have tide gates is not published."],
+   "verifiedAt": "2026-11-10"
+  },
+  {
+   "id": "drain-c3",
+   "text": "With tide gates modeled closed on every outfall but the Aquatic Park tide tubes, ground that can fill up the drains at the 100-year storm tide falls from {{baseDrainLandHa}} ha to {{drainLandHa}} ha, of which {{aquaticParkDrainHa}} ha drains to the Aquatic Park lagoon.",
+   "evidenceClass": "exploratory-model",
+   "tokens": ["baseDrainLandHa", "drainLandHa", "aquaticParkDrainHa"],
+   "scenarioState": { "sc": "y100", "drains": "gates-closed", "rain": null, "compare": "gates-open" },
+   "sourceRefs": ["D6", "D7", "D9"],
+   "limitations": ["A sensitivity test between two assumptions, not a description of the City's drains today.", "The lagoon is treated as following the Bay's level; five 24-inch tubes may hold it lower for a short tide (D9)."],
+   "verifiedAt": "2026-11-10"
+  },
+  {
+   "id": "drain-c4",
+   "text": "A 10-year, 6-hour storm ({{rainDepthIn}} in, NOAA Atlas 14) with all runoff held back by closed outfalls pools on {{rainLandHa}} ha of Berkeley land in this model, at the 100-year storm tide.",
+   "evidenceClass": "exploratory-model",
+   "tokens": ["rainDepthIn", "rainLandHa"],
+   "scenarioState": { "sc": "y100", "drains": "gates-closed", "rain": { "ari": "10", "duration": "6-hr", "blocked": 1 } },
+   "sourceRefs": ["R1", "R3", "R5"],
+   "limitations": ["Illustrative storage experiment: each watershed's runoff pools at its lowest inlet, which can overstate depth there and miss ponding elsewhere.", "The share that cannot drain (here 100%) is an assumption.", "The Simple Method runoff share is applied beyond the drainage areas it was made for."],
+   "verifiedAt": "2026-11-10"
+  }
+ ]
+}

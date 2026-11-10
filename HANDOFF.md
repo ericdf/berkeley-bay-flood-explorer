@@ -12,6 +12,15 @@ each item here once it is done.
    still-water column" (E28), so they are no longer inferred.
    The question about how FEMA fitted its still water levels (C28 (c)) is also open, with low impact.
 
+## Waiting on Eric
+
+- **Civic stories (E29).** Review the calls listed in `docs/civic/implementation-notes.md`: building
+  on `main` and not dedd762; extending guided mode. The records request was dropped (E30). The
+  story now ends with a comment readers can send, asking the Stormwater Master Plan and the tide
+  tube replacement to address high Bay water (D11). Then review the drain story's claims, which lets `reviewedBy` be set. Then
+  decide whether to publish. The next phase rebuilds the roads, contaminated-site and defenses
+  questions as stories.
+
 ## Deferred (each adds a control to the page)
 
 2. **A barrier at the crossing behind I-80 (C6),** tested like the walls (C25). Deferred: it adds a

@@ -10,7 +10,9 @@ const num = (v) => (v != null && v !== '' && Number.isFinite(Number(v)) ? Number
 
 // state: { sc, lv, presets, gates, rain: {ari, duration, blocked} | null, walls: [{crestFt, line: [[x, y]]}],
 //          sites: {id: choice}, floodproofFt, show: [names], cosmos: {slr, storm} | null,
-//          mode: 'guided' | 'expert', q: guided question id | null }. An address is never put in the link.
+//          mode: 'guided' | 'expert', q: guided question id | null,
+//          story: story id | null, step: '1', '2', ... | 'brief' | null, view: 'decisions' | null }
+// (civic stories, js/civic/civic.js). An address is never put in the link.
 export function encodeView(s) {
   const p = new URLSearchParams();
   if (s.sc) p.set('sc', s.sc); else if (s.lv != null) p.set('lv', s.lv.toFixed(2));
@@ -24,6 +26,8 @@ export function encodeView(s) {
   if (s.cosmos) p.set('cosmos', `${s.cosmos.slr}_${s.cosmos.storm}`);
   if (s.mode) p.set('mode', s.mode);
   if (s.q) p.set('q', s.q);
+  if (s.story) { p.set('story', s.story); if (s.step) p.set('step', s.step); }
+  if (s.view) p.set('view', s.view);
   return p.toString();
 }
 
@@ -32,7 +36,12 @@ export function decodeView(hash) {
   const out = { sc: p.get('sc') || null, lv: num(p.get('lv')), presets: (p.get('plan') || '').split('_').filter(Boolean),
     gates: p.get('gates') === '1', rain: null, walls: [], sites: {}, floodproofFt: num(p.get('fp')),
     show: (p.get('show') || '').split('_').filter(Boolean), cosmos: null,
-    mode: ['guided', 'expert'].includes(p.get('mode')) ? p.get('mode') : null, q: p.get('q') || null };
+    mode: ['guided', 'expert'].includes(p.get('mode')) ? p.get('mode') : null, q: p.get('q') || null,
+    // Story ids and steps are checked against data/civic/stories.json when opened, and an unknown one
+    // says so on the page; here only their length is limited.
+    story: p.get('story') ? p.get('story').slice(0, 80) : null,
+    step: p.get('step') ? p.get('step').slice(0, 8) : null,
+    view: p.get('view') === 'decisions' ? 'decisions' : null };
   const rain = (p.get('rain') || '').split('_');
   if (rain.length === 3 && num(rain[2]) != null) out.rain = { ari: rain[0], duration: rain[1], blocked: num(rain[2]) };
   for (const w of p.getAll('wall')) {
