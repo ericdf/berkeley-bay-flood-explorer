@@ -54,7 +54,7 @@ export function whenShort(T) {
   return 'none of these levels';
 }
 
-export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
+export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = () => '' }) {
   const SITE_TEXT = {
     'berkeley-forge': 'Metal works under the State stormwater permit; its runoff carried aluminum, copper, iron and zinc before a 2012 settlement.',
     'pacific-steel-geotracker': 'Closed steel foundry. Contaminated soil and groundwater, which lies as little as 1.5 ft below the ground; cleanup open.',
@@ -138,6 +138,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion }) {
     return `<h2 class="q">What do you want to know?</h2>
       <p>Pick a question. Each answer says when Bay water reaches each place: today, by 2050 and by 2100. Click a line in an answer to see that water on the map.</p>
       <div class="qs">${QUESTIONS.map(q => `<button type="button" class="qcard" data-q="${q.id}"><b>${esc(q.title)}</b><span>${esc(q.sub)}</span></button>`).join('')}</div>
+      ${extraHome()}
       <p class="src" style="margin-top:16px">To set any level, add rain or build your own defenses, switch to <a href="#" data-mode="expert">Expert</a>.</p>`;
   }
 

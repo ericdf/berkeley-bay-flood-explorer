@@ -1,11 +1,13 @@
 // Berkeley Bay Flood Explorer: page logic. Loads the data files, runs the connected fill for the
 // chosen level and plan (js/analyze.js), and draws the map and results.
-import { analyze, FLANKED, DRAIN, RAIN } from './analyze.js';
+import { analyze, FLANKED, DRAIN, RAIN, STREET_WET_SHARE } from './analyze.js';
 import { WET, LOW } from './fill.js';
 import { exposure, groundText } from './exposure.js';
 import { encodeView, decodeView, wallFits, MAX_WALL_POINTS, MAX_WALLS } from './share.js';
 import { initGuided } from './guided.js';
 import { watchRefs } from './refs.js';
+import { loadCivic, initCivic } from './civic/civic.js';
+import { hideDrains } from './civic/tokens.js';
 
 const $ = (id) => document.getElementById(id);
 const fmt = (x, d = 0) => x.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -88,7 +90,23 @@ function landmarkLabels() {
 }
 // The plan the reader has built: preset ids, tide gates, and walls they drew.
 const ui = { mode: 'guided', q: null, presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null,
-  siteChoices: {}, floodproofFt: 13 }; // site choices: js/exposure.js
+  siteChoices: {}, floodproofFt: 13, // site choices: js/exposure.js
+  storyMap: null }; // a civic story step's map state (js/civic/civic.js), shown in guided mode only
+let civicUI = null;
+
+// A story step's tide gates: the same plan as expert mode's tide gate lever, with no walls.
+function storyPlan(m) {
+  if (!m || m.drains !== 'gates-closed') return null;
+  const gates = {}; for (const w of D.drains.watersheds) gates[w.name] = true;
+  return { walls: [], roads: [], gates };
+}
+// The model run for a story step, without drawing it: the same analyze() as every other view.
+function storyRun(m, levelFt) {
+  const plan = storyPlan(m);
+  let res = analyze(D, levelFt, plan, m.rain || null);
+  if (m.drains === 'hidden') res = hideDrains(res, DRAIN, LOW, STREET_WET_SHARE);
+  return { res, plan, base: m.compare === 'gates-open' ? analyze(D, levelFt, null, m.rain || null) : null };
+}
 
 function currentPlan() {
   const plan = { walls: [], roads: [], gates: {} };
@@ -424,7 +442,8 @@ function writeView(levelFt, sc) {
     walls: ui.drawn, sites: ui.siteChoices, floodproofFt: ui.floodproofFt,
     show: Object.entries(OVERLAYS).filter(([, id]) => $(id).checked).map(([k]) => k),
     cosmos: $('showCosmos').checked ? { slr: $('cosmosSlr').value, storm: $('cosmosStorm').value } : null,
-    mode: ui.mode, q: ui.mode === 'guided' ? ui.q : null });
+    mode: ui.mode, q: ui.mode === 'guided' && !(civicUI && civicUI.route()) ? ui.q : null,
+    ...(ui.mode === 'guided' && civicUI ? civicUI.hashParams() : {}) });
   lastHash = h ? `#${h}` : '';
   if (location.hash !== lastHash) history.replaceState(null, '', `${location.pathname}${location.search}${lastHash}`);
 }
@@ -448,6 +467,7 @@ function applyView(v) {
 }
 
 // The map key: only what this view draws.
+const storyOn = () => ui.mode === 'guided' && !!ui.storyMap;
 function legend(res, plan) {
   const sw = (c, extra = '') => `<span class="sw" style="background:${c};${extra}"></span>`;
   const cls = new Set([...res.segs.map(s => s.cls), ...(res.railSegs || []).map(s => s.cls)]);
@@ -458,8 +478,9 @@ function legend(res, plan) {
     [res.drainLandHa > 0, sw('#26b2a0'), 'Can fill up the storm drains'],
     [res.rainLandHa > 0, sw('#7b5cff'), 'Pooled rain that cannot drain'],
     [res.lowLandHa > 0, sw('var(--low)'), 'Below the water, cut off from it'],
-    [!!plan, sw('#46c85a'), 'Kept dry by the defenses'],
-    [!!plan, sw('#111', 'outline:2px solid #fff'), 'Wall or raised road'],
+    [!!plan && !storyOn(), sw('#46c85a'), 'Kept dry by the defenses'],
+    [!!plan && !storyOn(), sw('#111', 'outline:2px solid #fff'), 'Wall or raised road'],
+    [!!plan && storyOn(), sw('#fff', 'outline:3px solid #111'), 'Outfall with a tide gate modeled closed (modeled location)'],
     [cls.has('wet'), sw('#d22'), 'Street or track under water'],
     [cls.has('drain'), sw('#0e8f7e'), 'Street or track flooded up the drains'],
     [cls.has('rain'), sw('#5a3fd6'), 'Street or track under pooled rain'],
@@ -479,12 +500,15 @@ function render(levelFt, sc) {
   writeView(levelFt, sc);
   // Guided mode's answers assume no defenses, no rain and no site choices (data/thresholds.json), so
   // the map shows exactly that; expert settings are kept and come back in expert mode (Codex, PR #14).
-  const expert = ui.mode === 'expert';
-  const plan = expert ? currentPlan() : null, rain = expert ? ui.rain : null;
-  const res = analyze(D, levelFt, plan, rain);
+  // A story step (js/civic/civic.js) sets its own tide gates, rain and drain display in guided mode.
+  const expert = ui.mode === 'expert', story = expert ? null : ui.storyMap;
+  const plan = expert ? currentPlan() : storyPlan(story), rain = expert ? ui.rain : story ? story.rain || null : null;
+  let res = analyze(D, levelFt, plan, rain);
   const baseRes = plan ? analyze(D, levelFt, null, rain) : null;
+  if (story && story.drains === 'hidden') res = hideDrains(res, DRAIN, LOW, STREET_WET_SHARE);
   const lvText = `${sc && sc.precision === 1 ? 'about ' : ''}${fmt(levelFt, sc && sc.precision != null ? sc.precision : 2)} ft NAVD88 still water`;
-  const extras = [rain ? `rain experiment (${rain.ari}-year, ${rain.duration.replace('-hr', ' h')})` : '', plan ? 'with a plan the reader built' : '', expert && Object.values(ui.siteChoices).some(c => c && c !== 'none') ? 'site choices assumed' : ''].filter(Boolean);
+  const extras = [story && story.drains === 'hidden' ? 'drain pathway not shown' : '', rain ? `rain experiment (${rain.ari}-year, ${rain.duration.replace('-hr', ' h')}${story ? `, ${Math.round(rain.blocked * 100)}% held back` : ''})` : '',
+    plan ? (story ? 'tide gates modeled closed, Aquatic Park tubes open' : 'with a plan the reader built') : '', expert && Object.values(ui.siteChoices).some(c => c && c !== 'none') ? 'site choices assumed' : ''].filter(Boolean);
   // The level's provenance travels with it; a qualified level carries its qualification.
   const QUAL = { ferris12: 'Read here as ft NAVD88 still water (inference): its source, datum and whether it includes waves are unconfirmed',
     spill: "A result of this explorer's terrain model, uncertain: the connection could open lower or higher",
@@ -644,6 +668,19 @@ function planPanel(rerender) {
   $('drawClear').addEventListener('click', () => { ui.drawn = []; ui.draft = []; $('drawNote').textContent = 'No walls drawn.'; rerender(); });
 }
 
+// When the terrain or flood data fail to load, a story link still shows its text (with numbers
+// marked not available), so the evidence and caveats can be read without the map.
+async function textOnlyStory() {
+  const v = decodeView(location.hash);
+  if (!v.story && !v.view) return;
+  try {
+    const scenarios = (await fetch('data/scenarios.json').then(r => r.json())).scenarios;
+    const civic = await loadCivic(scenarios.map(s => s.id));
+    civicUI = initCivic({ el: $('guide'), civic, scenarios, D: null, setState: () => {}, compute: null, openExpert: () => location.reload(), onRoute: () => {} });
+    civicUI.open({ story: v.story, step: v.step, view: v.view }, false);
+  } catch (e) { /* the status line above already says the data did not load */ }
+}
+
 (async () => {
   // The header's height sets the map's height, and with it the width the map takes (index.html --mapw).
   new ResizeObserver(() => document.documentElement.style.setProperty('--hdr', `${$('hdr').offsetHeight}px`)).observe($('hdr'));
@@ -659,6 +696,7 @@ function planPanel(rerender) {
     status.textContent = `Some of the explorer's data did not load (${e.message || 'network error'}). `;
     const retry = document.createElement('button'); retry.type = 'button'; retry.textContent = 'Try again';
     retry.addEventListener('click', () => location.reload()); status.append(retry);
+    textOnlyStory();
     return;
   }
   status.remove();
@@ -728,7 +766,41 @@ function planPanel(rerender) {
       if (k >= 0) pick(k); else { $('level').value = lv; $('levelOut').textContent = fmt(lv, 2); show(lv, null); }
     },
     focus: (f) => { showPlace(f); if (levelNow != null) legend(last.res, last.plan); },
-    onQuestion: (q) => { ui.q = q; if (levelNow != null) writeView(levelNow, scNow); } });
+    // Any guided question, or the question list, ends a story: the map goes back to guided mode's
+    // plain view (no gates, no rain).
+    onQuestion: (q) => {
+      ui.q = q; const wasStory = !!ui.storyMap; ui.storyMap = null; if (civicUI) civicUI.leave();
+      if (levelNow != null) { if (wasStory) render(levelNow, scNow); else writeView(levelNow, scNow); }
+    },
+    extraHome: () => civicUI ? civicUI.homeBlock() : '' });
+  // Civic stories (js/civic/civic.js): loaded and checked here; if they fail, guided and expert
+  // modes work as before and story links say the story is not available.
+  const civicData = await loadCivic(D.scenarios.map(s => s.id));
+  if (!civicData.ok) console.warn('Civic story data not shown:', civicData.errors);
+  civicUI = initCivic({ el: $('guide'), civic: civicData, scenarios: D.scenarios, D,
+    setState: (m) => {
+      ui.storyMap = m; showPlace(null);
+      const k = D.scenarios.findIndex(s => s.id === m.sc);
+      if (k >= 0) pick(k);
+    },
+    compute: (m) => storyRun(m, D.scenarios.find(s => s.id === m.sc).levelFt),
+    // Expert mode at the step's settings, so a reader can check it with every control: the scenario,
+    // tide gates and rain; walls, raised roads and site choices are cleared to match the step.
+    openExpert: (m) => {
+      ui.presets.clear(); document.querySelectorAll('input[data-preset]').forEach(i => { i.checked = false; });
+      ui.drawn = []; $('drawNote').textContent = 'No walls drawn.';
+      ui.siteChoices = {}; document.querySelectorAll('select[data-site]').forEach(x => { x.value = 'none'; });
+      ui.gates = m.drains === 'gates-closed'; $('gates').checked = ui.gates;
+      $('rainOn').checked = !!m.rain;
+      if (m.rain) { $('rainAri').value = m.rain.ari; $('rainDur').value = m.rain.duration; $('rainBlocked').value = String(m.rain.blocked); }
+      ui.rain = m.rain ? { ari: m.rain.ari, duration: m.rain.duration, blocked: m.rain.blocked } : null;
+      $('rainNote').textContent = ui.rain ? `${D.atlas.depthIn[ui.rain.duration][ui.rain.ari]} in of rain (NOAA Atlas 14, SOURCE_NOTES R1).` : '';
+      ui.storyMap = null; civicUI.leave();
+      ui.mode = 'expert'; const k = D.scenarios.findIndex(s => s.id === m.sc);
+      setMode('expert'); if (k >= 0) pick(k);
+    },
+    beforeNavigate: () => { history.pushState(null, '', location.href); },
+    onRoute: () => { if (levelNow != null) writeView(levelNow, scNow); } });
   const setMode = (m) => {
     ui.mode = m; $('main').className = m;
     $('modeGuided').setAttribute('aria-pressed', m === 'guided'); $('modeExpert').setAttribute('aria-pressed', m === 'expert');
@@ -755,8 +827,15 @@ function planPanel(rerender) {
   // A link from before guided mode carries expert settings and no mode: it opens in expert mode.
   setMode(view.mode || (hadHash ? 'expert' : 'guided'));
   guided.show(view.mode === 'guided' && guided.questions.includes(view.q) ? view.q : null);
-  // A different link opened in the same tab changes only the part after "#": load it afresh.
-  window.addEventListener('hashchange', () => { if (location.hash !== lastHash) location.reload(); });
+  if (ui.mode === 'guided') civicUI.open({ story: view.story, step: view.step, view: view.view }, false);
+  // A different link opened in the same tab changes only the part after "#": load it afresh. Back
+  // and Forward between story steps stay on the page.
+  window.addEventListener('hashchange', () => {
+    if (location.hash === lastHash) return;
+    const v = decodeView(location.hash);
+    if (ui.mode === 'guided' && v.mode === 'guided' && (v.story || v.view) && civicUI.open({ story: v.story, step: v.step, view: v.view }, false)) return;
+    location.reload();
+  });
   $('shareBtn').addEventListener('click', async () => {
     let ok = false;
     try { await navigator.clipboard.writeText(location.href); ok = true; } catch (e) { /* shown below instead */ }
