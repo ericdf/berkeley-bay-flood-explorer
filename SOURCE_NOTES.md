@@ -1830,7 +1830,7 @@ Three claims in the outside review behind E9, checked against primary sources be
   storm drain story ends with a public records request that readers can copy and send themselves.
   The explorer sends nothing, and the request's status is "proposed, not submitted." E26 stopped requests
   from the project to outside people; it did not address readers' requests, so this reading of
-  it is an inference for Eric to confirm.
+  it is an inference for Eric to confirm. Call (3) was superseded the same day (E30).
 - **D10. The City's public records request channels (read 2026-11-10).** City of Berkeley, "Public
   Records" (https://berkeleyca.gov/your-government/public-records) and "Requesting Public
   Information" (https://berkeleyca.gov/your-government/public-records/requesting-public-information),
@@ -1845,4 +1845,58 @@ Three claims in the outside review behind E9, checked against primary sources be
   past requests were not searched). Used for: the drain story's request (`data/civic/actions.json`)
   and the City Clerk as the agency that receives requests (`data/civic/issues.json`). Which City
   division holds the outfall and tide gate records is not stated there; Public Works is named
-  tentatively, from its published storm work orders (D5) and DATA_INVENTORY.md.
+  tentatively, from its published storm work orders (D5) and DATA_INVENTORY.md. No longer used after
+  E30: the explorer carries no records request.
+- **E30. No records requests; the act stage advocates change, from available data (2026-11-10).**
+  Eric, on PR #36's records request for readers: "No records requested. Limit yourself to available
+  data sources. Asking for records is not change advocacy which is our goal." Applied: the request
+  and its records portal links are gone, and `js/civic/schema.js` rejects the `records-request` type.
+  The drain story's last steps now point to two City plans already under way, from documents in
+  `berkeley-public-records` (D11). The page asks for changes to their scope. Evidence gaps stay as
+  gaps.
+- **D11. The City's stormwater plan and the tide tube replacement, adopted and funded (read 2026-11-10).**
+  From `berkeley-public-records`; the read covers four documents:
+  - **City Manager, "Proposed Five-Year Capital Improvement Program (CIP)", Council 2026-06-16, Item
+    40c, Supplemental Packet 2** (archived as `bcc-2026-06-16-item-40c-staff-report`; source
+    https://berkeleyca.gov/sites/default/files/2026-06/2026-06-16%20Item%2040c%20Proposed%20Five-Year%20Capital%20Improvement.pdf).
+    - p. 88, Storm Water System, FY 2027 & FY 2028 CIP projects: "Stormwater Master Plan: Critical
+      to the Storm CIP program is the development of a comprehensive master plan for stormwater
+      infrastructure, which will incorporate updates to the 2012 Watershed Plan and the 2019 Green
+      Infrastructure Plan, updates to the City's existing hydraulic model for the storm drainage and
+      creek culvert infrastructure, condition, and capacity assessments, and prioritization of
+      future capital improvement rehabilitation needs for the City's storm drainage program.
+      Development of the Stormwater Master began in FY 2024. Completion is expected in FY 2027."
+      The description does not mention Bay tides, outfalls, tide gates or sea level rise; those
+      words do not appear in the storm water section.
+    - Same page: "West Berkeley Aquatic Park Stormwater Improvements Project: Currently in the
+      design phase," a bioretention basin treating "approximately 4.5 acres of impervious area
+      which drains to Aquatic Park."
+    - p. 128, "Current Infrastructure Grants": "PRW California Transportation Commission $4,122,000
+      Aquatic Park Tide Tube Replacement and Dredging Project."
+    - p. 87 (Parks): "the need to protect the Waterfront from sea level rise is becoming more
+      immediate."
+  - **City Manager, "Adoption of Fiscal Years 2027 and 2028 Biennial Budget and Fiscal Years 2027 –
+    2031 Capital Improvement Program", Council special meeting 2026-06-23, Item 1**
+    (`bcc-2026-06-23-special-item-01-staff-report`).
+    - p. 106: "Council authorized $800k in grant match for potential Aquatic Parks tide tubes grant,
+      prior to City's application. We were successful in securing that grant."
+    - p. 132, work plan: Public Works, "Updating the Stormwater Master Plan," January 2024 –
+      December 2026, Continuing, $2,000,000.
+    - p. 209: the same master plan description as Item 40c.
+  - **Annotated agenda, Council 2026-06-23** (source
+    https://berkeleyca.gov/sites/default/files/city-council-meetings/2026-06-23%20Annotated%20Agenda%20-%20Council.pdf).
+    The Council adopted Resolution No. 72,340–N.S., adopting the FY 2027 and FY 2028 budget and
+    the FY 2027–2031 CIP, with amendments, none of which named these projects (Humbert/Tregub,
+    "Vote: All Ayes"). An earlier motion failed.
+  - **The City's web pages, read 2026-11-10.** The Public Works Commission page
+    (https://berkeleyca.gov/your-government/boards-commissions/public-works-commission) says
+    "Communications to Berkeley boards, commissions, or committees are public record," and that
+    a writer who does not want contact information made public may deliver by mail or in person
+    to the commission secretary. The Council agendas page
+    (https://berkeleyca.gov/your-government/city-council/city-council-agendas) and the Parks,
+    Recreation and Waterfront Commission page were reached.
+
+  Not established: the tide tube project's design, schedule and whether it includes gates that close
+  against storm tides; the master plan's actual scope beyond the CIP description; and whether
+  "completion" means December 2026 (work plan) or June 2027 (end of FY 2027). Used for: the drain
+  story's issue and actions (`data/civic/issues.json`, `actions.json`).

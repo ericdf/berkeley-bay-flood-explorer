@@ -19,12 +19,20 @@ Eric asked for these calls to be made and reported back (E29).
    contaminated ground (contaminated sites) and flood defenses (shoreline responses). They stay as
    they are and are not yet rebuilt as five-stage stories (Phase C). The page's headline is
    unchanged; the spec's suggested sentence was not adopted, because the opening text is Eric's (E15).
-3. **The drain story ends with a records request readers send themselves.** E26 stopped requests from the
-   project to outside people. A request a reader copies and sends is a different
-   thing, but the page does carry its text. The status is "Proposed, not submitted". The page says
-   that copying sends nothing and never asks for a name or contact details. Removing the request
-   means deleting `data/civic/actions.json`'s entry and the story's last step. Nothing else depends
-   on them.
+3. **The drain story ends with advocacy for a change, not a records request.** The first draft
+   ended with a records request for readers to send. Eric rejected it: "No records requested.
+   Limit yourself to available data sources. Asking for records is not change advocacy which is
+   our goal" (E30). The story now points to two City projects found in `berkeley-public-records`
+   (D11). The first is the Stormwater Master Plan: Public Works, January 2024 to December 2026,
+   $2,000,000, with an updated hydraulic model; its published description does not mention Bay
+   tides or sea level rise. The second is the Aquatic Park Tide Tube Replacement and Dredging
+   Project, funded by a $4,122,000 California Transportation Commission grant. The Council adopted
+   both in the FY 2027–2031 CIP on 2026-06-23. The comment readers can copy asks the plan to test
+   the drains with a high Bay. It also asks for the new tubes to be able to close ahead of a storm
+   tide while still draining rain. The options are listed with tradeoffs and unranked, including
+   "proceed as scoped". Its numbers come from the model through a claim, like the story's. The
+   schema rejects any records request. The call left to Eric is the comment's two asks, which are
+   advocacy positions.
 4. **Navigation stays as it is.** Guided and Expert remain the two modes. "Decisions and actions" is
    a link from the guided home, and "About the evidence" links to `SOURCE_NOTES.md`. There is no
    four-tab bar. A tab bar would add a control to every page (E25: keep the page simple).
@@ -72,15 +80,16 @@ Eric asked for these calls to be made and reported back (E29).
   text first would mean splitting the page's start-up. That is left for later. Only the text-only
   fallback for failed data was built.
 - **Claims have a separate file** (`claims.json`), so the same claim can serve a story and the brief.
-- **Status vocabulary** is the spec's, and the page shows "Proposed, not submitted" for `proposed`.
+- **Status vocabulary** is the spec's, and the page shows "Proposed, not sent" for `proposed`.
+- **Action types** are the spec's minus `records-request` (E30).
 - **No Explore/Decisions/About tab bar** (call 4).
 
 ## Open evidence gaps (the drain story)
 
 Outfall locations and inverts, tide gate inventory and condition, pipe network and capacity,
 observations at high tides, and Aquatic Park lagoon levels and gate settings (`data/civic/issues.json`;
-D3, D5, D6, D8, D9). The records request asks for the first four. Which City division holds them is
-tentative (Public Works; D10).
+D3, D5, D6, D8, D9). They stay listed as gaps. The comment asks the City's master plan to answer
+the question they bear on, rather than asking for the records (E30).
 
 ## Links
 

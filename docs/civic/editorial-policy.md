@@ -18,6 +18,10 @@ Rules for `data/civic/*.json`. They add to `CLAUDE.md` and `AGENTS.md` and do no
 
 ## Agencies, actions and status
 
+- No records requests, from the project or for readers to send (Eric, E30). An action asks for a
+  change, such as a scope, a design or a decision, and grounds it in data the repository already
+  holds. (checked)
+- Model numbers in an action's text come through `{{tokens}}` and a claim, as in a story. (checked)
 - A responsible agency is `sourced` (with a row) or `tentative`. (checked)
 - Actions link to official pages only after the link was opened. The date goes in `linksCheckedAt`.
   No email addresses. (checked)
@@ -25,7 +29,7 @@ Rules for `data/civic/*.json`. They add to `CLAUDE.md` and `AGENTS.md` and do no
 - A status other than `proposed` or `investigating` needs an update entry with a source. An issue's
   status is its latest update's. (checked)
 - `updates.json` is append-only. Correct a past entry by adding a new one.
-- Copying a request sends nothing, and the page says so. The page never asks for names, addresses or
+- Copying an action's text sends nothing, and the page says so. The page never asks for names, addresses or
   contact details.
 - Each action has `reviewedAt` and `reviewWindowDays`. Once the window passes, the page and the brief
   say "check current details". (checked)
