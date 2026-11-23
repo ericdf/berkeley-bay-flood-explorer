@@ -263,8 +263,11 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     }
     const lv = (k) => k === 255 ? null : Math.round((6 + 0.05 * k) * 100) / 100;
     const p = { name: label, what: 'The ground at and in front of this address. Floors may sit higher; floor heights are not published.', at: [x, y], bay: lv(bay), drain: lv(drain) < lv(bay) || (lv(bay) == null && lv(drain) != null) ? lv(drain) : null, edge: true };
+    // An address is the only place in its answer: replace any earlier lookup's place, then renumber the map.
+    places.length = 0; placeN = 0; tourI = null;
     const first = Math.min(p.drain ?? 99, p.bay ?? 99);
     out.innerHTML = `<p class="finding">${first > HIGHEST ? `None of the water levels here reach ${esc(label)}, up to above the highest 2100 estimate shown.` : `At ${esc(label)}, Bay water first reaches the ground in ${esc(whenShort(first))}.`}</p>${p.drain != null ? drainNote : ''}${place(p)}${numsToggle()}`;
+    onPins(pinList()); onTour(null);
     focus({ points: [p.at], label });
   }
   function address() {
@@ -292,6 +295,8 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     let best = null; for (const l of p.lines || []) if (l.length && (!best || l.length > best.length)) best = l;
     return best ? best[Math.floor(best.length / 2)] : null;
   }
+  // The numbered places as the map draws them: one number per place with a point.
+  const pinList = () => places.map((p, i) => ({ n: i + 1, label: p.name, at: pinAt(p) })).filter(P => P.at);
   const tourText = () => tourI == null ? `${places.length} places, numbered on the map` : `Place ${tourI + 1} of ${places.length}: ${places[tourI].name}`;
   function tourBar() {
     if (places.length < 2) return '';
@@ -314,7 +319,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${tourBar()}${body}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
     el.scrollTop = 0;
     if (!current) focus(null);
-    onPins(places.map((p, i) => ({ n: i + 1, label: p.name, at: pinAt(p) })).filter(P => P.at));
+    onPins(pinList());
     onQuestion(current);
   }
   el.addEventListener('click', (e) => {
