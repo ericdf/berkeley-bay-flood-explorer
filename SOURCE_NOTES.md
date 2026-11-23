@@ -1928,3 +1928,10 @@ Three claims in the outside review behind E9, checked against primary sources be
   against storm tides; the master plan's actual scope beyond the CIP description; and whether
   "completion" means December 2026 (work plan) or June 2027 (end of FY 2027). Used for: the drain
   story's issue and actions (`data/civic/issues.json`, `actions.json`).
+
+## City screening sites near the Bay: a model rule for the toxic answer (2026-11-23, Eric: "yes on recommendation for 5")
+
+- **E34. Count of City screening sites within 300 m of open Bay water (model rule, derived; decision by Eric on 2026-11-23, recommendation accepted).** Applied in the guided toxic answer, under the stated rule. Rule: a site counts if any open-Bay cell (`D.water0`, the mask js/analyze.js uses for the flood model) lies within 300 m of the site's point, measured straight-line on the explorer's 4 m grid. Result: 12 of the 223 sites in the layer (F19, data/contaminated-sites.json), 4 of them High priority at current groundwater (the City's ranking, shown separately). Counts are derived by the page from the layer and the mask at load.
+  - What this does not show: that water reaches any of these sites, that a site drains to the Bay, or that contamination has moved. A flow path would need the drains and ground the model does not use for this count. The page says so beside the number.
+  - Assumption, not sourced: the 300 m radius is our choice (about 1,000 ft), not a City or State standard. Earlier rough counts (7 sites, 2026-11-23 before this change) were not grid-based and are superseded.
+  - Not yet checked against a published depth map, as CLAUDE.md asks of a model rule that shows a result. The count is a distance count and changes no depth, but this check is open.
