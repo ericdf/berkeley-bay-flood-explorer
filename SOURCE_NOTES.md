@@ -1855,4 +1855,4 @@ Three claims in the outside review behind E9, checked against primary sources be
   - 12: 17 m from the I-80 frontage road, south of the Marina.
   - What this establishes: the 12 to 16 ft NAVD88 wave runup range (C31) covers the exposed Berkeley shore from north of Gilman to south of the Marina. It is not a Marina-only range. The explorer's text already says so: "transects 4 to 12," with no Marina attribution (PR #35).
   - What this does not establish: the distance from a transect to the water's edge, or the exact Marina boundary. Street distances are to the centerline of the mapped street, not to the shore.
-  - Conflict with C33 (Marina 12 to 14 ft vs FEMA 12 to 16 ft) is unchanged: the two transects at the Marina (10 and 11) sit in the FEMA range's middle, so this check does not settle it.
+  - Conflict with C33 (Marina 12 to 14 ft vs FEMA 12 to 16 ft) is unchanged: this check places the transects; it does not show which range the Marina's own shore should use.
