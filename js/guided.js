@@ -63,15 +63,15 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     'eastshore-1255': 'Former traffic-sign plant. Solvents (TCE, vinyl chloride) and gasoline-range fuel in soil, shallow groundwater and soil vapor.',
     'transfer-station': "The City's garbage and recycling transfer station: a hazardous materials locker, batteries, bulbs and a 1,000-gallon used oil tank.",
     'marine-center': 'Boatyard. Lead and copper in surface soil. Its shoreline edge is wet at ordinary high tides.',
-    'terminal-mfg': 'PCE, diesel and gasoline in groundwater and soil vapor; treatment under way.',
+    'terminal-mfg': 'PCE, diesel and gasoline in groundwater and soil vapor. Site open for verification monitoring (2023); groundwater treatment injections reported in 2020.',
     'eastshore-park': 'PCBs, lead and other metals in soil and groundwater.',
-    'flint-ink': 'Former ink plant. Lead, kerosene and other petroleum; solvents remain in groundwater.',
+    'flint-ink': 'Former ink plant. Lead, kerosene and other petroleum; solvents (VOCs) in groundwater, believed from an off-site source.',
   };
   const ROADS = [
     { key: 'BOLIVAR DR', street: true, name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', match: (e) => e.name === 'BOLIVAR DR' },
     { key: 'Frontage roads (Eastshore Hwy)', name: 'Eastshore Hwy (the frontage road)', what: 'The local road along I-80.', match: (e) => /^EASTSHORE HWY?$/.test(e.name) && e.berkeley },
     { key: 'Marina access roads', name: 'Roads to the Marina', what: 'Marina Blvd, Spinnaker Way and University Ave west of I-80: also the only ways off the waterfront.', match: (e) => e.berkeley && D.exposure.marinaRoutes.includes(e.name) && !(e.name === 'UNIVERSITY AV' && !e.geom.every(([x]) => x <= D.exposure.marinaMaxX)) },
-    { key: 'I-80 mainline', name: 'I-80 in Albany, just north of Berkeley', what: 'Its lowest stretch, by the Albany shoreline south of Golden Gate Fields: the west shoulder sits at about 10.3 ft, the lanes at 11 to 11.8 ft (SOURCE_NOTES C27).', lidar: true, match: (e) => e.freeway && !e.berkeley && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
+    { key: 'I-80 mainline', name: 'I-80 in Albany, just north of Berkeley', what: 'Its lowest stretch, by the Albany shoreline south of Golden Gate Fields: the west shoulder\'s ground is about 10.3 to 11.0 ft NAVD88 and the roadway 10.8 to 11.8 ft; water reaches the lanes from about 11.5 to 12 ft (SOURCE_NOTES C27).', lidar: true, match: (e) => e.freeway && !e.berkeley && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
     { key: 'I-80 mainline in Berkeley', name: 'I-80 in Berkeley', what: 'The freeway, both directions.', lidar: true, match: (e) => e.freeway && e.berkeley && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
     { key: 'Rail main line', rail: true, name: 'The rail line in Albany', what: "Union Pacific's main line, used by Amtrak's Capitol Corridor and San Joaquins; its lowest stretch is north of Berkeley.", lidar: true, railMatch: (e) => !e.berkeley },
     { key: 'Rail main line in Berkeley', rail: true, name: 'The rail line in Berkeley', what: 'The same line through west Berkeley.', lidar: true, railMatch: (e) => !!e.berkeley },
@@ -208,7 +208,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     return `<h2 class="q">What about a tsunami?</h2>
       <p class="finding">All ${n} polluted and hazardous sites in this explorer lie inside the State's tsunami evacuation area, along with the Marina, Aquatic Park and the flats east of I-80 to about Fourth St.</p>
       <p>The State draws the area for evacuation planning. It combines the largest tsunamis considered for this coast and marks ground to leave when a warning is issued. It is not a flood depth or a forecast, and this explorer does not model a tsunami's water (SOURCE_NOTES H6).</p>
-      <p>A tsunami arrives as a series of surges over hours. Water that floods in also drains back out, and it can carry what it picked up, from stored chemicals and contaminated ground, into the Bay. The transfer station's draft environmental report places the site in the tsunami area and finds no risk of releasing pollutants, because rebuilding would not make it more exposed than it is now (SOURCE_NOTES T4).</p>
+      <p>A tsunami arrives as a series of surges over hours. Water that floods in also drains back out, and it can carry what it picked up, from stored chemicals and contaminated ground, into the Bay. The transfer station's draft environmental report places the site in the tsunami area and says the project "would not risk release of pollutants due to project inundation", a risk it calls less than significant (SOURCE_NOTES T4).</p>
       <p><button type="button" data-tsunami>Show the tsunami evacuation area on the map</button></p>`;
   }
 
@@ -246,7 +246,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
         <p class="what">Berkeley land under water or filling up the drains in 2100's severe storm tide (City's estimate): ${ha(d)} ha, against ${ha(T)} ha with no defenses.</p></div>`;
     };
     return `<h2 class="q">What would flood defenses change?</h2>
-      <p class="finding">Working tide gates on every storm drain outlet but the Aquatic Park tide tubes, which this comparison leaves open to the tide, delay when Bay water first reaches the listed inland sites. In this model the water still reaches them through the lagoon before it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls only from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha (SOURCE_NOTES D9). The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn, because the water goes around their ends (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
+      <p class="finding">Working tide gates on every storm drain outlet but the Aquatic Park tide tubes, which this comparison leaves open to the tide, delay when Bay water first reaches the listed inland sites. In this model the water still reaches them through the lagoon before it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls only from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha (SOURCE_NOTES D9). The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn. The model shows this; the figures do not show how the walls tie into high ground (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
       <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The exception on record is Aquatic Park: the lagoon's five tide tubes have sliding gates, restored in 2020 for tidal exchange; the City\'s page does not say how or when they are set, and this comparison leaves them open (D7, D9). A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
       ${T.defenses.map(card).join('')}
       <p class="src">In this terrain model, the first surface connection across the I-80 corridor appears near 13.4 ft NAVD88 (13.35), about 250 m south of Gilman St (SOURCE_NOTES C6). The actual crossings and drainage openings under the freeway need confirmation. A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
@@ -338,7 +338,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     places.length = 0; placeN = 0; tourI = null;
     current = RENDER[q] ? q : null;
     const body = current ? RENDER[current]() : '';
-    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${body}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
+    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${body}<p class="src">Not a flood forecast. A storm tide is the high tide with a storm's surge added; "1% chance each year" is the 100-year level. The three sea level estimates are the City's study (2018 guidance) and the State's 2024 Intermediate-High and High estimates (SOURCE_NOTES W11, W17). Levels are NAVD88, still water, unless a line says wave runup.</p><p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
     el.scrollTop = 0;
     if (!current) focus(null);
     onPins(pinList());
