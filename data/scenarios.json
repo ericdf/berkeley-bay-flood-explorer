@@ -22,7 +22,7 @@
       "label": "5-year storm tide (20% annual chance)",
       "levelFt": 8.16,
       "category": "sourced",
-      "source": "5-year extreme tide at point 518, 8.16 ft NAVD88 (W11); annual chance from W10",
+      "source": "5-year extreme tide at point 518, 8.16 ft NAVD88 (W11); a 1-in-5 chance each year (arithmetic; W10 gives no 5-year level)",
       "group": "At today's sea level"
     },
     {
@@ -37,7 +37,7 @@
       "id": "record",
       "label": "Highest observed at Richmond (Feb 6, 1998)",
       "levelFt": 8.65,
-      "category": "sourced",
+      "category": "derived",
       "source": "NOAA Richmond 9414863 highest observed, converted to NAVD88 (W2)",
       "group": "At today's sea level"
     },
