@@ -1,0 +1,229 @@
+{
+ "schemaVersion": 1,
+ "note": "Guided stories (docs/civic/insight-and-action-spec.md, docs/civic/editorial-policy.md). Each step's mapState is applied through js/main.js's render: the scenario by id, the drain display, modeled tide gates and the rain experiment. Body text may hold {{tokens}} filled from that run of the model (js/civic/tokens.js); a step with tokens lists the claims that carry their provenance. Checked by node tests/civic-check.mjs.",
+ "stories": [
+  {
+   "id": "drain-backflow",
+   "slug": "drain-backflow",
+   "title": "Can high Bay water back up Berkeley's storm drains?",
+   "dek": "West Berkeley's storm drains empty into the Bay. At a severe storm tide, this model shows Bay water coming back up through them onto low ground behind the shoreline, and rain with nowhere to go. The City is redoing its stormwater plan now, and the plan's published scope leaves out Bay tides.",
+   "status": "published-draft",
+   "evidenceStatus": "exploratory-model",
+   "locationLabel": "West Berkeley, from the Marina to Aquatic Park",
+   "issueIds": [
+    "drain-backflow-plans"
+   ],
+   "updatedAt": "2026-11-10",
+   "reviewedBy": null,
+   "owner": "Eric (maintainer)",
+   "sourceInventory": [
+    "D1",
+    "D2",
+    "D3",
+    "D5",
+    "D6",
+    "D7",
+    "D9",
+    "C9",
+    "R1",
+    "R3",
+    "R5",
+    "D11"
+   ],
+   "publishChecklist": {
+    "claimsCheckedAgainstModel": true,
+    "sourcesResolve": true,
+    "linksVerified": "2026-11-10",
+    "maintainerReviewed": false
+   },
+   "steps": [
+    {
+     "id": "orient",
+     "stage": "discover",
+     "heading": "Where the Bay meets west Berkeley",
+     "body": "This is west Berkeley at an ordinary high tide, which comes almost every day. Blue is ground the Bay covers over the surface. Orange is ground below that water with no surface path to the Bay. I-80 runs north to south behind the shoreline, and Aquatic Park's lagoon lies just east of it.",
+     "whatChanged": "An ordinary high tide, with the storm drain pathway hidden.",
+     "mapState": {
+      "sc": "mhhw",
+      "drains": "hidden",
+      "rain": null
+     },
+     "claimIds": [],
+     "caveats": [
+      "Bare-earth lidar removes bridges and raised decks, so I-80 and its ramps can look lower than they are."
+     ],
+     "sourceRefs": [
+      "H5"
+     ]
+    },
+    {
+     "id": "storm-tide",
+     "stage": "discover",
+     "heading": "A severe storm tide, over the ground",
+     "body": "Raise the Bay to a severe storm tide, one with about a 1% chance each year at today's sea level. In this model, {{wetLandHa}} ha of Berkeley land is under Bay water that arrives over the ground. Another {{lowLandHa}} ha (orange) lies below that level with no surface path to the Bay: it stays dry unless water reaches it another way.",
+     "whatChanged": "The Bay rose from an ordinary high tide to the 100-year storm tide. The drain pathway is still hidden.",
+     "mapState": {
+      "sc": "y100",
+      "drains": "hidden",
+      "rain": null
+     },
+     "claimIds": [
+      "drain-c1"
+     ],
+     "caveats": [
+      "Orange ground has no surface path to the Bay. Whether it floods depends on the drains and on groundwater."
+     ],
+     "sourceRefs": [
+      "W11",
+      "C9"
+     ]
+    },
+    {
+     "id": "drains-open",
+     "stage": "understand",
+     "heading": "With the outfalls open, the Bay comes up the drains",
+     "body": "Storm drains run downhill to outfalls on the Bay. Where an outfall has no working tide gate, a high Bay pushes water back up the pipes and out of the lowest inlets. The model shows {{drainLandHa}} ha of that low ground (teal) filling this way at this level ({{drainByWatershed}}). That is an upper bound: it assumes every inlet connects to an open outfall and that the tide lasts long enough to fill the pipes.",
+     "whatChanged": "The drain pathway is shown, with every outfall modeled open.",
+     "mapState": {
+      "sc": "y100",
+      "drains": "open",
+      "rain": null
+     },
+     "claimIds": [
+      "drain-c2"
+     ],
+     "caveats": [
+      "The model places outfalls from watershed outlines; they are not surveyed locations (D3).",
+      "Pipe connections, capacity, invert elevations and tide duration are left out (D6)."
+     ],
+     "sourceRefs": [
+      "D2",
+      "D3",
+      "D6"
+     ]
+    },
+    {
+     "id": "gates-closed",
+     "stage": "evaluate",
+     "heading": "The same tide with tide gates closed",
+     "body": "Now put a working tide gate on every modeled outfall except Aquatic Park's five tide tubes, which the City keeps open to the tide. Ground filling up the drains falls only from {{baseDrainLandHa}} ha to {{drainLandHa}} ha. The lagoon stays open to the Bay, and low ground on the drains that empty into it keeps filling: {{aquaticParkDrainHa}} ha in the Aquatic Park watershed alone. Which outfalls have gates is unpublished, so the City's drains sit somewhere between these two runs.",
+     "whatChanged": "Tide gates are closed on every outfall but the Aquatic Park tubes. The numbers compare this with every outfall open.",
+     "mapState": {
+      "sc": "y100",
+      "drains": "gates-closed",
+      "rain": null,
+      "compare": "gates-open"
+     },
+     "claimIds": [
+      "drain-c3"
+     ],
+     "caveats": [
+      "Closed gates also hold rain in (next step).",
+      "The I-80/Gilman project designed a flap gate for its outfall; whether it was built is unchecked (V3)."
+     ],
+     "sourceRefs": [
+      "D6",
+      "D7",
+      "D9",
+      "V3"
+     ]
+    },
+    {
+     "id": "rain-held",
+     "stage": "evaluate",
+     "heading": "Rain with nowhere to go",
+     "body": "A shut gate keeps the Bay out and the rain in. Add a 10-year, 6-hour storm, {{rainDepthIn}} in of rain (NOAA Atlas 14), with none of it able to drain while the tide holds the outfalls shut. The model pools each watershed's runoff at its lowest inlet: {{rainLandHa}} ha of Berkeley land under pooled rain. Putting a whole watershed's runoff in one pool can overstate the depth there and miss ponding elsewhere, and the runoff method was built for annual loads, so treat this as a rough measure of storage.",
+     "whatChanged": "A 10-year, 6-hour rainstorm is added, with tide gates still closed and all the runoff held back.",
+     "mapState": {
+      "sc": "y100",
+      "drains": "gates-closed",
+      "rain": {
+       "ari": "10",
+       "duration": "6-hr",
+       "blocked": 1
+      }
+     },
+     "claimIds": [
+      "drain-c4"
+     ],
+     "caveats": [
+      "The share of rain that cannot drain is a setting, here 100% (R5).",
+      "The runoff share uses the Simple Method beyond the drainage areas it was made for (R3)."
+     ],
+     "sourceRefs": [
+      "R1",
+      "R3",
+      "R5"
+     ]
+    },
+    {
+     "id": "missing",
+     "stage": "evaluate",
+     "heading": "What would settle it",
+     "body": "Four things decide how Berkeley's drains behave at a high tide: where each outfall is and how high its pipe sits, which outfalls have tide gates and whether they work, how the pipes connect and how much they carry, and what crews see at high tides. The City has published none of the first three. Its 2023 work orders show where drains back up in rain (D5). The City is updating its hydraulic model of the storm drains now, as part of its Stormwater Master Plan (D11), and that model could answer the question.",
+     "whatChanged": "The map is unchanged.",
+     "mapState": {
+      "sc": "y100",
+      "drains": "gates-closed",
+      "rain": {
+       "ari": "10",
+       "duration": "6-hr",
+       "blocked": 1
+      }
+     },
+     "claimIds": [],
+     "caveats": [],
+     "sourceRefs": [
+      "D5",
+      "D6",
+      "D11"
+     ],
+     "showIssue": "evidenceGaps"
+    },
+    {
+     "id": "decide",
+     "stage": "decide",
+     "heading": "Two City projects that could take this on",
+     "body": "Public Works is writing a new Stormwater Master Plan, with an updated hydraulic model of the storm drains, on a work plan that runs January 2024 to December 2026. Its published scope covers the model, the pipes' condition and capacity, and capital priorities, and leaves out Bay tides and sea level rise. A $4,122,000 state grant funds replacing Aquatic Park's tide tubes. Here are three ways forward, with their tradeoffs.",
+     "whatChanged": "The map is unchanged.",
+     "mapState": {
+      "sc": "y100",
+      "drains": "gates-closed",
+      "rain": {
+       "ari": "10",
+       "duration": "6-hr",
+       "blocked": 1
+      }
+     },
+     "claimIds": [],
+     "caveats": [],
+     "sourceRefs": [
+      "D7",
+      "D11"
+     ],
+     "showIssue": "alternatives"
+    },
+    {
+     "id": "act",
+     "stage": "act",
+     "heading": "Ask the City to plan for high Bay water",
+     "body": "Both projects are adopted and under way, so their scope can still change. Here is a comment you can copy, edit and send to the Public Works Commission, or read at a City Council meeting. It asks the master plan to test the drains with a high Bay, and asks for new tide tubes that can close ahead of a storm tide and still drain rain.",
+     "whatChanged": "The map shows the 100-year storm tide with every outfall open.",
+     "mapState": {
+      "sc": "y100",
+      "drains": "open",
+      "rain": null
+     },
+     "claimIds": [],
+     "caveats": [
+      "Communications to City commissions are public record (D11)."
+     ],
+     "sourceRefs": [
+      "D11"
+     ],
+     "showIssue": "actions"
+    }
+   ]
+  }
+ ]
+}
