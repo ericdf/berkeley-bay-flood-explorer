@@ -33,7 +33,7 @@ Maintained by the project. Add an item when a source leaves a question open, and
 
 ## Civic stories
 
-16. **The two City projects in the comment.** Their costs and scope come from the City's CIP documents. The comment asks for two changes, which are advocacy positions. The story's claims have not yet been reviewed, so `reviewedBy` is not set (E31, pending in PR #36). *Would settle it:* the maintainer's review of the story's claims.
+16. **The two City projects in the comment.** Their costs and scope come from the City's CIP documents. The comment asks for two changes, which are advocacy positions. The story's claims have not yet been reviewed, so `reviewedBy` is not set (E31). *Would settle it:* the maintainer's review of the story's claims.
 
 ## Observed levels
 
