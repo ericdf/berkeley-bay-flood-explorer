@@ -321,11 +321,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
   }
   // The numbered places as the map draws them: one number per place with a point.
   const pinList = () => places.map((p, i) => ({ n: i + 1, label: p.name, at: pinAt(p) })).filter(P => P.at);
-  const tourText = () => tourI == null ? `${places.length} places, numbered on the map` : `Place ${tourI + 1} of ${places.length}: ${places[tourI].name}`;
-  function tourBar() {
-    if (places.length < 2) return '';
-    return `<div class="tour" role="group" aria-label="Walk through the places in this answer"><button type="button" data-tour="prev">&larr; Previous</button><span class="tour-now" aria-live="polite">${esc(tourText())}</span><button type="button" data-tour="next">Next &rarr;</button><button type="button" data-tour="all">Show all</button></div>`;
-  }
+  const tourText = () => tourI == null ? `${places.length} numbered places` : `Place ${tourI + 1} of ${places.length}: ${places[tourI].name}`;
   // One place (0-based), or with null all of them. The map and the answer move together.
   function tourTo(i) {
     if (i == null || !places[i]) { tourI = null; focus(null); }
@@ -333,17 +329,18 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     el.querySelectorAll('.place.on').forEach(b => b.classList.remove('on'));
     const blk = tourI == null ? null : el.querySelector(`.place[data-place="${tourI}"]`);
     if (blk) { blk.classList.add('on'); blk.scrollIntoView({ block: 'nearest' }); }
-    const now = el.querySelector('.tour-now'); if (now) now.textContent = tourText();
+    updateTourMap();
     onTour(tourI);
   }
   function show(q) {
     places.length = 0; placeN = 0; tourI = null;
     current = RENDER[q] ? q : null;
     const body = current ? RENDER[current]() : '';
-    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${tourBar()}${body}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
+    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${body}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
     el.scrollTop = 0;
     if (!current) focus(null);
     onPins(pinList());
+    updateTourMap();
     onQuestion(current);
   }
   el.addEventListener('click', (e) => {
@@ -354,10 +351,6 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
       el.querySelectorAll('.rung button[aria-current]').forEach(b => b.removeAttribute('aria-current')); t.setAttribute('aria-current', 'true');
       setLevel(Number(t.dataset.lv)); tourTo(Number(t.dataset.p));
     } else if (t.dataset.show) tourTo(Number(t.dataset.show));
-    else if (t.dataset.tour) {
-      const n = places.length, step = t.dataset.tour === 'next' ? 1 : -1;
-      if (t.dataset.tour === 'all') tourTo(null); else tourTo(tourI == null ? (step > 0 ? 0 : n - 1) : (tourI + step + n) % n);
-    }
     else if (t.id === 'addrLoc') {
       const out = document.getElementById('addrOut');
       if (!navigator.geolocation) { out.innerHTML = '<p>This browser does not share a location.</p>'; return; }
@@ -368,5 +361,19 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
   });
   el.addEventListener('submit', (e) => { if (e.target.id === 'addrForm') { e.preventDefault(); const v = document.getElementById('addrIn').value.trim(); if (v) onAddress(v); } });
   el.addEventListener('change', (e) => { if (e.target.classList.contains('numsBox')) { document.body.classList.toggle('shownums', e.target.checked); el.querySelectorAll('.numsBox').forEach(b => { b.checked = e.target.checked; }); } });
-  return { show, tourTo, current: () => current, questions: QUESTIONS.map(q => q.id) };
+  // Steps to the next or previous numbered place (dir 1 or -1), wrapping; the map keys N and P use it.
+  function tourStep(dir) { const n = places.length; if (!n) return; tourTo(tourI == null ? (dir > 0 ? 0 : n - 1) : (tourI + dir + n) % n); }
+  // The tour bar sits on the map (index.html #tourMap), where the numbers are. Shown for an answer with two or more places.
+  const tourMap = document.getElementById('tourMap');
+  function updateTourMap() {
+    if (!tourMap) return;
+    tourMap.hidden = places.length < 2 || current == null;
+    const now = tourMap.querySelector('.tour-now'); if (now) now.textContent = tourText();
+  }
+  if (tourMap) tourMap.addEventListener('click', (e) => {
+    const t = e.target.closest('button'); if (!t || !t.dataset.tour) return;
+    const n = places.length, step = t.dataset.tour === 'next' ? 1 : -1;
+    if (t.dataset.tour === 'all') tourTo(null); else tourTo(tourI == null ? (step > 0 ? 0 : n - 1) : (tourI + step + n) % n);
+  });
+  return { show, tourTo, tourStep, current: () => current, questions: QUESTIONS.map(q => q.id) };
 }

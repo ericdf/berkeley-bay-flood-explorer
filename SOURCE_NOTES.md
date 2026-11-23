@@ -1844,6 +1844,19 @@ Three claims in the outside review behind E9, checked against primary sources be
 - **Found, not yet read: the state's record for the facility.** The State Water Board's SMARTS database lists the City of Berkeley Transfer Station, 1201 2nd St, as WDID 2 01I009237, an industrial permit, status active, notice of intent dated 1992-11-10 (public facility search, 2026-11-23). The facility's sampling results and annual reports were not retrieved: the industrial reports search does not open from the public menu in the browser session used. Next step: retrieve the results by WDID.
 - **Not checked:** whether the Gilman Street recycling center (669 Gilman St) has its own record in SMARTS, and whether the 2019 end of the decree was extended.
 
+## Where FEMA's transects 4 to 12 lie, checked against the explorer's street map (2026-11-23)
+
+- **C35. FEMA's transects 4 to 12 run along the Berkeley shore from Buchanan St to the I-80 frontage, and the two nearest the Marina's streets are 10 and 11 (derived; distances only).** Read from the page image of FIS Vol. 2 Table 10, "Transect Data" (printed p. 103; the table gives latitude and longitude for each transect). Latitude, longitude: transect 4 37.886473, -122.316068; 5 37.883732, -122.314709; 6 37.880127, -122.311621; 7 37.876770, -122.309976; 8 37.873520, -122.308704; 9 37.872532, -122.323127; 10 37.861738, -122.317158; 11 37.862927, -122.313532; 12 37.856066, -122.301282. Converted to the explorer's grid (tools/utm.mjs, data/streets.json origin) and matched to the nearest named street:
+  - 4 to 6: Buchanan St (19 to 424 m).
+  - 7 and 8: Gilman St and the I-80 frontage (113 to 198 m).
+  - 9: 426 m from Spinnaker Circle, and about 450 m from Spinnaker Way, to its northwest (about 320 m west and 310 m north of the Way's centerline).
+  - 10: 22 m from Seawall Dr, the Marina's southern breakwater road.
+  - 11: 94 m from University Ave at the Marina entrance (matches the FEMA table's note "University Ave at the Marina", SOURCE_NOTES C28 and scenarios.json).
+  - 12: 17 m from the I-80 frontage road, south of the Marina.
+  - What this establishes: the transects' distances to the mapped streets, listed above. Transects 10 and 11 are closest to Marina streets; 4 to 8 are closest to Buchanan, Gilman and the I-80 frontage. The 12 to 16 ft NAVD88 wave runup range (C31) therefore covers a shore that runs from Buchanan St to the I-80 frontage, not a Marina-only range. The explorer's text already says so: "transects 4 to 12," with no Marina attribution (PR #35).
+  - What this does not establish: the distance from a transect to the water's edge, or the exact Marina boundary. Street distances are to the centerline of the mapped street, not to the shore.
+  - Conflict with C33 (Marina 12 to 14 ft vs FEMA 12 to 16 ft) is unchanged: this check places the transects; it does not show which range the Marina's own shore should use.
+
 ## Civic stories, evidence briefs and actions (2026-11-10)
 
 - **E31. The civic insight and action specification, and the calls made on it (2026-11-10).** Eric
