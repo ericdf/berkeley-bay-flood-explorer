@@ -343,7 +343,7 @@ function mapControls() {
   // A numbered place (guided mode): tapping its number shows that place in the answer.
   canvas.addEventListener('click', (e) => {
     if (moved >= 5 || ui.drawing || !pinTapTo) return;
-    const [x, y] = at(e), h = pinHits.find(q => Math.hypot(q.x - x, q.y - y) <= 12 * dpr());
+    const [x, y] = at(e), h = pinHits.slice().reverse().find(q => Math.hypot(q.x - x, q.y - y) <= 12 * dpr());
     if (h) pinTapTo(h.n - 1);
   });
   canvas.addEventListener('wheel', (e) => { e.preventDefault(); const [x, y] = at(e); zoomAt(Math.exp(-e.deltaY * (e.deltaMode ? 0.05 : 0.0015)), x, y); }, { passive: false });
