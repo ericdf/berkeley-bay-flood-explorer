@@ -2,7 +2,7 @@
  "note": "City of Berkeley screening of contaminated sites (Rincon Consultants, Groundwater Rise and Contaminated Site Analysis, Feb 2025, Table 1; GeoTracker and EnviroStor records). Priority is the City's ranking at current groundwater; depth is groundwater below the ground surface (CoSMoS-based), not a water level. Residential rows, rows named for a private owner, rows listed by address alone, and rows with a possible private name are left out, as are sites outside the explorer's grid (SOURCE_NOTES E29).",
  "provenance": {
   "category": "sourced",
-  "source": "City of Berkeley groundwater rise screening, Table 1 (PDF pp. 32–36), retrieved 2026-11-23"
+  "source": "City of Berkeley groundwater rise screening, Table 1 (PDF pp. 32–46), retrieved 2026-11-23"
  },
  "crs": "EPSG:32610 meters from the grid origin (558896, 4188272), as data/streets.json",
  "units": "meters",
@@ -1596,16 +1596,6 @@
    "depthBelowGround": "0 m; emergent",
    "x": 2234,
    "y": 4178
-  },
-  {
-   "no": 302,
-   "name": "PAHLMEYER FAMILY TRUST",
-   "category": "LUST Cleanup Sites",
-   "status": "COMPLETED - CASE CLOSED",
-   "rank": "Low",
-   "depthBelowGround": "0-1 m; very shallow",
-   "x": 3666,
-   "y": 1989
   },
   {
    "no": 304,

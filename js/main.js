@@ -34,7 +34,7 @@ async function load() {
     j('data/hazard/tsunami.json').catch(() => null), b('data/hazard/tsunami.bits').catch(() => null),
     j('data/exposure.json'), j('data/site-cells.json'), j('data/rail.json').catch(() => null), j('data/thresholds.json'),
   ]);
-  // The City's contaminated-site screening (sourced layer, F19): 224 sites inside the map, from data/contaminated-sites.json.
+  // The City's contaminated-site screening (sourced layer, F19): 223 sites inside the map, from data/contaminated-sites.json.
   const contaminated = await j('data/contaminated-sites.json').catch(() => null);
   return { dem, z: new Int16Array(zbuf), streets, facilities: fac.facilities, facilityCells: facCells, scenarios: scen.scenarios,
     berkeley: new Uint8Array(bits), art, drains, watershedIds: new Uint8Array(wsIds), plans: plans.presets, atlas, impervious: imp.watersheds,
