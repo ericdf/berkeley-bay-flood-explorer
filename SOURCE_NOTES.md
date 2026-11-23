@@ -1816,87 +1816,30 @@ Three claims in the outside review behind E9, checked against primary sources be
   - Codex's review of PR #35 (commit a0ccb79) found two more strings still giving the City's 12 to 14 ft on the Marina shoreline: the Ferris warning in `js/main.js` and the `ferris12` source line in `data/scenarios.json`. Both now give FEMA's 12 to 16 ft NAVD88 on transects 4 to 12 (C31) with no Marina attribution. The explain panel in `index.html` said "open Marina shoreline" for waves; it now says "open Berkeley shoreline." The City's range stays in SOURCE_NOTES W6.
 - **Federal Register check (2026-11-06).** Notice 2026-01748, "Final Flood Hazard Determinations," published 2026-01-29 (91 FR 3910; govinfo.gov). Its Alameda County entry (Docket FEMA–B–2485) lists only the City of Oakland and the unincorporated areas of Alameda County. Berkeley is not listed, so this notice does not change the 2018 Berkeley determinations (C31). Its FIRM and FIS date is 2026-05-26 for the listed communities. The check used the notice text only, not FEMA's Map Service Center effective-date listing; that listing was not checked.
 
-## Civic stories, evidence briefs and actions (2026-11-10)
+## The contaminated-site layer (Eric's decisions, 2026-11-23)
 
-- **E29. The civic insight and action specification, and the calls made on it (2026-11-10).** Eric
-  committed `docs/civic/insight-and-action-spec.md` (commit dedd762, a snapshot of the repository
-  from before 2026-11-04 with the spec added) and asked for it to be picked up; asked about three
-  conflicts with `main`, he answered: "Just build and use your best judgment. Make any call that's
-  reversible yourself, and check in later with the calls you made." The calls, each reversible and
-  listed for his review in `docs/civic/implementation-notes.md`: (1) the work is built on `main`, not
-  on dedd762, which lacks guided mode, share links and later fixes; (2) stories extend guided mode
-  (E14, E15) rather than adding a second guided layer, and the existing questions on roads,
-  contaminated sites and defenses stand in for three of the spec's four homepage cards; (3) the
-  storm drain story ends with a public records request that readers can copy and send themselves.
-  The explorer sends nothing, and the request's status is "proposed, not submitted." E26 stopped requests
-  from the project to outside people; it did not address readers' requests, so this reading of
-  it is an inference for Eric to confirm. Call (3) was superseded the same day (E30).
-- **D10. The City's public records request channels (read 2026-11-10).** City of Berkeley, "Public
-  Records" (https://berkeleyca.gov/your-government/public-records) and "Requesting Public
-  Information" (https://berkeleyca.gov/your-government/public-records/requesting-public-information),
-  read 2026-11-10: "You can gain access to public information by submitting a request on the
-  NextRequest portal. City staff will respond through the portal and you will be able to track the
-  progress of your request. You can also view past requests that others have submitted on
-  NextRequest, along with any documents that the City may have released in response to the
-  request." A request can also go to the City Clerk Department on a Public Records Request Form, in
-  person or by mail. The Public Records page adds: "Contractors and engineers may request City of
-  Berkeley utility as-built drawings for planning or construction," with a request form (PDF,
-  reached 2026-11-10). Portal: https://cityofberkeleyca.nextrequest.com/ (reached 2026-11-10; its
-  past requests were not searched). Used for: the drain story's request (`data/civic/actions.json`)
-  and the City Clerk as the agency that receives requests (`data/civic/issues.json`). Which City
-  division holds the outfall and tide gate records is not stated there; Public Works is named
-  tentatively, from its published storm work orders (D5) and DATA_INVENTORY.md. No longer used after
-  E30: the explorer carries no records request.
-- **E30. No records requests; the act stage advocates change, from available data (2026-11-10).**
-  Eric, on PR #36's records request for readers: "No records requested. Limit yourself to available
-  data sources. Asking for records is not change advocacy which is our goal." Applied: the request
-  and its records portal links are gone, and `js/civic/schema.js` rejects the `records-request` type.
-  The drain story's last steps now point to two City plans already under way, from documents in
-  `berkeley-public-records` (D11). The page asks for changes to their scope. Evidence gaps stay as
-  gaps.
-- **D11. The City's stormwater plan and the tide tube replacement, adopted and funded (read 2026-11-10).**
-  From `berkeley-public-records`; the read covers four documents:
-  - **City Manager, "Proposed Five-Year Capital Improvement Program (CIP)", Council 2026-06-16, Item
-    40c, Supplemental Packet 2** (archived as `bcc-2026-06-16-item-40c-staff-report`; source
-    https://berkeleyca.gov/sites/default/files/2026-06/2026-06-16%20Item%2040c%20Proposed%20Five-Year%20Capital%20Improvement.pdf).
-    - p. 88, Storm Water System, FY 2027 & FY 2028 CIP projects: "Stormwater Master Plan: Critical
-      to the Storm CIP program is the development of a comprehensive master plan for stormwater
-      infrastructure, which will incorporate updates to the 2012 Watershed Plan and the 2019 Green
-      Infrastructure Plan, updates to the City's existing hydraulic model for the storm drainage and
-      creek culvert infrastructure, condition, and capacity assessments, and prioritization of
-      future capital improvement rehabilitation needs for the City's storm drainage program.
-      Development of the Stormwater Master began in FY 2024. Completion is expected in FY 2027."
-      The description does not mention Bay tides, outfalls, tide gates or sea level rise; those
-      words do not appear in the storm water section.
-    - Same page: "West Berkeley Aquatic Park Stormwater Improvements Project: Currently in the
-      design phase," a bioretention basin treating "approximately 4.5 acres of impervious area
-      which drains to Aquatic Park."
-    - p. 128, "Current Infrastructure Grants": "PRW California Transportation Commission $4,122,000
-      Aquatic Park Tide Tube Replacement and Dredging Project."
-    - p. 87 (Parks): "the need to protect the Waterfront from sea level rise is becoming more
-      immediate."
-  - **City Manager, "Adoption of Fiscal Years 2027 and 2028 Biennial Budget and Fiscal Years 2027 –
-    2031 Capital Improvement Program", Council special meeting 2026-06-23, Item 1**
-    (`bcc-2026-06-23-special-item-01-staff-report`).
-    - p. 106: "Council authorized $800k in grant match for potential Aquatic Parks tide tubes grant,
-      prior to City's application. We were successful in securing that grant."
-    - p. 132, work plan: Public Works, "Updating the Stormwater Master Plan," January 2024 –
-      December 2026, Continuing, $2,000,000.
-    - p. 209: the same master plan description as Item 40c.
-  - **Annotated agenda, Council 2026-06-23** (source
-    https://berkeleyca.gov/sites/default/files/city-council-meetings/2026-06-23%20Annotated%20Agenda%20-%20Council.pdf).
-    The Council adopted Resolution No. 72,340–N.S., adopting the FY 2027 and FY 2028 budget and
-    the FY 2027–2031 CIP, with amendments, none of which named these projects (Humbert/Tregub,
-    "Vote: All Ayes"). An earlier motion failed.
-  - **The City's web pages, read 2026-11-10.** The Public Works Commission page
-    (https://berkeleyca.gov/your-government/boards-commissions/public-works-commission) says
-    "Communications to Berkeley boards, commissions, or committees are public record," and that
-    a writer who does not want contact information made public may deliver by mail or in person
-    to the commission secretary. The Council agendas page
-    (https://berkeleyca.gov/your-government/city-council/city-council-agendas) and the Parks,
-    Recreation and Waterfront Commission page were reached.
+- **E29. Eric's decisions on the City's contaminated-site screening (2026-11-23).** Eric: "Option 1, and check the controls later." Option 1 (offered on 2026-11-23): show the non-residential sites, and list the rows left out as residences for him to check. Applied: a layer of the City's screening (F19, Table 1, PDF pp. 32–46), off by default, with one checkbox ("City screening: contaminated sites"), dots colored by the City's priority at current groundwater, and a note that they are not water levels.
+  - Extraction: all 427 rows of Table 1 were read with pdfplumber. The City's rank totals match its text (current: 100 high, 100 medium, 227 low).
+  - Removed, in order: 33 rows that name a residence, housing, an apartment or a private owner, and 22 rows listed only by address (derived; a judgment on the names, not on the records). That leaves 372. Of those, 141 fall outside the explorer's grid (the West Berkeley flats and the shoreline it models) and are not shown. Seven more rows read as possible private names and were dropped pending a check. Review of PR #37 (2026-11-23) found one more owner-named row the filter had missed, a family trust on PDF page 41 (row 302); it is dropped too. That leaves 223 shown: 88 high, 21 medium, 114 low priority (derived from the City's table).
+  - The removed rows are listed by row number in the scratchpad, not in the repository, because the project keeps owner names out of it. Eric checks those.
+  - Why the dots are not water levels: CoSMoS groundwater depths are depths below ground at the time of the City's screening, not NAVD88 water levels, and the City's ranking measures exposure to rising groundwater, not contamination. The layer does not show whether any control is working.
+  - Controls: not checked. Eric said "check the controls later." What would answer it is the regulators' permit, inspection and monitoring records for the transfer station (F14, the 2016 Baykeeper settlement) and the Gilman corridor (F18). Those are third-party records, so they need approval before any pull.
 
-  Not established: the tide tube project's design, schedule and whether it includes gates that close
-  against storm tides; the master plan's actual scope beyond the CIP description; and whether
-  "completion" means December 2026 (work plan) or June 2027 (end of FY 2027). Used for: the drain
-  story's issue and actions (`data/civic/issues.json`, `actions.json`).
+## Audit before publishing this file (2026-11-23)
+
+- **E30. Audit of this file for private information before a link to it goes on the page (Eric: "go ahead with the audit and the header link PR").** Searched the whole file for residences, household details, owner names and parcel owners, and for named individuals and their roles.
+  - Residences, household details and parcel owners: none found. The only parcel mention (line on the CTRIP request) names no owners and records that the file was not archived for that reason. The "I live at address XXXX" line is a placeholder from a published review, not a real address.
+  - Named individuals: all are public figures or authors of public documents, cited in their roles: the City's Director of Parks, Recreation and Waterfront and council members (public office); a reporter's byline (Waste Dive, Arlene Karidis); a staff analyst's letter in the public EIR comments (Lindsay Martien); and a published activist diary (Kelly Hammargren, as quoted on 2026-10-25). Each name appears in a public professional or authorship context (office, byline, agency role, published diary). That establishes the context, not the person's privacy status; whether any named person has a private status is for the maintainer to decide under AGENTS.md. No name of a private individual is cited for a private role, and no residence or household detail appears.
+  - Addresses: business, institutional and public-facility addresses only (transfer station, Gilman and Fourth St sites, Kaiser, the School District board room).
+  - Result: no change to the file's content. It may be linked from the page. Any future source that names a private person or a household must be removed before it is committed, because git history keeps it.
+
+## Controls at the transfer station: records found so far (2026-11-23, Eric: "yes pull the records")
+
+- **F22. The 2016 Baykeeper consent decree for the City's transfer station and recycling center (read 2026-11-23; asked by Eric).** *San Francisco Baykeeper v. City of Berkeley and Community Conservation Centers, Inc.*, N.D. Cal. No. 16-cv-02065-JSC, docket entry 15 (`cases.justia.com/federal/district-courts/california/candce/3:2016cv02065/297880/15/0.pdf`). The cover is headed "[PROPOSED]", but the final page carries the judge's signature and a "13th July" stamp, which we read as entry on July 13, 2016. The text came from the page image's extraction, so the date should be checked against the page. Any later extension is not checked.
+  - Term: until September 30, 2019 (¶3), with early termination on a Notice of Termination (¶4). Whether it was extended is not checked.
+  - Structural BMPs, by facility. **Transfer station (¶8.A, printed p. 7):** diversion of the construction-debris trench drain to a stormwater holding tank for the sanitary sewer, and diversion from Catchment Area B, by October 31, 2016, with permits. **Recycling center (¶8.B, printed p. 8; 669 Gilman St):** asphalt berms and trench drains in front of the glass sorting area and the commingled container storage area, diverting that stormwater to holding tanks for the sanitary sewer, with the volume standard in the permit (85th percentile, 24-hour storm), by October 31, 2016. Maintenance of structural BMPs is required from the effective date (¶8.D). So the berms and drains in the 2016 settlement belong to the recycling center, not the transfer station.
+  - Sampling (¶12): samples from every discharge point in each wet season (four per season where possible), analyzed against Exhibit 2 action levels (including copper 0.0332 mg/L annual, zinc 0.26 mg/L annual, lead 0.262 mg/L annual, oil and grease 15 mg/L annual). Results to Baykeeper within 10 days and to SMARTS within 30 days (¶12.I). Exceedances require an action plan (¶15).
+  - What this establishes: the controls were required, and the monitoring results were required to be posted to the state's database. What we infer, not established: that the controls were built, or that they worked.
+- **F23. The City's on-call stormwater maintenance contract (July 2025, City Council consent item 19; read 2026-11-23).** Contract with United Storm Water, Inc., up to $200,000 over three years, with two one-year options. The item says the transfer station (1201 Second St) and the Gilman Street recycling center (669 Gilman St) "operate under the National Pollution Discharge Elimination System (NPDES) Industrial Storm Water Permit," and that "storm water treatment vaults and associated piping, trench drains, and catch basins need to be serviced regularly to support compliance with the Permit." It reports no sampling results, inspection findings or BMP status. (`berkeleyca.gov/sites/default/files/documents/2025-07-08%20Item%2019%20Contract%20United%20Storm%20Water%2C%20Inc..pdf`)
+- **Found, not yet read: the state's record for the facility.** The State Water Board's SMARTS database lists the City of Berkeley Transfer Station, 1201 2nd St, as WDID 2 01I009237, an industrial permit, status active, notice of intent dated 1992-11-10 (public facility search, 2026-11-23). The facility's sampling results and annual reports were not retrieved: the industrial reports search does not open from the public menu in the browser session used. Next step: retrieve the results by WDID.
+- **Not checked:** whether the Gilman Street recycling center (669 Gilman St) has its own record in SMARTS, and whether the 2019 end of the decree was extended.
