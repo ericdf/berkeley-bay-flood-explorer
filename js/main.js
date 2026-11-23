@@ -425,7 +425,7 @@ const MIN_POOL_HA = 1;
 const title = (n) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase());
 
 // The view in the URL (js/share.js): written on every render, read once at load.
-const OVERLAYS = { art: 'showArt', artdc: 'showArtDc', tsunami: 'showTsunami' };
+const OVERLAYS = { art: 'showArt', artdc: 'showArtDc', tsunami: 'showTsunami', sites: 'showSites' };
 let lastHash = null;
 function writeView(levelFt, sc) {
   const h = encodeView({ sc: sc ? sc.id : null, lv: levelFt, presets: [...ui.presets], gates: ui.gates, rain: ui.rain,
