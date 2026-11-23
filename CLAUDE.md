@@ -53,7 +53,7 @@ and code comments. The rules that come up most:
   (for example "C20") and for each figure the correction changed, and fix every string that relies
   on it in the same PR. Both blocking findings of the 2026-11-04 outside review were page text left
   behind by a correction (SOURCE_NOTES E11).
-- Do not store personal or household-level information or parcel owner names. Guided mode's
+- Do not store personal or household-level information, or the names of individual parcel owners. Business names are allowed as the City publishes them, including a business named after a person (Eric, 2026-11-23; SOURCE_NOTES E35). Guided mode's
   address lookup sends the typed address to the U.S. Census Bureau geocoder and keeps nothing
   (Eric, E14); a phone's location only fills in the address box and stays on the device.
 
