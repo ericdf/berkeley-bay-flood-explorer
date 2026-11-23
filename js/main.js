@@ -841,6 +841,9 @@ async function textOnlyStory() {
     beforeNavigate: () => { history.pushState(null, '', location.href); },
     onRoute: () => { if (levelNow != null) writeView(levelNow, scNow); } });
   const setMode = (m) => {
+    // A story belongs to guided mode. Leaving guided mode ends it, so its text and the map cannot disagree
+    // (Codex review, PR #36: the story kept its scenario while Expert changed the level).
+    if (m !== 'guided' && ui.storyMap) { ui.storyMap = null; if (civicUI) civicUI.leave(); }
     ui.mode = m; $('main').className = m;
     $('modeGuided').setAttribute('aria-pressed', m === 'guided'); $('modeExpert').setAttribute('aria-pressed', m === 'expert');
     sizeCanvas();
