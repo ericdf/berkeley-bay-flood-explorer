@@ -154,6 +154,11 @@
   "E30": "Audit of this file for private information before a link to it goes on the page (Eric: \"go ahead with the audit and the header link PR\").",
   "F22": "The 2016 Baykeeper consent decree for the City's transfer station and recycling center (read 2026-11-23; asked by Eric).",
   "F23": "The City's on-call stormwater maintenance contract (July 2025, City Council consent item 19; read 2026-11-23).",
+  "F24": "The State's SMARTS record for the City transfer station (pulled 2026-11-23; Eric approved the pulls).",
+  "F25": "The Gilman Street recycling center's own SMARTS record (checked 2026-11-23).",
+  "F26": "Whether the 2016 Baykeeper decree was extended past September 30, 2019 (checked 2026-11-23).",
+  "H8": "\"'Extreme flooding' shuts down Ashby Avenue in Berkeley\" (Berkeley Scanner, Emilie Raguso, dated Nov 18, 2026 11:37 AM;…",
+  "C34": "Four scanned Caltrans PDFs in the Drive folder 1fdzxntvTRCBLH3OsTwDpD1Ur7RMcOzPb (not read).",
   "E34": "Count of City screening sites within 300 m of open Bay water (model rule, derived; decision by Eric on 2026-11-23, recommendation accepted)."
  }
 }
