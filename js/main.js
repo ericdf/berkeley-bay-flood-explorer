@@ -61,7 +61,7 @@ let D, base, canvas, ctx, grid, gctx, artMasks = {};
 // Guided mode's current place on the map: { points: [[x, y]], lines: [geom], label } in grid meters.
 let focusOn = null;
 // Numbered places of a guided answer (js/guided.js): their map points, and the number's screen spot after each paint.
-let pinsNow = [], pinHits = [], pinTapTo = null;
+let pinsNow = [], pinHits = [], pinTapTo = null, pinStep = null;
 // Map view: device pixels per grid cell (k) and the grid's offset on the canvas. The flood raster is
 // drawn once per result on an offscreen canvas the size of the grid; panning and zooming only
 // repaint it and redraw streets, walls and outlines as vectors at screen resolution.
@@ -381,7 +381,9 @@ function mapControls() {
     const step = 0.15 * Math.min(canvas.width, canvas.height);
     const k = { '+': () => zoomAt(1.6), '=': () => zoomAt(1.6), '-': () => zoomAt(1 / 1.6), '0': () => { fitView(); paint(); },
       ArrowLeft: () => { view.tx += step; clampView(); paint(); }, ArrowRight: () => { view.tx -= step; clampView(); paint(); },
-      ArrowUp: () => { view.ty += step; clampView(); paint(); }, ArrowDown: () => { view.ty -= step; clampView(); paint(); } }[e.key];
+      ArrowUp: () => { view.ty += step; clampView(); paint(); }, ArrowDown: () => { view.ty -= step; clampView(); paint(); },
+      // In guided mode: N and P step through the numbered places in the answer (the same as the tour bar).
+      n: () => pinStep && pinStep(1), p: () => pinStep && pinStep(-1) }[e.key];
     if (k && e.target === $('mapwrap')) { e.preventDefault(); k(); }
   });
   new ResizeObserver(() => { sizeCanvas(); paint(); }).observe(canvas);
@@ -787,6 +789,8 @@ async function textOnlyStory() {
   planPanel(() => render(levelNow, scNow));
   sitesPanel(() => render(levelNow, scNow));
   mapControls();
+  // On a phone the map key covers much of the map: it starts closed there (the reader can open it).
+  if (matchMedia('(max-width: 600px)').matches) $('legend').open = false;
   const rainUpdate = () => {
     ui.rain = $('rainOn').checked ? { ari: $('rainAri').value, duration: $('rainDur').value, blocked: Number($('rainBlocked').value) } : null;
     $('rainNote').textContent = ui.rain ? `${D.atlas.depthIn[ui.rain.duration][ui.rain.ari]} in of rain (NOAA Atlas 14, SOURCE_NOTES R1).` : '';
@@ -812,6 +816,7 @@ async function textOnlyStory() {
     onTour: (i) => { ui.tp = i == null ? null : i + 1; if (levelNow != null) writeView(levelNow, scNow); },
     extraHome: () => civicUI ? civicUI.homeBlock() : '' });
   pinTapTo = (i) => guided.tourTo(i);
+  pinStep = (d) => guided.tourStep(d);
   // Civic stories (js/civic/civic.js): loaded and checked here; if they fail, guided and expert
   // modes work as before and story links say the story is not available.
   const civicData = await loadCivic(D.scenarios.map(s => s.id));
