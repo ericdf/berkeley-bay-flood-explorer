@@ -14,8 +14,8 @@ each item here once it is done.
 
 ## Waiting on Eric
 
-- **Civic stories (E29).** Review the calls listed in `docs/civic/implementation-notes.md`: building
-  on `main` and not dedd762; extending guided mode. The records request was dropped (E30). The
+- **Civic stories (E31).** Review the calls listed in `docs/civic/implementation-notes.md`: building
+  on `main` and not dedd762; extending guided mode. The records request was dropped (E32). The
   story now ends with a comment readers can send, asking the Stormwater Master Plan and the tide
   tube replacement to address high Bay water (D11). Then review the drain story's claims, which lets `reviewedBy` be set. Then
   decide whether to publish. The next phase rebuilds the roads, contaminated-site and defenses

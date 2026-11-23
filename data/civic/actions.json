@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "note": "Changes a reader can ask for, grounded in data the explorer already holds (E30: no records requests). Dates are null unless a dated source gives them. A URL is listed only after it was opened (linksCheckedAt). Copying sends nothing.",
+ "note": "Changes a reader can ask for, grounded in data the explorer already holds (E32: no records requests). Dates are null unless a dated source gives them. A URL is listed only after it was opened (linksCheckedAt). Copying sends nothing.",
  "actions": [
   {
    "id": "drain-plans-comment",

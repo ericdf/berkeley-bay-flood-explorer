@@ -46,8 +46,8 @@ broken('a story with no uncertainty statement', d => { for (const s of d.stories
 broken('stages out of order', d => { d.stories.stories[0].steps[0].stage = 'act'; }, /in order/);
 broken('rain with the drains hidden', d => { d.stories.stories[0].steps[0].mapState.rain = { ari: '10', duration: '6-hr', blocked: 1 }; }, /rain needs/);
 broken('an issue status that is not its latest update', d => { d.issues.issues[0].status = 'decided'; }, /latest update/);
-broken('a records request (E30)', d => { d.actions.actions[0].type = 'records-request'; }, /no records requests/);
-broken('a Public Records Act request in a comment (E30)', d => { d.actions.actions[0].requestText = 'Under the California Public Records Act, I request copies of records.'; }, /no records requests/);
+broken('a records request (E32)', d => { d.actions.actions[0].type = 'records-request'; }, /no records requests/);
+broken('a Public Records Act request in a comment (E32)', d => { d.actions.actions[0].requestText = 'Under the California Public Records Act, I request copies of records.'; }, /no records requests/);
 broken('a model number typed into an action', d => { d.actions.actions[0].requestText += ' It shows 13.2 ha.'; }, /use a token/);
 broken('an action token with no claim', d => { d.actions.actions[0].claimIds = []; }, /no claim/);
 broken('a story id used twice', d => { d.stories.stories.push(structuredClone(d.stories.stories[0])); }, /duplicate/);

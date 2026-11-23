@@ -7,7 +7,7 @@ published: `pages` changes only when Eric approves a publish.
 
 Story text follows the council project's style guide (`berkeley-council-analysis/docs/STYLE.md`; Eric, 2026-11-10): findings first, with no denial-first or "X, not Y" sentences and no narration of what the page claims. The standing "Not a flood forecast" line stays, as CLAUDE.md requires.
 
-Eric asked for these calls to be made and reported back (E29).
+Eric asked for these calls to be made and reported back (E31).
 
 1. **Built on `main`.** dedd762, where the spec was committed, is a snapshot of the
    repository from before 2026-11-04. It has no parent and sits alone on a branch
@@ -24,7 +24,7 @@ Eric asked for these calls to be made and reported back (E29).
 3. **The drain story ends by asking for a change.** The first draft
    ended with a records request for readers to send. Eric rejected it: "No records requested.
    Limit yourself to available data sources. Asking for records is not change advocacy which is
-   our goal" (E30). The story now points to two City projects found in `berkeley-public-records`
+   our goal" (E32). The story now points to two City projects found in `berkeley-public-records`
    (D11). The first is the Stormwater Master Plan: Public Works, January 2024 to December 2026,
    $2,000,000, with an updated hydraulic model; its published description does not mention Bay
    tides or sea level rise. The second is the Aquatic Park Tide Tube Replacement and Dredging
@@ -83,7 +83,7 @@ Eric asked for these calls to be made and reported back (E29).
   fallback for failed data was built.
 - **Claims have a separate file** (`claims.json`), so the same claim can serve a story and the brief.
 - **Status vocabulary** is the spec's, and the page shows "Proposed, not sent" for `proposed`.
-- **Action types** are the spec's minus `records-request` (E30).
+- **Action types** are the spec's minus `records-request` (E32).
 - **No Explore/Decisions/About tab bar** (call 4).
 
 ## Open evidence gaps (the drain story)
@@ -91,7 +91,7 @@ Eric asked for these calls to be made and reported back (E29).
 Outfall locations and inverts, tide gate inventory and condition, pipe network and capacity,
 observations at high tides, and Aquatic Park lagoon levels and gate settings (`data/civic/issues.json`;
 D3, D5, D6, D8, D9). They stay listed as gaps. The comment asks the City's master plan to answer
-the question they bear on, rather than asking for the records (E30).
+the question they bear on, rather than asking for the records (E32).
 
 ## Links
 

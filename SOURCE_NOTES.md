@@ -1849,7 +1849,7 @@ Three claims in the outside review behind E9, checked against primary sources be
   storm drain story ends with a public records request that readers can copy and send themselves.
   The explorer sends nothing, and the request's status is "proposed, not submitted." E26 stopped requests
   from the project to outside people; it did not address readers' requests, so this reading of
-  it is an inference for Eric to confirm. Call (3) was superseded the same day (E30).
+  it is an inference for Eric to confirm. Call (3) was superseded the same day (E32).
 - **D10. The City's public records request channels (read 2026-11-10).** City of Berkeley, "Public
   Records" (https://berkeleyca.gov/your-government/public-records) and "Requesting Public
   Information" (https://berkeleyca.gov/your-government/public-records/requesting-public-information),
@@ -1865,8 +1865,8 @@ Three claims in the outside review behind E9, checked against primary sources be
   and the City Clerk as the agency that receives requests (`data/civic/issues.json`). Which City
   division holds the outfall and tide gate records is not stated there; Public Works is named
   tentatively, from its published storm work orders (D5) and DATA_INVENTORY.md. No longer used after
-  E30: the explorer carries no records request.
-- **E30. No records requests; the act stage advocates change, from available data (2026-11-10).**
+  E32: the explorer carries no records request.
+- **E32. No records requests; the act stage advocates change, from available data (2026-11-10).**
   Eric, on PR #36's records request for readers: "No records requested. Limit yourself to available
   data sources. Asking for records is not change advocacy which is our goal." Applied: the request
   and its records portal links are gone, and `js/civic/schema.js` rejects the `records-request` type.
