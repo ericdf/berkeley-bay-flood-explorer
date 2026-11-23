@@ -108,6 +108,12 @@
   .back { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 0; margin-bottom: 8px; font-size: 14px; }
   .finding { font-size: 16px; margin: 4px 0 12px; }
   .place { border-top: 1px solid var(--line); padding: 12px 0; }
+  .place.on { background: rgba(255, 45, 122, .07); }
+  .pin { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #fff; color: #000; border: 1.5px solid #000; font-size: 11px; font-weight: 700; margin-right: 4px; vertical-align: 1px; }
+  .place.on .pin { background: #ff2d7a; color: #fff; border-color: #ff2d7a; }
+  .tour { position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 8px 0; margin-bottom: 4px; background: var(--panel); border-bottom: 1px solid var(--line); font-size: 13px; }
+  .tour button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 13px; }
+  .tour-now { flex: 1 1 12em; min-width: 0; color: var(--muted); }
   .place h3 { margin: 0 0 2px; font-size: 15px; }
   .place h3 button { all: unset; cursor: pointer; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
   .place .what { font-size: 13px; color: var(--muted); margin: 0 0 6px; }

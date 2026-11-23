@@ -56,6 +56,8 @@ function shade(D) {
 let D, base, canvas, ctx, grid, gctx, artMasks = {};
 // Guided mode's current place on the map: { points: [[x, y]], lines: [geom], label } in grid meters.
 let focusOn = null;
+// Numbered places of a guided answer (js/guided.js): their map points, and the number's screen spot after each paint.
+let pinsNow = [], pinHits = [], pinTapTo = null;
 // Map view: device pixels per grid cell (k) and the grid's offset on the canvas. The flood raster is
 // drawn once per result on an offscreen canvas the size of the grid; panning and zooming only
 // repaint it and redraw streets, walls and outlines as vectors at screen resolution.
@@ -88,7 +90,7 @@ function landmarkLabels() {
 }
 // The plan the reader has built: preset ids, tide gates, and walls they drew.
 const ui = { mode: 'guided', q: null, presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null,
-  siteChoices: {}, floodproofFt: 13 }; // site choices: js/exposure.js
+  siteChoices: {}, floodproofFt: 13, tp: null }; // site choices: js/exposure.js; tp: the numbered place shown (1-based)
 
 function currentPlan() {
   const plan = { walls: [], roads: [], gates: {} };
@@ -173,6 +175,8 @@ function clampView() {
   view.ty = h <= ch ? (ch - h) / 2 : Math.min(0, Math.max(ch - h, view.ty));
 }
 function fitView() { view.k = view.fit; clampView(); }
+// The numbered places of a guided answer (js/guided.js).
+function setPins(list) { pinsNow = list; if (last) legend(last.res, last.plan); paint(); }
 // Show a place: zoom so its extent fills about a third of the map, centered on it.
 function showPlace(f) {
   focusOn = f && ((f.points && f.points.length) || (f.lines && f.lines.length)) ? f : null;
@@ -259,6 +263,19 @@ function paint() {
     ctx.strokeStyle = 'rgba(0,0,0,.75)'; ctx.lineWidth = 3 * dd; ctx.strokeText(L.text, x, y);
     ctx.fillStyle = L.street ? '#fff' : '#ffe14d'; ctx.fillText(L.text, x, y);
   }
+  // Numbered places: a white disc with its number, magenta for the place being shown.
+  pinHits = [];
+  const pr = 11 * dd;
+  ctx.font = `700 ${12 * dd}px system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (const P of pinsNow) {
+    const [gx, gy] = toPx(P.at), x = view.tx + gx * view.k, y = view.ty + gy * view.k;
+    if (x < -pr || y < -pr || x > canvas.width + pr || y > canvas.height + pr) continue;
+    const on = !!focusOn && focusOn.label === P.label;
+    ctx.beginPath(); ctx.arc(x, y, pr, 0, 2 * Math.PI); ctx.fillStyle = on ? '#ff2d7a' : '#fff'; ctx.fill();
+    ctx.strokeStyle = '#000'; ctx.lineWidth = 2 * dd; ctx.stroke();
+    ctx.fillStyle = on ? '#fff' : '#000'; ctx.fillText(String(P.n), x, y + 0.5 * dd);
+    pinHits.push({ n: P.n, x, y });
+  }
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   if (stamp) {
     // Shrink to a floor of 10 CSS px, then wrap each line by words to the map's width, so the
@@ -323,6 +340,12 @@ function mapControls() {
     }
   };
   canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
+  // A numbered place (guided mode): tapping its number shows that place in the answer.
+  canvas.addEventListener('click', (e) => {
+    if (moved >= 5 || ui.drawing || !pinTapTo) return;
+    const [x, y] = at(e), h = pinHits.find(q => Math.hypot(q.x - x, q.y - y) <= 12 * dpr());
+    if (h) pinTapTo(h.n - 1);
+  });
   canvas.addEventListener('wheel', (e) => { e.preventDefault(); const [x, y] = at(e); zoomAt(Math.exp(-e.deltaY * (e.deltaMode ? 0.05 : 0.0015)), x, y); }, { passive: false });
   canvas.addEventListener('dblclick', (e) => { if (!ui.drawing) { const [x, y] = at(e); zoomAt(2, x, y); } });
   $('zoomIn').addEventListener('click', () => zoomAt(1.6));
@@ -424,7 +447,7 @@ function writeView(levelFt, sc) {
     walls: ui.drawn, sites: ui.siteChoices, floodproofFt: ui.floodproofFt,
     show: Object.entries(OVERLAYS).filter(([, id]) => $(id).checked).map(([k]) => k),
     cosmos: $('showCosmos').checked ? { slr: $('cosmosSlr').value, storm: $('cosmosStorm').value } : null,
-    mode: ui.mode, q: ui.mode === 'guided' ? ui.q : null });
+    mode: ui.mode, q: ui.mode === 'guided' ? ui.q : null, tp: ui.mode === 'guided' ? ui.tp : null });
   lastHash = h ? `#${h}` : '';
   if (location.hash !== lastHash) history.replaceState(null, '', `${location.pathname}${location.search}${lastHash}`);
 }
@@ -467,6 +490,7 @@ function legend(res, plan) {
     [!!D.rail, sw('#2b2118', 'outline:1px dashed #fff'), 'Rail line'],
     [true, sw('transparent', 'outline:2px solid #ffe14d'), 'Mapped places'],
     [!!focusOn, sw('transparent', 'outline:3px solid #ff2d7a;border-radius:50%'), focusOn ? esc(focusOn.label || 'The place in the answer') : ''],
+    [pinsNow.length > 0, sw('#fff', 'outline:2px solid #000;border-radius:50%'), 'Numbered places in the answer (tap a number to show it)'],
     [$('showArt').checked, sw('transparent', 'outline:2px solid #fff'), 'ART map outline'],
     [$('showArtDc').checked, sw('#a6ff00'), 'ART ground cut off from the Bay'],
     [$('showCosmos').checked, sw('#00e5ff'), 'CoSMoS map outline'],
@@ -728,7 +752,10 @@ function planPanel(rerender) {
       if (k >= 0) pick(k); else { $('level').value = lv; $('levelOut').textContent = fmt(lv, 2); show(lv, null); }
     },
     focus: (f) => { showPlace(f); if (levelNow != null) legend(last.res, last.plan); },
-    onQuestion: (q) => { ui.q = q; if (levelNow != null) writeView(levelNow, scNow); } });
+    onQuestion: (q) => { ui.q = q; ui.tp = null; if (levelNow != null) writeView(levelNow, scNow); },
+    onPins: setPins,
+    onTour: (i) => { ui.tp = i == null ? null : i + 1; if (levelNow != null) writeView(levelNow, scNow); } });
+  pinTapTo = (i) => guided.tourTo(i);
   const setMode = (m) => {
     ui.mode = m; $('main').className = m;
     $('modeGuided').setAttribute('aria-pressed', m === 'guided'); $('modeExpert').setAttribute('aria-pressed', m === 'expert');
@@ -755,6 +782,8 @@ function planPanel(rerender) {
   // A link from before guided mode carries expert settings and no mode: it opens in expert mode.
   setMode(view.mode || (hadHash ? 'expert' : 'guided'));
   guided.show(view.mode === 'guided' && guided.questions.includes(view.q) ? view.q : null);
+  // A shared link's numbered place (js/share.js), shown once its answer is on the page.
+  if (view.tp != null && guided.current()) guided.tourTo(view.tp - 1);
   // A different link opened in the same tab changes only the part after "#": load it afresh.
   window.addEventListener('hashchange', () => { if (location.hash !== lastHash) location.reload(); });
   $('shareBtn').addEventListener('click', async () => {
