@@ -368,7 +368,7 @@
    "id": "walls2050",
    "spec": "walls2050",
    "label": "City study floodwalls for 2050 (Figure 5.7)",
-   "cost": "$14.3 million cumulative for 2050 protection (2019 dollars)",
+   "cost": "$14.3 million cumulative for 2050 protection (price year not stated by the study)",
    "source": "City 2019 Marina study §5.3.1, Figure 5.7; cost §5.4 (P2, P4, P5)",
    "crestFt": 12.7,
    "sites": {
@@ -493,7 +493,7 @@
    "id": "walls2100",
    "spec": "walls2100",
    "label": "City study floodwalls for 2100 (Figure 5.8)",
-   "cost": "$31.5 million cumulative for 2100 protection (2019 dollars)",
+   "cost": "$31.5 million cumulative for 2100 protection (price year not stated by the study)",
    "source": "City 2019 Marina study §5.3.1, Figure 5.8; cost §5.4 (P3, P4, P5)",
    "crestFt": 15,
    "sites": {
@@ -618,7 +618,7 @@
    "id": "roads",
    "spec": "roads",
    "label": "Raise Spinnaker Way and University Ave west of I-80 (Zones 7, 8)",
-   "cost": "Cost not stated separately; the study's figure for revetment and breakwater work, $5.4 million cumulative by 2050 (2019 dollars), is for different work",
+   "cost": "Cost not stated separately; the study's figure for revetment and breakwater work, $5.4 million cumulative by 2050 (price year not stated by the study), is for different work",
    "source": "City 2019 Marina study §5.3.1, Shoreline Zones 7 and 8; cost §5.4 (P5, P6, P7)",
    "crestFt": 12.7,
    "sites": {
