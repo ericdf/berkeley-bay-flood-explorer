@@ -1846,13 +1846,13 @@ Three claims in the outside review behind E9, checked against primary sources be
 
 ## Where FEMA's transects 4 to 12 lie, checked against the explorer's street map (2026-11-23)
 
-- **C35. FEMA's transects 4 to 12 are along the Berkeley shore from north of Gilman St to the I-80 frontage south of the Marina; only 10 and 11 are at the Marina (derived).** Read from the page image of FIS Vol. 2 Table 10, "Transect Data" (printed p. 103; the table gives latitude and longitude for each transect). Latitude, longitude: transect 4 37.886473, -122.316068; 5 37.883732, -122.314709; 6 37.880127, -122.311621; 7 37.876770, -122.309976; 8 37.873520, -122.308704; 9 37.872532, -122.323127; 10 37.861738, -122.317158; 11 37.862927, -122.313532; 12 37.856066, -122.301282. Converted to the explorer's grid (tools/utm.mjs, data/streets.json origin) and matched to the nearest named street:
+- **C35. FEMA's transects 4 to 12 run along the Berkeley shore from Buchanan St to the I-80 frontage, and the two nearest the Marina's streets are 10 and 11 (derived; distances only).** Read from the page image of FIS Vol. 2 Table 10, "Transect Data" (printed p. 103; the table gives latitude and longitude for each transect). Latitude, longitude: transect 4 37.886473, -122.316068; 5 37.883732, -122.314709; 6 37.880127, -122.311621; 7 37.876770, -122.309976; 8 37.873520, -122.308704; 9 37.872532, -122.323127; 10 37.861738, -122.317158; 11 37.862927, -122.313532; 12 37.856066, -122.301282. Converted to the explorer's grid (tools/utm.mjs, data/streets.json origin) and matched to the nearest named street:
   - 4 to 6: Buchanan St (19 to 424 m).
   - 7 and 8: Gilman St and the I-80 frontage (113 to 198 m).
-  - 9: about 430 m west of Spinnaker Way (the Marina's west side).
-  - 10: 22 m from Seawall Dr, at the Marina's south end.
+  - 9: 426 m from Spinnaker Circle, and about 450 m from Spinnaker Way, to its northwest (about 320 m west and 310 m north of the Way's centerline).
+  - 10: 22 m from Seawall Dr, the Marina's southern breakwater road.
   - 11: 94 m from University Ave at the Marina entrance (matches the FEMA table's note "University Ave at the Marina", SOURCE_NOTES C28 and scenarios.json).
   - 12: 17 m from the I-80 frontage road, south of the Marina.
-  - What this establishes: the 12 to 16 ft NAVD88 wave runup range (C31) covers the exposed Berkeley shore from north of Gilman to south of the Marina. It is not a Marina-only range. The explorer's text already says so: "transects 4 to 12," with no Marina attribution (PR #35).
+  - What this establishes: the transects' distances to the mapped streets, listed above. Transects 10 and 11 are closest to Marina streets; 4 to 8 are closest to Buchanan, Gilman and the I-80 frontage. The 12 to 16 ft NAVD88 wave runup range (C31) therefore covers a shore that runs from Buchanan St to the I-80 frontage, not a Marina-only range. The explorer's text already says so: "transects 4 to 12," with no Marina attribution (PR #35).
   - What this does not establish: the distance from a transect to the water's edge, or the exact Marina boundary. Street distances are to the centerline of the mapped street, not to the shore.
   - Conflict with C33 (Marina 12 to 14 ft vs FEMA 12 to 16 ft) is unchanged: this check places the transects; it does not show which range the Marina's own shore should use.
