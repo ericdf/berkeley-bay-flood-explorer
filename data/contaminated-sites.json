@@ -1,0 +1,2241 @@
+{
+ "note": "City of Berkeley screening of contaminated sites (Rincon Consultants, Groundwater Rise and Contaminated Site Analysis, Feb 2025, Table 1; GeoTracker and EnviroStor records). Priority is the City's ranking at current groundwater; depth is groundwater below the ground surface (CoSMoS-based), not a water level. Residential rows, rows named for a private owner, rows listed by address alone, and rows with a possible private name are left out, as are sites outside the explorer's grid (SOURCE_NOTES E29).",
+ "provenance": {
+  "category": "sourced",
+  "source": "City of Berkeley groundwater rise screening, Table 1 (PDF pp. 32–46), retrieved 2026-11-23"
+ },
+ "crs": "EPSG:32610 meters from the grid origin (558896, 4188272), as data/streets.json",
+ "units": "meters",
+ "sites": [
+  {
+   "no": 3,
+   "name": "1255 EASTSHORE HIGHWAY (FORMER HAWKINS TRAFFIC SAFETY SUPPLY)",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - ELIGIBLE FOR CLOSURE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2084,
+   "y": 4398
+  },
+  {
+   "no": 7,
+   "name": "1655 FIFTH STREET LLC",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2665,
+   "y": 3614
+  },
+  {
+   "no": 22,
+   "name": "2601 SAN PABLO AVENUE LLC",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3682,
+   "y": 2167
+  },
+  {
+   "no": 30,
+   "name": "AAMCO TRANSMISSION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2986,
+   "y": 4803
+  },
+  {
+   "no": 31,
+   "name": "AAQA MEATS ALLSTAR STEAKS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3123,
+   "y": 4283
+  },
+  {
+   "no": 32,
+   "name": "AC PAPER",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2662,
+   "y": 4328
+  },
+  {
+   "no": 34,
+   "name": "ADMIRAL MOVING SYSTEMS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2676,
+   "y": 3773
+  },
+  {
+   "no": 36,
+   "name": "ALAMEDA COUNTY COMPUTER RESOURCE CENTER",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO ACTION",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2347,
+   "y": 4085
+  },
+  {
+   "no": 37,
+   "name": "ALCAN INGOT & POWDERS",
+   "category": "Permitted USTs",
+   "status": "PROTECTIVE FILER",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2141,
+   "y": 4568
+  },
+  {
+   "no": 38,
+   "name": "ALCAN INGOT & POWDERS",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO FURTHER ACTION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2141,
+   "y": 4568
+  },
+  {
+   "no": 43,
+   "name": "APRO DISTRIBUTION 2204",
+   "category": "Single-Walled UST Sites",
+   "status": "USTS PERMANENTLY CLOSED - REPORT PENDING",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3487,
+   "y": 1287
+  },
+  {
+   "no": 44,
+   "name": "APRO DISTRIBUTION 2204",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3487,
+   "y": 1287
+  },
+  {
+   "no": 45,
+   "name": "AQUATIC PARK SCIENCE CENTER",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2723,
+   "y": 2451
+  },
+  {
+   "no": 46,
+   "name": "AQUATIC PARK SCIENCE CENTER",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO FURTHER ACTION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2591,
+   "y": 2792
+  },
+  {
+   "no": 49,
+   "name": "ASPHALT PRODUCT OIL CORP",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3624,
+   "y": 1320
+  },
+  {
+   "no": 51,
+   "name": "ATLAS WELDING SUPPLY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2492,
+   "y": 4474
+  },
+  {
+   "no": 54,
+   "name": "BAY EXPORT SERVICES",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3167,
+   "y": 1296
+  },
+  {
+   "no": 55,
+   "name": "BAYER FACILITY (FORMER MILES LABS CUTTER)",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3090,
+   "y": 2096
+  },
+  {
+   "no": 56,
+   "name": "BAYER HEALTHCARE",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3091,
+   "y": 1863
+  },
+  {
+   "no": 57,
+   "name": "BAYER, FORMER MILES/CUTTER/BERKELEY UNIFIED SCHOOL DISTRICT",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3037,
+   "y": 2147
+  },
+  {
+   "no": 60,
+   "name": "BERKELEY ASPHALT & READY MIX",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2452,
+   "y": 3534
+  },
+  {
+   "no": 61,
+   "name": "BERKELEY AUTO REPAIR",
+   "category": "DTSC Cleanup Sites",
+   "status": "CERTIFIED",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3494,
+   "y": 2622
+  },
+  {
+   "no": 62,
+   "name": "BERKELEY BUSINESS CENTER (SCP)",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3686,
+   "y": 1481
+  },
+  {
+   "no": 63,
+   "name": "BERKELEY BUSINESS CENTER (UST)",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3632,
+   "y": 1523
+  },
+  {
+   "no": 65,
+   "name": "BERKELEY CITY OF",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - ELIGIBLE FOR CLOSURE",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3952,
+   "y": 2977
+  },
+  {
+   "no": 66,
+   "name": "BERKELEY CITY OF CORP YARD",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 4017,
+   "y": 3025
+  },
+  {
+   "no": 67,
+   "name": "BERKELEY COMMONS",
+   "category": "Non-Case Information Sites",
+   "status": "PENDING REVIEW",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2643,
+   "y": 2732
+  },
+  {
+   "no": 70,
+   "name": "BERKELEY FORMER OIL REFINING FACILITIES - BERKELEY WAREHOUSE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2451,
+   "y": 3082
+  },
+  {
+   "no": 71,
+   "name": "BERKELEY FORMER OIL REFINING FACILITIES - DECANION IMPORT TILE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2387,
+   "y": 3160
+  },
+  {
+   "no": 72,
+   "name": "BERKELEY FORMER OIL REFINING FACILITIES - IMPORT TILE SITE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2435,
+   "y": 3219
+  },
+  {
+   "no": 73,
+   "name": "BERKELEY FORMER OIL REFINING FACILITIES - LI LIQUIDATION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2430,
+   "y": 3150
+  },
+  {
+   "no": 79,
+   "name": "BERKELEY HUMANE SOCIETY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3472,
+   "y": 1936
+  },
+  {
+   "no": 80,
+   "name": "BERKELEY HYDRAULIC SERVICE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3690,
+   "y": 1874
+  },
+  {
+   "no": 81,
+   "name": "BERKELEY INDUSTRIAL COMPLEX",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3140,
+   "y": 1526
+  },
+  {
+   "no": 82,
+   "name": "BERKELEY INDUSTRIAL COMPLEX",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3112,
+   "y": 1519
+  },
+  {
+   "no": 83,
+   "name": "BERKELEY INDUSTRIAL COURT",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: RWQCB",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3131,
+   "y": 1533
+  },
+  {
+   "no": 84,
+   "name": "BERKELEY LANDFILL (CESAR CHAVEZ PARK)",
+   "category": "Land Disposal Site",
+   "status": "OPEN - VERIFICATION MONITORING",
+   "rank": "Medium",
+   "depthBelowGround": ">5 m; deep",
+   "x": 938,
+   "y": 3658
+  },
+  {
+   "no": 86,
+   "name": "BERKELEY MARINE CENTER",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 1032,
+   "y": 3193
+  },
+  {
+   "no": 87,
+   "name": "BERKELEY MARINE CENTER",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 1063,
+   "y": 3172
+  },
+  {
+   "no": 88,
+   "name": "BERKELEY PROPERTIES",
+   "category": "DTSC Cleanup Sites",
+   "status": "ACTIVE",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 2820,
+   "y": 2464
+  },
+  {
+   "no": 89,
+   "name": "BERKELEY PUMP",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO FURTHER ACTION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3005,
+   "y": 2633
+  },
+  {
+   "no": 90,
+   "name": "BERKELEY PUMP STATION",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2680,
+   "y": 3305
+  },
+  {
+   "no": 91,
+   "name": "BERKELEY REDEVELOPMENT AGENCY SITE",
+   "category": "DTSC Cleanup Sites",
+   "status": "CERTIFIED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2663,
+   "y": 3652
+  },
+  {
+   "no": 92,
+   "name": "BERKELEY ROSEVILLE INC",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3100,
+   "y": 3156
+  },
+  {
+   "no": 93,
+   "name": "BERKELEY SANTA FE TRACKBED TO PARK",
+   "category": "DTSC Cleanup Sites",
+   "status": "ACTIVE",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 4237,
+   "y": 2186
+  },
+  {
+   "no": 96,
+   "name": "BERKELEY TRANSFER STATION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2061,
+   "y": 4652
+  },
+  {
+   "no": 97,
+   "name": "BERKELEY UNIFIED SCHOOL DISTRICT TRANSPORTATION FACILITY",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: LOCAL AGENCY",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2615,
+   "y": 4336
+  },
+  {
+   "no": 99,
+   "name": "BERKELEY WAREHOUSE DRAYAGE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2526,
+   "y": 3029
+  },
+  {
+   "no": 100,
+   "name": "BERKELEY YAMAHA",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2370,
+   "y": 4373
+  },
+  {
+   "no": 108,
+   "name": "BUDGET RENT A CAR",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2173,
+   "y": 4280
+  },
+  {
+   "no": 109,
+   "name": "BUDGET RENT A CAR SYSTEM, INC.",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2138,
+   "y": 4248
+  },
+  {
+   "no": 113,
+   "name": "CAL/ INK",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2394,
+   "y": 4115
+  },
+  {
+   "no": 114,
+   "name": "CALDWELL ROLAND ROOFING",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2604,
+   "y": 3686
+  },
+  {
+   "no": 117,
+   "name": "CAMELIA STREET PROPERTIES (FORMER PERC-SERV, INC.)",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - REMEDIATION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2899,
+   "y": 4334
+  },
+  {
+   "no": 118,
+   "name": "CAMP ASHBY",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO FURTHER ACTION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3420,
+   "y": 1322
+  },
+  {
+   "no": 121,
+   "name": "CARLETON BUSINESS CENTER",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3140,
+   "y": 1762
+  },
+  {
+   "no": 122,
+   "name": "CARLETON BUSINESS CENTER",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3364,
+   "y": 1832
+  },
+  {
+   "no": 123,
+   "name": "CARLETON BUSINESS CENTER",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3137,
+   "y": 1761
+  },
+  {
+   "no": 124,
+   "name": "CARLETON STREET CONVERSION",
+   "category": "Non-Case Information Sites",
+   "status": "PENDING REVIEW",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3371,
+   "y": 1916
+  },
+  {
+   "no": 125,
+   "name": "CASE ENGINEERS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2621,
+   "y": 3809
+  },
+  {
+   "no": 129,
+   "name": "CHEVRON",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3875,
+   "y": 1434
+  },
+  {
+   "no": 132,
+   "name": "CHEVRON",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": ">5 m; deep",
+   "x": 4346,
+   "y": 3390
+  },
+  {
+   "no": 133,
+   "name": "CHEVRON",
+   "category": "LUST Cleanup Sites",
+   "status": "OPEN - REMEDIATION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3002,
+   "y": 4476
+  },
+  {
+   "no": 134,
+   "name": "CHEVRON",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2088,
+   "y": 4318
+  },
+  {
+   "no": 135,
+   "name": "CHEVRON",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3472,
+   "y": 3274
+  },
+  {
+   "no": 138,
+   "name": "CHEVRON STATION 9-1229",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": ">5 m; deep",
+   "x": 4450,
+   "y": 5705
+  },
+  {
+   "no": 139,
+   "name": "CHRIS'S PAYLESS PLUMBING",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2921,
+   "y": 4639
+  },
+  {
+   "no": 140,
+   "name": "CHRONICLE DEPOT",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3396,
+   "y": 1649
+  },
+  {
+   "no": 141,
+   "name": "CITY OF BERKELEY - CORPORATION YARD",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 4033,
+   "y": 3012
+  },
+  {
+   "no": 143,
+   "name": "CITY OF BERKELEY TRANSFER STATION",
+   "category": "Single-Walled UST Sites",
+   "status": "SWT-NO PLAN RETURNED",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2123,
+   "y": 4484
+  },
+  {
+   "no": 147,
+   "name": "CLEAR-COM",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2822,
+   "y": 4291
+  },
+  {
+   "no": 149,
+   "name": "COBURN CONSTRUCTION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3554,
+   "y": 1864
+  },
+  {
+   "no": 150,
+   "name": "COLGATE-PALMOLIVE",
+   "category": "DTSC Cleanup Sites",
+   "status": "CERTIFIED",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3138,
+   "y": 1784
+  },
+  {
+   "no": 154,
+   "name": "CONSOLIDATED FREIGHTWAYS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3452,
+   "y": 2267
+  },
+  {
+   "no": 157,
+   "name": "COSHELL LAUNDRY",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3194,
+   "y": 3829
+  },
+  {
+   "no": 158,
+   "name": "COURTAULDS AEROSPACE INC",
+   "category": "Permitted USTs",
+   "status": "CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2484,
+   "y": 3718
+  },
+  {
+   "no": 159,
+   "name": "COURTAULDS AEROSPACE INC",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: RWQCB",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2484,
+   "y": 3718
+  },
+  {
+   "no": 162,
+   "name": "DAVLIN COATINGS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2713,
+   "y": 2719
+  },
+  {
+   "no": 163,
+   "name": "DAVLIN PAINT COMPANY",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2713,
+   "y": 2719
+  },
+  {
+   "no": 164,
+   "name": "DAVLIN PAINT COMPANY",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO ACTION REQUIRED",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2713,
+   "y": 2719
+  },
+  {
+   "no": 165,
+   "name": "DELTAN DIVERSIFIED INC.- CHEVRON STATION #91745",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3005,
+   "y": 4481
+  },
+  {
+   "no": 166,
+   "name": "DESOTO",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2510,
+   "y": 3737
+  },
+  {
+   "no": 167,
+   "name": "DIESEL FUEL TANK AREA FORMER",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3233,
+   "y": 1071
+  },
+  {
+   "no": 168,
+   "name": "DINWIDDIE CONSTRUCTION COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2685,
+   "y": 4634
+  },
+  {
+   "no": 171,
+   "name": "DON'S TIRE SERVICE, INC. (FORMERLY FRANK'S TIRE SERVICE)",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2519,
+   "y": 4380
+  },
+  {
+   "no": 172,
+   "name": "DOVE CHEMICAL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2256,
+   "y": 4492
+  },
+  {
+   "no": 173,
+   "name": "DOVER SALES",
+   "category": "DTSC Cleanup Sites",
+   "status": "CERTIFIED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2285,
+   "y": 4451
+  },
+  {
+   "no": 174,
+   "name": "DURKEE WAREHAM",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3283,
+   "y": 1480
+  },
+  {
+   "no": 175,
+   "name": "EASTSHORE PARK - REMAINDER",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - REMEDIATION",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 1951,
+   "y": 4079
+  },
+  {
+   "no": 176,
+   "name": "ELECTRO-COATINGS OF CA",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - VERIFICATION MONITORING",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3262,
+   "y": 1934
+  },
+  {
+   "no": 177,
+   "name": "ELEMENTS PETROLEUM, INC.",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2897,
+   "y": 3166
+  },
+  {
+   "no": 178,
+   "name": "EMERALD PACKAGING",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3733,
+   "y": 1753
+  },
+  {
+   "no": 179,
+   "name": "EMERALD PACKAGING",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3688,
+   "y": 1723
+  },
+  {
+   "no": 180,
+   "name": "ENGINEERING SCIENCE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2684,
+   "y": 2492
+  },
+  {
+   "no": 181,
+   "name": "ENGINEERING SCIENCE INC",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - INACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2670,
+   "y": 2521
+  },
+  {
+   "no": 184,
+   "name": "ERNIE VAN AND STORAGE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2731,
+   "y": 3681
+  },
+  {
+   "no": 185,
+   "name": "EUROPEAN MOTORS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3511,
+   "y": 2580
+  },
+  {
+   "no": 188,
+   "name": "FEREYDOON'S GARAGE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 4360,
+   "y": 2318
+  },
+  {
+   "no": 189,
+   "name": "FERREIRA PLUMBING",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3228,
+   "y": 3633
+  },
+  {
+   "no": 191,
+   "name": "FLINT INK CORP.",
+   "category": "DTSC Cleanup Sites",
+   "status": "INACTIVE - NEEDS EVALUATION",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2391,
+   "y": 4323
+  },
+  {
+   "no": 192,
+   "name": "FLINT INK CORPORATION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2374,
+   "y": 4239
+  },
+  {
+   "no": 193,
+   "name": "FLINT INK CORPORATION",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - ELIGIBLE FOR CLOSURE - LAND USE RESTRICTIONS",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2404,
+   "y": 4306
+  },
+  {
+   "no": 195,
+   "name": "FOREIGN AUTO CENTER",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3003,
+   "y": 4741
+  },
+  {
+   "no": 196,
+   "name": "FORMER BERKELEY GAS STATION",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3409,
+   "y": 2962
+  },
+  {
+   "no": 201,
+   "name": "FORMER CHEVRON",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3318,
+   "y": 3401
+  },
+  {
+   "no": 202,
+   "name": "FORMER CO-OP GAS STATION",
+   "category": "LUST Cleanup Sites",
+   "status": "OPEN - VERIFICATION MONITORING",
+   "rank": "Medium",
+   "depthBelowGround": ">5 m; deep",
+   "x": 4237,
+   "y": 3372
+  },
+  {
+   "no": 204,
+   "name": "FORMER EXXON 7-8465",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3473,
+   "y": 2728
+  },
+  {
+   "no": 205,
+   "name": "FORMER GAS STATION",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3647,
+   "y": 2308
+  },
+  {
+   "no": 206,
+   "name": "FORMER HOLLAND SERVICE GARAGE",
+   "category": "LUST Cleanup Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3486,
+   "y": 2940
+  },
+  {
+   "no": 207,
+   "name": "FORMER MCNEVIN CADILLAC",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3125,
+   "y": 4003
+  },
+  {
+   "no": 211,
+   "name": "FORMER PACIFIC STEEL CASTING COMPANY - BERKELEY PROPERTIES, LLC",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - INACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2224,
+   "y": 4177
+  },
+  {
+   "no": 212,
+   "name": "FORMER SERVICE STATION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": ">5 m; deep",
+   "x": 4424,
+   "y": 5730
+  },
+  {
+   "no": 215,
+   "name": "FORMER SHELL SERVICE STATION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3157,
+   "y": 3938
+  },
+  {
+   "no": 216,
+   "name": "FORMER VICTOR LAUNDRY LLC",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - INACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3235,
+   "y": 3835
+  },
+  {
+   "no": 217,
+   "name": "FRANK AUTO",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3702,
+   "y": 3344
+  },
+  {
+   "no": 219,
+   "name": "FVA/DELICOR",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2756,
+   "y": 2585
+  },
+  {
+   "no": 220,
+   "name": "GANNET OUTDOOR",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2294,
+   "y": 3544
+  },
+  {
+   "no": 221,
+   "name": "GARY STEEL COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3192,
+   "y": 2156
+  },
+  {
+   "no": 222,
+   "name": "GENERAL TRANSMISSIONS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2993,
+   "y": 4777
+  },
+  {
+   "no": 224,
+   "name": "GILMAN IMPORTS REPAIR",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3697,
+   "y": 4599
+  },
+  {
+   "no": 227,
+   "name": "GREEN CHEMICAL COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2459,
+   "y": 4396
+  },
+  {
+   "no": 228,
+   "name": "GREEN VALLEY PLANT RENTAL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2162,
+   "y": 3875
+  },
+  {
+   "no": 229,
+   "name": "GRING PEST CONTROL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3274,
+   "y": 1112
+  },
+  {
+   "no": 231,
+   "name": "HARRISON STREET PLAYING FIELDS",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: RWQCB",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2271,
+   "y": 4549
+  },
+  {
+   "no": 232,
+   "name": "HEINZ/GRAYSON PLUME",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: RWQCB",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3281,
+   "y": 1567
+  },
+  {
+   "no": 234,
+   "name": "HENRY'S SERVICE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3705,
+   "y": 4710
+  },
+  {
+   "no": 236,
+   "name": "HOLETT MACHINE WORKS",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3292,
+   "y": 1058
+  },
+  {
+   "no": 239,
+   "name": "INTER MOUNTAIN TRADING CORP",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2581,
+   "y": 3972
+  },
+  {
+   "no": 241,
+   "name": "JANCO CHEMICAL CORP",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2407,
+   "y": 4491
+  },
+  {
+   "no": 242,
+   "name": "JETTON CONSTRUCTION",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3269,
+   "y": 3758
+  },
+  {
+   "no": 243,
+   "name": "JIFFY LUBE #889",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3126,
+   "y": 3163
+  },
+  {
+   "no": 244,
+   "name": "JIM DOTEN HONDA",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2779,
+   "y": 3088
+  },
+  {
+   "no": 245,
+   "name": "JWP MECHANICAL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3507,
+   "y": 1445
+  },
+  {
+   "no": 246,
+   "name": "K & S MANAGEMENT",
+   "category": "DTSC Cleanup Sites",
+   "status": "CERTIFIED",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3379,
+   "y": 3510
+  },
+  {
+   "no": 247,
+   "name": "KAHN SCRAPYARD",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2753,
+   "y": 3276
+  },
+  {
+   "no": 248,
+   "name": "KAISER BIOMEDICAL FACILITY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2435,
+   "y": 3423
+  },
+  {
+   "no": 249,
+   "name": "KAISER PERMANENTE BERKELEY REGIONAL LAB - 1705",
+   "category": "DTSC Hazardous Waste Sites",
+   "status": "CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2290,
+   "y": 3425
+  },
+  {
+   "no": 250,
+   "name": "KAISER REGIONAL LABORATORY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2363,
+   "y": 3415
+  },
+  {
+   "no": 254,
+   "name": "KRENZ LIMITED",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3224,
+   "y": 1243
+  },
+  {
+   "no": 265,
+   "name": "LINOLEUM SALES",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3213,
+   "y": 3707
+  },
+  {
+   "no": 266,
+   "name": "LONESTAR INDUSTRIES",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2514,
+   "y": 4285
+  },
+  {
+   "no": 267,
+   "name": "LONGFELLOW MIDDLE SCHOOL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 4448,
+   "y": 2108
+  },
+  {
+   "no": 268,
+   "name": "MACAULAY FOUNDRY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3146,
+   "y": 1935
+  },
+  {
+   "no": 269,
+   "name": "MACAULAY FOUNDRY INC",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3186,
+   "y": 1895
+  },
+  {
+   "no": 270,
+   "name": "MACBETH HARDWARE COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3551,
+   "y": 1267
+  },
+  {
+   "no": 272,
+   "name": "MANASSE-BLOCK TANNING COMPANY",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - INACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2349,
+   "y": 4322
+  },
+  {
+   "no": 273,
+   "name": "MARCHANT CORPORATION SITE",
+   "category": "DTSC Cleanup Sites",
+   "status": "ACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3786,
+   "y": 1187
+  },
+  {
+   "no": 279,
+   "name": "MEYER SOUND",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - INACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3810,
+   "y": 1646
+  },
+  {
+   "no": 280,
+   "name": "MEYER SOUND",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3725,
+   "y": 1664
+  },
+  {
+   "no": 282,
+   "name": "MOBIL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3053,
+   "y": 4552
+  },
+  {
+   "no": 287,
+   "name": "NATIONAL STARCH & CHEM COMPANY",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3195,
+   "y": 1653
+  },
+  {
+   "no": 288,
+   "name": "NATIONAL STARCH AND CHEMICAL COMPANY",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: RWQCB",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3116,
+   "y": 1630
+  },
+  {
+   "no": 290,
+   "name": "NIRP BERKELEY",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO FURTHER ACTION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3152,
+   "y": 1166
+  },
+  {
+   "no": 291,
+   "name": "NOMURA BROS INC",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3767,
+   "y": 1971
+  },
+  {
+   "no": 295,
+   "name": "OLIVER COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3625,
+   "y": 2038
+  },
+  {
+   "no": 298,
+   "name": "PACIFIC COAST CHEMICALS CO.",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2648,
+   "y": 3226
+  },
+  {
+   "no": 299,
+   "name": "PACIFIC STEEL CASTING",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2345,
+   "y": 3711
+  },
+  {
+   "no": 300,
+   "name": "PACIFIC STEEL CASTING",
+   "category": "DTSC Cleanup Sites",
+   "status": "ACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2140,
+   "y": 4220
+  },
+  {
+   "no": 301,
+   "name": "PACIFIC STEEL PLANT #2",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2234,
+   "y": 4178
+  },
+  {
+   "no": 304,
+   "name": "PEERLESS ELECTRIC",
+   "category": "DTSC Cleanup Sites",
+   "status": "INACTIVE - ACTION REQUIRED",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2736,
+   "y": 2679
+  },
+  {
+   "no": 305,
+   "name": "PEERLESS LIGHTING",
+   "category": "LUST Cleanup Sites",
+   "status": "OPEN - REMEDIATION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2767,
+   "y": 2697
+  },
+  {
+   "no": 306,
+   "name": "PG&E 7TH STREET CONSTRUCTION SITE",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3413,
+   "y": 1466
+  },
+  {
+   "no": 309,
+   "name": "PQ CORP",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 2985,
+   "y": 1632
+  },
+  {
+   "no": 310,
+   "name": "PRC-DESOTO INTERNATIONAL",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2607,
+   "y": 3757
+  },
+  {
+   "no": 313,
+   "name": "PROEN PRODUCTS COMPANY",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3552,
+   "y": 1806
+  },
+  {
+   "no": 314,
+   "name": "PROPEL FUELS, INC. (202018)",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2937,
+   "y": 3177
+  },
+  {
+   "no": 316,
+   "name": "READ INVESTMENTS BERKELEY LLC SITE (FORMER JIM DOTEN HONDA SITE)",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2775,
+   "y": 3066
+  },
+  {
+   "no": 319,
+   "name": "RVEECO INC",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2607,
+   "y": 4251
+  },
+  {
+   "no": 320,
+   "name": "SAFETY-KLEEN CORP",
+   "category": "DTSC Hazardous Waste Sites",
+   "status": "CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2616,
+   "y": 3531
+  },
+  {
+   "no": 321,
+   "name": "SALES BUILDING",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3033,
+   "y": 4476
+  },
+  {
+   "no": 322,
+   "name": "SAN PABLO MINI-MART",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3151,
+   "y": 3949
+  },
+  {
+   "no": 323,
+   "name": "SBC FACILITY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2337,
+   "y": 4499
+  },
+  {
+   "no": 327,
+   "name": "SHELL BRANDED SERVICE STATION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3866,
+   "y": 1381
+  },
+  {
+   "no": 328,
+   "name": "SHELL STATION",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3800,
+   "y": 3311
+  },
+  {
+   "no": 331,
+   "name": "SOUTHERN PACIFIC",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3985,
+   "y": 3650
+  },
+  {
+   "no": 337,
+   "name": "STUDIO COMPLEX",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3601,
+   "y": 2028
+  },
+  {
+   "no": 338,
+   "name": "SUPER 7",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3114,
+   "y": 3172
+  },
+  {
+   "no": 339,
+   "name": "SUPER 7",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3488,
+   "y": 1278
+  },
+  {
+   "no": 340,
+   "name": "SVENSSON AUTOMOTIVE",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3249,
+   "y": 3553
+  },
+  {
+   "no": 341,
+   "name": "TAKARA SAKE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2666,
+   "y": 2920
+  },
+  {
+   "no": 342,
+   "name": "TANNERY THE",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2354,
+   "y": 4337
+  },
+  {
+   "no": 343,
+   "name": "TEMESCAL BUSINESS CENTER",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3371,
+   "y": 1535
+  },
+  {
+   "no": 344,
+   "name": "TEMESCAL BUSINESS CENTER",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: RWQCB",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3281,
+   "y": 1567
+  },
+  {
+   "no": 345,
+   "name": "TERMINAL MANUFACTURING, LLC",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - VERIFICATION MONITORING",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2289,
+   "y": 4375
+  },
+  {
+   "no": 346,
+   "name": "TERMINAL MANUFACTURING, LLC",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2263,
+   "y": 4353
+  },
+  {
+   "no": 347,
+   "name": "TEXACO",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2958,
+   "y": 3147
+  },
+  {
+   "no": 349,
+   "name": "TEXACO",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3450,
+   "y": 1209
+  },
+  {
+   "no": 350,
+   "name": "TIME OIL COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3831,
+   "y": 1815
+  },
+  {
+   "no": 354,
+   "name": "TOSCO - FACILITY #1700",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": ">5 m; deep",
+   "x": 4226,
+   "y": 3433
+  },
+  {
+   "no": 355,
+   "name": "TOSCO - FACILITY #3185",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2972,
+   "y": 3152
+  },
+  {
+   "no": 356,
+   "name": "TOWER CLEANERS",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - ASSESSMENT & INTERIM REMEDIAL ACTION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3436,
+   "y": 3231
+  },
+  {
+   "no": 359,
+   "name": "TPMG REGIONAL LABORATORY (KAISER)",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2319,
+   "y": 3449
+  },
+  {
+   "no": 360,
+   "name": "TRANSAMERICA DEVAUAL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3009,
+   "y": 2635
+  },
+  {
+   "no": 361,
+   "name": "TRIANGLE COATINGS",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: LOCAL AGENCY",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 2623,
+   "y": 2695
+  },
+  {
+   "no": 362,
+   "name": "TROUT PLUMBING",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2578,
+   "y": 4024
+  },
+  {
+   "no": 363,
+   "name": "TRUST SECURITY MANAGEMENT",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 2845,
+   "y": 2494
+  },
+  {
+   "no": 365,
+   "name": "TUTTLE GALVANIZING",
+   "category": "Cleanup Program Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2315,
+   "y": 4384
+  },
+  {
+   "no": 366,
+   "name": "U-HAUL #710-52",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3390,
+   "y": 3128
+  },
+  {
+   "no": 369,
+   "name": "UC BERKELEY",
+   "category": "Non-Case Information Sites",
+   "status": "INFORMATIONAL ITEM / REVIEW COMPLETE",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 3486,
+   "y": 1185
+  },
+  {
+   "no": 372,
+   "name": "UC BERKELEY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2363,
+   "y": 4546
+  },
+  {
+   "no": 382,
+   "name": "UNITED PACIFIC # 2204AD",
+   "category": "LUST Cleanup Sites",
+   "status": "OPEN - ASSESSMENT & INTERIM REMEDIAL ACTION",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3485,
+   "y": 1289
+  },
+  {
+   "no": 383,
+   "name": "UNIVERSITY ASSOCIATES",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2969,
+   "y": 3161
+  },
+  {
+   "no": 384,
+   "name": "UNIVERSITY CHEVRON #90877",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "Medium",
+   "depthBelowGround": ">5 m; deep",
+   "x": 4295,
+   "y": 3377
+  },
+  {
+   "no": 387,
+   "name": "UNIVERSITY SHELL #100",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 3791,
+   "y": 3318
+  },
+  {
+   "no": 389,
+   "name": "UNIVERSITY VALERO-BERKELEY",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2939,
+   "y": 3176
+  },
+  {
+   "no": 394,
+   "name": "UNOCAL",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 4348,
+   "y": 2498
+  },
+  {
+   "no": 397,
+   "name": "UTILITY BODY COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2661,
+   "y": 4525
+  },
+  {
+   "no": 399,
+   "name": "VERIFLO",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - VERIFICATION MONITORING",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2934,
+   "y": 2573
+  },
+  {
+   "no": 404,
+   "name": "WAREHAM PROPERTIES",
+   "category": "DTSC Cleanup Sites",
+   "status": "CERTIFIED",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3178,
+   "y": 1402
+  },
+  {
+   "no": 405,
+   "name": "WEATHERFORD BMW (FORMER NAVAL INDUSTRIAL RESERVE PLANT BERKELEY)",
+   "category": "LUST Cleanup Sites",
+   "status": "COMPLETED - CASE CLOSED",
+   "rank": "Low",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3116,
+   "y": 1161
+  },
+  {
+   "no": 410,
+   "name": "WRE/COLORTECH",
+   "category": "Cleanup Program Sites",
+   "status": "OPEN - VERIFICATION MONITORING",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2547,
+   "y": 4518
+  },
+  {
+   "no": 415,
+   "name": "XTRA OIL COMPANY",
+   "category": "LUST Cleanup Sites",
+   "status": "OPEN - SITE ASSESSMENT",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3106,
+   "y": 4349
+  },
+  {
+   "no": 416,
+   "name": "XTRA OIL COMPANY DBA CHEVRON",
+   "category": "Permitted USTs",
+   "status": "",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3105,
+   "y": 4353
+  },
+  {
+   "no": 418,
+   "name": "ALAMEDA COUNTY COMPUTER RESOURCE CENTER",
+   "category": "DTSC Cleanup Sites",
+   "status": "NO ACTION",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2211,
+   "y": 3940
+  },
+  {
+   "no": 419,
+   "name": "BERKELEY FORGE DEVELOPMENT PROJECT",
+   "category": "DTSC Cleanup Sites",
+   "status": "ACTIVE",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2215,
+   "y": 4118
+  },
+  {
+   "no": 420,
+   "name": "CALTRANS WEST FRONTAGE RD BERKELEY",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: OTHER AGENCY",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2081,
+   "y": 3842
+  },
+  {
+   "no": 421,
+   "name": "DESOTO INCORPORATED",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: RWQCB",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2473,
+   "y": 3688
+  },
+  {
+   "no": 422,
+   "name": "FRANK'S TIRE SERVICE",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: OTHER AGENCY",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2519,
+   "y": 4347
+  },
+  {
+   "no": 423,
+   "name": "KRENZ INC",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: OTHER AGENCY",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 3313,
+   "y": 1238
+  },
+  {
+   "no": 424,
+   "name": "MANASSE - BLOCK TANNING COMPANY",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: OTHER AGENCY",
+   "rank": "High",
+   "depthBelowGround": "0-1 m; very shallow",
+   "x": 2324,
+   "y": 4266
+  },
+  {
+   "no": 425,
+   "name": "MILES INC CUTTER BIOLOGICAL FACILITY #38",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: OTHER AGENCY",
+   "rank": "Medium",
+   "depthBelowGround": "2-5 m; moderate",
+   "x": 2974,
+   "y": 1966
+  },
+  {
+   "no": 426,
+   "name": "SOLID WASTE MANAGEMENT CENTER",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: OTHER AGENCY",
+   "rank": "High",
+   "depthBelowGround": "0 m; emergent",
+   "x": 2151,
+   "y": 4271
+  },
+  {
+   "no": 427,
+   "name": "TERMINEX-PEERLESS",
+   "category": "DTSC Cleanup Sites",
+   "status": "REFER: OTHER AGENCY",
+   "rank": "High",
+   "depthBelowGround": "1-2 m; shallow",
+   "x": 2749,
+   "y": 2673
+  }
+ ]
+}

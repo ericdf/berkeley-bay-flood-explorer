@@ -36,10 +36,12 @@ async function load() {
     j('data/hazard/tsunami.json').catch(() => null), b('data/hazard/tsunami.bits').catch(() => null),
     j('data/exposure.json'), j('data/site-cells.json'), j('data/rail.json').catch(() => null), j('data/thresholds.json'),
   ]);
+  // The City's contaminated-site screening (sourced layer, F19): 223 sites inside the map, from data/contaminated-sites.json.
+  const contaminated = await j('data/contaminated-sites.json').catch(() => null);
   return { dem, z: new Int16Array(zbuf), streets, facilities: fac.facilities, facilityCells: facCells, scenarios: scen.scenarios,
     berkeley: new Uint8Array(bits), art, drains, watershedIds: new Uint8Array(wsIds), plans: plans.presets, atlas, impervious: imp.watersheds,
     tsunami: tsunami && tsunamiBits ? { ...tsunami, mask: new Uint8Array(tsunamiBits) } : null,
-    exposure: exp, siteCells, rail, thresholds };
+    exposure: exp, siteCells, rail, thresholds, contaminated };
 }
 
 function shade(D) {
@@ -248,6 +250,12 @@ function paint() {
   }
   for (const sg of res.segs) { path(sg.e.geom); ctx.strokeStyle = sg.cls === 'wet' ? '#d22' : sg.cls === 'rain' ? '#5a3fd6' : sg.cls === 'drain' ? '#0e8f7e' : '#f0a020'; ctx.lineWidth = 3.5 * u; ctx.stroke(); }
   for (const f of D.facilityCells) for (const poly of f.outline) { path(poly[0]); ctx.closePath(); ctx.strokeStyle = '#ffe14d'; ctx.lineWidth = 2 * u; ctx.stroke(); }
+  // The City's contaminated-site screening (F19): a dot per site, larger for a higher City priority, outlined so it reads on any ground.
+  if ($('showSites').checked && D.contaminated) for (const s of D.contaminated.sites) {
+    const [x, y] = toPx([s.x, s.y]), r = { High: 4.5, Medium: 3.5, Low: 2.5 }[s.rank] * u;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = { High: '#ffffff', Medium: '#bdbdbd', Low: '#7a7a7a' }[s.rank]; ctx.fill();
+    ctx.strokeStyle = '#000'; ctx.lineWidth = 0.8 * u; ctx.stroke();
+  }
   // The plan: walls and raised roads in black over white, so they read on any color.
   if (plan) {
     const lines = [...plan.walls.flatMap(w => w.lines)];
@@ -458,7 +466,7 @@ const MIN_POOL_HA = 1;
 const title = (n) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase());
 
 // The view in the URL (js/share.js): written on every render, read once at load.
-const OVERLAYS = { art: 'showArt', artdc: 'showArtDc', tsunami: 'showTsunami' };
+const OVERLAYS = { art: 'showArt', artdc: 'showArtDc', tsunami: 'showTsunami', sites: 'showSites' };
 let lastHash = null;
 function writeView(levelFt, sc) {
   const h = encodeView({ sc: sc ? sc.id : null, lv: levelFt, presets: [...ui.presets], gates: ui.gates, rain: ui.rain,
@@ -517,6 +525,7 @@ function legend(res, plan) {
     [$('showArtDc').checked, sw('#a6ff00'), 'ART ground cut off from the Bay'],
     [$('showCosmos').checked, sw('#00e5ff'), 'CoSMoS map outline'],
     [$('showTsunami').checked, sw('#ff2dc8'), 'State tsunami hazard area'],
+    [$('showSites').checked, sw('#fff', 'outline:1px solid #000;border-radius:50%'), 'Contaminated site (City priority; larger is higher)'],
   ];
   $('legendBody').innerHTML = rows.filter(r => r[0]).map(([, s, t]) => `<div>${s}${t}</div>`).join('');
 }
@@ -549,7 +558,7 @@ function render(levelFt, sc) {
   $('nowLevel').textContent = `${sc ? sc.label : 'Chosen with the slider'}: ${fmt(levelFt, 2)} ft NAVD88`;
   $('nowRain').textContent = ui.rain ? `${ui.rain.ari}-year storm, ${ui.rain.duration.replace('-hr', ' hours')}` : 'Off';
   $('nowPlan').textContent = currentPlan() ? [...[...ui.presets].map(id => (D.plans.find(p => p.id === id) || {}).label), ui.gates ? 'tide gates (Aquatic Park tubes open)' : '', ui.drawn.length ? `${ui.drawn.length} wall(s) you drew` : ''].filter(Boolean).join('; ') : 'None';
-  const shown = [['showArt', 'ART'], ['showArtDc', 'ART cut-off ground'], ['showCosmos', 'CoSMoS'], ['showTsunami', 'tsunami area']].filter(([id]) => $(id).checked).map(([, t]) => t);
+  const shown = [['showArt', 'ART'], ['showArtDc', 'ART cut-off ground'], ['showCosmos', 'CoSMoS'], ['showTsunami', 'tsunami area'], ['showSites', 'contaminated sites']].filter(([id]) => $(id).checked).map(([, t]) => t);
   $('nowMaps').textContent = shown.length ? shown.join(', ') : 'None shown';
   const nChoices = Object.values(ui.siteChoices).filter(c => c && c !== 'none').length;
   $('nowSites').textContent = nChoices ? `${nChoices} site choice(s)` : 'No changes';
@@ -773,6 +782,8 @@ async function textOnlyStory() {
   });
   if (!D.tsunami) $('showTsunami').disabled = true;
   $('showTsunami').addEventListener('change', () => render(levelNow, scNow));
+  if (!D.contaminated) $('showSites').disabled = true;
+  $('showSites').addEventListener('change', () => render(levelNow, scNow));
   planPanel(() => render(levelNow, scNow));
   sitesPanel(() => render(levelNow, scNow));
   mapControls();
