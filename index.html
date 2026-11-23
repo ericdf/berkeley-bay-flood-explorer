@@ -108,12 +108,6 @@
   .back { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 0; margin-bottom: 8px; font-size: 14px; }
   .finding { font-size: 16px; margin: 4px 0 12px; }
   .place { border-top: 1px solid var(--line); padding: 12px 0; }
-  .place.on { background: rgba(255, 45, 122, .07); }
-  .pin { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #fff; color: #000; border: 1.5px solid #000; font-size: 11px; font-weight: 700; margin-right: 4px; vertical-align: 1px; }
-  .place.on .pin { background: #ff2d7a; color: #fff; border-color: #ff2d7a; }
-  .tour { position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 8px 0; margin-bottom: 4px; background: var(--panel); border-bottom: 1px solid var(--line); font-size: 13px; }
-  .tour button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 13px; }
-  .tour-now { flex: 1 1 12em; min-width: 0; color: var(--muted); }
   .place h3 { margin: 0 0 2px; font-size: 15px; }
   .place h3 button { all: unset; cursor: pointer; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
   .place .what { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
@@ -136,11 +130,39 @@
   .addr { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
   .addr input { flex: 1 1 220px; min-width: 0; font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
   .addr button { padding: 6px 10px; }
-  .sources { font-size: 13px; margin: 4px 0 8px; }
   .toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); margin: 14px 0 0; }
   .defs td, .defs th { font-size: 13px; }
   a.ref { color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; }
   a.ref:hover, a.ref:focus-visible { color: var(--accent); }
+  /* Civic stories, briefs and the decisions page (js/civic/civic.js). */
+  .civic-home { margin-top: 20px; }
+  ol.stages { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin: 8px 0 12px; font-size: 12px; }
+  ol.stages li { border: 1px solid var(--line); border-radius: 12px; padding: 1px 9px; color: var(--muted); }
+  ol.stages li[aria-current] { border-color: var(--accent); color: var(--fg); font-weight: 600; background: var(--accent-soft); }
+  ol.stages li[aria-current]::before { content: "\25B8 "; }
+  .stephead { font-size: 17px; margin: 8px 0 6px; }
+  .changed { font-size: 14px; border-left: 3px solid var(--accent); padding: 2px 8px; background: var(--accent-soft); }
+  .prov { margin: 8px 0; }
+  .prov p { margin: 2px 0; }
+  ul.limits { font-size: 13px; color: var(--muted); }
+  ul.limits li::marker { content: "\26A0  "; }
+  .stepnav { display: flex; gap: 8px; margin: 14px 0 6px; flex-wrap: wrap; }
+  .stepnav button, .action button, .brief-tools button { min-height: 40px; padding: 6px 14px; font-size: 14px; }
+  .linkish { border: 0; background: none; color: var(--accent); text-decoration: underline; cursor: pointer; padding: 0; font-size: 13px; }
+  .status { display: inline-block; font-size: 13px; font-weight: 600; border: 1px solid var(--fg); border-radius: 4px; padding: 0 6px; }
+  .action { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin: 10px 0; }
+  .reqtext { width: 100%; font: 13px/1.4 ui-monospace, monospace; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+  .copied { font-size: 13px; color: var(--muted); }
+  ol.log { padding-left: 20px; font-size: 14px; }
+  .brief h3 { font-size: 15px; margin: 14px 0 4px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+  @media print {
+    header, #mapwrap, #rail, #side, .back, .noprint, .stepnav { display: none !important; }
+    main, main.guided { display: block; height: auto; }
+    #guide { border: 0; padding: 0; overflow: visible; }
+    body { background: #fff; color: #000; }
+  }
 </style>
 </head>
 <body>
@@ -148,7 +170,6 @@
   <div class="intro">
     <h1>Berkeley Bay Flood Explorer</h1>
     <p class="notice">Explore how storm tides, tsunamis, sea level rise and heavy rain could affect west Berkeley's streets, critical infrastructure, I-80, pollution sources and the Bay shoreline. Not a flood forecast.</p>
-    <p class="sources"><a href="https://github.com/ericdf/berkeley-bay-flood-explorer/blob/main/SOURCE_NOTES.md">Sources and decisions: every figure and where it comes from (SOURCE_NOTES.md)</a></p>
     <div class="hdrlinks"><details class="explain"><summary>Explain this</summary><div>
         <p>Water can come in four ways: over the shoreline when the Bay rises; up the storm drains, when the Bay is higher than the pipes' outlets and nothing closes them; up from below, as groundwater rises with the Bay; and in a tsunami.</p>
         <p>Water also has to get out. When the drain outlets are under the tide, rain that falls in Berkeley cannot drain and pools in the low streets. And water going out, as a flood drains back or a tsunami pulls back, can carry what it picked up, from contaminated ground and stored chemicals, into the Bay.</p>
@@ -203,7 +224,6 @@
       <p>A king tide field check this winter (E10), the City's records on outfalls and tide gates (D6) and Caltrans profiles of I-80 are the evidence that could test the differences.</p>
     </details>
       <div class="row"><label><input id="showTsunami" type="checkbox"> State tsunami hazard area <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ff2dc8"></span></label> <details class="explain"><summary>Explain this</summary><div><p>Drawn by the State for tsunami evacuation planning, it combines the largest tsunamis considered for the area. It marks ground to leave when a warning is issued. It is not a flood depth or a forecast, and it does not change with your water level (SOURCE_NOTES H6).</p></div></details></div>
-      <div class="row"><label><input id="showSites" type="checkbox"> City screening: contaminated sites <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#fff;border:1px solid #000"></span></label> <details class="explain"><summary>Explain this</summary><div><p>The City of Berkeley's screening (<a href="https://berkeleyca.gov/sites/default/files/2026-06/Ground%20Water%20Analysis%20Report%202025-02.pdf">Rincon Consultants, <i>Groundwater Rise and Contaminated Site Analysis</i>, February 2025</a>, Table 1) of the contaminated sites inside this map (223 after we left out homes, owner-named and address-only rows; derived), from state databases (<a href="https://geotracker.waterboards.ca.gov/">GeoTracker</a> and <a href="https://www.envirostor.dtsc.ca.gov/">EnviroStor</a>). The site list is in <a href="https://github.com/ericdf/berkeley-bay-flood-explorer/blob/main/data/contaminated-sites.json">data/contaminated-sites.json</a>, with the removals explained in SOURCE_NOTES E29. The City ranked each site by how exposed it is to rising groundwater; larger dots are higher priority at today's groundwater. The dots are not water levels. They do not show how contaminated a site is, or whether any cleanup or control is working (SOURCE_NOTES F19, E29).</p><p>Sites at homes, and sites listed by address alone, are left off.</p></div></details></div>
     </div></details>
     <details class="sec"><summary>Polluted and hazardous sites: what if they are moved or cleaned up<span class="now" id="nowSites">No changes</span></summary><div class="body">
       <div id="sitesPanel"></div>

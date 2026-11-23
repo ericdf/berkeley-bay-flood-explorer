@@ -54,7 +54,7 @@ export function whenShort(T) {
   return 'none of these levels';
 }
 
-export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () => {}, onTour = () => {} }) {
+export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = () => '' }) {
   const SITE_TEXT = {
     'berkeley-forge': 'Metal works under the State stormwater permit; its runoff carried aluminum, copper, iron and zinc before a 2012 settlement.',
     'pacific-steel-geotracker': 'Closed steel foundry. Contaminated soil and groundwater, which lies as little as 1.5 ft below the ground; cleanup open.',
@@ -90,7 +90,6 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
   const lidarNote = '<p class="warn">For I-80, its ramps and the rail line, the terrain is bare earth: the survey removes bridges and raised decks. Caltrans and railroad profiles would settle where they really go under.</p>';
 
   let placeN = 0; const places = [];
-  let tourI = null; // the place (0-based) the tour shows; null shows all of them
   function rungs(Tv) {
     return `<ul class="rungs">${ladder(Tv).map(r => `<li class="rung"><span class="when">${r.when}</span>${r.lv
       ? `<button type="button" data-lv="${r.lv}" data-p="${placeN}">${esc(r.text)}</button>` : `<span class="no">${esc(r.text)}</span>`}</li>`).join('')}</ul>`;
@@ -113,7 +112,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     if (p.bay != null) parts.push(`<span class="way bay">over the ground from the Bay</span>${rungs(p.bay)}${firstNote(p.bayFirst, p.bay, unit)}${p.lidar ? '<p class="nums">Bare-earth terrain</p>' : ''}`);
     if (p.drain == null && p.bay == null) parts.push(p.touch ? `<p class="what">Only its edge is reached, and only by water above every 2100 estimate shown except the highest.</p><p class="nums">First water at ${ft(p.touch)} (derived)</p>` : `<p class="what">None of the water levels here reach it, up to ${ft(HIGHEST)}, above the highest 2100 estimate shown.</p>`);
     const first = Math.min(p.drain ?? 99, p.bay ?? 99, p.touch ?? 99);
-    return `<div class="place" data-place="${placeN}"><h3><span class="pin" aria-hidden="true">${placeN + 1}</span> <button type="button" data-show="${placeN}">${esc(p.name)}</button></h3>${p.what ? `<p class="what">${esc(p.what)}</p>` : ''}${p.tsunami ? '<p class="what">Inside the State\'s tsunami evacuation area.</p>' : ''}${scale(first)}${parts.join('')}</div>`;
+    return `<div class="place"><h3><button type="button" data-show="${placeN}">${esc(p.name)}</button></h3>${p.what ? `<p class="what">${esc(p.what)}</p>` : ''}${p.tsunami ? '<p class="what">Inside the State\'s tsunami evacuation area.</p>' : ''}${scale(first)}${parts.join('')}</div>`;
   }
   const numsToggle = () => `<label class="toggle"><input type="checkbox" class="numsBox" ${document.body.classList.contains('shownums') ? 'checked' : ''}> Show the numbers: water levels in feet, with how each was found</label>`;
 
@@ -139,6 +138,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     return `<h2 class="q">What do you want to know?</h2>
       <p>Pick a question. Each answer says when Bay water reaches each place: today, by 2050 and by 2100. Click a line in an answer to see that water on the map.</p>
       <div class="qs">${QUESTIONS.map(q => `<button type="button" class="qcard" data-q="${q.id}"><b>${esc(q.title)}</b><span>${esc(q.sub)}</span></button>`).join('')}</div>
+      ${extraHome()}
       <p class="src" style="margin-top:16px">To set any level, add rain or build your own defenses, switch to <a href="#" data-mode="expert">Expert</a>.</p>`;
   }
 
@@ -263,11 +263,8 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     }
     const lv = (k) => k === 255 ? null : Math.round((6 + 0.05 * k) * 100) / 100;
     const p = { name: label, what: 'The ground at and in front of this address. Floors may sit higher; floor heights are not published.', at: [x, y], bay: lv(bay), drain: lv(drain) < lv(bay) || (lv(bay) == null && lv(drain) != null) ? lv(drain) : null, edge: true };
-    // An address is the only place in its answer: replace any earlier lookup's place, then renumber the map.
-    places.length = 0; placeN = 0; tourI = null;
     const first = Math.min(p.drain ?? 99, p.bay ?? 99);
     out.innerHTML = `<p class="finding">${first > HIGHEST ? `None of the water levels here reach ${esc(label)}, up to above the highest 2100 estimate shown.` : `At ${esc(label)}, Bay water first reaches the ground in ${esc(whenShort(first))}.`}</p>${p.drain != null ? drainNote : ''}${place(p)}${numsToggle()}`;
-    onPins(pinList()); onTour(null);
     focus({ points: [p.at], label });
   }
   function address() {
@@ -289,37 +286,12 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
 
   const RENDER = { address, toxic, roads, king, tsunami, defenses };
   let current = null;
-  // Where a place's number sits on the map: its point, or the middle vertex of its longest line.
-  function pinAt(p) {
-    if (p.at) return p.at;
-    let best = null; for (const l of p.lines || []) if (l.length && (!best || l.length > best.length)) best = l;
-    return best ? best[Math.floor(best.length / 2)] : null;
-  }
-  // The numbered places as the map draws them: one number per place with a point.
-  const pinList = () => places.map((p, i) => ({ n: i + 1, label: p.name, at: pinAt(p) })).filter(P => P.at);
-  const tourText = () => tourI == null ? `${places.length} places, numbered on the map` : `Place ${tourI + 1} of ${places.length}: ${places[tourI].name}`;
-  function tourBar() {
-    if (places.length < 2) return '';
-    return `<div class="tour" role="group" aria-label="Walk through the places in this answer"><button type="button" data-tour="prev">&larr; Previous</button><span class="tour-now" aria-live="polite">${esc(tourText())}</span><button type="button" data-tour="next">Next &rarr;</button><button type="button" data-tour="all">Show all</button></div>`;
-  }
-  // One place (0-based), or with null all of them. The map and the answer move together.
-  function tourTo(i) {
-    if (i == null || !places[i]) { tourI = null; focus(null); }
-    else { tourI = i; const p = places[i]; focus({ points: p.at ? [p.at] : [], lines: p.lines || [], label: p.name }); }
-    el.querySelectorAll('.place.on').forEach(b => b.classList.remove('on'));
-    const blk = tourI == null ? null : el.querySelector(`.place[data-place="${tourI}"]`);
-    if (blk) { blk.classList.add('on'); blk.scrollIntoView({ block: 'nearest' }); }
-    const now = el.querySelector('.tour-now'); if (now) now.textContent = tourText();
-    onTour(tourI);
-  }
   function show(q) {
-    places.length = 0; placeN = 0; tourI = null;
+    places.length = 0; placeN = 0;
     current = RENDER[q] ? q : null;
-    const body = current ? RENDER[current]() : '';
-    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${tourBar()}${body}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
+    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${RENDER[current]()}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
     el.scrollTop = 0;
     if (!current) focus(null);
-    onPins(pinList());
     onQuestion(current);
   }
   el.addEventListener('click', (e) => {
@@ -328,12 +300,8 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     else if (t.hasAttribute('data-home')) show(null);
     else if (t.dataset.lv) {
       el.querySelectorAll('.rung button[aria-current]').forEach(b => b.removeAttribute('aria-current')); t.setAttribute('aria-current', 'true');
-      setLevel(Number(t.dataset.lv)); tourTo(Number(t.dataset.p));
-    } else if (t.dataset.show) tourTo(Number(t.dataset.show));
-    else if (t.dataset.tour) {
-      const n = places.length, step = t.dataset.tour === 'next' ? 1 : -1;
-      if (t.dataset.tour === 'all') tourTo(null); else tourTo(tourI == null ? (step > 0 ? 0 : n - 1) : (tourI + step + n) % n);
-    }
+      setLevel(Number(t.dataset.lv)); const p = places[Number(t.dataset.p)]; if (p) focus({ points: p.at ? [p.at] : [], lines: p.lines || [], label: p.name });
+    } else if (t.dataset.show) { const p = places[Number(t.dataset.show)]; if (p) focus({ points: p.at ? [p.at] : [], lines: p.lines || [], label: p.name }); }
     else if (t.id === 'addrLoc') {
       const out = document.getElementById('addrOut');
       if (!navigator.geolocation) { out.innerHTML = '<p>This browser does not share a location.</p>'; return; }
@@ -344,5 +312,5 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
   });
   el.addEventListener('submit', (e) => { if (e.target.id === 'addrForm') { e.preventDefault(); const v = document.getElementById('addrIn').value.trim(); if (v) onAddress(v); } });
   el.addEventListener('change', (e) => { if (e.target.classList.contains('numsBox')) { document.body.classList.toggle('shownums', e.target.checked); el.querySelectorAll('.numsBox').forEach(b => { b.checked = e.target.checked; }); } });
-  return { show, tourTo, current: () => current, questions: QUESTIONS.map(q => q.id) };
+  return { show, current: () => current, questions: QUESTIONS.map(q => q.id) };
 }
