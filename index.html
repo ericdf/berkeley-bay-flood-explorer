@@ -108,6 +108,12 @@
   .back { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 0; margin-bottom: 8px; font-size: 14px; }
   .finding { font-size: 16px; margin: 4px 0 12px; }
   .place { border-top: 1px solid var(--line); padding: 12px 0; }
+  .place.on { background: rgba(255, 45, 122, .07); }
+  .pin { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #fff; color: #000; border: 1.5px solid #000; font-size: 11px; font-weight: 700; margin-right: 4px; vertical-align: 1px; }
+  .place.on .pin { background: #ff2d7a; color: #fff; border-color: #ff2d7a; }
+  .tour { position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 8px 0; margin-bottom: 4px; background: var(--panel); border-bottom: 1px solid var(--line); font-size: 13px; }
+  .tour button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 13px; }
+  .tour-now { flex: 1 1 12em; min-width: 0; color: var(--muted); }
   .place h3 { margin: 0 0 2px; font-size: 15px; }
   .place h3 button { all: unset; cursor: pointer; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
   .place .what { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
@@ -130,6 +136,7 @@
   .addr { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
   .addr input { flex: 1 1 220px; min-width: 0; font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
   .addr button { padding: 6px 10px; }
+  .sources { font-size: 13px; margin: 4px 0 8px; }
   .toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); margin: 14px 0 0; }
   .defs td, .defs th { font-size: 13px; }
   a.ref { color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; }
@@ -141,6 +148,7 @@
   <div class="intro">
     <h1>Berkeley Bay Flood Explorer</h1>
     <p class="notice">Explore how storm tides, tsunamis, sea level rise and heavy rain could affect west Berkeley's streets, critical infrastructure, I-80, pollution sources and the Bay shoreline. Not a flood forecast.</p>
+    <p class="sources"><a href="https://github.com/ericdf/berkeley-bay-flood-explorer/blob/main/SOURCE_NOTES.md">Sources and decisions: every figure and where it comes from (SOURCE_NOTES.md)</a></p>
     <div class="hdrlinks"><details class="explain"><summary>Explain this</summary><div>
         <p>Water can come in four ways: over the shoreline when the Bay rises; up the storm drains, when the Bay is higher than the pipes' outlets and nothing closes them; up from below, as groundwater rises with the Bay; and in a tsunami.</p>
         <p>Water also has to get out. When the drain outlets are under the tide, rain that falls in Berkeley cannot drain and pools in the low streets. And water going out, as a flood drains back or a tsunami pulls back, can carry what it picked up, from contaminated ground and stored chemicals, into the Bay.</p>
