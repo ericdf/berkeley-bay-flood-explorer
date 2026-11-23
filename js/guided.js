@@ -142,6 +142,28 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
       <p class="src" style="margin-top:16px">To set any level, add rain or build your own defenses, switch to <a href="#" data-mode="expert">Expert</a>.</p>`;
   }
 
+  // City screening sites (F19, data/contaminated-sites.json) within 300 m of open Bay water (D.water0, the
+  // same mask the flood model uses). A model rule: a straight-line count on the explorer's 4 m grid, not a
+  // flow path, so it does not show that water reaches a site (SOURCE_NOTES E34). Null until the model has run.
+  const BAY_M = 300;
+  let bayNear = undefined;
+  function cityNearBay() {
+    if (bayNear) return bayNear;
+    if (!D.water0 || !D.contaminated) return null;
+    const sites = D.contaminated.sites, rad = Math.round(BAY_M / R), r2 = rad * rad, water = D.water0;
+    const hits = sites.filter(s => {
+      const c = Math.floor(s.x / R), r = Math.floor((Hm - s.y) / R);
+      for (let dr = -rad; dr <= rad; dr++) {
+        const rr = r + dr; if (rr < 0 || rr >= D.dem.height) continue;
+        for (let dc = -rad; dc <= rad; dc++) {
+          const cc = c + dc; if (cc < 0 || cc >= W || dr * dr + dc * dc > r2) continue;
+          if (water[rr * W + cc]) return true;
+        }
+      }
+      return false;
+    });
+    return (bayNear = { total: sites.length, near: hits.length, high: hits.filter(s => s.rank === 'High').length });
+  }
   function toxic() {
     // Sites reached up the drains before Bay water reaches them over the ground.
     const ps = sitePlaces(), viaDrain = ps.filter(p => p.drain != null && (p.bay == null || p.drain < p.bay));
@@ -149,6 +171,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, onPins = () 
     return `<h2 class="q">When could flooding reach contaminated ground?</h2>
       <p class="finding">Up the storm drains, Bay water first covers a quarter of the ${esc(first.name.split(',')[0])} site in ${esc(whenShort(first.drain))}. By 2100's severe storm tide it covers ${drainBy(13.0)} sites this way, even under the City's lowest estimate. Over the ground, in this terrain model, it reaches none of the sites behind I-80 until it crosses the freeway corridor, which takes more water than the City's estimate for 2100 and less than the State's middle-high estimate. Where the water really crosses, through culverts and openings under the freeway, needs confirmation.</p>
       ${drainNote}
+      ${(() => { const b = cityNearBay(); return b ? `<p class="what"><span class="cat">derived</span> <span class="cat">model rule</span> City screening: ${b.near} of its ${b.total} sites lie within 300 m (about 1,000 ft) of open Bay water as mapped here, and ${b.high} of those ${b.near === 1 ? 'is' : 'are'} High priority at current groundwater. This is a straight-line distance, not a flow path: it does not show that water reaches a site or carries its contamination to the Bay. Sources: F19 (City of Berkeley, Feb 2025, Table 1); SOURCE_NOTES E34.</p>` : ''; })()}
       <p class="warn">Groundwater is a third way in. A USGS model (CoSMoS-GW) puts the water table at the ground surface across nearly all of the Pacific Steel and Berkeley Forge sites today, under its middle assumption about the soil (SOURCE_NOTES C22). That result swings widely with the assumption, and the levels here do not include it.</p>
       ${ps.map(place).join('')}
       <div class="place"><h3>Former Berkeley Landfill, under César Chávez Park</h3><p class="what">About 1.5 million tons of waste on Bay mud with no liner beneath it. A water level is the wrong test here: the risks are the shoreline wearing away and groundwater rising into the waste, which this explorer does not model.</p><p class="what">Inside the State's tsunami evacuation area.</p></div>
