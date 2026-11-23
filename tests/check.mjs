@@ -377,7 +377,7 @@ if (fs.existsSync('data/hazard/cosmos-gw.json')) {
   ok(worse === 0, 'a cell is never first reached later through the drains than over the ground');
   const { ladder, whenShort } = await import('../js/guided.js').catch(() => ({}));
   if (ladder) {
-    ok(ladder(7.25)[0].lv === 7.4 && ladder(9.85)[0].lv === 10.91 && ladder(9.85)[2].lv === 13.0, 'the ladder names the first named water at or above a threshold');
+    ok(ladder(7.25)[0].lv === 7.25 && ladder(7.85)[0].lv === 7.85 && ladder(9.85)[0].lv === 10.91 && ladder(9.85)[2].lv === 13.0, 'the ladder names the first named water at or above a threshold; 7.25 and 7.85 ft are rungs of their own (C26)');
     ok(ladder(13.4)[2].text.includes('two higher') && ladder(9.4)[2].lv === 9.4, 'the ladder counts the 2100 estimates that reach a threshold');
     ok(whenShort(17) === 'none of these levels', 'a place above every level reads "none of these levels"');
     // E17: first modeled water and a quarter of the grounds are different levels and guided mode

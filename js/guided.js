@@ -11,7 +11,9 @@ const ft = (v) => `${v.toFixed(2)} ft NAVD88`;
 // Named levels, ft NAVD88 still water (data/scenarios.json; sources there).
 const TODAY = [
   { ft: 6.2, text: 'An ordinary high tide', often: 'almost every day' },
-  { ft: 7.4, text: "This winter's highest tide (Dec 24)", often: 'about once a year' },
+  { ft: 7.25, text: 'A high tide that reaches Bolivar Dr through the drains', often: 'about 19 times a year, in every year 2016 to 2025 (C26)' },
+  { ft: 7.42, text: "This winter's highest tide (Dec 24)", often: 'about 10 times a year, in every year 2016 to 2025 (C26)' },
+  { ft: 7.85, text: 'A high tide that reaches the frontage road through the drains', often: 'about once a year, in 5 of 10 years (C26)' },
   { ft: 8.16, text: 'A storm tide', often: 'about a 20% chance each year' },
   { ft: 8.47, text: 'A storm tide', often: 'about a 10% chance each year' },
   { ft: 9.73, text: 'A severe storm tide', often: 'about a 1% chance each year' },
@@ -43,7 +45,7 @@ export function ladder(T) {
 // The earliest water that reaches T, in a few words, for tables.
 export function whenShort(T) {
   if (T == null || T > HIGHEST) return 'none of these levels';
-  const SHORT = { 6.2: 'ordinary high tides today', 7.4: "this winter's highest tide", 8.16: 'a storm tide today (20% chance each year)',
+  const SHORT = { 6.2: 'ordinary high tides today', 7.25: 'a high tide through the drains at Bolivar Dr (about 19 a year)', 7.42: "this winter's highest tide", 7.85: 'a high tide through the drains at the frontage road (about once a year)', 8.16: 'a storm tide today (20% chance each year)',
     8.47: 'a storm tide today (10% chance each year)', 9.73: 'a severe storm tide today (1% chance each year)', 10.91: 'an extreme storm tide today (0.2% chance each year)' };
   const t = TODAY.find(r => r.ft >= T);
   if (t) return SHORT[t.ft];
@@ -86,7 +88,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     return cells.length ? [sx / cells.length, sy / cells.length] : null;
   };
 
-  const drainNote = '<p class="warn">"Up the storm drains" assumes the drain outlets to the Bay have no working tide gates. The City has not published which ones have them. Where they do, only "over the ground" applies. The Aquatic Park lagoon is the exception on record: its five tide tubes have sliding gates the City keeps open to the tide (SOURCE_NOTES D7).</p>';
+  const drainNote = '<p class="warn">"Up the storm drains" assumes the drain outlets to the Bay have no working tide gates. The City has not published which ones have them. Where they do, only "over the ground" applies. The Aquatic Park lagoon is the exception on record: its five tide tubes have sliding gates, restored in 2020 for tidal exchange, and the City\'s page does not say how or when they are set (SOURCE_NOTES D7).</p>';
   const lidarNote = '<p class="warn">For I-80, its ramps and the rail line, the terrain is bare earth: the survey removes bridges and raised decks. Caltrans and railroad profiles would settle where they really go under.</p>';
 
   let placeN = 0; const places = [];
@@ -172,7 +174,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     return `<h2 class="q">When could flooding reach contaminated ground?</h2>
       <p class="finding">Up the storm drains, Bay water first covers a quarter of the ${esc(first.name.split(',')[0])} site in ${esc(whenShort(first.drain))}. By 2100's severe storm tide it covers ${drainBy(13.0)} sites this way, even under the City's lowest estimate. Over the ground, in this terrain model, it reaches none of the sites behind I-80 until it crosses the freeway corridor, which takes more water than the City's estimate for 2100 and less than the State's middle-high estimate. Where the water really crosses, through culverts and openings under the freeway, needs confirmation.</p>
       ${drainNote}
-      ${(() => { const b = cityNearBay(); return b ? `<p class="what"><span class="cat">derived</span> <span class="cat">model rule</span> City screening: ${b.near} of its ${b.total} sites lie within 300 m (about 1,000 ft) of open Bay water as mapped here, and ${b.high} of those ${b.near === 1 ? 'is' : 'are'} High priority at current groundwater. This is a straight-line distance, not a flow path: it does not show that water reaches a site or carries its contamination to the Bay. Sources: F19 (City of Berkeley, Feb 2025, Table 1); SOURCE_NOTES E34.</p>` : ''; })()}
+      ${(() => { const b = cityNearBay(); return b ? `<p class="what"><span class="cat">derived</span> <span class="cat">model rule</span> City screening: ${b.near} of its ${b.total} sites lie within 300 m (about 1,000 ft) of open Bay water as mapped here, and ${b.high} of those ${b.near === 1 ? 'is' : 'are'} High priority at current groundwater. This is a straight-line distance, not a flow path, and the 300 m radius is our assumption, not a City or State standard: it does not show that water reaches a site or carries its contamination to the Bay. Sources: F19 (City of Berkeley, Feb 2025, Table 1); SOURCE_NOTES E34.</p>` : ''; })()}
       <p class="warn">Groundwater is a third way in. A USGS model (CoSMoS-GW) puts the water table at the ground surface across nearly all of the Pacific Steel and Berkeley Forge sites today, under its middle assumption about the soil (SOURCE_NOTES C22). That result swings widely with the assumption, and the levels here do not include it.</p>
       ${ps.map(place).join('')}
       <div class="place"><h3>Former Berkeley Landfill, under César Chávez Park</h3><p class="what">About 1.5 million tons of waste on Bay mud with no liner beneath it. A water level is the wrong test here: the risks are the shoreline wearing away and groundwater rising into the waste, which this explorer does not model.</p><p class="what">Inside the State's tsunami evacuation area.</p></div>
@@ -190,14 +192,14 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
   }
 
   function king() {
-    const KT = 7.4, hits = Object.entries(T.streets).filter(([, s]) => (s.drainFt ?? 99) <= KT || (s.bayFt ?? 99) <= KT);
+    const KT = 7.42, hits = Object.entries(T.streets).filter(([, s]) => (s.drainFt ?? 99) <= KT || (s.bayFt ?? 99) <= KT);
     const bol = roadT(ROADS[0]);
     return `<h2 class="q">What will this winter's king tides reach?</h2>
-      <p class="finding">The highest tide this winter, on December 24, can push Bay water up the storm drains onto ${hits.map(([n]) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase())).join(', ') || 'no street'}, if no working tide gate closes the drain outlet there. Bolivar Dr drains to the Aquatic Park lagoon, which the City keeps open to the Bay through five tide tubes (SOURCE_NOTES D7); how high the lagoon rises at a king tide is not on record. Over the ground, the water stays at the shoreline.</p>
+      <p class="finding">The highest tide this winter, on December 24, can push Bay water up the storm drains onto ${hits.map(([n]) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase())).join(', ') || 'no street'}, if no working tide gate closes the drain outlet there. Bolivar Dr drains to the Aquatic Park lagoon, which has five tide tubes with sliding gates, restored in 2020 for tidal exchange; the City\'s page does not say how or when the gates are set (SOURCE_NOTES D7). How high the lagoon rises at a king tide is not on record. Over the ground, the water stays at the shoreline.</p>
       ${drainNote}
-      <p>This is no rare event. From 2016 through 2025, high tides at NOAA's Richmond gauge reached that level about 19 times a year, in every year, and stayed above it for one to three hours each time (SOURCE_NOTES C26). If the lagoon rose to the Bay's level, the street would flood that often. Whether it does is what a field check this winter tests.</p>
+      <p>This is no rare event. From 2016 through 2025, high tides at NOAA's Richmond gauge reached 7.25 ft, the level that reaches Bolivar Dr through the drains, about 19 times a year, in every year, usually for about an hour and at most three (SOURCE_NOTES C26). At this winter's highest tide, 7.42 ft, the count is about 10 a year (C26 gives 9.7 at 7.40). If the lagoon rose to the Bay's level, the street would flood that often. Whether it does is what a field check this winter tests.</p>
       ${place({ name: 'Bolivar Dr', what: 'Along Aquatic Park, beside I-80.', road: true, lines: roadLines(ROADS[0]), drain: bol.drainFt ?? null, bay: bol.bayFt ?? null })}
-      <p>The highest tides this winter come on the late mornings of Nov 24–26, Dec 23–25 and Jan 21–22 (NOAA's predictions for Richmond). If you go and look, watch the storm drain grates on Bolivar Dr around high tide, stay off the shoreline rocks and out of the road, and share your photos with the California Coastal Commission's <a href="https://www.coastal.ca.gov/kingtides/participate.html">King Tides Project</a>.</p>
+      <p>The highest predicted tides this winter are 7.17 ft on Nov 25, 7.34 ft on Dec 23, 7.42 ft on Dec 24 and 7.34 ft on Jan 22 (NOAA's predictions for Richmond, SOURCE_NOTES W14). If you go and look, watch the storm drain grates on Bolivar Dr around high tide, stay off the shoreline rocks and out of the road, and share your photos with the California Coastal Commission's <a href="https://www.coastal.ca.gov/kingtides/participate.html">King Tides Project</a>.</p>
       ${numsToggle()}`;
   }
 
@@ -244,8 +246,8 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
         <p class="what">Berkeley land under water or filling up the drains in 2100's severe storm tide (City's estimate): ${ha(d)} ha, against ${ha(T)} ha with no defenses.</p></div>`;
     };
     return `<h2 class="q">What would flood defenses change?</h2>
-      <p class="finding">Working tide gates on every storm drain outlet but the Aquatic Park tide tubes, which the City keeps open to the tide, delay when Bay water first reaches the listed inland sites. In this model the water still reaches them through the lagoon before it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls only from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha (SOURCE_NOTES D9). The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn, because the water goes around their ends (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
-      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The exception on record is Aquatic Park: the lagoon's five tide tubes have sliding gates the City keeps open to the tide, and this comparison leaves them open (D7, D9). A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
+      <p class="finding">Working tide gates on every storm drain outlet but the Aquatic Park tide tubes, which this comparison leaves open to the tide, delay when Bay water first reaches the listed inland sites. In this model the water still reaches them through the lagoon before it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls only from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha (SOURCE_NOTES D9). The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn, because the water goes around their ends (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
+      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The exception on record is Aquatic Park: the lagoon's five tide tubes have sliding gates, restored in 2020 for tidal exchange; the City\'s page does not say how or when they are set, and this comparison leaves them open (D7, D9). A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
       ${T.defenses.map(card).join('')}
       <p class="src">In this terrain model, the first surface connection across the I-80 corridor appears near 13.4 ft NAVD88 (13.35), about 250 m south of Gilman St (SOURCE_NOTES C6). The actual crossings and drainage openings under the freeway need confirmation. A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
       ${numsToggle()}`;
