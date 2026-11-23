@@ -18,7 +18,7 @@ Rules for `data/civic/*.json`. They add to `CLAUDE.md` and `AGENTS.md` and do no
 
 ## Agencies, actions and status
 
-- No records requests, from the project or for readers to send (Eric, E30). An action asks for a
+- No records requests, from the project or for readers to send (Eric, E32). An action asks for a
   change, such as a scope, a design or a decision, and grounds it in data the repository already
   holds. (checked)
 - Model numbers in an action's text come through `{{tokens}}` and a claim, as in a story. (checked)

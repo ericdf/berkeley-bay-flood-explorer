@@ -10,7 +10,7 @@ const num = (v) => (v != null && v !== '' && Number.isFinite(Number(v)) ? Number
 
 // state: { sc, lv, presets, gates, rain: {ari, duration, blocked} | null, walls: [{crestFt, line: [[x, y]]}],
 //          sites: {id: choice}, floodproofFt, show: [names], cosmos: {slr, storm} | null,
-//          mode: 'guided' | 'expert', q: guided question id | null,
+//          mode: 'guided' | 'expert', q: guided question id | null, tp: numbered place in that answer (1-based) | null,
 //          story: story id | null, step: '1', '2', ... | 'brief' | null, view: 'decisions' | null }
 // (civic stories, js/civic/civic.js). An address is never put in the link.
 export function encodeView(s) {
@@ -26,6 +26,7 @@ export function encodeView(s) {
   if (s.cosmos) p.set('cosmos', `${s.cosmos.slr}_${s.cosmos.storm}`);
   if (s.mode) p.set('mode', s.mode);
   if (s.q) p.set('q', s.q);
+  if (s.q && s.tp) p.set('tp', String(s.tp));
   if (s.story) { p.set('story', s.story); if (s.step) p.set('step', s.step); }
   if (s.view) p.set('view', s.view);
   return p.toString();
@@ -36,7 +37,7 @@ export function decodeView(hash) {
   const out = { sc: p.get('sc') || null, lv: num(p.get('lv')), presets: (p.get('plan') || '').split('_').filter(Boolean),
     gates: p.get('gates') === '1', rain: null, walls: [], sites: {}, floodproofFt: num(p.get('fp')),
     show: (p.get('show') || '').split('_').filter(Boolean), cosmos: null,
-    mode: ['guided', 'expert'].includes(p.get('mode')) ? p.get('mode') : null, q: p.get('q') || null,
+    mode: ['guided', 'expert'].includes(p.get('mode')) ? p.get('mode') : null, q: p.get('q') || null, tp: num(p.get('tp')),
     // Story ids and steps are checked against data/civic/stories.json when opened, and an unknown one
     // says so on the page; here only their length is limited.
     story: p.get('story') ? p.get('story').slice(0, 80) : null,

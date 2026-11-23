@@ -54,7 +54,7 @@ export function whenShort(T) {
   return 'none of these levels';
 }
 
-export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = () => '' }) {
+export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = () => '', onPins = () => {}, onTour = () => {} }) {
   const SITE_TEXT = {
     'berkeley-forge': 'Metal works under the State stormwater permit; its runoff carried aluminum, copper, iron and zinc before a 2012 settlement.',
     'pacific-steel-geotracker': 'Closed steel foundry. Contaminated soil and groundwater, which lies as little as 1.5 ft below the ground; cleanup open.',
@@ -90,6 +90,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
   const lidarNote = '<p class="warn">For I-80, its ramps and the rail line, the terrain is bare earth: the survey removes bridges and raised decks. Caltrans and railroad profiles would settle where they really go under.</p>';
 
   let placeN = 0; const places = [];
+  let tourI = null; // the place (0-based) the tour shows; null shows all of them
   function rungs(Tv) {
     return `<ul class="rungs">${ladder(Tv).map(r => `<li class="rung"><span class="when">${r.when}</span>${r.lv
       ? `<button type="button" data-lv="${r.lv}" data-p="${placeN}">${esc(r.text)}</button>` : `<span class="no">${esc(r.text)}</span>`}</li>`).join('')}</ul>`;
@@ -112,7 +113,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     if (p.bay != null) parts.push(`<span class="way bay">over the ground from the Bay</span>${rungs(p.bay)}${firstNote(p.bayFirst, p.bay, unit)}${p.lidar ? '<p class="nums">Bare-earth terrain</p>' : ''}`);
     if (p.drain == null && p.bay == null) parts.push(p.touch ? `<p class="what">Only its edge is reached, and only by water above every 2100 estimate shown except the highest.</p><p class="nums">First water at ${ft(p.touch)} (derived)</p>` : `<p class="what">None of the water levels here reach it, up to ${ft(HIGHEST)}, above the highest 2100 estimate shown.</p>`);
     const first = Math.min(p.drain ?? 99, p.bay ?? 99, p.touch ?? 99);
-    return `<div class="place"><h3><button type="button" data-show="${placeN}">${esc(p.name)}</button></h3>${p.what ? `<p class="what">${esc(p.what)}</p>` : ''}${p.tsunami ? '<p class="what">Inside the State\'s tsunami evacuation area.</p>' : ''}${scale(first)}${parts.join('')}</div>`;
+    return `<div class="place" data-place="${placeN}"><h3><span class="pin" aria-hidden="true">${placeN + 1}</span> <button type="button" data-show="${placeN}">${esc(p.name)}</button></h3>${p.what ? `<p class="what">${esc(p.what)}</p>` : ''}${p.tsunami ? '<p class="what">Inside the State\'s tsunami evacuation area.</p>' : ''}${scale(first)}${parts.join('')}</div>`;
   }
   const numsToggle = () => `<label class="toggle"><input type="checkbox" class="numsBox" ${document.body.classList.contains('shownums') ? 'checked' : ''}> Show the numbers: water levels in feet, with how each was found</label>`;
 
@@ -142,6 +143,28 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
       <p class="src" style="margin-top:16px">To set any level, add rain or build your own defenses, switch to <a href="#" data-mode="expert">Expert</a>.</p>`;
   }
 
+  // City screening sites (F19, data/contaminated-sites.json) within 300 m of open Bay water (D.water0, the
+  // same mask the flood model uses). A model rule: a straight-line count on the explorer's 4 m grid, not a
+  // flow path, so it does not show that water reaches a site (SOURCE_NOTES E34). Null until the model has run.
+  const BAY_M = 300;
+  let bayNear = undefined;
+  function cityNearBay() {
+    if (bayNear) return bayNear;
+    if (!D.water0 || !D.contaminated) return null;
+    const sites = D.contaminated.sites, rad = Math.round(BAY_M / R), r2 = rad * rad, water = D.water0;
+    const hits = sites.filter(s => {
+      const c = Math.floor(s.x / R), r = Math.floor((Hm - s.y) / R);
+      for (let dr = -rad; dr <= rad; dr++) {
+        const rr = r + dr; if (rr < 0 || rr >= D.dem.height) continue;
+        for (let dc = -rad; dc <= rad; dc++) {
+          const cc = c + dc; if (cc < 0 || cc >= W || dr * dr + dc * dc > r2) continue;
+          if (water[rr * W + cc]) return true;
+        }
+      }
+      return false;
+    });
+    return (bayNear = { total: sites.length, near: hits.length, high: hits.filter(s => s.rank === 'High').length });
+  }
   function toxic() {
     // Sites reached up the drains before Bay water reaches them over the ground.
     const ps = sitePlaces(), viaDrain = ps.filter(p => p.drain != null && (p.bay == null || p.drain < p.bay));
@@ -149,6 +172,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     return `<h2 class="q">When could flooding reach contaminated ground?</h2>
       <p class="finding">Up the storm drains, Bay water first covers a quarter of the ${esc(first.name.split(',')[0])} site in ${esc(whenShort(first.drain))}. By 2100's severe storm tide it covers ${drainBy(13.0)} sites this way, even under the City's lowest estimate. Over the ground, in this terrain model, it reaches none of the sites behind I-80 until it crosses the freeway corridor, which takes more water than the City's estimate for 2100 and less than the State's middle-high estimate. Where the water really crosses, through culverts and openings under the freeway, needs confirmation.</p>
       ${drainNote}
+      ${(() => { const b = cityNearBay(); return b ? `<p class="what"><span class="cat">derived</span> <span class="cat">model rule</span> City screening: ${b.near} of its ${b.total} sites lie within 300 m (about 1,000 ft) of open Bay water as mapped here, and ${b.high} of those ${b.near === 1 ? 'is' : 'are'} High priority at current groundwater. This is a straight-line distance, not a flow path: it does not show that water reaches a site or carries its contamination to the Bay. Sources: F19 (City of Berkeley, Feb 2025, Table 1); SOURCE_NOTES E34.</p>` : ''; })()}
       <p class="warn">Groundwater is a third way in. A USGS model (CoSMoS-GW) puts the water table at the ground surface across nearly all of the Pacific Steel and Berkeley Forge sites today, under its middle assumption about the soil (SOURCE_NOTES C22). That result swings widely with the assumption, and the levels here do not include it.</p>
       ${ps.map(place).join('')}
       <div class="place"><h3>Former Berkeley Landfill, under César Chávez Park</h3><p class="what">About 1.5 million tons of waste on Bay mud with no liner beneath it. A water level is the wrong test here: the risks are the shoreline wearing away and groundwater rising into the waste, which this explorer does not model.</p><p class="what">Inside the State's tsunami evacuation area.</p></div>
@@ -263,8 +287,11 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     }
     const lv = (k) => k === 255 ? null : Math.round((6 + 0.05 * k) * 100) / 100;
     const p = { name: label, what: 'The ground at and in front of this address. Floors may sit higher; floor heights are not published.', at: [x, y], bay: lv(bay), drain: lv(drain) < lv(bay) || (lv(bay) == null && lv(drain) != null) ? lv(drain) : null, edge: true };
+    // An address is the only place in its answer: replace any earlier lookup's place, then renumber the map.
+    places.length = 0; placeN = 0; tourI = null;
     const first = Math.min(p.drain ?? 99, p.bay ?? 99);
     out.innerHTML = `<p class="finding">${first > HIGHEST ? `None of the water levels here reach ${esc(label)}, up to above the highest 2100 estimate shown.` : `At ${esc(label)}, Bay water first reaches the ground in ${esc(whenShort(first))}.`}</p>${p.drain != null ? drainNote : ''}${place(p)}${numsToggle()}`;
+    onPins(pinList()); onTour(null);
     focus({ points: [p.at], label });
   }
   function address() {
@@ -286,12 +313,37 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
 
   const RENDER = { address, toxic, roads, king, tsunami, defenses };
   let current = null;
+  // Where a place's number sits on the map: its point, or the middle vertex of its longest line.
+  function pinAt(p) {
+    if (p.at) return p.at;
+    let best = null; for (const l of p.lines || []) if (l.length && (!best || l.length > best.length)) best = l;
+    return best ? best[Math.floor(best.length / 2)] : null;
+  }
+  // The numbered places as the map draws them: one number per place with a point.
+  const pinList = () => places.map((p, i) => ({ n: i + 1, label: p.name, at: pinAt(p) })).filter(P => P.at);
+  const tourText = () => tourI == null ? `${places.length} places, numbered on the map` : `Place ${tourI + 1} of ${places.length}: ${places[tourI].name}`;
+  function tourBar() {
+    if (places.length < 2) return '';
+    return `<div class="tour" role="group" aria-label="Walk through the places in this answer"><button type="button" data-tour="prev">&larr; Previous</button><span class="tour-now" aria-live="polite">${esc(tourText())}</span><button type="button" data-tour="next">Next &rarr;</button><button type="button" data-tour="all">Show all</button></div>`;
+  }
+  // One place (0-based), or with null all of them. The map and the answer move together.
+  function tourTo(i) {
+    if (i == null || !places[i]) { tourI = null; focus(null); }
+    else { tourI = i; const p = places[i]; focus({ points: p.at ? [p.at] : [], lines: p.lines || [], label: p.name }); }
+    el.querySelectorAll('.place.on').forEach(b => b.classList.remove('on'));
+    const blk = tourI == null ? null : el.querySelector(`.place[data-place="${tourI}"]`);
+    if (blk) { blk.classList.add('on'); blk.scrollIntoView({ block: 'nearest' }); }
+    const now = el.querySelector('.tour-now'); if (now) now.textContent = tourText();
+    onTour(tourI);
+  }
   function show(q) {
-    places.length = 0; placeN = 0;
+    places.length = 0; placeN = 0; tourI = null;
     current = RENDER[q] ? q : null;
-    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${RENDER[current]()}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
+    const body = current ? RENDER[current]() : '';
+    el.innerHTML = current ? `<button type="button" class="back" data-home>&larr; All questions</button>${tourBar()}${body}<p style="margin-top:16px"><a href="#" data-mode="expert">Check this in expert mode &rarr;</a></p>` : home();
     el.scrollTop = 0;
     if (!current) focus(null);
+    onPins(pinList());
     onQuestion(current);
   }
   el.addEventListener('click', (e) => {
@@ -300,8 +352,12 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     else if (t.hasAttribute('data-home')) show(null);
     else if (t.dataset.lv) {
       el.querySelectorAll('.rung button[aria-current]').forEach(b => b.removeAttribute('aria-current')); t.setAttribute('aria-current', 'true');
-      setLevel(Number(t.dataset.lv)); const p = places[Number(t.dataset.p)]; if (p) focus({ points: p.at ? [p.at] : [], lines: p.lines || [], label: p.name });
-    } else if (t.dataset.show) { const p = places[Number(t.dataset.show)]; if (p) focus({ points: p.at ? [p.at] : [], lines: p.lines || [], label: p.name }); }
+      setLevel(Number(t.dataset.lv)); tourTo(Number(t.dataset.p));
+    } else if (t.dataset.show) tourTo(Number(t.dataset.show));
+    else if (t.dataset.tour) {
+      const n = places.length, step = t.dataset.tour === 'next' ? 1 : -1;
+      if (t.dataset.tour === 'all') tourTo(null); else tourTo(tourI == null ? (step > 0 ? 0 : n - 1) : (tourI + step + n) % n);
+    }
     else if (t.id === 'addrLoc') {
       const out = document.getElementById('addrOut');
       if (!navigator.geolocation) { out.innerHTML = '<p>This browser does not share a location.</p>'; return; }
@@ -312,5 +368,5 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
   });
   el.addEventListener('submit', (e) => { if (e.target.id === 'addrForm') { e.preventDefault(); const v = document.getElementById('addrIn').value.trim(); if (v) onAddress(v); } });
   el.addEventListener('change', (e) => { if (e.target.classList.contains('numsBox')) { document.body.classList.toggle('shownums', e.target.checked); el.querySelectorAll('.numsBox').forEach(b => { b.checked = e.target.checked; }); } });
-  return { show, current: () => current, questions: QUESTIONS.map(q => q.id) };
+  return { show, tourTo, current: () => current, questions: QUESTIONS.map(q => q.id) };
 }

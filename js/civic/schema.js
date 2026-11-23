@@ -5,7 +5,7 @@
 export const STAGES = ['discover', 'understand', 'evaluate', 'decide', 'act'];
 export const EVIDENCE = ['observed', 'published-model', 'exploratory-model', 'inference', 'unknown'];
 export const STATUS = ['investigating', 'proposed', 'submitted', 'acknowledged', 'under-review', 'decided', 'implemented', 'closed'];
-// No records requests (Eric, SOURCE_NOTES E30): an action asks for a change, from data in hand.
+// No records requests (Eric, SOURCE_NOTES E32): an action asks for a change, from data in hand.
 export const ACTION_TYPES = ['comment', 'meeting', 'subscribe', 'share'];
 export const DRAINS = ['hidden', 'open', 'gates-closed'];
 export const COMPARE = ['gates-open'];
@@ -90,7 +90,7 @@ export function validateCivic(data, ctx) {
   for (const a of A) {
     unique('action', a.id);
     if (!issues.has(a.issueId)) err(`action ${a.id}: issue ${a.issueId} not found`);
-    if (a.type === 'records-request' || /records? request|public records act/i.test(`${a.requestText} ${a.requestedOutcome}`)) err(`action ${a.id}: no records requests (E30)`);
+    if (a.type === 'records-request' || /records? request|public records act/i.test(`${a.requestText} ${a.requestedOutcome}`)) err(`action ${a.id}: no records requests (E32)`);
     else if (!ACTION_TYPES.includes(a.type)) err(`action ${a.id}: type must be one of ${ACTION_TYPES.join(', ')}`);
     for (const t of tokensIn(a.requestText)) {
       const c = (a.claimIds || []).map(id => claims.get(id)).find(c => c && (c.tokens || []).includes(t));
