@@ -756,7 +756,7 @@ async function textOnlyStory() {
   const list = $('scenarios');
   // Scenarios by group (data/scenarios.json "group"), in the order the groups first appear.
   const groups = [...new Set(D.scenarios.map(s => s.group))];
-  list.innerHTML = groups.map(g => `<h3 class="grp">${esc(g)}</h3>` + D.scenarios.map((s, k) => s.group !== g ? '' : `<label class="sc"><input type="radio" name="sc" value="${k}"><span class="t">${esc(s.label)}</span><span class="lv">${s.precision === 1 ? 'about ' : ''}${fmt(s.levelFt, s.precision ?? 2)}</span></label>`).join('')).join('');
+  list.innerHTML = groups.map(g => `<h3 class="grp">${esc(g)}</h3>` + D.scenarios.map((s, k) => s.group !== g ? '' : `<label class="sc"><input type="radio" name="sc" value="${k}"><span class="t">${esc(s.label)}</span><span class="lv">${s.precision === 1 ? 'about ' : ''}${fmt(s.levelFt, s.precision ?? 2)} ft NAVD88</span></label>`).join('')).join('');
   // The level shown is kept here, exactly: a scenario's level may not be a multiple of the
   // slider's step, and the slider would round it.
   let current = D.scenarios.findIndex(s => s.id === 'y100'), levelNow = null, scNow = null;

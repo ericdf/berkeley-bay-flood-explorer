@@ -8,7 +8,13 @@ const notes = {};
 const clean = (t) => t.replace(/\*\*/g, '').replace(/`/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\s+/g, ' ').trim();
 const cut = (t, n = 160) => t.length > n ? t.slice(0, t.lastIndexOf(' ', n)) + '…' : t;
 for (let k = 0; k < lines.length; k++) {
-  let m = /^(?:- )?\*\*([A-Z]\d+)\.?\s*([^*]*)\*\*[.:]?\s*(.*)$/.exec(lines[k]);
+  // A heading whose bold title wraps is joined with its continuation lines before it is read.
+  let text = lines[k];
+  if (/^(?:- )?\*\*[A-Z]\d+\./.test(text) && !/\*\*[^*]*\*\*/.test(text)) {
+    while (k + 1 < lines.length && /^\s{2,}\S/.test(lines[k + 1]) && !lines[k + 1].includes('**')) text += ' ' + lines[++k].trim();
+    if (k + 1 < lines.length && lines[k + 1].includes('**')) text += ' ' + lines[++k].trim();
+  }
+  let m = /^(?:- )?\*\*([A-Z]\d+)\.?\s*([^*]*)\*\*[.:]?\s*(.*)$/.exec(text);
   if (m) {
     let rest = m[3]; for (let j = k + 1; j < lines.length && /^\s{2,}\S/.test(lines[j]) && rest.length < 200; j++) rest += ' ' + lines[j].trim();
     notes[m[1]] = cut(clean(m[2] ? m[2] : rest)); continue;
