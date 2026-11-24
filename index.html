@@ -63,6 +63,14 @@
   .tourmap button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 13px; white-space: nowrap; }
   .tourmap .tour-now { min-width: 0; max-width: min(46ch, 60vw); line-height: 1.3; }
   #main.expert .tourmap { display: none; }
+  /* Phone: the tour bar takes the top of the map, left of the zoom buttons, with the place name on its
+     own row (two lines at most); the map key moves below it so neither covers the other. */
+  @media (max-width: 600px) {
+    .tourmap { left: 8px; right: 52px; max-width: none; transform: none; flex-wrap: wrap; gap: 4px 6px; padding: 4px 6px; }
+    .tourmap .tour-now { order: -1; flex-basis: 100%; max-width: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .tourmap button { padding: 3px 6px; }
+    #mapwrap #legend { top: 92px; }
+  }
   /* The map key floats on the map and lists only what is drawn. */
   #legend { position: absolute; left: 8px; top: 46px; max-width: min(270px, calc(100% - 60px)); background: #fffffff0; color: #1d1d1b; border-radius: 6px; padding: 4px 8px; font-size: 12px; margin: 0; }
   #legend summary { cursor: pointer; font-weight: 600; font-size: 12px; }
