@@ -176,6 +176,7 @@
   "L2": "NOAA datum offset used for Berkeley.",
   "L3": "Conversion used in the explorer.",
   "L4": "Figures that do not match the page.",
-  "L5": "Rain for this week: no forecast amount logged."
+  "L5": "Rain for this week: no forecast amount logged.",
+  "L6": "NOAA station 9414816, Berkeley, S.F. Bay: predictions and station datums (read 2026-11-24)."
  }
 }

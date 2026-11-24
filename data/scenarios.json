@@ -11,26 +11,26 @@
     },
     {
       "id": "tide2026-11-24",
-      "label": "Forecast high tide, Tue Nov 24, 10:39 a.m.",
-      "levelFt": 7.14,
+      "label": "Forecast high tide, Tue Nov 24, 10:20 a.m.",
+      "levelFt": 7.47,
       "category": "derived",
-      "source": "Forecast high tide 7.12 ft MLLW at Berkeley, 10:39 a.m. Tue Nov 24, 2026, from tide-forecast.com (read 2026-11-24; a commercial forecast site, not NOAA; SOURCE_NOTES L1). Converted to NAVD88 with the NOAA Richmond 9414863 datum offset, +0.016 ft (SOURCE_NOTES L2–L3). Astronomical tide only, no weather.",
+      "source": "NOAA predicted high tide, station 9414816 Berkeley, S.F. Bay, Tue Nov 24, 2026, 10:20 a.m.: 7.344 ft MLLW (CO-OPS data API, read 2026-11-24; SOURCE_NOTES L6). NAVD88 = MLLW + 0.13 ft at this station (station datums, L6). Astronomical tide only, no weather.",
       "group": "Forecast high tides, this week"
     },
     {
       "id": "tide2026-11-25",
-      "label": "Forecast high tide, Wed Nov 25, 11:23 a.m.",
-      "levelFt": 7.26,
+      "label": "Forecast high tide, Wed Nov 25, 11:04 a.m.",
+      "levelFt": 7.53,
       "category": "derived",
-      "source": "Forecast high tide 7.24 ft MLLW at Berkeley, 11:23 a.m. Wed Nov 25, 2026, from tide-forecast.com (read 2026-11-24; a commercial forecast site, not NOAA; SOURCE_NOTES L1). Converted to NAVD88 with the NOAA Richmond 9414863 datum offset, +0.016 ft (SOURCE_NOTES L2–L3). Astronomical tide only, no weather.",
+      "source": "NOAA predicted high tide, station 9414816 Berkeley, S.F. Bay, Wed Nov 25, 2026, 11:04 a.m.: 7.402 ft MLLW (CO-OPS data API, read 2026-11-24; SOURCE_NOTES L6). NAVD88 = MLLW + 0.13 ft at this station (station datums, L6). Astronomical tide only, no weather.",
       "group": "Forecast high tides, this week"
     },
     {
       "id": "tide2026-11-26",
-      "label": "Forecast high tide, Thu Nov 26, 12:11 p.m.",
-      "levelFt": 7.22,
+      "label": "Forecast high tide, Thu Nov 26, 11:51 a.m.",
+      "levelFt": 7.4,
       "category": "derived",
-      "source": "Forecast high tide 7.20 ft MLLW at Berkeley, 12:11 p.m. Thu Nov 26, 2026, from tide-forecast.com (read 2026-11-24; a commercial forecast site, not NOAA; SOURCE_NOTES L1). Converted to NAVD88 with the NOAA Richmond 9414863 datum offset, +0.016 ft (SOURCE_NOTES L2–L3). Astronomical tide only, no weather.",
+      "source": "NOAA predicted high tide, station 9414816 Berkeley, S.F. Bay, Thu Nov 26, 2026, 11:51 a.m.: 7.266 ft MLLW (CO-OPS data API, read 2026-11-24; SOURCE_NOTES L6). NAVD88 = MLLW + 0.13 ft at this station (station datums, L6). Astronomical tide only, no weather.",
       "group": "Forecast high tides, this week"
     },
     {
