@@ -735,7 +735,6 @@ async function textOnlyStory() {
   $('guide').before(status);
   try {
     D = await load();
-    if (D.art) await Promise.all(D.art.levels.map(async l => { artMasks[l.file] = new Uint8Array(await fetch(`data/hazard/${l.file}`).then(r => { if (!r.ok) throw new Error(l.file); return r.arrayBuffer(); })); }));
   } catch (e) {
     status.textContent = `Some of the explorer's data did not load (${e.message || 'network error'}). `;
     const retry = document.createElement('button'); retry.type = 'button'; retry.textContent = 'Try again';
@@ -750,6 +749,7 @@ async function textOnlyStory() {
   sizeCanvas();
   base = shade(D);
   if (!D.art) $('showArt').disabled = true;
+  const artLoad = !D.art ? Promise.resolve(false) : Promise.all(D.art.levels.map(async l => { artMasks[l.file] = new Uint8Array(await fetch(`data/hazard/${l.file}`).then(r => { if (!r.ok) throw new Error(l.file); return r.arrayBuffer(); })); })).then(() => true, () => false);
   // ART disconnected low-lying areas (H5, C20): the level list now, each level's mask when first drawn.
   D.artDc = await fetch('data/hazard/art-dc.json').then(r => r.ok ? r.json() : null).catch(() => null);
   if (!D.artDc) $('showArtDc').disabled = true;
@@ -769,6 +769,9 @@ async function textOnlyStory() {
   // slider's step, and the slider would round it.
   let current = D.scenarios.findIndex(s => s.id === 'y100'), levelNow = null, scNow = null;
   const show = (lv, sc) => { levelNow = lv; scNow = sc; render(lv, sc); };
+  // The ART masks (H5) load in the background: the outline is off by default, so the first map does not wait
+  // for them. When they arrive, the map redraws if the outline is on. A failed mask turns the outline off.
+  artLoad.then(ok => { if (!ok) { $('showArt').checked = false; $('showArt').disabled = true; } else if ($('showArt').checked && levelNow != null) show(levelNow, scNow); });
   const pick = (k) => { current = k; list.querySelector(`input[value="${k}"]`).checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2); show(D.scenarios[k].levelFt, D.scenarios[k]); };
   list.addEventListener('change', (e) => pick(Number(e.target.value)));
   let pending = false;
