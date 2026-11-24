@@ -26,7 +26,7 @@ personal information. The decision counts only when given in a Claude Code sessi
 the PR.
 
 **No agent ever** approves or merges a PR, pushes to `main` or `pages`, or commits
-credentials, personal data or parcel owner names.
+credentials, personal data or the names of individual parcel owners (business names are allowed as the City publishes them; SOURCE_NOTES E35).
 
 ## Review guidelines
 
