@@ -369,7 +369,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
   el.addEventListener('change', (e) => { if (e.target.classList.contains('numsBox')) { document.body.classList.toggle('shownums', e.target.checked); el.querySelectorAll('.numsBox').forEach(b => { b.checked = e.target.checked; }); } });
   // Steps to the next or previous numbered place (dir 1 or -1), wrapping; the map keys N and P use it.
   function tourStep(dir) { const n = places.length; if (!n) return; tourTo(tourI == null ? (dir > 0 ? 0 : n - 1) : (tourI + dir + n) % n); }
-  // The tour bar sits on the map (index.html #tourMap), where the numbers are. Shown for an answer with two or more places.
+  // The tour bar is a caption under the map (index.html #tourMap). Shown for an answer with two or more places.
   const tourMap = document.getElementById('tourMap');
   function updateTourMap() {
     if (!tourMap) return;
