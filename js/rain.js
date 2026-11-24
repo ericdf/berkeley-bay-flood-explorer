@@ -23,6 +23,12 @@ export function runoffShare(imperviousPct) { return Math.min(1, 0.05 + 0.009 * i
 
 // opts = { duration: '6-hr', ari: '10', blocked: 1.0 }. Mutates state (sets RAIN) and returns pools.
 // crest: the plan's crest raster (js/plan.js) or null; walls and raised roads count as ground.
+// The drain inlet cells in ascending order, built once, so the seed search reads them rather than every cell.
+function inletList(D) {
+  if (!D.inletSorted) D.inletSorted = Int32Array.from(new Set(D.drains.inletCells)).sort();
+  return D.inletSorted;
+}
+
 export function rainPools(D, state, levelFt, opts, crest = null) {
   const { dem, z } = D, W = dem.width, H = dem.height, R = dem.resolution, cellM2 = R * R;
   const depthIn = D.atlas.depthIn[opts.duration][opts.ari];
@@ -46,7 +52,7 @@ export function rainPools(D, state, levelFt, opts, crest = null) {
     const allowed = (i) => ids[i] === w.id && z[i] !== -32768 && !D.water0[i] && !isBay(state[i]) && state[i] !== RAIN;
     // Seed: the watershed's lowest inlet that is not under Bay water (else its lowest cell).
     let seed = -1;
-    for (let i = 0; i < W * H; i++) if (inlet[i] && allowed(i) && (seed < 0 || bottom(i) < bottom(seed))) seed = i;
+    for (const i of inletList(D)) if (allowed(i) && (seed < 0 || bottom(i) < bottom(seed))) seed = i;
     if (seed < 0) for (let i = 0; i < W * H; i++) if (allowed(i) && (seed < 0 || bottom(i) < bottom(seed))) seed = i;
     if (seed < 0 || V <= 0) continue;
     // Priority flood from the seed: cells join in order of the level needed to reach them. Water held

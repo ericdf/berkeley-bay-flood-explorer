@@ -46,6 +46,13 @@ function markDrains(D, state, gates) {
 }
 
 // rain: optional { duration: '6-hr', ari: '10', blocked: 1 } (js/rain.js).
+// City watershed names by id, built once. The first watershed with an id wins, as the old find() gave.
+function wsNameOf(D) {
+  if (D.wsNames) return D.wsNames;
+  const names = []; for (const w of D.drains.watersheds) if (names[w.id] === undefined) names[w.id] = w.name;
+  return (D.wsNames = names);
+}
+
 export function analyze(D, levelFt, plan = null, rain = null) {
   const { dem, z, streets, facilities, facilityCells } = D;
   const water0 = D.water0 ??= openWater(z, dem.width, dem.height);
@@ -123,7 +130,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
   const overtopped = [...((plan && plan.walls) || []), ...((plan && plan.roads) || [])].filter(w => w.crestFt <= levelFt).map(w => w.label);
   // Drain-fillable Berkeley land by the City watershed each cell lies in.
   const drainHa = {};
-  for (let i = 0; i < state.length; i++) if (state[i] === DRAIN && inB(i) && !water0[i] && z[i] >= MSL_CM) { const n = (D.drains.watersheds.find(w => w.id === D.watershedIds[i]) || {}).name || 'outside the City watersheds'; drainHa[n] = (drainHa[n] || 0) + cellHa; }
+  for (let i = 0; i < state.length; i++) if (state[i] === DRAIN && inB(i) && !water0[i] && z[i] >= MSL_CM) { const n = wsNameOf(D)[D.watershedIds[i]] || 'outside the City watersheds'; drainHa[n] = (drainHa[n] || 0) + cellHa; }
   return {
     levelFt, state, segs,
     wetLandHa: wetLand * cellHa, lowLandHa: lowLand * cellHa, flankedHa: flanked * cellHa, drainLandHa: drainLand * cellHa, drainHa,

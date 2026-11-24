@@ -1,7 +1,7 @@
 // Berkeley Bay Flood Explorer: page logic. Loads the data files, runs the connected fill for the
 // chosen level and plan (js/analyze.js), and draws the map and results.
 import { analyze, FLANKED, DRAIN, RAIN, STREET_WET_SHARE } from './analyze.js';
-import { WET, LOW } from './fill.js';
+import { WET, LOW, openWater } from './fill.js';
 import { exposure, groundText } from './exposure.js';
 import { encodeView, decodeView, wallFits, MAX_WALL_POINTS, MAX_WALLS } from './share.js';
 import { initGuided } from './guided.js';
@@ -532,6 +532,14 @@ function legend(res, plan) {
   $('legendBody').innerHTML = rows.filter(r => r[0]).map(([, s, t]) => `<div>${s}${t}</div>`).join('');
 }
 
+// The no-plan result for the level and rain on screen. render() asks for it on every plan change, so the last one is kept.
+let baselineKey = null, baselineRes = null;
+function baselineFor(levelFt, rain) {
+  const key = JSON.stringify([levelFt, rain]);
+  if (key !== baselineKey) { baselineRes = analyze(D, levelFt, null, rain); baselineKey = key; }
+  return baselineRes;
+}
+
 function render(levelFt, sc) {
   writeView(levelFt, sc);
   // Guided mode's answers assume no defenses, no rain and no site choices (data/thresholds.json), so
@@ -540,7 +548,7 @@ function render(levelFt, sc) {
   const expert = ui.mode === 'expert', story = expert ? null : ui.storyMap;
   const plan = expert ? currentPlan() : storyPlan(story), rain = expert ? ui.rain : story ? story.rain || null : null;
   let res = analyze(D, levelFt, plan, rain);
-  const baseRes = plan ? analyze(D, levelFt, null, rain) : null;
+  const baseRes = plan ? baselineFor(levelFt, rain) : null;
   if (story && story.drains === 'hidden') res = hideDrains(res, DRAIN, LOW, STREET_WET_SHARE);
   const lvText = `${sc && sc.precision === 1 ? 'about ' : ''}${fmt(levelFt, sc && sc.precision != null ? sc.precision : 2)} ft NAVD88 still water`;
   const extras = [story && story.drains === 'hidden' ? 'drain pathway not shown' : '', rain ? `rain experiment (${rain.ari}-year, ${rain.duration.replace('-hr', ' h')}${story ? `, ${Math.round(rain.blocked * 100)}% held back` : ''})` : '',
@@ -752,7 +760,7 @@ async function textOnlyStory() {
     $('cosmosSlr').innerHTML = [...new Set(D.cosmos.scenarios.map(s => s.slrM))].map(m => `<option value="${m}">${fmt(m, 2)} m (${fmt(m / 0.3048, 1)} ft)</option>`).join('');
     $('cosmosStorm').innerHTML = Object.entries(STORMS).filter(([k]) => D.cosmos.scenarios.some(s => s.storm === k)).map(([k, t]) => `<option value="${k}"${k === 'w100' ? ' selected' : ''}>${t}</option>`).join('');
   } else for (const id of ['showCosmos', 'cosmosSlr', 'cosmosStorm']) $(id).disabled = true;
-  analyze(D, 6); // computes D.water0 once
+  D.water0 ??= openWater(D.z, D.dem.width, D.dem.height); // the open-Bay mask analyze() uses, computed once
   const list = $('scenarios');
   // Scenarios by group (data/scenarios.json "group"), in the order the groups first appear.
   const groups = [...new Set(D.scenarios.map(s => s.group))];
@@ -849,9 +857,12 @@ async function textOnlyStory() {
     // A story belongs to guided mode. Leaving guided mode ends it, so its text and the map cannot disagree
     // (Codex review, PR #36: the story kept its scenario while Expert changed the level).
     if (m !== 'guided' && ui.storyMap) { ui.storyMap = null; if (civicUI) civicUI.leave(); }
+    const changed = ui.mode !== m;
     ui.mode = m; $('main').className = m;
     $('modeGuided').setAttribute('aria-pressed', m === 'guided'); $('modeExpert').setAttribute('aria-pressed', m === 'expert');
     sizeCanvas();
+    // A repeated mode (at startup the level is already on screen) only needs the canvas drawn again.
+    if (!changed) { paint(); return; }
     if (levelNow != null) render(levelNow, scNow); else paint();
   };
   $('modeGuided').addEventListener('click', () => setMode('guided'));
