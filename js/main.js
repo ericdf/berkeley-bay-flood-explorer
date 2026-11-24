@@ -776,7 +776,11 @@ async function textOnlyStory() {
   // The ART masks (H5) load in the background: the outline is off by default, so the first map does not wait
   // for them. When they arrive, the map redraws if the outline is on. A failed mask turns the outline off.
   artLoad.then(ok => { if (!ok) { $('showArt').checked = false; $('showArt').disabled = true; } else if ($('showArt').checked && levelNow != null) show(levelNow, scNow); });
-  const pick = (k) => { current = k; list.querySelector(`input[value="${k}"]`).checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2); show(D.scenarios[k].levelFt, D.scenarios[k]); };
+  const pick = (k) => { current = k; list.querySelector(`input[value="${k}"]`).checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2);
+    // A rainstorm scenario turns the rain on with its own storm; a scenario without rain leaves the rain as it is.
+    const r = D.scenarios[k].rain;
+    if (r) { $('rainOn').checked = true; $('rainAri').value = r.ari; $('rainDur').value = r.duration; $('rainBlocked').value = String(r.blocked); ui.rain = { ari: r.ari, duration: r.duration, blocked: Number(r.blocked) }; $('rainNote').textContent = `${D.atlas.depthIn[r.duration][r.ari]} in of rain (NOAA Atlas 14, SOURCE_NOTES R1).`; }
+    show(D.scenarios[k].levelFt, D.scenarios[k]); };
   list.addEventListener('change', (e) => pick(Number(e.target.value)));
   let pending = false;
   $('level').addEventListener('input', () => {
