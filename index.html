@@ -58,11 +58,18 @@
   .zoom { position: absolute; top: 8px; right: 8px; display: flex; flex-direction: column; gap: 4px; }
   .zoom button { width: 34px; height: 34px; font-size: 18px; line-height: 1; border: 1px solid #0006; border-radius: 6px; background: #fff; color: #1d1d1b; cursor: pointer; padding: 0; }
   .zoom button:hover { background: #eef3fa; }
-  .tourmap { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); z-index: 4; display: flex; align-items: center; gap: 6px; max-width: calc(100% - 16px); padding: 6px 8px; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 1px 4px #0003; font-size: 13px; }
+  .tourmap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; padding: 6px 10px; background: var(--panel); color: var(--fg); border-top: 1px solid var(--line); font-size: 13px; }
   .tourmap[hidden] { display: none; }
   .tourmap button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 13px; white-space: nowrap; }
-  .tourmap .tour-now { min-width: 0; max-width: min(46ch, 60vw); line-height: 1.3; }
+  .tourmap .tour-now { min-width: 0; line-height: 1.3; }
   #main.expert .tourmap { display: none; }
+  /* The numbered-places bar is a caption under the map, in the map's column on desktop and right
+     below the map on a phone. */
+  main.guided { grid-template-rows: minmax(0, 1fr) auto; }
+  main.guided > #guide { grid-row: 1 / span 2; }
+  main.guided > #mapwrap { grid-row: 1; }
+  main.guided > #tourMap { grid-row: 2; grid-column: 2; }
+  @media (max-width: 1000px) { .tourmap { order: -1; } }
   /* The map key floats on the map and lists only what is drawn. */
   #legend { position: absolute; left: 8px; top: 46px; max-width: min(270px, calc(100% - 60px)); background: #fffffff0; color: #1d1d1b; border-radius: 6px; padding: 4px 8px; font-size: 12px; margin: 0; }
   #legend summary { cursor: pointer; font-weight: 600; font-size: 12px; }
@@ -245,9 +252,9 @@
   <div id="mapwrap" tabindex="0" aria-label="Map of west Berkeley. Scroll, pinch or use the plus and minus keys to zoom; drag or use the arrow keys to pan; 0 shows the whole map. In a guided answer, N and P step through its numbered places.">
     <canvas id="map" aria-hidden="true"></canvas>
     <div class="zoom"><button type="button" id="zoomIn" aria-label="Zoom in" title="Zoom in">+</button><button type="button" id="zoomOut" aria-label="Zoom out" title="Zoom out">&minus;</button><button type="button" id="zoomFit" aria-label="Show the whole map" title="Show the whole map">&#x2922;</button></div>
-    <div class="tourmap" id="tourMap" role="group" aria-label="Walk through the numbered places in this answer" hidden><button type="button" data-tour="prev" aria-label="Previous place">&larr; Previous</button><span class="tour-now" aria-live="polite"></span><button type="button" data-tour="next" aria-label="Next place">Next &rarr;</button><button type="button" data-tour="all">Show all</button></div>
     <details id="legend" open><summary>Map key</summary><div id="legendBody"></div></details>
   </div>
+  <div class="tourmap" id="tourMap" role="group" aria-label="Walk through the numbered places in this answer" hidden><button type="button" data-tour="prev" aria-label="Previous place">&larr; Previous</button><span class="tour-now" aria-live="polite"></span><button type="button" data-tour="next" aria-label="Next place">Next &rarr;</button><button type="button" data-tour="all">Show all</button></div>
   <section id="side">
     <div class="tabs" role="tablist"><button type="button" role="tab" id="tabLevel" aria-selected="true" aria-controls="results">This level</button><button type="button" role="tab" id="tabExposed" aria-selected="false" aria-controls="exposed">What's exposed</button></div>
     <div id="results" role="tabpanel" aria-labelledby="tabLevel" aria-live="polite"></div>
