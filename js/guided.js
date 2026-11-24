@@ -33,9 +33,13 @@ const estimates = (n) => n === 3 ? 'under all three sea level estimates shown' :
 // then 2050 and 2100. Each rung carries the level it stands for, so a click can show it.
 export function ladder(T) {
   const t = TODAY.find(r => r.ft >= T);
+  const prev = TODAY.filter(r => r.ft < T).pop();
+  // A level between two named rungs is above the lower one: say so, rather than give the next rung's frequency (SOURCE_NOTES C26, W11).
+  const between = !!(t && prev && t.ft > T);
+  const todayText = !t ? null : between ? `Above ${prev.text.charAt(0).toLowerCase() + prev.text.slice(1)} (${prev.often}), so less often than that` : `${t.text}, ${t.often}`;
   const n50 = count(STORM2050, T), n00 = count(STORM2100, T);
   return [
-    { when: 'Today', lv: t ? t.ft : null, text: t ? `${t.text}, ${t.often}` : "None of today's storm tides, up to one with a 0.2% chance each year" },
+    { when: 'Today', lv: t ? t.ft : null, text: t ? todayText : "None of today's storm tides, up to one with a 0.2% chance each year" },
     { when: '2050', lv: n50 ? STORM2050.find(v => v >= T) : null, text: n50 ? `A severe storm tide (1% chance each year), ${estimates(n50)}` : 'Not by a severe storm tide under any of the estimates shown' },
     T <= TIDE2100 ? { when: '2100', lv: TIDE2100, text: "An ordinary high tide, under the City's estimate" }
       : { when: '2100', lv: n00 ? STORM2100.find(v => v >= T) : null, text: n00 ? `A severe storm tide, ${estimates(n00)}` : 'Not under any of the estimates shown' },
@@ -61,8 +65,8 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     'berkeley-forge': 'Metal works under the State stormwater permit; its runoff carried aluminum, copper, iron and zinc before a 2012 settlement.',
     'pacific-steel-geotracker': 'Closed steel foundry. Contaminated soil and groundwater, which lies as little as 1.5 ft below the ground; cleanup open.',
     'eastshore-1255': 'Former traffic-sign plant. Solvents (TCE, vinyl chloride) and gasoline-range fuel in soil, shallow groundwater and soil vapor.',
-    'transfer-station': "The City's garbage and recycling transfer station: a hazardous materials locker, batteries, bulbs and a 1,000-gallon used oil tank.",
-    'marine-center': 'Boatyard. Lead and copper in surface soil. Its shoreline edge is wet at ordinary high tides.',
+    'transfer-station': "The City's garbage and recycling transfer station.",
+    'marine-center': 'Boatyard. Lead and copper in surface soil. ',
     'terminal-mfg': 'PCE, diesel and gasoline in groundwater and soil vapor. Site open for verification monitoring (2023); groundwater treatment injections reported in 2020.',
     'eastshore-park': 'PCBs, lead and other metals in soil and groundwater.',
     'flint-ink': 'Former ink plant. Lead, kerosene and other petroleum; solvents (VOCs) in groundwater, believed from an off-site source.',
@@ -73,7 +77,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     { key: 'Marina access roads', name: 'Roads to the Marina', what: 'Marina Blvd, Spinnaker Way and University Ave west of I-80: also the only ways off the waterfront.', match: (e) => e.berkeley && D.exposure.marinaRoutes.includes(e.name) && !(e.name === 'UNIVERSITY AV' && !e.geom.every(([x]) => x <= D.exposure.marinaMaxX)) },
     { key: 'I-80 mainline', name: 'I-80 in Albany, just north of Berkeley', what: 'Its lowest stretch, by the Albany shoreline south of Golden Gate Fields: the west shoulder\'s ground is about 10.3 to 11.0 ft NAVD88 and the roadway 10.8 to 11.8 ft; water reaches the lanes from about 11.5 to 12 ft (SOURCE_NOTES C27).', lidar: true, match: (e) => e.freeway && !e.berkeley && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
     { key: 'I-80 mainline in Berkeley', name: 'I-80 in Berkeley', what: 'The freeway, both directions.', lidar: true, match: (e) => e.freeway && e.berkeley && /^(I80 [EW]B|JOHN T\. KNOX FREEWAY)$/.test(e.name) },
-    { key: 'Rail main line', rail: true, name: 'The rail line in Albany', what: "Union Pacific's main line, used by Amtrak's Capitol Corridor and San Joaquins; its lowest stretch is north of Berkeley.", lidar: true, railMatch: (e) => !e.berkeley },
+    { key: 'Rail main line', rail: true, name: 'The rail line in Albany', what: "Union Pacific's main line, its lowest stretch is north of Berkeley.", lidar: true, railMatch: (e) => !e.berkeley },
     { key: 'Rail main line in Berkeley', rail: true, name: 'The rail line in Berkeley', what: 'The same line through west Berkeley.', lidar: true, railMatch: (e) => !!e.berkeley },
     { key: 'University Ave ramps', name: 'I-80 ramps at University Ave', lidar: true, match: (e) => e.freeway && /^UNIVERSITY /.test(e.name) },
     { key: 'Ashby Ave ramps', name: 'I-80 ramps at Ashby Ave', lidar: true, match: (e) => e.freeway && /^ASHBY /.test(e.name) },
@@ -246,10 +250,10 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
         <p class="what">Berkeley land under water or filling up the drains in 2100's severe storm tide (City's estimate): ${ha(d)} ha, against ${ha(T)} ha with no defenses.</p></div>`;
     };
     return `<h2 class="q">What would flood defenses change?</h2>
-      <p class="finding">Working tide gates on every storm drain outlet but the Aquatic Park tide tubes, which this comparison leaves open to the tide, delay when Bay water first reaches the listed inland sites. In this model the water still reaches them through the lagoon before it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls only from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha (SOURCE_NOTES D9). The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn. The model shows this; the figures do not show how the walls tie into high ground (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
+      <p class="finding">Working tide gates on every storm drain outlet but the Aquatic Park tide tubes, which this comparison leaves open to the tide, delay when Bay water first reaches the listed inland sites. In this model the water still reaches them through the lagoon before it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls only from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha, rounded, on the assumption that the lagoon stands at the Bay's level (SOURCE_NOTES D9). The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn. The model shows this; the figures do not show how the walls tie into high ground (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
       <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The exception on record is Aquatic Park: the lagoon's five tide tubes have sliding gates, restored in 2020 for tidal exchange; the City\'s page does not say how or when they are set, and this comparison leaves them open (D7, D9). A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
       ${T.defenses.map(card).join('')}
-      <p class="src">In this terrain model, the first surface connection across the I-80 corridor appears near 13.4 ft NAVD88 (13.35), about 250 m south of Gilman St (SOURCE_NOTES C6). The actual crossings and drainage openings under the freeway need confirmation. A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
+      <p class="src">In this terrain model, the first surface connection across the I-80 corridor appears near 13.35 ft NAVD88 (C6), about 250 m south of Gilman St (SOURCE_NOTES C6). The actual crossings and drainage openings under the freeway need confirmation. A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
       ${numsToggle()}`;
   }
 
@@ -292,7 +296,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     // An address is the only place in its answer: replace any earlier lookup's place, then renumber the map.
     places.length = 0; placeN = 0; tourI = null;
     const first = Math.min(p.drain ?? 99, p.bay ?? 99);
-    out.innerHTML = `<p class="finding">${first > HIGHEST ? `None of the water levels here reach ${esc(label)}, up to above the highest 2100 estimate shown.` : `At ${esc(label)}, Bay water first reaches the ground in ${esc(whenShort(first))}.`}</p>${p.drain != null ? drainNote : ''}${place(p)}${numsToggle()}`;
+    out.innerHTML = `<p class="finding">${first > HIGHEST ? `None of the water levels here reach ${esc(label)}, up to above the highest 2100 estimate shown.` : `At ${esc(label)}, Bay water first reaches the ground in ${esc(whenShort(first))}. That is the ground, not a building's floor, which may sit higher; floor heights are not published.`}</p>${p.drain != null ? drainNote : ''}${place(p)}${numsToggle()}`;
     onPins(pinList()); onTour(null);
     focus({ points: [p.at], label });
   }

@@ -1956,3 +1956,7 @@ Three claims in the outside review behind E9, checked against primary sources be
   - What this does not show: that water reaches any of these sites, that a site drains to the Bay, or that contamination has moved. A flow path would need the drains and ground the model does not use for this count. The page says so beside the number.
   - Assumption, not sourced: the 300 m radius is our choice (about 1,000 ft), not a City or State standard. Earlier rough counts (7 sites, 2026-11-23 before this change) were not grid-based and are superseded.
   - Not yet checked against a published depth map, as CLAUDE.md asks of a model rule that shows a result. The count is a distance count and changes no depth, but this check is open.
+
+## Owner-name rule and the remaining review items (2026-11-23)
+
+- **E35. Owner-name rule (Eric, 2026-11-23: "yes change the rule").** CLAUDE.md and AGENTS.md now allow business names as the City publishes them, including a business named after a person. The names of individual owners (a person or a family trust) stay out of the repository. The rows already removed for owner names stay removed (E29). The layer keeps the business names it had (including "JIM DOTEN HONDA").
