@@ -133,13 +133,13 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
   const roadPlace = (r) => { const t = roadT(r); return { name: r.name, what: r.what, road: true, lidar: r.lidar, lines: roadLines(r), drain: t.drainFt ?? null, bay: t.bayFt ?? null }; };
 
   const QUESTIONS = [
-    { id: 'address', title: 'Could Bay flooding reach my home or street?', sub: 'Type an address, or use your location.' },
     { id: 'toxic', title: 'When could flooding reach contaminated ground and carry it into the Bay?', sub: 'Eight sites with known pollution near the shore, and the old landfill.' },
+    { id: 'lagoon', title: 'What happens if the Aquatic Park lagoon cannot drain into the Bay?', sub: "The tide tubes carry the lagoon's stormwater out under I-80. The model can shut their Bay link. It does not yet model the backup, or a road collapse." },
     { id: 'roads', title: 'Which roads and rail corridors could be exposed to flooding?', sub: 'I-80, the rail line, the roads to the Marina, Bolivar Dr, the frontage road and the I-80 ramps.' },
     { id: 'king', title: "What will this winter's king tides reach?", sub: 'And where to go and see for yourself.' },
     { id: 'tsunami', title: 'What about a tsunami?', sub: "The State's evacuation area, and what is inside it." },
     { id: 'defenses', title: 'What would flood walls, raised roads or tide gates change?', sub: 'Each defense the explorer can test, side by side.' },
-    { id: 'lagoon', title: 'What happens if the Aquatic Park lagoon cannot drain into the Bay?', sub: "The tide tubes carry the lagoon's stormwater out under I-80. The model can shut their Bay link. It does not yet model the backup, or a road collapse." },
+    { id: 'address', title: 'Could Bay flooding reach my home or street?', sub: 'Type an address, or use your location.' },
   ];
 
   function home() {
