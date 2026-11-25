@@ -92,7 +92,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     return cells.length ? [sx / cells.length, sy / cells.length] : null;
   };
 
-  const drainNote = '<p class="warn">"Up the storm drains" assumes the drain outlets to the Bay have no working tide gates. The City has not published which ones have them. Where they do, only "over the ground" applies. The Aquatic Park lagoon is the exception on record: its five tide tubes have sliding gates, restored in 2020 for tidal exchange, and the City\'s page does not say how or when they are set (SOURCE_NOTES D7).</p>';
+  const drainNote = '<p class="warn">"Up the storm drains" assumes the drain outlets to the Bay have no working tide gates. The City has not published which ones have them. Where they do, only "over the ground" applies. The Aquatic Park lagoon is the exception on record: its five tide tubes have sliding gates, restored in 2020 for tidal exchange. A November 2020 engineering memo to the City describes the 150 ft of clay pipe nearest the lagoon as close to collapse (SOURCE_NOTES K1). A 2025 project fact sheet projects failure by 2030 and schedules construction of the renovation from January 2029 to January 2030 (K5). The City\'s page does not say how or when the gates are set (D7).</p>';
   const lidarNote = '<p class="warn">For I-80, its ramps and the rail line, the terrain is bare earth: the survey removes bridges and raised decks. Caltrans and railroad profiles would settle where they really go under.</p>';
 
   let placeN = 0; const places = [];
@@ -139,6 +139,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     { id: 'king', title: "What will this winter's king tides reach?", sub: 'And where to go and see for yourself.' },
     { id: 'tsunami', title: 'What about a tsunami?', sub: "The State's evacuation area, and what is inside it." },
     { id: 'defenses', title: 'What would flood walls, raised roads or tide gates change?', sub: 'Each defense the explorer can test, side by side.' },
+    { id: 'lagoon', title: 'What happens if the Aquatic Park lagoon cannot drain into the Bay?', sub: "The tide tubes carry the lagoon's stormwater out under I-80. The model can shut their Bay link. It does not yet model the backup, or a road collapse." },
   ];
 
   function home() {
@@ -178,7 +179,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     return `<h2 class="q">When could flooding reach contaminated ground?</h2>
       <p class="finding">Up the storm drains, Bay water first covers a quarter of the ${esc(first.name.split(',')[0])} site in ${esc(whenShort(first.drain))}. By 2100's severe storm tide it covers ${drainBy(13.0)} sites this way, even under the City's lowest estimate. Over the ground, in this terrain model, it reaches none of the sites behind I-80 until it crosses the freeway corridor, which takes more water than the City's estimate for 2100 and less than the State's middle-high estimate. Where the water really crosses, through culverts and openings under the freeway, needs confirmation.</p>
       ${drainNote}
-      ${(() => { const b = cityNearBay(); return b ? `<p class="what"><span class="cat">derived</span> <span class="cat">model rule</span> City screening: ${b.near} of its ${b.total} sites lie within 300 m (about 1,000 ft) of open Bay water as mapped here, and ${b.high} of those ${b.near === 1 ? 'is' : 'are'} High priority at current groundwater. This is a straight-line distance, not a flow path, and the 300 m radius is our assumption, not a City or State standard: it does not show that water reaches a site or carries its contamination to the Bay. Sources: F19 (City of Berkeley, Feb 2025, Table 1); SOURCE_NOTES E34.</p>` : ''; })()}
+      
       <p class="warn">Groundwater is a third way in. A USGS model (CoSMoS-GW) puts the water table at the ground surface across nearly all of the Pacific Steel and Berkeley Forge sites today, under its middle assumption about the soil (SOURCE_NOTES C22). That result swings widely with the assumption, and the levels here do not include it.</p>
       ${ps.map(place).join('')}
       <div class="place"><h3>Former Berkeley Landfill, under César Chávez Park</h3><p class="what">About 1.5 million tons of waste on Bay mud with no liner beneath it. A water level is the wrong test here: the risks are the shoreline wearing away and groundwater rising into the waste, which this explorer does not model.</p><p class="what">Inside the State's tsunami evacuation area.</p></div>
@@ -207,6 +208,13 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
       ${numsToggle()}`;
   }
 
+  // The Aquatic Park tide tubes: what the model can and cannot show when the lagoon cannot drain (SOURCE_NOTES K1, K3, K5).
+  function lagoon() {
+    return `<h2 class="q">What happens if the Aquatic Park lagoon cannot drain into the Bay?</h2>
+      <p class="finding">The five tide tubes under I-80 are the lagoon's link to the Bay. They carry stormwater from City streets out to the Bay, and they let tidal water in and out. If they are blocked or fail, that outflow stops, and at high tide the stormwater has nowhere to go. The explorer does not yet model that backup, and it cannot model a road collapse.</p>
+      <p>What the model does show: with the tubes shut, Bay water no longer comes up the drains of the Aquatic Park watershed through them. At the king tide, 7.42 ft NAVD88, that removes the drained flooding in that watershed. At higher levels, low ground that the watershed shares with its neighbours can still fill through their drains. To see the change, turn on the lever in <a href="#" data-mode="expert">Expert</a> mode: "Assume the Aquatic Park tide tubes are shut or blocked."</p>
+      <p class="warn">This is a model rule, not a finding about the tubes' condition. A 2020 engineering memo describes the clay section as "close to collapse" (SOURCE_NOTES K1). A 2025 fact sheet schedules the renovation's construction for January 2029 to January 2030 (K5). Neither source says what the tide gates do now.</p>`;
+  }
   function tsunami() {
     const n = Object.values(T.sites).filter(s => s.tsunamiShare >= 0.25).length;
     return `<h2 class="q">What about a tsunami?</h2>
@@ -251,7 +259,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     };
     return `<h2 class="q">What would flood defenses change?</h2>
       <p class="finding">Working tide gates on every storm drain outlet but the Aquatic Park tide tubes, which this comparison leaves open to the tide, delay when Bay water first reaches the listed inland sites. In this model the water still reaches them through the lagoon before it crosses the I-80 corridor, and the land under water in 2100's severe storm tide (City's estimate) falls only from ${ha(T)} to ${ha(T.defenses.find(d => d.id === 'gates'))} ha, rounded, on the assumption that the lagoon stands at the Bay's level (SOURCE_NOTES D9). The City study's 2100 floodwalls change little wherever, within 30 m, they are drawn. The model shows this; the figures do not show how the walls tie into high ground (SOURCE_NOTES C11, C25). Whether its 2050 walls keep Marina Blvd dry depends on their exact line, which the study's drawings would settle.</p>
-      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The exception on record is Aquatic Park: the lagoon's five tide tubes have sliding gates, restored in 2020 for tidal exchange; the City\'s page does not say how or when they are set, and this comparison leaves them open (D7, D9). A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
+      <p class="warn">Which outlets already have tide gates, and whether they work, is not published (D6). If they are all in place, that protection already exists. The exception on record is Aquatic Park: the lagoon's five tide tubes have sliding gates, restored in 2020 for tidal exchange, but a November 2020 engineering memo describes the 150 ft of clay pipe nearest the lagoon as close to collapse (K1), and a 2025 project fact sheet schedules its renovation for construction from 2029 to 2030 (K5); the City\'s page does not say how or when they are set, and this comparison leaves them open (D7, D9). A shut gate also holds in the rain: rain that falls while the tide keeps the gates closed collects behind them, and none of these comparisons include rain. In expert mode, add a rainstorm with the gates on to see where it pools. The walls follow lines traced from the City's 2019 study, with crests assumed at its design level plus 2 ft; the tracing is good to about 30 m. None of this includes waves, groundwater or a tsunami.</p>
       ${T.defenses.map(card).join('')}
       <p class="src">In this terrain model, the first surface connection across the I-80 corridor appears near 13.35 ft NAVD88 (C6), about 250 m south of Gilman St (SOURCE_NOTES C6). The actual crossings and drainage openings under the freeway need confirmation. A barrier there is not yet tested. In expert mode you can draw a wall anywhere and compare.</p>
       ${numsToggle()}`;
@@ -317,7 +325,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     } catch (e) { out.innerHTML = '<p>The Census Bureau\'s address lookup did not answer. Try again, or use your location.</p>'; }
   }
 
-  const RENDER = { address, toxic, roads, king, tsunami, defenses };
+  const RENDER = { address, toxic, roads, king, tsunami, defenses, lagoon };
   let current = null;
   // Where a place's number sits on the map: its point, or the middle vertex of its longest line.
   function pinAt(p) {
