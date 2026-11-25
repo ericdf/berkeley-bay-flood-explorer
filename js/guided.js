@@ -139,6 +139,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     { id: 'king', title: "What will this winter's king tides reach?", sub: 'And where to go and see for yourself.' },
     { id: 'tsunami', title: 'What about a tsunami?', sub: "The State's evacuation area, and what is inside it." },
     { id: 'defenses', title: 'What would flood walls, raised roads or tide gates change?', sub: 'Each defense the explorer can test, side by side.' },
+    { id: 'lagoon', title: 'What happens if the Aquatic Park lagoon cannot drain into the Bay?', sub: "The tide tubes carry the lagoon's stormwater out under I-80. The model can shut their Bay link. It does not yet model the backup, or a road collapse." },
   ];
 
   function home() {
@@ -207,6 +208,13 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
       ${numsToggle()}`;
   }
 
+  // The Aquatic Park tide tubes: what the model can and cannot show when the lagoon cannot drain (SOURCE_NOTES K1, K3, K5).
+  function lagoon() {
+    return `<h2 class="q">What happens if the Aquatic Park lagoon cannot drain into the Bay?</h2>
+      <p class="finding">The five tide tubes under I-80 are the lagoon's link to the Bay. They carry stormwater from City streets out to the Bay, and they let tidal water in and out. If they are blocked or fail, that outflow stops, and at high tide the stormwater has nowhere to go. The explorer does not yet model that backup, and it cannot model a road collapse.</p>
+      <p>What the model does show: with the tubes shut, Bay water no longer comes up the drains of the Aquatic Park watershed through them. At the king tide, 7.42 ft NAVD88, that removes the drained flooding in that watershed. At higher levels, low ground that the watershed shares with its neighbours can still fill through their drains. To see the change, turn on the lever in <a href="#" data-mode="expert">Expert</a> mode: "Assume the Aquatic Park tide tubes are shut or blocked."</p>
+      <p class="warn">This is a model rule, not a finding about the tubes' condition. A 2020 engineering memo describes the clay section as "close to collapse" (SOURCE_NOTES K1). A 2025 fact sheet schedules the renovation's construction for January 2029 to January 2030 (K5). Neither source says what the tide gates do now.</p>`;
+  }
   function tsunami() {
     const n = Object.values(T.sites).filter(s => s.tsunamiShare >= 0.25).length;
     return `<h2 class="q">What about a tsunami?</h2>
@@ -317,7 +325,7 @@ export function initGuided({ D, T, el, setLevel, focus, onQuestion, extraHome = 
     } catch (e) { out.innerHTML = '<p>The Census Bureau\'s address lookup did not answer. Try again, or use your location.</p>'; }
   }
 
-  const RENDER = { address, toxic, roads, king, tsunami, defenses };
+  const RENDER = { address, toxic, roads, king, tsunami, defenses, lagoon };
   let current = null;
   // Where a place's number sits on the map: its point, or the middle vertex of its longest line.
   function pinAt(p) {
