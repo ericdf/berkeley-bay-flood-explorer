@@ -93,7 +93,7 @@ function landmarkLabels() {
   return [...out.slice(0, 4), ...out.filter(L => !L.street), ...out.slice(4).filter(L => L.street)];
 }
 // The plan the reader has built: preset ids, tide gates, and walls they drew.
-const ui = { mode: 'guided', q: null, presets: new Set(), gates: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null,
+const ui = { mode: 'guided', q: null, presets: new Set(), gates: false, tubesShut: false, drawing: false, draft: [], drawn: [], drawCrest: 12.7, rain: null,
   siteChoices: {}, floodproofFt: 13, tp: null, // site choices: js/exposure.js; tp: the numbered place shown (1-based)
   storyMap: null }; // a civic story step's map state (js/civic/civic.js), shown in guided mode only
 let civicUI = null;
@@ -120,7 +120,8 @@ function currentPlan() {
   }
   ui.drawn.forEach((w, k) => plan.walls.push({ id: `drawn${k}`, label: `Your wall ${k + 1} (${fmt(w.crestFt, 1)} ft)`, crestFt: w.crestFt, lines: [w.line] }));
   if (ui.gates) for (const w of D.drains.watersheds) plan.gates[w.name] = true;
-  const any = plan.walls.length || plan.roads.length || ui.gates;
+  if (ui.tubesShut) plan.tubesShut = true;
+  const any = plan.walls.length || plan.roads.length || ui.gates || ui.tubesShut;
   return any ? plan : null;
 }
 
@@ -471,7 +472,7 @@ const title = (n) => n.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase())
 const OVERLAYS = { art: 'showArt', artdc: 'showArtDc', tsunami: 'showTsunami', sites: 'showSites' };
 let lastHash = null;
 function writeView(levelFt, sc) {
-  const h = encodeView({ sc: sc ? sc.id : null, lv: levelFt, presets: [...ui.presets], gates: ui.gates, rain: ui.rain,
+  const h = encodeView({ sc: sc ? sc.id : null, lv: levelFt, presets: [...ui.presets], gates: ui.gates, tubes: ui.tubesShut, rain: ui.rain,
     walls: ui.drawn, sites: ui.siteChoices, floodproofFt: ui.floodproofFt,
     show: Object.entries(OVERLAYS).filter(([, id]) => $(id).checked).map(([k]) => k),
     cosmos: $('showCosmos').checked ? { slr: $('cosmosSlr').value, storm: $('cosmosStorm').value } : null,
@@ -486,6 +487,7 @@ const setSelect = (el, v) => { if (!el || ![...el.options].some(o => o.value ===
 function applyView(v) {
   for (const id of v.presets) { const el = document.querySelector(`input[data-preset="${CSS.escape(id)}"]`); if (el) { el.checked = true; ui.presets.add(id); } }
   if (v.gates) { $('gates').checked = true; ui.gates = true; }
+  if (v.tubes) { $('tubesShut').checked = true; ui.tubesShut = true; }
   if (v.rain && setSelect($('rainAri'), v.rain.ari) && setSelect($('rainDur'), v.rain.duration) && setSelect($('rainBlocked'), v.rain.blocked)) {
     $('rainOn').checked = true;
     ui.rain = { ari: $('rainAri').value, duration: $('rainDur').value, blocked: Number($('rainBlocked').value) };
@@ -567,7 +569,7 @@ function render(levelFt, sc) {
   legend(res, plan);
   $('nowLevel').textContent = `${sc ? sc.label : 'Chosen with the slider'}: ${fmt(levelFt, 2)} ft NAVD88`;
   $('nowRain').textContent = ui.rain ? `${ui.rain.ari}-year storm, ${ui.rain.duration.replace('-hr', ' hours')}` : 'Off';
-  $('nowPlan').textContent = currentPlan() ? [...[...ui.presets].map(id => (D.plans.find(p => p.id === id) || {}).label), ui.gates ? 'tide gates (Aquatic Park tubes open)' : '', ui.drawn.length ? `${ui.drawn.length} wall(s) you drew` : ''].filter(Boolean).join('; ') : 'None';
+  $('nowPlan').textContent = currentPlan() ? [...[...ui.presets].map(id => (D.plans.find(p => p.id === id) || {}).label), ui.gates ? 'tide gates (Aquatic Park tubes open)' : '', ui.tubesShut ? 'Aquatic Park tubes shut (model rule)' : '', ui.drawn.length ? `${ui.drawn.length} wall(s) you drew` : ''].filter(Boolean).join('; ') : 'None';
   const shown = [['showArt', 'ART'], ['showArtDc', 'ART cut-off ground'], ['showCosmos', 'CoSMoS'], ['showTsunami', 'tsunami area'], ['showSites', 'contaminated sites']].filter(([id]) => $(id).checked).map(([, t]) => t);
   $('nowMaps').textContent = shown.length ? shown.join(', ') : 'None shown';
   const nChoices = Object.values(ui.siteChoices).filter(c => c && c !== 'none').length;
@@ -691,6 +693,7 @@ function planPanel(rerender) {
   box.innerHTML = `
     ${D.plans.map(p => `<label class="row lever"><input type="checkbox" data-preset="${p.id}"> <span><b>${esc(p.label)}</b><br><span class="src">Crest ${fmt(p.crestFt, 1)} ft NAVD88 (${esc(p.category)}). ${esc(p.cost)}. ${esc(p.source)}.</span></span></label>`).join('')}
     <label class="row lever"><input type="checkbox" id="gates"> <span><b>Assume a working tide gate on every storm drain outfall but the Aquatic Park tide tubes</b><br><span class="src">Compares assumed open outfalls with assumed working gates: the Bay cannot come up through the pipes (model rule). Which outfalls have gates, and whether they work, is not published. It leaves the Aquatic Park lagoon's five tide tubes open, as the City keeps them, so the Bay can still reach low ground through the lagoon (SOURCE_NOTES D7, D9). A shut gate also holds the rain in: try it with "Add a rainstorm".</span></span></label>
+    <label class="row lever"><input type="checkbox" id="tubesShut"> <span><b>Assume the Aquatic Park tide tubes are shut or blocked</b><br><span class="src">Model rule, not a sourced condition. The 2020 memo calls the tubes close to collapse (SOURCE_NOTES K1); the City plans their renovation for construction in 2029 to 2030 (K5). Shut, Aquatic Park's own inlets stop letting Bay water in; low ground it shares with an open neighbour can still fill through that neighbour's drains.</span></span></label>
     <div class="lever"><b>Draw your own wall</b> <span class="src">(assumption: you choose where and how high)</span>
       <div class="row"><button id="drawBtn" type="button">Start drawing</button> <label>Crest <input id="drawCrest" type="number" step="0.1" min="6" max="20" value="${ui.drawCrest}" style="width:5em"> ft NAVD88</label></div>
       <div class="row"><button id="drawDone" type="button" disabled>Finish wall</button> <button id="drawClear" type="button">Remove my walls</button></div>
@@ -699,6 +702,7 @@ function planPanel(rerender) {
     const id = e.target.dataset.preset;
     if (id) { e.target.checked ? ui.presets.add(id) : ui.presets.delete(id); rerender(); }
     if (e.target.id === 'gates') { ui.gates = e.target.checked; rerender(); }
+    if (e.target.id === 'tubesShut') { ui.tubesShut = e.target.checked; rerender(); }
     if (e.target.id === 'drawCrest') ui.drawCrest = Number(e.target.value);
   });
   $('drawBtn').addEventListener('click', () => { ui.drawing = true; ui.draft = []; $('drawDone').disabled = false; $('drawNote').textContent = 'Click points on the map along the wall (drag to pan, scroll to zoom); then "Finish wall".'; canvas.style.cursor = 'crosshair'; });
@@ -772,7 +776,11 @@ async function textOnlyStory() {
   // The ART masks (H5) load in the background: the outline is off by default, so the first map does not wait
   // for them. When they arrive, the map redraws if the outline is on. A failed mask turns the outline off.
   artLoad.then(ok => { if (!ok) { $('showArt').checked = false; $('showArt').disabled = true; } else if ($('showArt').checked && levelNow != null) show(levelNow, scNow); });
-  const pick = (k) => { current = k; list.querySelector(`input[value="${k}"]`).checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2); show(D.scenarios[k].levelFt, D.scenarios[k]); };
+  const pick = (k) => { current = k; list.querySelector(`input[value="${k}"]`).checked = true; $('level').value = D.scenarios[k].levelFt; $('levelOut').textContent = fmt(D.scenarios[k].levelFt, 2);
+    // A rainstorm scenario turns the rain on with its own storm; a scenario without rain leaves the rain as it is.
+    const r = D.scenarios[k].rain;
+    if (r) { $('rainOn').checked = true; $('rainAri').value = r.ari; $('rainDur').value = r.duration; $('rainBlocked').value = String(r.blocked); ui.rain = { ari: r.ari, duration: r.duration, blocked: Number(r.blocked) }; $('rainNote').textContent = `${D.atlas.depthIn[r.duration][r.ari]} in of rain (NOAA Atlas 14, SOURCE_NOTES R1).`; }
+    show(D.scenarios[k].levelFt, D.scenarios[k]); };
   list.addEventListener('change', (e) => pick(Number(e.target.value)));
   let pending = false;
   $('level').addEventListener('input', () => {
@@ -846,6 +854,7 @@ async function textOnlyStory() {
       ui.drawn = []; $('drawNote').textContent = 'No walls drawn.';
       ui.siteChoices = {}; document.querySelectorAll('select[data-site]').forEach(x => { x.value = 'none'; });
       ui.gates = m.drains === 'gates-closed'; $('gates').checked = ui.gates;
+      ui.tubesShut = false; $('tubesShut').checked = false;
       $('rainOn').checked = !!m.rain;
       if (m.rain) { $('rainAri').value = m.rain.ari; $('rainDur').value = m.rain.duration; $('rainBlocked').value = String(m.rain.blocked); }
       ui.rain = m.rain ? { ari: m.rain.ari, duration: m.rain.duration, blocked: m.rain.blocked } : null;

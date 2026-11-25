@@ -18,6 +18,7 @@ export function encodeView(s) {
   if (s.sc) p.set('sc', s.sc); else if (s.lv != null) p.set('lv', s.lv.toFixed(2));
   if (s.presets && s.presets.length) p.set('plan', s.presets.join('_'));
   if (s.gates) p.set('gates', '1');
+  if (s.tubes) p.set('tubes', '1');
   if (s.rain) p.set('rain', `${s.rain.ari}_${s.rain.duration}_${s.rain.blocked}`);
   for (const w of s.walls || []) p.append('wall', [w.crestFt.toFixed(1), ...w.line.map(([x, y]) => `${Math.round(x)}*${Math.round(y)}`)].join('_'));
   for (const [id, c] of Object.entries(s.sites || {})) if (c && c !== 'none') p.append('site', `${id}_${c}`);
@@ -35,7 +36,7 @@ export function encodeView(s) {
 export function decodeView(hash) {
   const p = new URLSearchParams(String(hash || '').replace(/^#/, ''));
   const out = { sc: p.get('sc') || null, lv: num(p.get('lv')), presets: (p.get('plan') || '').split('_').filter(Boolean),
-    gates: p.get('gates') === '1', rain: null, walls: [], sites: {}, floodproofFt: num(p.get('fp')),
+    gates: p.get('gates') === '1', tubes: p.get('tubes') === '1', rain: null, walls: [], sites: {}, floodproofFt: num(p.get('fp')),
     show: (p.get('show') || '').split('_').filter(Boolean), cosmos: null,
     mode: ['guided', 'expert'].includes(p.get('mode')) ? p.get('mode') : null, q: p.get('q') || null, tp: num(p.get('tp')),
     // Story ids and steps are checked against data/civic/stories.json when opened, and an unknown one

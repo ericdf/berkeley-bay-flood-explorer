@@ -19,13 +19,14 @@ const isWet = (v) => v === WET || v === FLANKED;
 // every connected patch of low, not-connected ground that holds a storm drain inlet can fill
 // through the drains. An upper bound given the mapped inlets and assumed open outfalls: pipe
 // connections, capacity, inverts and storm duration are ignored.
-function markDrains(D, state, gates) {
+function markDrains(D, state, gates, tubesShut = false) {
   if (!D.drains || !D.watershedIds) return {};
   const W = D.dem.width, H = D.dem.height, ids = D.watershedIds;
   const inlet = D.inletMask ??= (() => { const m = new Uint8Array(W * H); for (const i of D.drains.inletCells) m[i] = 1; return m; })();
   const open = new Uint8Array(256);
-  // A keptOpen link (the Aquatic Park tide tubes, SOURCE_NOTES D7, D9) stays open under a gate plan.
-  for (const w of D.drains.watersheds) if (w.link && (w.keptOpen || !(gates && gates[w.name]))) open[w.id] = 1;
+  // A keptOpen link (the Aquatic Park tide tubes, SOURCE_NOTES D7, D9) stays open under a gate plan,
+  // unless the reader shuts the tubes (model rule; the condition is in SOURCE_NOTES K1, K3, K5).
+  for (const w of D.drains.watersheds) if (w.link && (w.keptOpen ? !tubesShut : !(gates && gates[w.name]))) open[w.id] = 1;
   const seen = new Uint8Array(W * H), q = new Int32Array(W * H), byName = {};
   const names = []; for (const w of D.drains.watersheds) names[w.id] = w.name;
   for (let s = 0; s < W * H; s++) {
@@ -65,7 +66,7 @@ export function analyze(D, levelFt, plan = null, rain = null) {
   const neighborLand = D.neighborLand ??= (() => { const m = new Uint8Array(state.length); for (let i = 0; i < m.length; i++) m[i] = !water0[i] && !inB(i) ? 1 : 0; return m; })();
   const alone = connectedFill(z, dem.width, dem.height, levelFt, neighborLand, crest);
   for (let i = 0; i < state.length; i++) if (state[i] === WET && inB(i) && !water0[i] && alone[i] !== WET) state[i] = FLANKED;
-  const drainCellsByWatershed = markDrains(D, state, plan && plan.gates);
+  const drainCellsByWatershed = markDrains(D, state, plan && plan.gates, !!(plan && plan.tubesShut));
   const rainRes = rain ? rainPools(D, state, levelFt, rain, crest) : null;
   let wetLand = 0, lowLand = 0, flanked = 0, drainLand = 0, rainLand = 0;
   for (let i = 0; i < state.length; i++) {
