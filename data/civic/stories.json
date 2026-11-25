@@ -137,11 +137,7 @@
           "mapState": {
             "sc": "y100",
             "drains": "gates-closed",
-            "rain": {
-              "ari": "10",
-              "duration": "6-hr",
-              "blocked": 1
-            }
+            "rain": null
           },
           "claimIds": [],
           "caveats": [],
@@ -161,11 +157,7 @@
           "mapState": {
             "sc": "y100",
             "drains": "gates-closed",
-            "rain": {
-              "ari": "10",
-              "duration": "6-hr",
-              "blocked": 1
-            }
+            "rain": null
           },
           "claimIds": [],
           "caveats": [],
