@@ -9,9 +9,10 @@ const fmt = (x, d = 0) => x.toLocaleString('en-US', { minimumFractionDigits: d, 
 const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const isWet = (v) => v === WET || v === FLANKED;
 
-// Reference levels for the "how high is this" line, ft NAVD88 (SOURCE_NOTES W2, W11, W14, C6).
+// Reference levels for the "how high is this" line, ft NAVD88 (SOURCE_NOTES W2, W11, W14, O1, C6).
 const REFS = [
   { ft: 6.2, text: 'the average daily high tide (MHHW, 6.2)' },
+  { ft: 7.35, text: 'the Nov 18, 2026 storm, measured at Richmond (7.35, SOURCE_NOTES O1)' },
   { ft: 7.42, text: "this winter's highest predicted tide (7.42, Dec 24)" },
   { ft: 8.47, text: 'the 10-year storm tide (8.47)' },
   { ft: 8.65, text: 'the highest level observed at Richmond (8.65, 1998)' },
@@ -370,7 +371,7 @@ function render(levelFt, sc) {
     ${res.overWater.length ? `<p class="src">Not counted: ${[...new Set(res.overWater.map(s => esc(s.e.name)))].join(', ')}, whose mapped line crosses water in the terrain (a bridge, or a street drawn across water).</p>` : ''}
     <h2>What this cannot tell you</h2>
     <details open><summary>Limits of the map</summary><ul>
-      <li>Still water only. Waves add height on the exposed Marina shoreline (FEMA VE zones, 12 to 14 ft NAVD88).</li>
+      <li>Still water only. Waves add height on the exposed Marina shoreline (FEMA VE zones, 12 to 14 ft NAVD88). On Nov 18, 2026, waves overtopped the South Cove seawall with the Bay at about 7.35 ft NAVD88 (SOURCE_NOTES O5).</li>
       <li>No timing or duration: a storm tide lasts hours around high tide.</li>
       <li>"Through the drains" assumes every mapped inlet in the watershed connects to an outfall without a tide gate, and that the pipes fill. The City does not publish its pipes, outfalls or tide gates.</li>
       <li>Rain, when "Add a rainstorm" is on, is an illustrative experiment: each watershed's runoff goes into one pool at its lowest inlet, with no pipe capacity, timing or overland flow, so it can overstate water in some places and miss it in others. Second St beside the transfer station floods today in a 10-year rainstorm because the Gilman St storm drain and the Codornices Creek culvert under I-80 are undersized (transfer station Draft EIR, SOURCE_NOTES F7, F8).</li>

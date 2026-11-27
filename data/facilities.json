@@ -19,7 +19,7 @@
     {
       "osm": "way/979766521",
       "label": "DoubleTree hotel (200 Marina Blvd)",
-      "note": "City study: in 2050 (10.7 ft NAVD88 still water) two hotel buildings have floors 0.3 to 0.5 ft below the water (SOURCE_NOTES W7). Scott Ferris: \"three of the Doubletree buildings flood at 10 ½ feet\" (M1).",
+      "note": "Water came in below the mapped level: on Nov 18, 2026, with the Bay at about 7.35 ft NAVD88 at Richmond, several rooms flooded from water backing up through a storm drain (City Manager's storm update; SOURCE_NOTES O4). The explorer's drain rule does not cover the Marina, so 0% here does not mean dry. City study: in 2050 (10.7 ft NAVD88 still water) two hotel buildings have floors 0.3 to 0.5 ft below the water (SOURCE_NOTES W7). Scott Ferris: \"three of the Doubletree buildings flood at 10 ½ feet\" (M1).",
       "sources": [
         "W7",
         "M1"
